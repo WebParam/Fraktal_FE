@@ -1,9 +1,9 @@
 .header {
-  height: 80px;
+  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: black;
+  color: #4B4C4E;
   position: fixed;
   left: 0;
   right: 0;
@@ -42,7 +42,7 @@
         top: -2px;
         width: 0;
         height: 2px;
-        background: #000;
+        background: #677788;
         transition: width .5s;
       }
       
@@ -56,7 +56,7 @@
 
 // Active nav link
 .active {
-  border-bottom: 2px solid #252525;
+  border-bottom: 2px solid #677788;
   padding-bottom: 2px;
 }
 

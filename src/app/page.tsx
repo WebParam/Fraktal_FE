@@ -4,6 +4,7 @@ import './page.scss';
 import { useState } from 'react';
 import Header from './components/Header/Header'
 import MobileMenu from './components/MobileMenu/MobileMenu'
+import Hero from './components/Home/Hero';
 
 export default function Home() {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
@@ -20,9 +21,7 @@ export default function Home() {
         menuTogglerValue={menuToggler} 
       />
       <MobileMenu removeMenu={removeMenu} menuToggler={menuToggler} />
-    <main className='main'>
-      body
-    </main>
+      <Hero />
     </>
   )
 }
