@@ -1,7 +1,130 @@
 .header {
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  padding: 10px 10px 0;
+  background-color: rgba(255, 255, 255, 0.4);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+
+  & nav {
+    @media (max-width: 1020px) {
+      display: none;
+    }
+  }
+  
+  // header-navItems
+  &-navItems {
     height: 80px;
+    list-style: none;
     display: flex;
     align-items: center;
-    justify-content: center;
-    border: 1px solid red;
+    gap: 20px;
+    padding-right: 50px;
+
+    // header-navItems li
+    & li {
+      cursor: pointer;
+      font-family: 'Lato-regular';
+      
+      // header-navItems li::after
+      &::after {
+        content: '';
+        display: block;
+        position: relative;
+        top: -2px;
+        width: 0;
+        height: 2px;
+        background: #000;
+        transition: width .5s;
+      }
+      
+      // header-navItems li:hover::after
+      &:hover::after {
+          width: 100%;
+      }
+    }
+  }
+}
+
+// Active nav link
+.active {
+  border-bottom: 2px solid #252525;
+  padding-bottom: 2px;
+}
+
+// logo image
+.header img {
+  width: 60px;
+  height: 60px;
+  transform: scale(1.2);
+  
+  @media (min-width: 640px) {
+    width: 80px;
+    transform: scale(1.9);
+    padding-left: 30px;
+  }
+}
+
+//  hamburger menu bar
+.toggle {
+  position: relative;
+  width: 50px;
+  height: 40px;
+  background: transparent;
+  box-shadow: 0 10px 20px rgba(255, 254, 254, 0.08);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-right: 10px;
+
+  @media (min-width: 1020px) {
+    display: none;
+  }
+}
+
+.toggle span {
+  position: absolute;
+  width: 30px;
+  height: 3px;
+  background-color: #252525;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.toggle span:nth-child(1) {
+  transform: translateY(-7px);
+  width: 20px;
+  left: 10px;
+}
+
+.toggle span:nth-child(2) {
+  transform: translateY(7px);
+  width: 20px;
+  left: 10px;
+}
+
+.toggle.toggled span:nth-child(3) {
+  transform: translateX(-50px);
+}
+
+.toggle.toggled span:nth-child(1) {
+  width: 30px;
+  transform: rotate(45deg);
+}
+
+.toggle.toggled span:nth-child(2) {
+  width: 30px;
+  transform: rotate(-45deg);
 }
