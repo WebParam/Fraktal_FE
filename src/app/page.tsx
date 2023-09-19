@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/image';
 import 'aos/dist/aos.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -6,6 +6,7 @@ import 'src/app/styles/theme.min.css';
 import 'src/app/styles/snippets.min.css';
 import 'src/app/styles/docs.min.css';
 import shape3 from '../assets/svg/components/shape-3.svg';
+import img3 from '../assets/img/750x750/img3.jpg';
 
 
 
@@ -1242,41 +1243,27 @@ export default function Home() {
         </div>
         {/* End Title & Description */}
         {/* SVG Shape */}
-        <div
-          className="col-lg-7 col-xl-6 d-none d-lg-block position-absolute top-0 end-0 pe-0"
-          style={{ marginTop: "6.75rem" }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            x="0px"
-            y="0px"
-            viewBox="0 0 1137.5 979.2"
-            
-          >
-            <path
-              fill="#F9FBFF"
-              d="M565.5,957.4c81.1-7.4,155.5-49.3,202.4-115.7C840,739.8,857,570,510.7,348.3C-35.5-1.5-4.2,340.3,2.7,389
-        c0.7,4.7,1.2,9.5,1.7,14.2l29.3,321c14,154.2,150.6,267.8,304.9,253.8L565.5,957.4z"
-            />
-            <defs>
-              <path
-                id="mainHeroSVG1"
-                d="M1137.5,0H450.4l-278,279.7C22.4,430.6,24.3,675,176.8,823.5l0,0C316.9,960,537.7,968.7,688.2,843.6l449.3-373.4V0z"
-              />
-            </defs>
-            <clipPath id="mainHeroSVG2">
-              <use xlinkHref="#mainHeroSVG1" />
-            </clipPath>
-            <g transform="matrix(1 0 0 1 0 0)" clipPath="url(#mainHeroSVG2)">
-              <image
-                width={750}
-                height={750}
-               
-                transform="matrix(1.4462 0 0 1.4448 52.8755 0)"
-              />
-            </g>
-          </svg>
-        </div>
+        <div className="col-lg-7 col-xl-6 d-none d-lg-block position-absolute top-0 end-0 pe-0" style={{ marginTop: '6.75rem' }}>
+      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1137.5 979.2">
+        <path fill="#F9FBFF" d="M565.5,957.4c81.1-7.4,155.5-49.3,202.4-115.7C840,739.8,857,570,510.7,348.3C-35.5-1.5-4.2,340.3,2.7,389
+          c0.7,4.7,1.2,9.5,1.7,14.2l29.3,321c14,154.2,150.6,267.8,304.9,253.8L565.5,957.4z" />
+        <defs>
+          <path id="mainHeroSVG1" d="M1137.5,0H450.4l-278,279.7C22.4,430.6,24.3,675,176.8,823.5l0,0C316.9,960,537.7,968.7,688.2,843.6l449.3-373.4V0z" />
+        </defs>
+        <clipPath id="mainHeroSVG2">
+          <use xlinkHref="#mainHeroSVG1" />
+        </clipPath>
+        <g transform="matrix(1 0 0 1 0 0)" clipPath="url(#mainHeroSVG2)">
+          <Image
+            src={img3} // Make sure the path is relative to the "public" folder
+            alt="Image Description"
+            width={750}
+            height={750}
+            layout="fixed"
+          />
+        </g>
+      </svg>
+    </div>
         {/* End SVG Shape */}
       </div>
     </div>
@@ -1340,7 +1327,7 @@ export default function Home() {
             <div className="p-2">
               <img
                 className="card-img"
-                src="./assets/img/480x220/img2.jpg"
+                src="../assets/img/750x750/img3.jpg"
                 alt="Image Description"
               />
             </div>
@@ -1370,7 +1357,7 @@ export default function Home() {
             <div className="p-2">
               <img
                 className="card-img"
-                src="./assets/img/480x220/img3.jpg"
+                src="../assets/img/480x220/img3.jpg"
                 alt="Image Description"
               />
             </div>
