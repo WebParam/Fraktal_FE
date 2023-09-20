@@ -1,6 +1,8 @@
+'use client'
 import { ReactElement } from 'react';
 import Image from 'next/image';
 import rightArrow from '../../../assets/additional/rightArrow.svg';
+import heroImage from '../../../assets/additional/heroImage.jpg';
 import './Hero.scss';
 
 const Hero = (): ReactElement => {
@@ -16,7 +18,9 @@ const Hero = (): ReactElement => {
           <a href="">Learn more <Image src={rightArrow} alt='right arrow' loading='lazy' /></a>
         </div>
       </div>
-      <div className="hero-image"></div>
+      <div className="hero-image">
+        <Image src={heroImage} alt='hero image' loading='lazy' />
+      </div>
     </section>
   );
 };
