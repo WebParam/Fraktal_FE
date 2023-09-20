@@ -19,7 +19,11 @@ const Hero = (): ReactElement => {
         </div>
       </div>
       <div className="hero-image">
-        <Image src={heroImage} alt='hero image' loading='lazy' />
+        <div className='hero-image_container'>
+          <div>
+            <Image src={heroImage} alt='hero image' loading='lazy' />
+          </div>
+        </div>
       </div>
     </section>
   );
