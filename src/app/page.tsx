@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Header from './components/Header/Header'
 import MobileMenu from './components/MobileMenu/MobileMenu'
 import Hero from './components/Home/Hero';
+import SecondSection from './components/SecondSection/SecondSection';
 
 export default function Home() {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
@@ -22,6 +23,7 @@ export default function Home() {
       />
       <MobileMenu removeMenu={removeMenu} menuToggler={menuToggler} />
       <Hero />
+      <SecondSection />
     </>
   )
 }
