@@ -1,4 +1,5 @@
 "use client"
+<<<<<<< Updated upstream
 import './page.scss';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useState } from 'react';
@@ -31,5 +32,20 @@ export default function Home() {
       <Stats />
       <Footer />
     </>
+=======
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './home-page';
+
+function page() {
+  return (
+    <Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
+  </Router>
+>>>>>>> Stashed changes
   )
 }
+
+export default page
