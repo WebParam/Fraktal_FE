@@ -1,0 +1,51 @@
+.footer {
+    border-radius: 0px 0px 8px 8px;
+    background: linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.40) 124.34%);
+    
+    @media (min-width: 812px) {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        height: 400px;
+        justify-content: space-evenly;
+    }
+
+    & > div {
+        padding: 10px;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 10px;
+        height: 280px;
+        
+        & div {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+
+            & img {
+                width: 130px;
+                height: 150px;
+            }
+        }
+
+        & h2 {
+            font-family: 'Poppins';
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        
+        & p {
+            display: flex;
+            gap: 10px;
+            font-family: 'Inter';
+            font-size: 16px;
+            font-weight: 400;
+        }
+    }
+}
+
+.footer * {
+    color: #fff;
+}

@@ -1,6 +1,6 @@
 .stats {
     padding: 50px 10px;
-    margin: 20px 0;
+    margin: 100px 0;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -8,7 +8,7 @@
     gap: 30px;
     border-radius: 15px;
     background: rgba(255, 123, 237, 0.15);
-    margin: 20px 10px;
+    // margin: 20px 10px;
 
     & > div {
         text-align: center;
