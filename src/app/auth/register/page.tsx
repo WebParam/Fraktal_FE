@@ -1,18 +1,23 @@
 "use client"
-import React from 'react'
+import React,{useState} from 'react'
 import 'aos/dist/aos.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'src/app/styles/theme.min.css';
 import 'src/app/styles/snippets.min.css';
-import 'src/app/styles/docs.min.css';;
-import Header from '@/app/components/header';
+import 'src/app/styles/docs.min.css';
+import Header from '../../components/Header/Header'
+
 
 function page() {
+  const [menuToggler, setMenuToggler] = useState<boolean>(false);
   return (
     <div>
     <main id="content" role="main">
-    <Header/>
+    <Header 
+        menuTogglerFunction={setMenuToggler} 
+        menuTogglerValue={menuToggler} 
+      />
       {/* Form */}
       <div className="container content-space-3 content-space-t-lg-4 content-space-b-lg-3">
         <div className="flex-grow-1 mx-auto" style={{maxWidth: '28rem'}}>

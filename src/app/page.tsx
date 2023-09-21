@@ -1,5 +1,5 @@
 "use client"
-import './page.scss';
+
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useState } from 'react';
 import Header from './components/Header/Header'
@@ -34,4 +34,3 @@ export default function Home() {
   )
 }
 
-export default page

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import rightArrow from '../../../assets/additional/rightArrow.svg';
 import heroImage from '../../../assets/additional/heroImage.jpg';
 import './Hero.scss';
+import Link from 'next/link';
 
 const Hero = (): ReactElement => {
   return (
@@ -12,9 +13,13 @@ const Hero = (): ReactElement => {
         <h1>Turn your ideas into a <span className="hero-texts_animate">Future</span></h1>
         <p>Front's feature-rich designed demo pages help you create the best possible product.</p>
         <div className="hero-texts_buttons">
-          <button >
+     
+      <button  >
+      <Link href="/auth/login">
             Get Started
+            </Link>
           </button>
+
           <a href="">Learn more <Image src={rightArrow} alt='right arrow' loading='lazy' /></a>
         </div>
       </div>

@@ -7,15 +7,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'src/app/styles/theme.min.css';
 import 'src/app/styles/snippets.min.css';
 import 'src/app/styles/docs.min.css';
-import Header from '@/app/components/header';
-
+import Header from '../../components/Header/Header'
 function Login() {
 
-
+  const [menuToggler, setMenuToggler] = useState<boolean>(false);
   return (
     <div>
     <main id="content" role="main">
-    <Header/>
+    <Header 
+        menuTogglerFunction={setMenuToggler} 
+        menuTogglerValue={menuToggler} 
+      />
       {/* Form */}
       <div id = "form"  className="container content-space-3 content-space-t-lg-4 content-space-b-lg-3">
         <div className="flex-grow-1 mx-auto" style={{maxWidth: '28rem'}}>
