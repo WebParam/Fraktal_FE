@@ -11,13 +11,12 @@ import Stats from './components/Statistics/Stats';
 import Footer from './components/Footer/Footer';
 import Subscribe from "./components/Subscribe/Subscribe";
 
-export default function Home() {
+export default function HomePage() {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
 
   const removeMenu = () => {
     setMenuToggler(prev => false);
   }
-
 
   return (
     <>
@@ -30,8 +29,8 @@ export default function Home() {
       <SecondSection />
       <Testimony />
       <Stats />
-      <Subscribe />
-      <Footer />
+      <Subscribe/>
+      <Footer />  
     </>
   )
 }

@@ -35,7 +35,7 @@
       font-family: 'Lato-regular';
       
       // header-navItems li::after
-      &::after {
+      &:not(:last-child)::after {
         content: '';
         display: block;
         position: relative;
@@ -44,6 +44,10 @@
         height: 2px;
         background: #677788;
         transition: width .5s;
+      }
+
+      header-navItems li:last-child::after {
+        width: 0; /* Remove the hover line for the last li element */
       }
       
       // header-navItems li:hover::after
@@ -128,3 +132,13 @@
   width: 30px;
   transform: rotate(-45deg);
 }
+
+
+//  logi in li
+.signIn {
+  border-radius: 8px;
+  background: linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.40) 124.34%);
+  color: aliceblue;
+  padding: 15px 40px;
+}
+

@@ -1,3 +1,5 @@
+"use strict"
+import Link from 'next/link';
 import { memo, useState, ReactElement } from 'react';
 import './Header.scss';
 import Image from 'next/image';
@@ -17,9 +19,9 @@ const Header = memo(({ menuTogglerFunction, menuTogglerValue }: HeaderProps): Re
 
   return (
     <header className='header'>
-      <a href="#home">
+      <Link href="/">
         <Image src={logo} alt="logo" priority={true} />
-      </a>
+      </Link>
 
       <nav>
         <ul className='header-navItems'>
@@ -96,15 +98,14 @@ const Header = memo(({ menuTogglerFunction, menuTogglerValue }: HeaderProps): Re
         </li>
         
         <li>
-          <a
-            href=""
-            className={activeMenuItem === 'item7' ? 'active' : ''}
+          <Link href="/auth/login"
+            className='signIn'
             onClick={() => {
               handleMenuItemClick('item7');
-            }}
+            }}   
           >
-            item 7
-          </a>
+            Sign In
+          </Link>
         </li>
 
         </ul>
