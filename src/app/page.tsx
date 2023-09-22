@@ -9,6 +9,7 @@ import SecondSection from './components/SecondSection/SecondSection';
 import Testimony from './components/Testimony/Testimony';
 import Stats from './components/Statistics/Stats';
 import Footer from './components/Footer/Footer';
+import Subscribe from "./components/Subscribe/Subscribe";
 
 export default function Home() {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
@@ -29,6 +30,7 @@ export default function Home() {
       <SecondSection />
       <Testimony />
       <Stats />
+      <Subscribe />
       <Footer />
     </>
   )

@@ -1,0 +1,103 @@
+.subscribe {
+  background: #FD2DC3;
+  padding: 50px 5px;
+  // overflow: hidden;
+  margin: 100px 0;
+}
+
+.subscribe > h1 {
+  font-size: 3.4em;
+  line-height: 1;
+  letter-spacing: -3.5px;
+  font-family: 'Poppins';
+  font-style: italic;
+  color: #000;
+  text-align: center;
+}
+
+.subscribe > p {
+  text-align: center;
+  font-size: 1.3em;
+  line-height: 1.3;
+  font-family: 'Avenir';
+  color: #000;
+  padding: 0 20px;
+}
+
+.subscribe form {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  @media (min-width: 880px) {
+    flex-direction: row;
+    max-width: 60%;
+    margin: 0 auto;
+  }
+}
+
+.subscribe > form input {
+  margin: 0 auto;
+  width: 85%;
+  height: 50px;
+  padding: 0 10px;
+  transform: skew(-10deg);
+  display: block;
+  border: none;
+
+  
+  @media (min-width: 880px) {
+    width: 95%;
+    height: 65px;
+  }
+}
+
+.subscribe > form button {
+  width: 85%;
+  height: 50px;
+  background: transparent;
+  color: #000;
+  text-align: center;
+  font-size: 16px;
+  font-family: 'IBMPlexSans Bold';
+  border: 2px solid #fff;
+  transform: skew(-10deg);
+
+  
+  @media (min-width: 880px) {
+    width: 50%;
+    height: 65px;
+  }
+}
+
+.subscribe span {
+  display: block;
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.9em;
+  line-height: 0.9;
+  font-family: 'IBMPlexSans SemiBold';
+  color: #000;
+}
+
+.submitted {
+  color: #333;
+  font-size: 16px;
+  font-family: "IBMPlexSans";
+  width: 100%;
+  text-align: center;
+  border: 1px solid green;
+  padding: 35px 50px;
+  background-color: rgb(154, 255, 182);
+
+  @media (max-width: 500px) {
+    width: 60%;
+    padding: 25px 30px;
+  }
+
+  @media (max-width: 880px) {
+    width: 80%;
+  }
+}
