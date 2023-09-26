@@ -8,12 +8,13 @@ import loginImage from '../../../assets/additional/loginImage.jpg';
 import axios from 'axios';
 
 function Register() {
+  const [password, setPassword] = useState('');
   const [formData, setFormData] = useState({
     title: 'mr', // Default title
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     email: '',
-    number: '',
+    mobileNumber: '',
     confirmPassword: '',
   });
 
@@ -28,7 +29,7 @@ function Register() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     // You can add your form validation logic here
-    if (formData.password !== formData.confirmPassword) {
+    if (password !== formData.confirmPassword) {
         console.log('password do not match')
       return;
     }
@@ -96,7 +97,7 @@ function Register() {
                 type="text"
                 name="firstname"
                 placeholder="Firstname"
-                value={formData.firstname}
+                value={formData.firstName}
                 onChange={handleChange}
               />
             </div>
@@ -107,7 +108,7 @@ function Register() {
                 type="text"
                 name="lastname"
                 placeholder="Lastname"
-                value={formData.lastname}
+                value={formData.lastName}
                 onChange={handleChange}
               />
             </div>
@@ -129,7 +130,7 @@ function Register() {
                 type="tel"
                 name="number"
                 placeholder="number"
-                value={formData.number}
+                value={formData.mobileNumber}
                 onChange={handleChange}
               />
             </div>
@@ -141,7 +142,7 @@ function Register() {
                 name="password"
                 id="password"
                 placeholder="8+ characters required"
-                value={formData.password}
+                value={password}
                 onChange={handleChange}
               />
             </div>
