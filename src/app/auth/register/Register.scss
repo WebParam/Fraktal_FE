@@ -62,13 +62,20 @@
 
         & .registerForm {
             margin: 0 auto;
+            overflow-y: scroll;
+            position: relative;
+            top: 10%;
             height: 85vh;
-            width: 70%;
+            width: 90%;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             padding: 10px;
+
+            @media (min-width: 1019px) {
+                width: 70%;
+
+            }
 
             & h2 {
                 font-size: 2em;
@@ -123,3 +130,22 @@
 .cta {
     color: #FD2DC3;
 }
+// scrollbar width
+.registerForm::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+.registerForm::-webkit-scrollbar-track {
+    background: #f26666;
+  }
+  
+  /* Handle */
+.registerForm::-webkit-scrollbar-thumb {
+    background: #f26666;
+  }
+  
+  /* Handle on hover */
+.registerForm::-webkit-scrollbar-thumb:hover {
+    background: #f26666;
+  }

@@ -1,23 +1,72 @@
-"use client"
-import Link from 'next/link';
+'use client'
+import React, { useState } from 'react';
 import './Register.scss';
+import Link from 'next/link';
 import Image from 'next/image';
 import logo from '../../../assets/img/logo.png';
-import loginImage from '../../../assets/additional/loginImage.jpg'
+import loginImage from '../../../assets/additional/loginImage.jpg';
+import axios from 'axios';
 
 function Register() {
+  const [formData, setFormData] = useState({
+    title: 'mr', // Default title
+    firstname: '',
+    lastname: '',
+    email: '',
+    number: '',
+    confirmPassword: '',
+  });
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    // You can add your form validation logic here
+    if (formData.password !== formData.confirmPassword) {
+        console.log('password do not match')
+      return;
+    }
+
+    try {
+            const response = await axios.post('https://fraktional-web-backend.onrender.com/api/users', formData); // Replace with your actual API endpoint URL
+      
+            if (response.status === 200 || response.status === 201) {
+              // Registration successful, you can redirect the user or show a success message.
+              console.log('Registration successful');
+            } else {
+              // Registration failed, handle error (e.g., display error message).
+              console.error('Registration failed');
+            }
+          } catch (error) {
+            // Handle network or other errors
+            console.error('Error:', error);
+          }
+  };
 
   return (
-   <section className="register">
+    <section className="register">
       <div className="top">
-        <Image src={logo} alt='logo'/>
-        <h3><Link href='/'><i className="bi bi-chevron-left"></i>Go to main</Link></h3>
+        <Image src={logo} alt="logo" />
+        <h3>
+          <Link href="/">
+            <i className="bi bi-chevron-left"></i>Go to main
+          </Link>
+        </h3>
       </div>
 
       <div className="registerMain">
         <div className="register-image">
           <h2>MailChimp</h2>
-          <p className='desc'>“ It has many landing page variations to choose from, which one is always a big advantage. ”</p>
+          <p className="desc">
+            “ It has many landing page variations to choose from, which one is
+            always a big advantage. ”
+          </p>
           <Image src={loginImage} alt="" />
           <h3>Lida Reidy</h3>
           <p>Project Manager | Mailchimp</p>
@@ -27,34 +76,101 @@ function Register() {
           <h2>FRAKTIONAL</h2>
           <p>Fill out the form to get started.</p>
 
-          <form action="" method="get">
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="title">Title</label>
+              <select
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+              >
+                <option value="mr">Mr</option>
+                <option value="mrs">Mrs</option>
+                <option value="miss">Miss</option>
+              </select>
+            </div>
+
+            <div>
+              <label htmlFor="firstname">Your Firstname</label>
+              <input
+                type="text"
+                name="firstname"
+                placeholder="Firstname"
+                value={formData.firstname}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div>
+              <label htmlFor="lastname">Your Lastname</label>
+              <input
+                type="text"
+                name="lastname"
+                placeholder="Lastname"
+                value={formData.lastname}
+                onChange={handleChange}
+              />
+            </div>
+
             <div>
               <label htmlFor="email">Your Email</label>
-              <input type="email" name="email" placeholder='email@site.com'/>
+              <input
+                type="email"
+                name="email"
+                placeholder="email@site.com"
+                value={formData.email}
+                onChange={handleChange}
+              />
             </div>
 
             <div>
-              <label htmlFor="password">
-                password
-              </label>
-              <input type="password" name="password" id="password" placeholder='8+ characters required' />
+              <label htmlFor="number">Your Number</label>
+              <input
+                type="tel"
+                name="number"
+                placeholder="number"
+                value={formData.number}
+                onChange={handleChange}
+              />
             </div>
 
             <div>
-              <label htmlFor="password">
-                Confirm password
-              </label>
-              <input type="password" name="password" id="password" placeholder='8+ characters required' />
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="8+ characters required"
+                value={formData.password}
+                onChange={handleChange}
+              />
             </div>
 
-            <button type="submit">Log In</button>
+            <div>
+              <label htmlFor="confirmPassword">Confirm password</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="8+ characters required"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+              />
+            </div>
+
+            <button type="submit">Register</button>
           </form>
 
-          <p>Already have an account? <span className='cta'><Link href="/auth/login">Sign in here</Link></span></p>
+          <p>
+            Already have an account?{' '}
+            <span className="cta">
+              <Link href="/auth/login">Sign in here</Link>
+            </span>
+          </p>
         </div>
       </div>
-   </section>
-  )
+    </section>
+  );
 }
 
 export default Register;
