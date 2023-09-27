@@ -8,13 +8,14 @@ import loginImage from '../../../assets/additional/loginImage.jpg';
 import axios from 'axios';
 
 function Register() {
-  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [formData, setFormData] = useState({
     title: 'mr', // Default title
     firstName: '',
-    lastName: '',
+    surname: '',
     email: '',
     mobileNumber: '',
+    password: '',
     confirmPassword: '',
   });
 
@@ -28,9 +29,10 @@ function Register() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    // You can add your form validation logic here
-    if (password !== formData.confirmPassword) {
-        console.log('password do not match')
+    console.log(formData)
+
+    if (formData.password !== confirmPassword) {
+        console.log('password do not')
       return;
     }
 
@@ -92,23 +94,23 @@ function Register() {
             </div>
 
             <div>
-              <label htmlFor="firstname">Your Firstname</label>
+              <label htmlFor="firstName">Your Firstname</label>
               <input
                 type="text"
-                name="firstname"
-                placeholder="Firstname"
+                name="firstName"
+                placeholder="FirstName"
                 value={formData.firstName}
                 onChange={handleChange}
               />
             </div>
 
             <div>
-              <label htmlFor="lastname">Your Lastname</label>
+              <label htmlFor="surname">Your Lastname</label>
               <input
                 type="text"
-                name="lastname"
-                placeholder="Lastname"
-                value={formData.lastName}
+                name="surname"
+                placeholder="surname"
+                value={formData.surname}
                 onChange={handleChange}
               />
             </div>
@@ -125,10 +127,10 @@ function Register() {
             </div>
 
             <div>
-              <label htmlFor="number">Your Number</label>
+              <label htmlFor="mobileNumber">Your Number</label>
               <input
                 type="tel"
-                name="number"
+                name="mobileNumber"
                 placeholder="number"
                 value={formData.mobileNumber}
                 onChange={handleChange}
@@ -142,7 +144,7 @@ function Register() {
                 name="password"
                 id="password"
                 placeholder="8+ characters required"
-                value={password}
+                value={formData.password}
                 onChange={handleChange}
               />
             </div>
@@ -154,8 +156,10 @@ function Register() {
                 name="confirmPassword"
                 id="confirmPassword"
                 placeholder="8+ characters required"
-                value={formData.confirmPassword}
-                onChange={handleChange}
+                value={confirmPassword}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value)
+                }}
               />
             </div>
 

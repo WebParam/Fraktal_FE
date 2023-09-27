@@ -4,8 +4,31 @@ import './reset.scss';
 import Image from 'next/image';
 import logo from '../../../assets/img/logo.png';
 import loginImage from '../../../assets/additional/loginImage.jpg'
+import axios from 'axios';
+import { useState } from 'react';
 
 function Reset() {
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    try {
+            const response = await axios.post('https://fraktional-web-backend.onrender.com/api/user/sendOTP', { email });
+            if (response.status === 200 || response.status === 201) {
+              console.log(email);
+              console.log('OTP sent successful');
+              
+            } else {
+              // Registration failed, handle error (e.g., display error message).
+              console.error('OTP failed');
+            }
+          } catch (error) {
+            // Handle network or other errors
+            console.error('Error:', error);
+          }
+  };
+
 
   return (
    <section className="reset">
@@ -27,16 +50,24 @@ function Reset() {
           <h2>Forgot password?</h2>
           <p>Enter your email address below and we'll get you back on track.</p>
 
-          <form action="" method="get">
+          <form >
             <div>
               <label htmlFor="email">
                 <span>Your email</span>
                 <span className='cta'><Link href='/auth/login'><i className="bi bi-chevron-left"></i>Back to Log in</Link></span>
               </label>
-              <input type="email" name="email" id="email" placeholder='name@site.com' />
-            </div>
-
-            <button type="submit">Submit</button>
+              <input
+                type="email"
+                name="email"
+                placeholder="email@site.com"
+                value={email}
+                onChange={(e: any) => {
+                  setEmail(e.target.value);
+                  console.log(email);
+                }} 
+                />
+              </div>
+            <button onClick={handleSubmit}>Submit</button>
           </form>
 
           <p>Don't have an account yet? <span className='cta'><Link href="/auth/register">Sign up here</Link></span></p>
