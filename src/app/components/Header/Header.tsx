@@ -100,9 +100,6 @@ const Header = memo(({ menuTogglerFunction, menuTogglerValue }: HeaderProps): Re
         <li>
           <Link href="/auth/login"
             className='signIn'
-            onClick={() => {
-              handleMenuItemClick('item7');
-            }}   
           >
             Sign In
           </Link>

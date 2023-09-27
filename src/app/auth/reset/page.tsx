@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import Link from 'next/link';
 import './reset.scss';
 import Image from 'next/image';
@@ -14,24 +14,30 @@ function Reset() {
     e.preventDefault();
 
     try {
-            const response = await axios.post('https://fraktional-web-backend.onrender.com/api/user/sendOTP', { email });
-            if (response.status === 200 || response.status === 201) {
-              console.log(email);
-              console.log('OTP sent successful');
-              
-            } else {
-              // Registration failed, handle error (e.g., display error message).
-              console.error('OTP failed');
-            }
-          } catch (error) {
-            // Handle network or other errors
-            console.error('Error:', error);
-          }
+      const response = await axios.post('https://fraktional-web-backend.onrender.com/api/user/sendOTP', { email });
+
+      if (response.status === 200 || response.status === 201) {
+        console.log(email);
+        console.log('OTP sent successful');
+        
+        // Use Link for client-side navigation
+        // This will navigate to the "/auth/OTP" page
+        // without a full page reload
+        return (
+          <Link href="/auth/OTP">
+            <a>Go to OTP</a>
+          </Link>
+        );
+      } else {
+        console.error('OTP failed');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
-
   return (
-   <section className="reset">
+    <section className="reset">
       <div className="top">
         <Image src={logo} alt='logo'/>
         <Link href='/'><h3><i className="bi bi-chevron-left"></i>Go to main</h3></Link>
@@ -50,7 +56,7 @@ function Reset() {
           <h2>Forgot password?</h2>
           <p>Enter your email address below and we'll get you back on track.</p>
 
-          <form >
+          <form>
             <div>
               <label htmlFor="email">
                 <span>Your email</span>
@@ -65,16 +71,16 @@ function Reset() {
                   setEmail(e.target.value);
                   console.log(email);
                 }} 
-                />
-              </div>
+              />
+            </div>
             <button onClick={handleSubmit}>Submit</button>
           </form>
 
           <p>Don't have an account yet? <span className='cta'><Link href="/auth/register">Sign up here</Link></span></p>
         </div>
       </div>
-   </section>
-  )
+    </section>
+  );
 }
 
 export default Reset;
