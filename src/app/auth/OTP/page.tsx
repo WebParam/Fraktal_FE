@@ -65,7 +65,6 @@ function OTP() {
                 <span className='cta'><Link href='/auth/reset'><i className="bi bi-chevron-left"></i>Back to reset password</Link></span>
               </label>
               <div className='otpInputs'>
-                {/* Map over the input fields */}
                 {inputRefs.map((ref, index) => (
                   <input
                     key={index}
