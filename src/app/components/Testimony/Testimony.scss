@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Great+Vibes&family=Poppins:wght@600&display=swap');
+
+.testimony {
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    
+    @media (min-width: 720px) {
+        align-items: center;
+        height: 100vh;
+    }
+
+    &-image {
+        display: none;
+        overflow: hidden;
+
+        @media (min-width: 720px) {
+            display: flex;
+            width: 40%;
+            height: 500px;
+            justify-content: flex-end;
+
+            & img {
+                border-radius: 20px;
+            }
+        }
+    }
+
+    &-texts {
+        display: flex;
+        flex-direction: column;
+        
+        @media (min-width: 720px) {
+            width: 50%;
+            gap: 10px;
+        }
+
+        & h2 {
+            font-family: 'Great Vibes';
+        }
+        
+        & p {
+            font-size: 1.55rem;
+            margin: 0;
+            
+            @media (min-width: 720px) {
+                font-size: 2em;
+            }
+        }
+
+        & > div {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            gap: 10px;  
+
+            & img {
+                height: 70%;
+                width: 50px;
+                border-radius: 50%;
+
+                
+                @media (min-width: 720px) {
+                    display: none;
+                }
+            }
+
+            & div {
+                font-family: 'Poppins';
+
+                & h2 {
+                    font-size: 18px;
+                    font-weight: 600;
+                }
+
+                & p {
+                    font-size: 14px;
+                    opacity: .8;
+                }
+            }
+        }
+    }
+}
