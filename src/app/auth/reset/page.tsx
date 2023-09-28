@@ -13,20 +13,20 @@ function Reset() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    try {
-            const response = await axios.post('http://localhost:8080/api/user/sendOTP', { email });
-            if (response.status === 200 || response.status === 201) {
-              console.log(email);
-              console.log('OTP sent successful');
-              
-            } else {
-              // Registration failed, handle error (e.g., display error message).
-              console.error('OTP failed');
-            }
-          } catch (error) {
-            // Handle network or other errors
-            console.error('Error:', error);
-          }
+          try {
+                  const response = await axios.post('http://localhost:8080/api/user/sendOTP', { email });
+                  if (response.status === 200 || response.status === 201) {
+                    console.log(email);
+                    console.log('OTP sent successful');
+                    
+                  } else {
+                    // Registration failed, handle error (e.g., display error message).
+                    console.error('OTP failed');
+                  }
+                } catch (error) {
+                  // Handle network or other errors
+                  console.error('Error:', error);
+                }
   };
 
   return (

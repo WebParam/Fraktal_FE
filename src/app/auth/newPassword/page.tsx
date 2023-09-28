@@ -14,8 +14,9 @@ function newPassword() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+    
     try {
-            const response = await axios.post('https://fraktional-web-backend.onrender.com/api/newpassword', { confirmedpassword }); // Replace with your actual API endpoint URL
+            const response = await axios.post('http://localhost:8080/api/user/changePassword', {email:"prince@webparam.org", password: confirmedpassword }); // Replace with your actual API endpoint URL
       
             if (response.status === 200 || response.status === 201) {
               // Registration successful, you can redirect the user or show a success message.

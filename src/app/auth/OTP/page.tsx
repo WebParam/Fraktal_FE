@@ -5,6 +5,7 @@ import { useState, useRef, ChangeEvent, FormEvent } from 'react';
 import Image from 'next/image';
 import logo from '../../../assets/img/logo.png';
 import loginImage from '../../../assets/additional/loginImage.jpg';
+import axios from 'axios';
 
 function OTP() {
   const [otpValues, setOtpValues] = useState(['', '', '', '']);
@@ -29,14 +30,27 @@ function OTP() {
       }
     }
   };
-
-  const handleFormSubmit = (e: FormEvent) => {
+  const handleFormSubmit = async (e: FormEvent) => {
     e.preventDefault();
     
     const otp = Number(otpValues.join(''));
-
-    console.log('OTP:', otp);
+  
+    try {
+      const response = await axios.post('http://localhost:8080/api/users/verify', { email: "prince@webparam.org", otp: otp });
+      if (response.status === 200 || response.status === 201) {
+        console.log(otp);
+        alert("verified");
+      } else {
+        // Registration failed, handle error (e.g., display error message).
+        console.error('OTP failed');
+      }
+    } catch (error) {
+      // Handle network or other errors
+      console.error('Error:', error);
+      alert("not verified");  
+    }
   };
+  
 
   return (
     <section className="otp">
