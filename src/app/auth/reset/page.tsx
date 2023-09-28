@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'; 
 import './reset.scss';
 import Image from 'next/image';
 import logo from '../../../assets/img/logo.png';
@@ -9,9 +10,11 @@ import { useState } from 'react';
 
 function Reset() {
   const [email, setEmail] = useState('');
+  const router = useRouter()
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+<<<<<<< HEAD
 
           try {
                   const response = await axios.post('http://localhost:8080/api/user/sendOTP', { email });
@@ -27,13 +30,29 @@ function Reset() {
                   // Handle network or other errors
                   console.error('Error:', error);
                 }
+=======
+    router.push('/auth/OTP');
+    
+    try {
+      const response = await axios.post('http://localhost:8080/api/user/sendOTP', { email });
+            if (response.status === 200 || response.status === 201) {
+        console.log(email);
+        console.log('OTP sent successful');
+              
+            } else {
+              console.error('OTP failed');
+            }
+          } catch (error) {
+            console.error('Error:', error);
+          }
+>>>>>>> 2aa10a784fafa065df8bc9fa224c73b8066d77b4
   };
 
   return (
     <section className="reset">
       <div className="top">
-        <Image src={logo} alt='logo'/>
-        <Link href='/'><h3><i className="bi bi-chevron-left"></i>Go to main</h3></Link>
+        <Image src={logo} alt='logo' onClick={() => router.push('/')} />
+        <button onClick={() => router.push('/')}><i className="bi bi-chevron-left"></i>Go to main</button>
       </div>
 
       <div className="resetMain">
