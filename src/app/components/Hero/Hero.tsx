@@ -7,6 +7,8 @@ import './Hero.scss';
 import Link from 'next/link';
 
 const Hero = (): ReactElement => {
+  const wordsToAnimate = ['startup', 'future', 'success']
+
   return (
     <section className='hero'>
       <div className="hero-texts">
@@ -14,11 +16,11 @@ const Hero = (): ReactElement => {
         <p>Front's feature-rich designed demo pages help you create the best possible product.</p>
         <div className="hero-texts_buttons">
      
-      <button  >
-      <Link href="/auth/login">
+        <button>
+          <Link href="/auth/login">
             Get Started
-            </Link>
-          </button>
+          </Link>
+        </button>
 
           <a href="">Learn more <Image src={rightArrow} alt='right arrow' loading='lazy' /></a>
         </div>

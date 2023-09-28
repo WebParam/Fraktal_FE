@@ -7,11 +7,12 @@
 
 .hero {
     position: relative;
-    top: 70px;
-    height: 85vh;
+    top: 100px;
+    height: 75vh;
     width: 100%;
     padding: 40px 10px;
     display: flex;
+    border: 1px solid red;
 
     &-texts {
         display: flex;
