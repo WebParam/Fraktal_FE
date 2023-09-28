@@ -44,7 +44,7 @@ const Header = memo(({ menuTogglerFunction, menuTogglerValue }: HeaderProps): Re
               handleMenuItemClick('item2');
             }}
           >
-            item 2
+            Account
           </a>
         </li>
 
@@ -57,7 +57,7 @@ const Header = memo(({ menuTogglerFunction, menuTogglerValue }: HeaderProps): Re
               
             }}
           >
-            item 3
+            Pages
           </a>
         </li>
         
@@ -69,7 +69,7 @@ const Header = memo(({ menuTogglerFunction, menuTogglerValue }: HeaderProps): Re
               handleMenuItemClick('item4');
             }}
           >
-            item 4
+            Blog
           </a>
         </li>
         
@@ -81,7 +81,7 @@ const Header = memo(({ menuTogglerFunction, menuTogglerValue }: HeaderProps): Re
               handleMenuItemClick('item5');
             }}
           >
-            item 5
+            Portfolio
           </a>
         </li>
         

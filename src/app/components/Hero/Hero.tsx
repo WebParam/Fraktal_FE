@@ -1,5 +1,5 @@
 'use client'
-import { ReactElement } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import Image from 'next/image';
 import rightArrow from '../../../assets/additional/rightArrow.svg';
 import heroImage from '../../../assets/additional/heroImage.jpg';
@@ -7,12 +7,26 @@ import './Hero.scss';
 import Link from 'next/link';
 
 const Hero = (): ReactElement => {
-  const wordsToAnimate = ['startup', 'future', 'success']
+  const wordsToAnimate = ['startup', 'future', 'success'];
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    setInterval(() => {
+      setIndex(prev => {
+        if (prev < wordsToAnimate.length - 1) {
+          console.log(prev)
+          return prev++;
+        }
+
+        return prev = 0;
+      })
+    }, 1500);
+  })
 
   return (
     <section className='hero'>
       <div className="hero-texts">
-        <h1>Turn your ideas into a <span className="hero-texts_animate">Future</span></h1>
+        <h1>Turn your ideas into a <span className="hero-texts_animate">{wordsToAnimate[index]}</span></h1>
         <p>Front's feature-rich designed demo pages help you create the best possible product.</p>
         <div className="hero-texts_buttons">
      
