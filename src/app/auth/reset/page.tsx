@@ -14,26 +14,19 @@ function Reset() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://fraktional-web-backend.onrender.com/api/user/sendOTP', { email });
-
-      if (response.status === 200 || response.status === 201) {
-        console.log(email);
-        console.log('OTP sent successful');
-        
-        // Use Link for client-side navigation
-        // This will navigate to the "/auth/OTP" page
-        // without a full page reload
-        return (
-          <Link href="/auth/OTP">
-            <a>Go to OTP</a>
-          </Link>
-        );
-      } else {
-        console.error('OTP failed');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+            const response = await axios.post('http://localhost:8080/api/user/sendOTP', { email });
+            if (response.status === 200 || response.status === 201) {
+              console.log(email);
+              console.log('OTP sent successful');
+              
+            } else {
+              // Registration failed, handle error (e.g., display error message).
+              console.error('OTP failed');
+            }
+          } catch (error) {
+            // Handle network or other errors
+            console.error('Error:', error);
+          }
   };
 
   return (
