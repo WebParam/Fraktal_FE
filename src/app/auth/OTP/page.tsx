@@ -34,27 +34,6 @@ function OTP() {
       }
     }
   };
-<<<<<<< HEAD
-  const handleFormSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    
-    const otp = Number(otpValues.join(''));
-  
-    try {
-      const response = await axios.post('http://localhost:8080/api/users/verify', { email: "prince@webparam.org", otp: otp });
-      if (response.status === 200 || response.status === 201) {
-        console.log(otp);
-        alert("verified");
-      } else {
-        // Registration failed, handle error (e.g., display error message).
-        console.error('OTP failed');
-      }
-    } catch (error) {
-      // Handle network or other errors
-      console.error('Error:', error);
-      alert("not verified");  
-    }
-=======
 
   
   const handleSubmitNewPass = async (e: any) => {
@@ -84,7 +63,6 @@ function OTP() {
     setOtpSent(true);
 
     console.log('OTP:', otp);
->>>>>>> 2aa10a784fafa065df8bc9fa224c73b8066d77b4
   };
   
 
