@@ -64,6 +64,7 @@ function OTP() {
 
     console.log('OTP:', otp);
   };
+  
 
   return (
     <>
