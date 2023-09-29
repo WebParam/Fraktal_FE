@@ -11,16 +11,7 @@ const Hero = (): ReactElement => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    setInterval(() => {
-      setIndex(prev => {
-        if (prev < wordsToAnimate.length - 1) {
-          console.log(prev)
-          return prev++;
-        }
 
-        return prev = 0;
-      })
-    }, 1500);
   })
 
   return (
