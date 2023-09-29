@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import Link from 'next/link';
-import './newpassword.scss';
+//import './newpassword.scss';
 import Image from 'next/image';
 import logo from '../../../assets/img/logo.png';
 import loginImage from '../../../assets/additional/loginImage.jpg'
