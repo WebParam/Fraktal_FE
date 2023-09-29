@@ -31,7 +31,7 @@ function SignIn() {
       
             if (response.status === 200 || response.status === 201) {
               // Registration successful, you can redirect the user or show a success message.
-              console.log('Registration successful');
+              alert('Registration successful');
               
             } else {
               // Registration failed, handle error (e.g., display error message).

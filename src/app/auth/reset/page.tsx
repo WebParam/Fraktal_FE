@@ -16,6 +16,7 @@ function OTP() {
   const [confirmedpassword, setConfirmedPassword] = useState('');
   const [emailsent, setEmailSent] = useState(false);
   const [otpsent, setOtpSent] = useState(false);
+  const[otp, setOtp] = useState<Number>(0);
   const [otpValues, setOtpValues] = useState(['', '', '', '']);
   const inputRefs = [
     useRef<HTMLInputElement>(null),
@@ -41,17 +42,18 @@ function OTP() {
     }
   };
 
-  
+  //Reseting the password 
   const handleSubmitNewPass = async (e: any) => {
     e.preventDefault();
-    router.push('/auth/login');
+
 
     try {
-            const response = await axios.post('https://fraktional-web-backend.onrender.com/api/newpassword', { confirmedpassword }); // Replace with your actual API endpoint URL
+            const response = await axios.post('http://localhost:8080/api/user/resetPassword', {email:email, password:password, otp:otp}); // Replace with your actual API endpoint URL
       
             if (response.status === 200 || response.status === 201) {
               // Registration successful, you can redirect the user or show a success message.
               console.log('Registration successful');
+          router.push('/auth/login');
               
             } else {
               // Registration failed, handle error (e.g., display error message).
@@ -63,22 +65,24 @@ function OTP() {
           }
   };
 
+  //confirming OTP
   const handleFormSubmitOTP = (e: FormEvent) => {
     e.preventDefault();
     
     const otp = Number(otpValues.join(''));
     setOtpSent(true);
     setEmailSent(false);
-
+    setOtp(otp);
     console.log('OTP:', otp);
   };
   
+  //when sending email
     const handleSubmitReset = async (e: any) => {
       e.preventDefault();
       setEmailSent(true);
      
       try {
-        const response = await axios.post('http://localhost:8080/api/user/sendOTP', { email });
+        const response = await axios.post('http://localhost:8080/api/user/sendOTP', { email:email });
               if (response.status === 200 || response.status === 201) {
           console.log(email);
           console.log('OTP sent successful');

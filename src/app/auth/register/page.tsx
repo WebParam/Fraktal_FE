@@ -18,6 +18,7 @@ function Register() {
     role: '',
     password: '',
     confirmPassword: '',
+    
   });
 
   const handleChange = (e: any) => {
@@ -51,6 +52,7 @@ function Register() {
             // Handle network or other errors
             console.error('Error:', error);
           }
+      console.log(formData);
   };
 
   return (
@@ -134,6 +136,7 @@ function Register() {
                 value={formData.role}
                 onChange={handleChange}
               >
+                  <option >select role</option>
                 <option value="developer">developer</option>
                 <option value="company">company</option>
               </select>

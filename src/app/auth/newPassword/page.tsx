@@ -33,28 +33,7 @@ function newPassword() {
   };
 
 
-const sendOTP = async (e:any) => {
 
-
-
-  
-try {
-        const response = await axios.post('http://localhost:8080/api/login', {}); // Replace with your actual API endpoint URL
-  
-        if (response.status === 200 || response.status === 201) {
-          // Registration successful, you can redirect the user or show a success message.
-          console.log('Registration successful');
-          
-        } else {
-          // Registration failed, handle error (e.g., display error message).
-          console.error('Registration failed');
-        }
-      } catch (error) {
-        // Handle network or other errors
-        console.error('Error:', error);
-      }
-  e.preventDefault();
-}
   return (
    <section className="newpassword">
       <div className="top">
