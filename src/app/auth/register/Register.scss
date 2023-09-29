@@ -136,6 +136,13 @@
                         }
                     }
 
+                    & select {
+                        height: 50px;
+                        padding-left: 5px;
+                        border: .0625rem solid rgba(33,50,91,.1);
+                        outline: none;
+                    }
+
                 }
 
                 & button {
