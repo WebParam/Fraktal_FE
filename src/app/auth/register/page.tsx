@@ -15,6 +15,7 @@ function Register() {
     surname: '',
     email: '',
     mobileNumber: '',
+    role: '',
     password: '',
     confirmPassword: '',
   });
@@ -124,6 +125,18 @@ function Register() {
                 value={formData.email}
                 onChange={handleChange}
               />
+            </div>
+
+            <div>
+              <label htmlFor="role">Role</label>
+              <select
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+              >
+                <option value="developer">developer</option>
+                <option value="company">company</option>
+              </select>
             </div>
 
             <div>

@@ -1,5 +1,5 @@
 'use client'
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import rightArrow from '../../../assets/additional/rightArrow.svg';
 import heroImage from '../../../assets/additional/heroImage.jpg';
@@ -8,16 +8,23 @@ import Link from 'next/link';
 
 const Hero = (): ReactElement => {
   const wordsToAnimate = ['startup', 'future', 'success'];
-  const [index, setIndex] = useState(0);
+  const [newname, setnewname] = useState(wordsToAnimate[0]); // Initialize with the first word
+
+  const shuffle = useCallback(() => {
+    const index = Math.floor(Math.random() * wordsToAnimate.length);
+    setnewname(wordsToAnimate[index]);
+  }, []);
 
   useEffect(() => {
+    const intervalid = setInterval(shuffle, 1000);
+    return () => clearInterval(intervalid);
+  }, [shuffle]);
 
-  })
 
   return (
     <section className='hero'>
       <div className="hero-texts">
-        <h1>Turn your ideas into a <span className="hero-texts_animate">{wordsToAnimate[index]}</span></h1>
+        <h1>Turn your ideas into a <span className="hero-texts_animate">{newname}</span></h1>
         <p>Front's feature-rich designed demo pages help you create the best possible product.</p>
         <div className="hero-texts_buttons">
      
@@ -42,3 +49,7 @@ const Hero = (): ReactElement => {
 };
 
 export default Hero;
+function usecallback(arg0: () => void, arg1: never[]) {
+  throw new Error('Function not implemented.');
+}
+

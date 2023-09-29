@@ -24,25 +24,26 @@
 
         @media (min-width: 640px) {
             width: 80%;
-            padding-left: 50px;
+            padding: 20px 50px;
             align-items: flex-start;
         }
         
         
         & h1 {
-            font-size: calc(1.475rem + 2.7vw);
+            font-size: calc(1em + 2.7vw);
             line-height: 1.2;
             margin-bottom: 2rem;
             font-family: 'Poppins';
 
             @media (min-width: 640px) {
-            font-size: calc(2rem + 3.7vw);
+            font-size: calc(1.5rem + 3.7vw);
             }
 
             & .hero-texts_animate {
                 color: #FD2DC3;
                 padding-bottom: -5px;
                 border-bottom: 10px solid lightpink;
+                transition: opacity 0.3s ease-in-out;
             }
         }
 
