@@ -10,6 +10,7 @@ import appDeskImage from '../../../assets/additional/appImage.jpg';
 import signupimage from '../../../assets/img/1618x1010/img5.jpg';
 import signupimage1 from '../../../assets/img/1618x1010/img4.jpg';
 import illustration1 from '../../../assets/svg/illustrations/oc-person-3.svg';
+import logo from '../../../assets/img/logo.png';
 import Image from 'next/image';
 
 
@@ -935,7 +936,7 @@ function CompanyRegester() {
                 </div>
                 {/* End Careers */}
                 {/* Map */}
-                <div id="contactsSection" className="bg-light position-relative rounded-2 mx-3 mx-md-8">
+                <div id="contactsSection" className="bg-light position-relative contactsSection rounded-2 mx-3 mx-md-8">
                   <div className="container content-space-1 content-space-lg-3">
                     <div className="row justify-content-md-end">
                       <div className="col-md-6 col-lg-5">
@@ -944,8 +945,8 @@ function CompanyRegester() {
                           <div className="card-body">
                             {/* Heading */}
                             <div className="mb-5">
-                              <h4 className="card-title">New York,</h4>
-                              <h2 className="card-title h1">Brooklyn</h2>
+                              <h4 className="card-title">ParkTown North,</h4>
+                              <h2 className="card-title h1">Johannesburg</h2>
                             </div>
                             {/* End Heading */}
                             {/* Media */}
@@ -1037,7 +1038,7 @@ function CompanyRegester() {
                   <div className="col-md mb-3 mb-md-0">
                     {/* Logo */}
                     <a href="index.html" aria-label="Front">
-                      <img className="brand" src="./assets/svg/logos/logo.svg" alt="Logo" />
+                      <Image className="brand" src={logo} alt="Logo" />
                     </a>
                     {/* End Logo */}
                   </div>
