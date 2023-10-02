@@ -16,6 +16,31 @@ import Image from 'next/image';
 
 function CompanyRegester() {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    companyNumber: '',
+    companyName: '',
+    companyAddress: '',
+    companyEmail: '',
+    position: '',
+    password: '',
+  });
+
+  const handleInputChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    console.log(formData);
+  };
+  
 
   const removeMenu = () => {
     setMenuToggler(prev => false);
@@ -59,19 +84,30 @@ function CompanyRegester() {
                     {/* End Col */}
                     <div className="col-lg-6">
                       {/* Form */}
-                      <form className="js-validate needs-validation" noValidate>
+                      <form className="js-validate needs-validation company-form" onSubmit={handleSubmit}>
                         {/* Card */}
                         <div className="card">
                           <div className="card-header border-bottom text-center">
                             <h4 className="card-header-title">Try it free for 7 days <span className="badge bg-warning text-dark rounded-pill ms-1">starting at $59</span></h4>
                           </div>
-                          <div className="card-body">
+                          <div className="card-body form-body">
                             <div className="row gx-3">
                               <div className="col-sm-6">
                                 {/* Form */}
                                 <div className="mb-4">
                                   <label className="form-label" htmlFor="signupHeroFormFirstName">First name</label>
-                                  <input type="text" className="form-control form-control-lg" name="signupHeroFormNameFirstName" id="signupHeroFormFirstName" placeholder="First name" aria-label="First name" required />
+                                  <input 
+                                    type="text" 
+                                    className="form-control form-control-lg" 
+                                    name="signupHeroFormNameFirstName" 
+                                    value={formData.firstName}
+                                    onChange={handleInputChange}
+                                    id="signupHeroFormFirstName" 
+                                    placeholder="First name" 
+                                    aria-label="First name" 
+                                    
+                                    required 
+                                  />
                                   <span className="invalid-feedback">Please enter your first name</span>
                                 </div>
                                 {/* End Form */}
@@ -81,7 +117,17 @@ function CompanyRegester() {
                                 {/* Form */}
                                 <div className="mb-4">
                                   <label className="form-label" htmlFor="signupHeroFormLasttName">Last name</label>
-                                  <input type="text" className="form-control form-control-lg" name="signupHeroFormNameLastName" id="signupHeroFormLasttName" placeholder="Last name" aria-label="Last name" required />
+                                  <input 
+                                    type="text" 
+                                    className="form-control form-control-lg" 
+                                    name="signupHeroFormNameLastName" 
+                                    value={formData.lastName}
+                                    onChange={handleInputChange}
+                                    id="signupHeroFormLasttName" 
+                                    placeholder="Last name" 
+                                    aria-label="Last name" 
+                                    required 
+                                  />
                                   <span className="invalid-feedback">Please enter your last name</span>
                                 </div>
                                 {/* End Form */}
@@ -92,10 +138,115 @@ function CompanyRegester() {
                             {/* Form */}
                             <div className="mb-4">
                               <label className="form-label" htmlFor="signupHeroFormWorkEmail">Email address</label>
-                              <input type="email" className="form-control form-control-lg" name="signupHeroFormNameWorkEmail" id="signupHeroFormWorkEmail" placeholder="email@site.com" aria-label="email@site.com" required />
+                              <input 
+                                type="email" 
+                                className="form-control form-control-lg" 
+                                name="signupHeroFormNameWorkEmail" 
+                                value={formData.email}
+                                onChange={handleInputChange}
+                                id="signupHeroFormWorkEmail" 
+                                placeholder="email@site.com" 
+                                aria-label="email@site.com" 
+                                required 
+                              />
                               <span className="invalid-feedback">Please enter your email address</span>
                             </div>
                             {/* End Form */}
+                            <div className="col-sm-6">
+                              {/* Form */}
+                              <div className="mb-4">
+                                <label className="form-label" htmlFor="signupHeroFormCompanyNumber">Company Number</label>
+                                <input 
+                                  type="text" 
+                                  className="form-control form-control-lg" 
+                                  name="signupHeroFormCompanyNumber" 
+                                  value={formData.companyNumber}
+                                    onChange={handleInputChange}
+                                  id="signupHeroFormCompanyNumber" 
+                                  placeholder="Company Number" 
+                                  aria-label="Company Number" 
+                                  required 
+                                />
+                                <span className="invalid-feedback">Please enter Company Number</span>
+                              </div>
+                              {/* End Form */}
+                            </div>
+                            <div className="col-sm-6">
+                              {/* Form */}
+                              <div className="mb-4">
+                                <label className="form-label" htmlFor="signupHeroFormCompanyName">Company Name</label>
+                                <input 
+                                  type="text" 
+                                  className="form-control form-control-lg" 
+                                  name="signupHeroFormCompanyName" 
+                                  value={formData.companyName}
+                                  onChange={handleInputChange}
+                                  id="signupHeroFormCompanyName" 
+                                  placeholder="Company Name" 
+                                  aria-label="Company Name" 
+                                  required 
+                                />
+                                <span className="invalid-feedback">Please enter Company Name</span>
+                              </div>
+                              {/* End Form */}
+                            </div>
+                            <div className="col-sm-6">
+                              {/* Form */}
+                              <div className="mb-4">
+                                <label className="form-label" htmlFor="signupHeroFormCompanyAddress">Company Address</label>
+                                <input 
+                                  type="text" 
+                                  className="form-control form-control-lg" 
+                                  name="signupHeroFormCompanyAddress" 
+                                  value={formData.companyAddress}
+                                  onChange={handleInputChange}
+                                  id="signupHeroFormCompanyAddress" 
+                                  placeholder="Company Address" 
+                                  aria-label="Company Address" 
+                                  required 
+                                />
+                                <span className="invalid-feedback">Please enter Company Address</span>
+                              </div>
+                              {/* End Form */}
+                            </div>
+                            <div className="col-sm-6">
+                              {/* Form */}
+                              <div className="mb-4">
+                                <label className="form-label" htmlFor="signupHeroFormCompanyEmail">Company Email</label>
+                                <input 
+                                  type="text" 
+                                  className="form-control form-control-lg" 
+                                  name="signupHeroFormCompanyEmail" 
+                                  value={formData.companyEmail}
+                                  onChange={handleInputChange}
+                                  id="signupHeroFormCompanyEmail" 
+                                  placeholder="Company Email" 
+                                  aria-label="Company Email" 
+                                  required 
+                                />
+                                <span className="invalid-feedback">Please enter Company Email</span>
+                              </div>
+                              {/* End Form */}
+                            </div>
+                            <div className="col-sm-6">
+                              {/* Form */}
+                              <div className="mb-4">
+                                <label className="form-label" htmlFor="signupHeroFormPosition">Position</label>
+                                <input 
+                                  type="text" 
+                                  className="form-control form-control-lg" 
+                                  name="signupHeroFormPosition" 
+                                  value={formData.position}
+                                  onChange={handleInputChange}
+                                  id="signupHeroFormPosition" 
+                                  placeholder="Position At Company" 
+                                  aria-label="Position" 
+                                  required 
+                                />
+                                <span className="invalid-feedback">Please enter Your Position In This Company</span>
+                              </div>
+                              {/* End Form */}
+                            </div>
                             <div className="row gx-3">
                               <div className="col-sm-6">
                                 {/* Form */}
@@ -111,7 +262,17 @@ function CompanyRegester() {
                                 {/* Form */}
                                 <div className="mb-4" data-hs-validation-validate-class>
                                   <label className="form-label" htmlFor="signupHeroFormSignupConfirmPassword">Confirm password</label>
-                                  <input type="password" className="form-control form-control-lg" name="confirmPassword" id="signupHeroFormSignupConfirmPassword" placeholder="8+ characters required" aria-label="8+ characters required" required data-hs-validation-equal-field="#signupHeroFormSignupPassword" />
+                                  <input 
+                                    type="password" 
+                                    className="form-control form-control-lg" 
+                                    name="confirmPassword" 
+                                    value={formData.password}
+                                    onChange={handleInputChange}
+                                    id="signupHeroFormSignupConfirmPassword" 
+                                    placeholder="8+ characters required" 
+                                    aria-label="8+ characters required" 
+                                    required data-hs-validation-equal-field="#signupHeroFormSignupPassword" 
+                                  />
                                   <span className="invalid-feedback">Password does not match the confirm password</span>
                                 </div>
                                 {/* End Form */}
