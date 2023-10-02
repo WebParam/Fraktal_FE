@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
 * {
     color: #4B4C4E;
+}
+
+a {
+    text-decoration: none !important;
 }

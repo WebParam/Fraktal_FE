@@ -45,7 +45,7 @@ const Hero = (): ReactElement => {
         </div>
       </div>
     </section>
-  );
+  )
 };
 
 export default Hero;
