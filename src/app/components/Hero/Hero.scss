@@ -27,8 +27,7 @@
             padding: 20px 50px;
             align-items: flex-start;
         }
-        
-        
+    
         & h1 {
             font-size: calc(1em + 2.7vw);
             line-height: 1.2;
@@ -36,7 +35,7 @@
             font-family: 'Poppins';
 
             @media (min-width: 640px) {
-            font-size: calc(1.5rem + 3.7vw);
+            font-size: calc(1.2rem + 3.7vw);
             }
 
             & .hero-texts_animate {
@@ -55,7 +54,7 @@
             font-family: 'Avenir';
 
             @media (min-width: 640px) {
-                font-size: calc(2rem + .075vw);
+                font-size: calc(1.5rem + .075vw);
             }
         }
 

@@ -45,11 +45,8 @@ const Hero = (): ReactElement => {
         </div>
       </div>
     </section>
-  );
+  )
 };
 
 export default Hero;
-function usecallback(arg0: () => void, arg1: never[]) {
-  throw new Error('Function not implemented.');
-}
 

@@ -93,7 +93,7 @@ const Header = memo(({ menuTogglerFunction, menuTogglerValue }: HeaderProps): Re
               handleMenuItemClick('item6');
             }}
           >
-            item 6
+            About
           </a>
         </li>
         

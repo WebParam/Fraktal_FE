@@ -1,6 +1,4 @@
 "use client"
-
-import "bootstrap-icons/font/bootstrap-icons.css";
 import { useState } from 'react';
 import Header from './components/Header/Header'
 import MobileMenu from './components/MobileMenu/MobileMenu'
@@ -11,6 +9,8 @@ import Stats from './components/Statistics/Stats';
 import Footer from './components/Footer/Footer';
 import Subscribe from "./components/Subscribe/Subscribe";
 import Discover from "./components/Discover/Discover";
+import ThirdSection from "./components/thirdSection/ThirdSection";
+
 
 export default function HomePage() {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
@@ -28,6 +28,7 @@ export default function HomePage() {
       <MobileMenu removeMenu={removeMenu} menuToggler={menuToggler} />
       <Hero />
       <SecondSection />
+      <ThirdSection />
       <Testimony />
       <Stats />
       {/* <Subscribe/> */}
