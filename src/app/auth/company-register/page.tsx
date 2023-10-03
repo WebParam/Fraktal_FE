@@ -12,20 +12,24 @@ import signupimage1 from '../../../assets/img/1618x1010/img4.jpg';
 import illustration1 from '../../../assets/svg/illustrations/oc-person-3.svg';
 import logo from '../../../assets/img/logo.png';
 import Image from 'next/image';
+import axios from 'axios';
 
 
 function CompanyRegester() {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    companyNumber: '',
-    companyName: '',
-    companyAddress: '',
-    companyEmail: '',
-    position: '',
-    password: '',
+    userName: 'Bradley',
+    userSurname: 'Muller',
+   userEmail: 'brad@example.com',
+    userNumber: "0788899876",
+    companyNumber: '1221222234',
+    companyName: 'TypeDev',
+    companyReg: "1111",
+    companyAddress: 'Sandton West',
+    email: 'TypeDev@example.com',
+    position: 'Software Developer',
+    password: '12345678',
+    title : "Mr"
   });
 
   const handleInputChange = (e: any) => {
@@ -36,8 +40,26 @@ function CompanyRegester() {
     });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
+
+
+    try {
+            const response = await axios.post('http://localhost:8080/api/organisation', formData);
+      
+            if (response.status === 200 || response.status === 201) {
+              // Registration successful, you can redirect the user or show a success message.
+              console.log('Registration successful');
+              
+            } else {
+              // Registration failed, handle error (e.g., display error message).
+              console.error('Registration failed');
+            }
+          } catch (error) {
+            // Handle network or other errors
+            console.error('Error:', error);
+          }
+
     console.log(formData);
   };
   
@@ -100,7 +122,7 @@ function CompanyRegester() {
                                     type="text" 
                                     className="form-control form-control-lg" 
                                     name="signupHeroFormNameFirstName" 
-                                    value={formData.firstName}
+                                    value={formData.userName}
                                     onChange={handleInputChange}
                                     id="signupHeroFormFirstName" 
                                     placeholder="First name" 
@@ -121,7 +143,7 @@ function CompanyRegester() {
                                     type="text" 
                                     className="form-control form-control-lg" 
                                     name="signupHeroFormNameLastName" 
-                                    value={formData.lastName}
+                                    value={formData.userSurname}
                                     onChange={handleInputChange}
                                     id="signupHeroFormLasttName" 
                                     placeholder="Last name" 
@@ -142,7 +164,7 @@ function CompanyRegester() {
                                 type="email" 
                                 className="form-control form-control-lg" 
                                 name="signupHeroFormNameWorkEmail" 
-                                value={formData.email}
+                                value={formData.userEmail}
                                 onChange={handleInputChange}
                                 id="signupHeroFormWorkEmail" 
                                 placeholder="email@site.com" 
@@ -217,7 +239,7 @@ function CompanyRegester() {
                                   type="text" 
                                   className="form-control form-control-lg" 
                                   name="signupHeroFormCompanyEmail" 
-                                  value={formData.companyEmail}
+                                  value={formData.email}
                                   onChange={handleInputChange}
                                   id="signupHeroFormCompanyEmail" 
                                   placeholder="Company Email" 

@@ -57,10 +57,7 @@ function SignIn() {
     });
     try {
 
- 
-    
 
-      
             const response = await axios.post('https://fraktional-web-backend.onrender.com/api/login', formData); // Replace with your actual API endpoint URL
       
             if (response.status === 200 || response.status === 201) {
