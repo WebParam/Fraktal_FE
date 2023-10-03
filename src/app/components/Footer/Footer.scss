@@ -6,8 +6,9 @@
         display: flex;
         align-items: center;
         gap: 20px;
-        height: 400px;
+        height: 350px;
         justify-content: space-evenly;
+
     }
 
     & > div {
@@ -15,7 +16,7 @@
         display: flex;
         justify-content: flex-start;
         flex-direction: column;
-        gap: 10px;
+        // gap: 10px;
         height: 280px;
         
         & div {

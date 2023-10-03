@@ -18,17 +18,17 @@ import axios from 'axios';
 function CompanyRegester() {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
   const [formData, setFormData] = useState({
-    userName: 'Bradley',
-    userSurname: 'Muller',
-   userEmail: 'brad@example.com',
-    userNumber: "0788899876",
-    companyNumber: '1221222234',
-    companyName: 'TypeDev',
-    companyReg: "1111",
-    companyAddress: 'Sandton West',
-    email: 'TypeDev@example.com',
-    position: 'Software Developer',
-    password: '12345678',
+    userName: '',
+    userSurname: '',
+   userEmail: '',
+    userNumber: "",
+    companyNumber: '',
+    companyName: '',
+    companyReg: "",
+    companyAddress: '',
+    email: '',
+    position: '',
+    password: '',
     title : "Mr"
   });
 
@@ -110,72 +110,59 @@ function CompanyRegester() {
                         {/* Card */}
                         <div className="card">
                           <div className="card-header border-bottom text-center">
-                            <h4 className="card-header-title">Try it free for 7 days <span className="badge bg-warning text-dark rounded-pill ms-1">starting at $59</span></h4>
+                            <h4 className="card-header-title">Try it free for 7 days <span className="badge text-dark rounded-pill startingPrice" style={{backgroundColor: 'lightpink'}}>starting at $59</span></h4>
                           </div>
                           <div className="card-body form-body">
-                            <div className="row gx-3">
-                              <div className="col-sm-6">
-                                {/* Form */}
-                                <div className="mb-4">
-                                  <label className="form-label" htmlFor="signupHeroFormFirstName">First name</label>
-                                  <input 
-                                    type="text" 
-                                    className="form-control form-control-lg" 
-                                    name="signupHeroFormNameFirstName" 
-                                    value={formData.userName}
-                                    onChange={handleInputChange}
-                                    id="signupHeroFormFirstName" 
-                                    placeholder="First name" 
-                                    aria-label="First name" 
-                                    
-                                    required 
-                                  />
-                                  <span className="invalid-feedback">Please enter your first name</span>
-                                </div>
-                                {/* End Form */}
+                            <div className="inputs-container">
+                              <div className="mb-4">
+                                <label className="form-label" htmlFor="signupHeroFormFirstName">First name</label>
+                                <input 
+                                  type="text" 
+                                  className="form-control form-control-lg" 
+                                  name="signupHeroFormNameFirstName" 
+                                  value={formData.userName}
+                                  onChange={handleInputChange}
+                                  id="signupHeroFormFirstName" 
+                                  placeholder="First name" 
+                                  aria-label="First name" 
+                                  
+                                  required 
+                                />
+                                <span className="invalid-feedback">Please enter your first name</span>
                               </div>
-                              {/* End Col */}
-                              <div className="col-sm-6">
-                                {/* Form */}
-                                <div className="mb-4">
-                                  <label className="form-label" htmlFor="signupHeroFormLasttName">Last name</label>
-                                  <input 
-                                    type="text" 
-                                    className="form-control form-control-lg" 
-                                    name="signupHeroFormNameLastName" 
-                                    value={formData.userSurname}
-                                    onChange={handleInputChange}
-                                    id="signupHeroFormLasttName" 
-                                    placeholder="Last name" 
-                                    aria-label="Last name" 
-                                    required 
-                                  />
-                                  <span className="invalid-feedback">Please enter your last name</span>
-                                </div>
-                                {/* End Form */}
+                              
+                              <div className="mb-4">
+                                <label className="form-label" htmlFor="signupHeroFormLasttName">Last name</label>
+                                <input 
+                                  type="text" 
+                                  className="form-control form-control-lg" 
+                                  name="signupHeroFormNameLastName" 
+                                  value={formData.userSurname}
+                                  onChange={handleInputChange}
+                                  id="signupHeroFormLasttName" 
+                                  placeholder="Last name" 
+                                  aria-label="Last name" 
+                                  required 
+                                />
+                                <span className="invalid-feedback">Please enter your last name</span>
                               </div>
-                              {/* End Col */}
-                            </div>
-                            {/* End Row */}
-                            {/* Form */}
-                            <div className="mb-4">
-                              <label className="form-label" htmlFor="signupHeroFormWorkEmail">Email address</label>
-                              <input 
-                                type="email" 
-                                className="form-control form-control-lg" 
-                                name="signupHeroFormNameWorkEmail" 
-                                value={formData.userEmail}
-                                onChange={handleInputChange}
-                                id="signupHeroFormWorkEmail" 
-                                placeholder="email@site.com" 
-                                aria-label="email@site.com" 
-                                required 
-                              />
-                              <span className="invalid-feedback">Please enter your email address</span>
-                            </div>
-                            {/* End Form */}
-                            <div className="col-sm-6">
-                              {/* Form */}
+                              
+                              <div className="mb-4">
+                                <label className="form-label" htmlFor="signupHeroFormWorkEmail">Email address</label>
+                                <input 
+                                  type="email" 
+                                  className="form-control form-control-lg" 
+                                  name="signupHeroFormNameWorkEmail" 
+                                  value={formData.userEmail}
+                                  onChange={handleInputChange}
+                                  id="signupHeroFormWorkEmail" 
+                                  placeholder="email@site.com" 
+                                  aria-label="email@site.com" 
+                                  required 
+                                />
+                                <span className="invalid-feedback">Please enter your email address</span>
+                              </div>
+                           
                               <div className="mb-4">
                                 <label className="form-label" htmlFor="signupHeroFormCompanyNumber">Company Number</label>
                                 <input 
@@ -191,10 +178,6 @@ function CompanyRegester() {
                                 />
                                 <span className="invalid-feedback">Please enter Company Number</span>
                               </div>
-                              {/* End Form */}
-                            </div>
-                            <div className="col-sm-6">
-                              {/* Form */}
                               <div className="mb-4">
                                 <label className="form-label" htmlFor="signupHeroFormCompanyName">Company Name</label>
                                 <input 
@@ -210,10 +193,8 @@ function CompanyRegester() {
                                 />
                                 <span className="invalid-feedback">Please enter Company Name</span>
                               </div>
-                              {/* End Form */}
-                            </div>
-                            <div className="col-sm-6">
-                              {/* Form */}
+                              
+                        
                               <div className="mb-4">
                                 <label className="form-label" htmlFor="signupHeroFormCompanyAddress">Company Address</label>
                                 <input 
@@ -229,10 +210,7 @@ function CompanyRegester() {
                                 />
                                 <span className="invalid-feedback">Please enter Company Address</span>
                               </div>
-                              {/* End Form */}
-                            </div>
-                            <div className="col-sm-6">
-                              {/* Form */}
+                          
                               <div className="mb-4">
                                 <label className="form-label" htmlFor="signupHeroFormCompanyEmail">Company Email</label>
                                 <input 
@@ -248,10 +226,7 @@ function CompanyRegester() {
                                 />
                                 <span className="invalid-feedback">Please enter Company Email</span>
                               </div>
-                              {/* End Form */}
-                            </div>
-                            <div className="col-sm-6">
-                              {/* Form */}
+                    
                               <div className="mb-4">
                                 <label className="form-label" htmlFor="signupHeroFormPosition">Position</label>
                                 <input 
@@ -267,41 +242,30 @@ function CompanyRegester() {
                                 />
                                 <span className="invalid-feedback">Please enter Your Position In This Company</span>
                               </div>
-                              {/* End Form */}
-                            </div>
-                            <div className="row gx-3">
-                              <div className="col-sm-6">
-                                {/* Form */}
-                                <div className="mb-4">
-                                  <label className="form-label" htmlFor="signupHeroFormSignupPassword">Password</label>
-                                  <input type="password" className="form-control form-control-lg" name="password" id="signupHeroFormSignupPassword" placeholder="8+ characters required" aria-label="8+ characters required" required />
-                                  <span className="invalid-feedback">Your password must include 8+ characters</span>
-                                </div>
-                                {/* End Form */}
+
+                              <div className="mb-4">
+                                <label className="form-label" htmlFor="signupHeroFormSignupPassword">Password</label>
+                                <input type="password" className="form-control form-control-lg" name="password" id="signupHeroFormSignupPassword" placeholder="8+ characters required" aria-label="8+ characters required" required />
+                                <span className="invalid-feedback">Your password must include 8+ characters</span>
                               </div>
-                              {/* End Col */}
-                              <div className="col-sm-6">
-                                {/* Form */}
-                                <div className="mb-4" data-hs-validation-validate-class>
-                                  <label className="form-label" htmlFor="signupHeroFormSignupConfirmPassword">Confirm password</label>
-                                  <input 
-                                    type="password" 
-                                    className="form-control form-control-lg" 
-                                    name="confirmPassword" 
-                                    value={formData.password}
-                                    onChange={handleInputChange}
-                                    id="signupHeroFormSignupConfirmPassword" 
-                                    placeholder="8+ characters required" 
-                                    aria-label="8+ characters required" 
-                                    required data-hs-validation-equal-field="#signupHeroFormSignupPassword" 
-                                  />
-                                  <span className="invalid-feedback">Password does not match the confirm password</span>
-                                </div>
-                                {/* End Form */}
+
+                              <div className="mb-4" data-hs-validation-validate-class>
+                                <label className="form-label" htmlFor="signupHeroFormSignupConfirmPassword">Confirm password</label>
+                                <input 
+                                  type="password" 
+                                  className="form-control form-control-lg" 
+                                  name="confirmPassword" 
+                                  value={formData.password}
+                                  onChange={handleInputChange}
+                                  id="signupHeroFormSignupConfirmPassword" 
+                                  placeholder="8+ characters required" 
+                                  aria-label="8+ characters required" 
+                                  required data-hs-validation-equal-field="#signupHeroFormSignupPassword" 
+                                />
+                                <span className="invalid-feedback">Password does not match the confirm password</span>
                               </div>
-                              {/* End Col */}
-                            </div>
-                            {/* End Row */}
+                           
+                              </div>
                             {/* Check */}
                             <div className="form-check mb-4">
                               <input type="checkbox" className="form-check-input" id="signupHeroFormPrivacyCheck" name="signupFormPrivacyCheck" required />
@@ -310,7 +274,7 @@ function CompanyRegester() {
                             </div>
                             {/* End Check */}
                             <div className="d-grid mb-3">
-                              <button type="submit" className="btn btn-primary btn-lg">Claim your free trial</button>
+                              <button type="submit" className="btn btn-primary btn-lg" style={{backgroundImage: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.40) 124.34%)'}}>Claim your free trial</button>
                             </div>
                           </div>
                         </div>
@@ -408,11 +372,7 @@ function CompanyRegester() {
                           <span className="device-browser-header-btn-list-btn" />
                           <span className="device-browser-header-btn-list-btn" />
                         </div>
-                        {/* <div className="device-browser-header-browser-bar">www.htmlstream.com/front/</div> */}
                       </div>
-                      {/* <div className="device-browser-frame">
-                        <Image className="device-browser-img" src={appdeskImageDesk} alt="Image Description" />
-                      </div> */}
                     </figure>
                     {/* End Browser Device */}
                   </div>
@@ -548,7 +508,7 @@ function CompanyRegester() {
                           </div>
                           <div className="card-footer pt-0">
                             <div className="d-grid">
-                              <button type="button" className="btn btn-primary btn-sm btn-transition">Create account</button>
+                              <button type="button" className="btn btn-primary btn-sm btn-transition" style={{backgroundImage: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.40) 124.34%)'}}>Create account</button>
                             </div>
                           </div>
                         </div>
@@ -573,7 +533,7 @@ function CompanyRegester() {
                           </div>
                           <div className="card-footer pt-0">
                             <div className="d-grid">
-                              <button type="button" className="btn btn-primary btn-sm btn-transition">Try free for 14-days</button>
+                              <button type="button" className="btn btn-primary btn-sm btn-transition" style={{backgroundImage: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.40) 124.34%)'}}>Try free for 14-days</button>
                             </div>
                           </div>
                         </div>
@@ -608,7 +568,7 @@ function CompanyRegester() {
                           </div>
                           <div className="card-footer pt-0">
                             <div className="d-grid">
-                              <button type="button" className="btn btn-primary btn-sm btn-transition">Try free for 14-days</button>
+                              <button type="button" className="btn btn-primary btn-sm btn-transition" style={{backgroundImage: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.40) 124.34%)'}}>Try free for 14-days</button>
                             </div>
                           </div>
                         </div>

@@ -81,17 +81,18 @@
         border: 1px solid lightpink;
         display: flex;
         gap: 10px;
-        align-items: center;
         height: 50px;
         border-radius: 20px;
         padding: 0 10px;
+        line-height: 50px;
 
-        & a {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: chocolate;
+        & > p {
             height: 100%;
+        }
+
+        & > a {
+            color: chocolate;
+            line-height: 50px;
         }
     }
 }

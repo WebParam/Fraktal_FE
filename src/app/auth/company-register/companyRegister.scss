@@ -14,6 +14,25 @@
     border-radius: 20px;
 }
 
+.company-form {
+
+    & .inputs-container {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+
+        & .mb-4 {
+            max-width: 250px;
+            min-width: 250px;
+        }
+
+        & .startingPrice {
+            background-color: lightpink !important;
+            border: 1px solid red;
+        }
+    }
+}
+
 // stats, images in triangle amd how many copies hv been purchased 
 .container-item {
     display: flex;
