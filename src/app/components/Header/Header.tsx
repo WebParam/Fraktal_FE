@@ -57,7 +57,7 @@ const Header = memo(({ menuTogglerFunction, menuTogglerValue }: HeaderProps): Re
               
             }}
           >
-            Pages
+            Pricing
           </a>
         </li>
         
