@@ -8,19 +8,21 @@ import loginImage from "../../../assets/additional/loginImage.jpg";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { registerUser} from "@/app/endpoints/api";
+import { IUser } from "@/app/interfaces/user";
 
 function Register() {
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [formData, setFormData] = useState({
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [formData, setFormData] = useState<IUser>({
     title: "mr", // Default title
     firstName: "",
     surname: "",
     email: "",
     mobileNumber: "",
-    role: "",
+
     password: "",
 
-  });
+  }) ;
 
   const [firstNameError, setFirstNameError] = useState<boolean>(false);
   const [surnameError, setSurnameError] = useState<boolean>(false);
@@ -55,7 +57,7 @@ function Register() {
       formData.email||
       formData.password||
       formData.mobileNumber||
-      formData.role||
+
       formData.surname ||
       formData.title
     ) {
@@ -71,10 +73,7 @@ function Register() {
         setPasswordError(true);
         
       }
-      if (formData.role === "") {
-        setRoleError(true);
-        
-      }
+   
       if (formData.surname === "") {
         setSurnameError(true);
       
@@ -104,7 +103,6 @@ function Register() {
       formData.email == "" ||
       formData.password == ""||
       formData.mobileNumber== ""||
-      formData.role== ""||
       formData.surname == "" ||
       formData.title == ""
     ){
@@ -122,76 +120,76 @@ function Register() {
         theme: "light",
       });
 
+    
+          try {
+
+            if (!emailRegex.test(formData.email!)) {
+              toast.update(_id, {
+                render: "Invalid email address",
+                type: "error",
+                isLoading: false,
+              });
+              setTimeout(() => {
+               // setDisable(false)
+                toast.dismiss(_id);
+              }, 2000);
+                 return;
+            }else if(!passwordRegex.test(formData.password!)){
+             toast.update(_id, {
+               render:
+                 "Password must contain at least 8 characters, including uppercase and lowercase letters, numbers, and special characters",
+               type: "error",
+               isLoading: false,
+             });
+             setTimeout(() => {
+            //  setDisable(false)
+              toast.dismiss(_id);
+            }, 2000);
+            return;
+            }
+
+           const registrationResult = await registerUser(formData) ;
+            
+           if(registrationResult){
+            toast.update(_id, {
+              render: "user registered successfully",
+              type: "success",
+              isLoading: false,
+            });
+            setTimeout(() => {
+             // setDisable(false)
+              toast.dismiss(_id);
+            }, 2000);
+           }else{
+            toast.update(_id, {
+              render: "error registering user",
+              type: "error",
+              isLoading: false,
+            });
+            setTimeout(() => {
+             // setDisable(false)
+              toast.dismiss(_id);
+            }, 2000);
+           }
+          
+          } catch (error) {
+            // Handle errors
+            toast.update(_id, {
+              render: "error registering user",
+              type: "error",
+              isLoading: false,
+            });
+            setTimeout(() => {
+             // setDisable(false)
+              toast.dismiss(_id);
+            }, 2000);
+            console.error("Error:", error);
+          }
+        
+
+
       
-      try {
      
-   
-      
-                 
-        if (!emailRegex.test(formData.email)) {
-          toast.update(_id, {
-            render: "Invalid email address",
-            type: "error",
-            isLoading: false,
-          });
-          setTimeout(() => {
-           // setDisable(false)
-            toast.dismiss(_id);
-          }, 2000);
-             return;
-        }else if(!passwordRegex.test(formData.password)){
-         toast.update(_id, {
-           render:
-             "Password must contain at least 8 characters, including uppercase and lowercase letters, numbers, and special characters",
-           type: "error",
-           isLoading: false,
-         });
-         setTimeout(() => {
-        //  setDisable(false)
-          toast.dismiss(_id);
-        }, 2000);
-        return;
-        }
-        const response = await axios.post(
-          "https://fraktional-web-backend.onrender.com/api/users",
-          formData
-        )
-  
-         if (response.status === 200 || response.status === 201) {
-          toast.update(_id, {
-            render: "user registered successfully",
-            type: "success",
-            isLoading: false,
-          });
-          setTimeout(() => {
-           // setDisable(false)
-            toast.dismiss(_id);
-          }, 2000);
-        } else {
-          toast.update(_id, {
-            render: "error registering user",
-            type: "error",
-            isLoading: false,
-          });
-          setTimeout(() => {
-           // setDisable(false)
-            toast.dismiss(_id);
-          }, 2000);
-        }
-      } catch (error) {
-     
-        toast.update(_id, {
-          render: "error registering user",
-          type: "error",
-          isLoading: false,
-        });
-        setTimeout(() => {
-         // setDisable(false)
-          toast.dismiss(_id);
-        }, 2000);
-        console.error("Error:", error);
-      }
-      console.log(formData);
     };
     
 
@@ -343,14 +341,7 @@ function Register() {
               />
             </div>
 
-            <div>
-              <label htmlFor="role">Role</label>
-              <select        style={inputRoleStyle} name="role" value={formData.role} onChange={handleChange}>
-                <option>select role</option>
-                <option value="developer">developer</option>
-                <option value="company">company</option>
-              </select>
-            </div>
+    
 
             <div>
               <label htmlFor="mobileNumber">Your Number</label>

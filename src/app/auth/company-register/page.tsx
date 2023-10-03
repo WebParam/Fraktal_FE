@@ -13,11 +13,13 @@ import illustration1 from '../../../assets/svg/illustrations/oc-person-3.svg';
 import logo from '../../../assets/img/logo.png';
 import Image from 'next/image';
 import axios from 'axios';
+import { registerOrganisation } from '@/app/endpoints/api';
+import { ICompanyRegister } from '@/app/interfaces/organisation';
 
 
 function CompanyRegester() {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ICompanyRegister>({
     userName: '',
     userSurname: '',
    userEmail: '',
@@ -25,7 +27,7 @@ function CompanyRegester() {
     companyNumber: '',
     companyName: '',
     companyReg: "",
-    companyAddress: '',
+    companyAdrress: '',
     email: '',
     position: '',
     password: '',
@@ -45,20 +47,18 @@ function CompanyRegester() {
 
 
     try {
-            const response = await axios.post('http://localhost:8080/api/organisation', formData);
-      
-            if (response.status === 200 || response.status === 201) {
-              // Registration successful, you can redirect the user or show a success message.
-              console.log('Registration successful');
-              
-            } else {
-              // Registration failed, handle error (e.g., display error message).
-              console.error('Registration failed');
-            }
-          } catch (error) {
-            // Handle network or other errors
-            console.error('Error:', error);
-          }
+      const Addorganisation = await registerOrganisation( formData as ICompanyRegister); // Rename the constant
+      if(Addorganisation){
+              console.log('Registration successful');
+            
+      }else{
+          console.error('Registration failed');
+      }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+
+
 
     console.log(formData);
   };
@@ -201,7 +201,7 @@ function CompanyRegester() {
                                   type="text" 
                                   className="form-control form-control-lg" 
                                   name="signupHeroFormCompanyAddress" 
-                                  value={formData.companyAddress}
+                                  value={formData.companyAdrress}
                                   onChange={handleInputChange}
                                   id="signupHeroFormCompanyAddress" 
                                   placeholder="Company Address" 
