@@ -10,6 +10,7 @@ import axios from 'axios';
 function newPassword() {
   const [password, setPassword] = useState('');
   const [confirmedpassword, setConfirmedPassword] = useState('');
+  const [emailError, setEmailError] = useState<boolean>(false);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();

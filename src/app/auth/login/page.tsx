@@ -6,12 +6,15 @@ import Image from 'next/image';
 import logo from '../../../assets/img/logo.png';
 import loginImage from '../../../assets/additional/loginImage.jpg'
 import axios from 'axios';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function SignIn() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const [passwordError, setPasswordError] = useState<boolean>(false);
 
   const { email, password } = formData; // Destructure the values for easier access
 
@@ -25,26 +28,97 @@ function SignIn() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    if(!email || !password){
 
+      if(!email){
+        setEmailError(true)
+      }
+
+      if(!password){
+        setPasswordError(true)
+      }
+
+    }
+
+    if(!email || !password){
+      return;
+    }
+
+
+    let _id = toast.loading("Logging in..", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     try {
+
+ 
+    
+
+      
             const response = await axios.post('https://fraktional-web-backend.onrender.com/api/login', formData); // Replace with your actual API endpoint URL
       
             if (response.status === 200 || response.status === 201) {
               // Registration successful, you can redirect the user or show a success message.
-              alert('Registration successful');
+      toast.update(_id, {
+        render: "Logged in successfully",
+        type: "success",
+        isLoading: false,
+      });
+      setTimeout(() => {
+       // setDisable(false)
+        toast.dismiss(_id);
+      }, 2000);
               
             } else {
-              // Registration failed, handle error (e.g., display error message).
-              console.error('Registration failed');
+               toast.update(_id, {
+          render: "error logging in..",
+          type: "error",
+          isLoading: false,
+        });
+        setTimeout(() => {
+         // setDisable(false)
+          toast.dismiss(_id);
+        }, 2000);
             }
           } catch (error) {
-            // Handle network or other errors
+              toast.update(_id, {
+          render: "error logging in..",
+          type: "error",
+          isLoading: false,
+        });
+        setTimeout(() => {
+         // setDisable(false)
+          toast.dismiss(_id);
+        }, 2000);
             console.error('Error:', error);
           }
   };
 
+  
+  const inputPasswordStyle = {
+    ...(passwordError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
+  const inputEmailStyle = {
+    ...(emailError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
+
   return (
    <section className="signin">
+          <ToastContainer />
       <div className="top">
       <Image src={logo} alt='logo'/>
         <Link href='/'><i className="bi bi-chevron-left"></i>Go to main</Link>
@@ -67,6 +141,8 @@ function SignIn() {
             <div>
               <label htmlFor="email">Your Email</label>
               <input
+               style={inputEmailStyle}
+
                 type="email"
                 name="email"
                 placeholder="email@site.com"
@@ -81,6 +157,8 @@ function SignIn() {
                 <span className='cta'><Link href='/auth/reset'>Forgot Password</Link></span>
               </label>
               <input
+              style={inputPasswordStyle}
+
                 type="password"
                 name="password"
                 id="password"

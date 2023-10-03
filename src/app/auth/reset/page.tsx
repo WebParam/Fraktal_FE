@@ -4,7 +4,7 @@ import './newpassword.scss';
 import './reset.scss';
 import { useRouter } from 'next/navigation'; 
 import Link from 'next/link';
-import { useState, useRef, ChangeEvent, FormEvent } from 'react';
+import { useState, useRef, ChangeEvent, FormEvent,useEffect } from 'react';
 import Image from 'next/image';
 import logo from '../../../assets/img/logo.png';
 import loginImage from '../../../assets/additional/loginImage.jpg';
@@ -14,9 +14,20 @@ function OTP() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmedpassword, setConfirmedPassword] = useState('');
+  const [passwordError, setPasswordError] = useState<boolean>(false);
+  const [weakPasswordError, setWeakPasswordError] = useState<boolean>(false);
+  const [EmptypasswordError, setEmptypasswordError] = useState<boolean>(false);
+
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const [regEmailError, setRegEmailError] = useState<boolean>(false);
+
   const [emailsent, setEmailSent] = useState(false);
   const [otpsent, setOtpSent] = useState(false);
   const[otp, setOtp] = useState<Number>(0);
+
+  const [userDetails, setUserDetails] = useState<any>();
+
+
   const [otpValues, setOtpValues] = useState(['', '', '', '']);
   const inputRefs = [
     useRef<HTMLInputElement>(null),
@@ -42,9 +53,30 @@ function OTP() {
     }
   };
 
+
+
   //Reseting the password 
   const handleSubmitNewPass = async (e: any) => {
     e.preventDefault();
+
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+
+    if(password !== ""){
+      setEmptypasswordError(true)
+      return
+    }
+
+    if(!passwordRegex.test(password)){
+      setEmptypasswordError(true)
+      setWeakPasswordError(true)
+      return
+     }
+
+     if(password !== confirmedpassword){
+      setEmptypasswordError(true)
+      setPasswordError(true)
+      return
+     }
 
 
     try {
@@ -68,33 +100,69 @@ function OTP() {
   //confirming OTP
   const handleFormSubmitOTP = (e: FormEvent) => {
     e.preventDefault();
-    
+  
     const otp = Number(otpValues.join(''));
-    setOtpSent(true);
-    setEmailSent(false);
-    setOtp(otp);
-    console.log('OTP:', otp);
+    if(userDetails.otp == otp){
+      setOtpSent(true);
+      setEmailSent(false);
+      setOtp(otp);
+      console.log('OTP:', otp);
+    }else{
+      alert("invalid otp");
+    }
+  
   };
   
-  //when sending email
-    const handleSubmitReset = async (e: any) => {
-      e.preventDefault();
-      setEmailSent(true);
-     
-      try {
-        const response = await axios.post('http://localhost:8080/api/user/sendOTP', { email:email });
-              if (response.status === 200 || response.status === 201) {
-          console.log(email);
-          console.log('OTP sent successful');
-                
-              } else {
-                console.error('OTP failed');
-              }
-            } catch (error) {
-              console.error('Error:', error);
-            }
+  useEffect(() => {
+ if(email){
+  if (userDetails) {
+    setEmailSent(true);
+
+  }
+ }
+  }, [userDetails]);
+
+  const handleSubmitReset = async (e: any) => {
+    e.preventDefault();
+    if (!email) {
+      setEmailError(true);
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailError(true);
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:8080/api/user/sendOTP', { email: email });
+      if (response.status === 200 || response.status === 201) {
+        console.log(email);
+        setUserDetails(response.data._doc);
+        if(response.data.code == 400){
+          setRegEmailError(true);
+        }
+      } else {
+        console.error('OTP failed');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+    const inputEmailStyle = {
+      ...(emailError && {
+        outlineStyle: "solid",
+       color: "tomato",
+        borderWidth: "1px",
+      }),
     };
-  
+    const inputPasswordStyle = {
+      ...(EmptypasswordError && {
+        outlineStyle: "solid",
+       color: "tomato",
+        borderWidth: "1px",
+      }),
+    };
   if (emailsent) {
     return (
       <section className="otp">
@@ -168,8 +236,9 @@ function OTP() {
 
           <form onSubmit={handleSubmitNewPass}>
             <div>
-              <label htmlFor="password">New Password</label>
-              <input
+              <label htmlFor="password">New Password{passwordError && <span style={{marginRight: "12em", color: "tomato", fontWeight: 600, fontSize: "small"}}>* passwords do not match</span>}
+              {weakPasswordError && <span style={{color: "tomato", fontWeight: 600, fontSize: "small"}}>* password must contain at least 8 characters</span>}</label>
+              <input style={inputPasswordStyle}
                 type="password"
                 name="password"
                 placeholder="8+ characters required"
@@ -182,7 +251,7 @@ function OTP() {
 
             <div>
               <label htmlFor="confirmedpassword">Confirm New Password</label>
-              <input
+              <input    style={inputPasswordStyle}
                 type="password"
                 name="confirmedpassword"
                 placeholder="8+ characters required"
@@ -223,10 +292,13 @@ function OTP() {
           <form>
             <div>
               <label htmlFor="email">
-                <span>Your email</span>
+                <span>Your email {emailError &&  <span style = {{color : "tomato", fontWeight: 600, fontSize: "small"  }}>* Invalid email address</span>}
+                {regEmailError &&  <span style = {{color : "tomato", fontWeight: 600, fontSize: "small"  }}>* Email address not registered</span>}
+                </span>
                 <span className='cta'><Link href='/auth/login'><i className="bi bi-chevron-left"></i>Back to Log in</Link></span>
               </label>
               <input
+                style={inputEmailStyle}
                 type="email"
                 name="email"
                 placeholder="email@site.com"

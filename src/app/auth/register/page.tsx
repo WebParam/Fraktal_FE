@@ -1,25 +1,39 @@
-'use client'
-import React, { useState } from 'react';
-import './Register.scss';
-import Link from 'next/link';
-import Image from 'next/image';
-import logo from '../../../assets/img/logo.png';
-import loginImage from '../../../assets/additional/loginImage.jpg';
-import axios from 'axios';
+"use client";
+import React, { useState } from "react";
+import "./Register.scss";
+import Link from "next/link";
+import Image from "next/image";
+import logo from "../../../assets/img/logo.png";
+import loginImage from "../../../assets/additional/loginImage.jpg";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Register() {
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [formData, setFormData] = useState({
-    title: 'mr', // Default title
-    firstName: '',
-    surname: '',
-    email: '',
-    mobileNumber: '',
-    role: '',
-    password: '',
-    confirmPassword: '',
-    
+    title: "mr", // Default title
+    firstName: "",
+    surname: "",
+    email: "",
+    mobileNumber: "",
+    role: "",
+    password: "",
+
   });
+
+  const [firstNameError, setFirstNameError] = useState<boolean>(false);
+  const [surnameError, setSurnameError] = useState<boolean>(false);
+  const [titleError, setTitleError] = useState<boolean>(false);
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const [mobileNumberError, setMobileNumberError] = useState<boolean>(false);
+  const [roleError, setRoleError] = useState<boolean>(false);
+  const [passwordError, setPasswordError] = useState<boolean>(false);
+  const [confirm_PasswordError, setConfirm_PasswordError] = useState<boolean>(false);
+  const [regError, setRegErrro] = useState<boolean>(false);
+
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -31,32 +45,228 @@ function Register() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(formData)
+    console.log(formData);
+    console.log(confirmPassword)
+    
 
-    if (formData.password !== confirmPassword) {
-        console.log('password do not')
+
+  if (
+      formData.firstName||
+      formData.email||
+      formData.password||
+      formData.mobileNumber||
+      formData.role||
+      formData.surname ||
+      formData.title
+    ) {
+      if (formData.firstName === "") {
+        setFirstNameError(true);
+        
+      }
+      if (formData.email === "") {
+        setEmailError(true);
+        
+      }
+      if (formData.password === "") {
+        setPasswordError(true);
+        
+      }
+      if (formData.role === "") {
+        setRoleError(true);
+        
+      }
+      if (formData.surname === "") {
+        setSurnameError(true);
+      
+      }
+      if (formData.title === "") {
+        setTitleError(true);
+        
+      }
+      if (formData.mobileNumber === "") {
+        setMobileNumberError(true);
+        
+      }
+      if (confirmPassword === "") {
+        setConfirm_PasswordError(true);
+        
+      }
+
+      if (formData.password !== confirmPassword) {
+        setConfirm_PasswordError(true);
+        setPasswordError(true);
+      }
+    }
+
+
+    if (
+      formData.firstName == ""||
+      formData.email == "" ||
+      formData.password == ""||
+      formData.mobileNumber== ""||
+      formData.role== ""||
+      formData.surname == "" ||
+      formData.title == ""
+    ){
       return;
     }
 
-    try {
-            const response = await axios.post('https://fraktional-web-backend.onrender.com/api/users', formData); // Replace with your actual API endpoint URL
+      let _id = toast.loading("Registering user..", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
       
-            if (response.status === 200 || response.status === 201) {
-              // Registration successful, you can redirect the user or show a success message.
-              console.log('Registration successful');
-            } else {
-              // Registration failed, handle error (e.g., display error message).
-              console.error('Registration failed');
-            }
-          } catch (error) {
-            // Handle network or other errors
-            console.error('Error:', error);
-          }
+      try {
+     
+   
+      
+                 
+        if (!emailRegex.test(formData.email)) {
+          toast.update(_id, {
+            render: "Invalid email address",
+            type: "error",
+            isLoading: false,
+          });
+          setTimeout(() => {
+           // setDisable(false)
+            toast.dismiss(_id);
+          }, 2000);
+             return;
+        }else if(!passwordRegex.test(formData.password)){
+         toast.update(_id, {
+           render:
+             "Password must contain at least 8 characters, including uppercase and lowercase letters, numbers, and special characters",
+           type: "error",
+           isLoading: false,
+         });
+         setTimeout(() => {
+        //  setDisable(false)
+          toast.dismiss(_id);
+        }, 2000);
+        return;
+        }
+        const response = await axios.post(
+          "https://fraktional-web-backend.onrender.com/api/users",
+          formData
+        )
+  
+         if (response.status === 200 || response.status === 201) {
+          toast.update(_id, {
+            render: "user registered successfully",
+            type: "success",
+            isLoading: false,
+          });
+          setTimeout(() => {
+           // setDisable(false)
+            toast.dismiss(_id);
+          }, 2000);
+        } else {
+          toast.update(_id, {
+            render: "error registering user",
+            type: "error",
+            isLoading: false,
+          });
+          setTimeout(() => {
+           // setDisable(false)
+            toast.dismiss(_id);
+          }, 2000);
+        }
+      } catch (error) {
+     
+        toast.update(_id, {
+          render: "error registering user",
+          type: "error",
+          isLoading: false,
+        });
+        setTimeout(() => {
+         // setDisable(false)
+          toast.dismiss(_id);
+        }, 2000);
+        console.error("Error:", error);
+      }
       console.log(formData);
+    };
+    
+
+
+
+  const inputNameStyle = {
+    ...(firstNameError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
   };
+  
+  const inputSurnameStyle = {
+    ...(surnameError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
+  const inputTitleStyle = {
+    ...(titleError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
+
+
+
+  const inputRoleStyle = {
+    ...(roleError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
+
+  const inputMobileNumberStyle = {
+    ...(mobileNumberError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
+
+
+  const inputPasswordStyle = {
+    ...(passwordError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
+  const inputEmailStyle = {
+    ...(emailError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
+
+  const inputConfirm_PasswordStyle = {
+    ...(confirm_PasswordError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
+
 
   return (
     <section className="register">
+      <ToastContainer />
+
       <div className="top">
         <Image src={logo} alt="logo" />
         <h3>
@@ -84,9 +294,10 @@ function Register() {
 
           <form onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="title">Title</label>
+              <label htmlFor="title">Title </label> 
               <select
-                name="title"
+             style={inputTitleStyle}
+             name="title"
                 value={formData.title}
                 onChange={handleChange}
               >
@@ -99,6 +310,7 @@ function Register() {
             <div>
               <label htmlFor="firstName">Your Firstname</label>
               <input
+              style={inputNameStyle}
                 type="text"
                 name="firstName"
                 placeholder="FirstName"
@@ -110,6 +322,7 @@ function Register() {
             <div>
               <label htmlFor="surname">Your Lastname</label>
               <input
+                     style={inputSurnameStyle}
                 type="text"
                 name="surname"
                 placeholder="surname"
@@ -121,6 +334,7 @@ function Register() {
             <div>
               <label htmlFor="email">Your Email</label>
               <input
+                     style={inputEmailStyle}
                 type="email"
                 name="email"
                 placeholder="email@site.com"
@@ -131,12 +345,8 @@ function Register() {
 
             <div>
               <label htmlFor="role">Role</label>
-              <select
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-              >
-                  <option >select role</option>
+              <select        style={inputRoleStyle} name="role" value={formData.role} onChange={handleChange}>
+                <option>select role</option>
                 <option value="developer">developer</option>
                 <option value="company">company</option>
               </select>
@@ -145,6 +355,7 @@ function Register() {
             <div>
               <label htmlFor="mobileNumber">Your Number</label>
               <input
+                     style={inputMobileNumberStyle}
                 type="tel"
                 name="mobileNumber"
                 placeholder="number"
@@ -156,6 +367,7 @@ function Register() {
             <div>
               <label htmlFor="password">Password</label>
               <input
+                     style={inputPasswordStyle}
                 type="password"
                 name="password"
                 id="password"
@@ -166,15 +378,17 @@ function Register() {
             </div>
 
             <div>
-              <label htmlFor="confirmPassword">Confirm password</label>
+              <label htmlFor="confirmPassword">Confirm password {confirm_PasswordError &&  <span style={{color : "tomato", fontWeight: 600, fontSize: "small"}}>* passwords do not match</span>}</label> 
               <input
+               style={inputConfirm_PasswordStyle}
+
                 type="password"
                 name="confirmPassword"
                 id="confirmPassword"
                 placeholder="8+ characters required"
                 value={confirmPassword}
                 onChange={(e) => {
-                  setConfirmPassword(e.target.value)
+                  setConfirmPassword(e.target.value);
                 }}
               />
             </div>
@@ -183,7 +397,7 @@ function Register() {
           </form>
 
           <p>
-            Already have an account?{' '}
+            Already have an account?{" "}
             <span className="cta">
               <Link href="/auth/login">Sign in here</Link>
             </span>
