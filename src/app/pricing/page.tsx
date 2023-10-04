@@ -74,7 +74,7 @@ function pricing() {
                     <p>No card required</p>
                 </div>
 
-                <div className="card active">
+                <div className="card activeCard">
                     <h2><span className='dollar'>$</span>39 <span className='mo'>/mo</span></h2>
                     <h3>Team</h3>
                     <p>Everything you need for a growing a business</p>

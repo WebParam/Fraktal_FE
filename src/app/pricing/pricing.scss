@@ -82,7 +82,7 @@
             width: 300px;
             max-width: 500px;
             height: 450px;
-            border: 1px solid lightgrey;
+            box-shadow: 1px 1px 5px 1px lightgrey;
             border-radius: 10px;
             display: flex;
             flex-direction: column;
@@ -102,7 +102,7 @@
                 width: 350px;
             }
 
-            &.activer {
+            &.activeCard {
                 background: lightpink;
 
                 @media (min-width: 900px) {
