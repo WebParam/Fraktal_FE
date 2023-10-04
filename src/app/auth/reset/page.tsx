@@ -9,6 +9,8 @@ import Image from 'next/image';
 import logo from '../../../assets/img/logo.png';
 import loginImage from '../../../assets/additional/loginImage.jpg';
 import axios from 'axios';
+import { resetPassword, sendOTP } from '@/app/endpoints/api';
+import { IUserResetPassword, IUserSendOTP } from '@/app/interfaces/user';
 
 function OTP() {
   const [email, setEmail] = useState('');
@@ -78,23 +80,19 @@ function OTP() {
       return
      }
 
+     try {
+      const changePassword = await resetPassword({email:email, password:password, otp:otp} as IUserResetPassword); // Rename the constant
+      if(changePassword){
+              console.log('Registration successful');
+        router.push('/auth/login');
+            
+      }else{
+          console.error('Registration failed');
+      }
+    } catch (error) {
+        console.error('Error:', error);
+    }
 
-    try {
-            const response = await axios.post('http://localhost:8080/api/user/resetPassword', {email:email, password:password, otp:otp}); // Replace with your actual API endpoint URL
-      
-            if (response.status === 200 || response.status === 201) {
-              // Registration successful, you can redirect the user or show a success message.
-              console.log('Registration successful');
-          router.push('/auth/login');
-              
-            } else {
-              // Registration failed, handle error (e.g., display error message).
-              console.error('Registration failed');
-            }
-          } catch (error) {
-            // Handle network or other errors
-            console.error('Error:', error);
-          }
   };
 
   //confirming OTP
@@ -134,20 +132,20 @@ function OTP() {
       return;
     }
 
+
     try {
-      const response = await axios.post('http://localhost:8080/api/user/sendOTP', { email: email });
-      if (response.status === 200 || response.status === 201) {
-        console.log(email);
-        setUserDetails(response.data._doc);
-        if(response.data.code == 400){
-          setRegEmailError(true);
-        }
-      } else {
+      const onSubmitOTP = await sendOTP( { email: email } as IUserSendOTP); // Rename the constant
+      if(onSubmitOTP !== 400){
+        setUserDetails(onSubmitOTP);
+      }else{
+        setRegEmailError(true);
         console.error('OTP failed');
       }
     } catch (error) {
-      console.error('Error:', error);
+        console.error('Error:', error);
     }
+
+
   };
     const inputEmailStyle = {
       ...(emailError && {
