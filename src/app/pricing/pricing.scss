@@ -1,13 +1,14 @@
 .pricing {
     margin-top: 100px;
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
+    overflow: hidden;
+    background-image: linear-gradient(to bottom right, aliceblue, #fff, lightpink);
 
     & > h2 {
-        margin-top: 0;
+        margin-top: 1em;
         margin-bottom: 2em;
         font-weight: 600;
         line-height: 1.2;
@@ -78,9 +79,9 @@
         }
 
         & .card {
-            min-width: 300px;
-            max-width: 450px;
-            height: 400px;
+            width: 300px;
+            max-width: 500px;
+            height: 450px;
             border: 1px solid lightgrey;
             border-radius: 10px;
             display: flex;
@@ -88,10 +89,20 @@
             align-items: center;
             justify-content: space-between;
             background-color: #fff;
-
+            z-index: 1;
+            cursor: pointer;
             transition: .5s all;
 
-            &.active {
+            &:hover {
+                transform: scale(1.1);
+                background-color: lightpink;
+            }
+
+            @media (min-width: 640px) {
+                width: 350px;
+            }
+
+            &.activer {
                 background: lightpink;
 
                 @media (min-width: 900px) {
@@ -99,17 +110,6 @@
                 }
             }
 
-            &:hover {
-                background: lightpink;
-                transform: scale(1.1);
-                cursor: pointer;
-
-                
-                & img {
-                    box-shadow: 1px 1px 5px 1px pink;
-                    border-radius: 20px;
-                }
-            }
 
             & h2 {
                 margin-top: 10px;
@@ -174,25 +174,35 @@
         width: 150px;
         height: 150px;
         position: absolute;
-        z-index: -1;
-        right: 50px;
+        z-index: 0;
+        right: 100px;
         top: 20%;
     }
 
     & .gohere {
-        margin: 50px auto 100px;
+        min-width: 250px;
+        max-width: 450px;
+        margin: 40px 10px;
         border: 1px solid lightgrey;
-        height: 50px;
+        height: 80px;
+        padding: 0 10px;
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 0 10px;
         border-radius: 20px;
-        max-width: 250px;
-        text-align: center;
+
+        @media (min-width: 700px) {
+            height: 70px;
+            padding: 0 30px;
+            border-radius: 50px;
+        }
+
+        & > p {
+            font-size: 18px;
+        }
 
         & a {
-            color: lightpink;
+            color: skyblue;
         }
     }
 
@@ -217,6 +227,92 @@
             & img {
                 width: 100px;
                 height: 30px;
+            }
+        }
+    }
+
+    & .table {
+        margin: 200px 0 100px;
+
+        & tr:nth-child(2n) {
+            background-color: lightpink;
+        }
+
+        & td {
+            height: 50px;
+            width: 250px;
+            padding-left: 10px;
+
+            & img {
+                border: 1px solid rgb(193, 99, 113);
+                color: pink;
+                width: 20px;
+                height: 20px;
+                border-radius: 20px;
+                display: flex;
+                align-self: center;
+                margin: 0 auto;
+            }
+
+            & p {
+                border: 1px solid rgb(193, 99, 113);
+                color: pink;
+                border-radius: 20px;
+                height: 30px;
+                line-height: 30px;
+                color: #252525;
+                width: 70%;
+                text-align: center;
+                align-self: center;
+                margin: 0 auto;
+            }
+
+            & button {
+                border: 1px solid rgb(193, 99, 113);
+                color: pink;
+                background-color: bisque;
+                border-radius: 5px;
+                height: 35px;
+                line-height: 30px;
+                color: #252525;
+                width: 70%;
+                text-align: center;
+                margin: 0 15%;
+            }
+        }
+
+        & th {
+            width: 200px;
+            height: 50px;
+        }
+    }
+
+    & .faq {
+        width: 80%;
+        text-align: center;
+        margin-bottom: 100px;
+
+        & h2 {
+            font-size: 2em;
+            margin: 2em;
+        }
+
+        & .questions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+
+            & div {
+                min-width: 300px;
+                max-width: 400px;
+                text-align: left;
+
+                & h3 {
+                    font-size: 1.2em;
+                    margin-bottom: 10px;
+                    font-weight: 700;
+                }
             }
         }
     }

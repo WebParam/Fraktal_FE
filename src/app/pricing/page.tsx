@@ -20,6 +20,7 @@ import forbes from '../../assets/svg/brands/forbes-dark.svg';
 import businesinsider from '../../assets/svg/brands/business-insider-dark.svg';
 import hubspot from '../../assets/svg/brands/hubspot-dark.svg';
 import layar from '../../assets/svg/brands/layar-dark.svg';
+import Footer from '../components/Footer/Footer';
 
 function pricing() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
@@ -111,6 +112,7 @@ function pricing() {
 
             <div className="gohere">
                 <p>Prefer to start with the trial version? <Link href=''>Go here</Link></p>
+                
             </div>
 
             <div className="companylogos">
@@ -129,7 +131,108 @@ function pricing() {
                     <Image src={layar} alt='logo' />
                 </div>
             </div>
+            <div className="table">
+                <table>
+                    <tr>
+                        <th></th>
+                        <th>Professional Plan</th>
+                        <th>Team Plan</th>
+                        <th>Enterprise Plan</th>
+                    </tr>
+                    <tr>
+                        <td>Cross-platform UI toolkit</td>
+                        <td><Image src={checkmark} alt='checkmark'/></td>
+                        <td><Image src={checkmark} alt='checkmark'/></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>14-days free trial</td>
+                        <td><Image src={checkmark} alt='checkmark' /></td>
+                        <td><Image src={checkmark} alt='checkmark'/></td>
+                        <td><Image src={checkmark} alt='checkmark'/></td>
+                    </tr>
+                    <tr>
+                        <td>No user limit</td>
+                        <td></td>
+                        <td><Image src={checkmark} alt='checkmark'/></td>
+                        <td><Image src={checkmark} alt='checkmark'/></td>
+                    </tr>
+                    <tr>
+                        <td>Long-term support</td>
+                        <td></td>
+                        <td></td>
+                        <td><Image src={checkmark} alt='checkmark'/></td>
+                    </tr>
+                    <tr>
+                        <td>Email support</td>
+                        <td><p>Add-on-available</p></td>
+                        <td></td>
+                        <td><Image src={checkmark} alt='checkmark'/></td>
+                    </tr>
+                    <tr>
+                        <td>Developer tools</td>
+                        <td></td>
+                        <td><Image src={checkmark} alt='checkmark'/></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Removal of Fraktional branding</td>
+                        <td></td>
+                        <td><Image src={checkmark} alt='checkmark'/></td>
+                        <td><Image src={checkmark} alt='checkmark'/></td>
+                    </tr>
+                    <tr>
+                        <td>Active maintanance & support</td>
+                        <td><Image src={checkmark} alt='checkmark'/></td>
+                        <td><Image src={checkmark} alt='checkmark'/></td>
+                        <td><Image src={checkmark} alt='checkmark'/></td>
+                    </tr>
+                    <tr>
+                        <td>Data storage for 365 days</td>
+                        <td></td>
+                        <td><p>Add-on-available</p></td>
+                        <td><Image src={checkmark} alt='checkmark' className='image' /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button>Choose plan</button></td>
+                        <td><button>Choose plan</button></td>
+                        <td><button>Contact us</button></td>
+                    </tr>
+                </table>
+            </div>
+            
+                <div className="faq">
+                    <h2>Frequently Asked Questions</h2>
+                    <div className="questions">
+                        <div>
+                            <h3>Can I cancel anytime?</h3>
+                            <p>Yes, you can cancel anytime no questions are asked while you cancel but we higly appreciate if you will give us some feedback</p>
+                        </div>
+                        <div>
+                            <h3>My team has credits. How do we use them?</h3>
+                            <p>Once your team signs up for a subscription plan. Thuis is where we sit down, grab a cup of coffee and dial in the details</p>
+                        </div>
+                        <div>
+                            <h3>How does FrakTional pricing work?</h3>
+                            <p>Our subscriptions are tiered. Understanding the task at hand and ironing out the wrinkles is key.</p>
+                        </div>
+                        <div>
+                            <h3>How secure is FrakTional?</h3>
+                            <p>Protecting the data you trust to Fraktional is our first priority. This part is really crucial in keeping the project in line to completion</p>
+                        </div>
+                        <div>
+                            <h3>Do you offer discounts?</h3>
+                            <p>We've built in discounts at each tier for teams. The time has come to bring those ideas and plans to life.</p>
+                        </div>
+                        <div>
+                            <h3>What is your refund policy?</h3>
+                            <p>We offer refunds. We aim high at being focused on building relationships with our clients and community.</p>
+                        </div>
+                    </div>
+                </div>
         </section>
+        <Footer />
     </>
     );
 }
