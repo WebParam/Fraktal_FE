@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import './pricing.scss';
+import './checkbox.scss';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import checkmark from '../../assets/additional/check.svg';
 import dots from '../../assets/additional/dots.svg';
@@ -24,7 +25,12 @@ import Footer from '../components/Footer/Footer';
 
 function pricing() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
+    const [isChecked, setIsChecked] = useState(true);
 
+    const toggleSwitch = () => {
+      setIsChecked(!isChecked); 
+    };
+    
     const removeMenu = () => {
         setMenuToggler(prev => false);
       }
@@ -51,9 +57,14 @@ function pricing() {
                     
                     <div className='mon-An'>
                         <p>Monthly</p>
-                        <div className="input">
-                            <input type="checkbox" name="" id="" />
-                        </div>
+                        <label className="switch">
+                            <input
+                            type="checkbox"
+                            checked={isChecked} // Use the state to manage the checked status
+                            onChange={toggleSwitch} // Handle the onChange event to toggle the state
+                            />
+                            <span className="slider"></span>
+                        </label>
                     <p>Annually</p>
                     </div>
             </div>
