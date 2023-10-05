@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+@font-face {
+    font-family: 'Avenir';
+    src: url('../assets/fonts//avenir_ff/AvenirLTStd-Black.otf');
+}
+
 
 * {
     color: #4B4C4E;
@@ -10,4 +17,12 @@
 
 a {
     text-decoration: none !important;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Poppins';
+}
+
+p {
+    font-family: 'Avenir';
 }
