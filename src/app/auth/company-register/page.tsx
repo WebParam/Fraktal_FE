@@ -20,46 +20,128 @@ import { ICompanyRegister } from '@/app/interfaces/organisation';
 function CompanyRegester() {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
   const [formData, setFormData] = useState<ICompanyRegister>({
+    userName: 'k',
+    userSurname: 'd',
+    userEmail: 'brad@gmail.com',
+    companyNumber: 'd',
+    companyName: 'd',
+    companyAdrress: 'd',
+    email: 'brad@gmail.com',
+    position: 'd',
+    password: 'dqwsssds',
+    title: 'd',
+    companyReg:'d',
+    userNumber:'d'
+  
+  });
+
+   // Initialize form errors state
+   const [formErrors, setFormErrors] = useState({
     userName: '',
     userSurname: '',
-   userEmail: '',
-    userNumber: "",
+    userEmail: '',
     companyNumber: '',
     companyName: '',
-    companyReg: "",
     companyAdrress: '',
     email: '',
     position: '',
     password: '',
-    title : "Mr"
+    title: '',
+    companyReg:'',
+    userNumber:''
   });
 
-  const handleInputChange = (e: any) => {
+  // Function to handle form input changes
+  const handleInputChange = (e:any) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [name]: value });
   };
+
+
+
+  // Function to validate email format
+  const isValidEmail = (email:string) => {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
+  };
+
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+ // Validate the form fields here and set errors if any
+ const errors = {} as any;
 
-    try {
-      const Addorganisation = await registerOrganisation( formData as ICompanyRegister); // Rename the constant
-      if(Addorganisation){
-              console.log('Registration successful');
-            
-      }else{
-          console.error('Registration failed');
-      }
-    } catch (error) {
-        console.error('Error:', error);
+ // Example: Validate that the first name is not empty
+ if (!formData.userName.trim()) {
+   errors.userName = 'Please enter your first name';
+ }
+
+ // Example: Validate that the last name is not empty
+ if (!formData.userSurname.trim()) {
+   errors.userSurname = 'Please enter your last name';
+ }
+
+ // Example: Validate email format
+ if (!formData.userEmail.trim()) {
+   errors.userEmail = 'Please enter your email address';
+ } else if (!isValidEmail(formData.userEmail)) {
+   errors.userEmail = 'Please enter a valid email address';
+ }
+
+ // Example: Validate that the company number is not empty
+ if (!formData.companyNumber.trim()) {
+   errors.companyNumber = 'Please enter Company Number';
+ }
+
+ // Example: Validate that the company name is not empty
+ if (!formData.companyName.trim()) {
+   errors.companyName = 'Please enter Company Name';
+ }
+
+ // Example: Validate that the company address is not empty
+ if (!formData.companyAdrress.trim()) {
+   errors.companyAddress = 'Please enter Company Address';
+ }
+
+ // Example: Validate email format for company email
+ if (!formData.email.trim()) {
+   errors.companyEmail = 'Please enter Company Email';
+ } else if (!isValidEmail(formData.email)) {
+   errors.companyEmail = 'Please enter a valid Company Email address';
+ }
+
+ // Example: Validate that the position is not empty
+ if (!formData.position.trim()) {
+   errors.position = 'Please enter Your Position In This Company';
+ }
+
+ // Example: Validate password length
+ if (formData.password.length < 8) {
+   errors.password = 'Your password must include 8+ characters';
+ }
+
+//  // Example: Validate password confirmation
+//  if (formData.password !== formData.confirmPassword) {
+//    errors.confirmPassword = 'Password does not match the confirm password';
+//  }
+
+ setFormErrors(errors);
+
+ if (Object.keys(errors).length === 0) {
+  try {
+    const Addorganisation = await registerOrganisation( formData as ICompanyRegister); // Rename the constant
+    if(Addorganisation){
+            console.log('Registration successful');
+          
+    }else{
+        console.error('Registration failed');
     }
-
-
-
+  } catch (error) {
+      console.error('Error:', error);
+  }
+ }
+ 
     console.log(formData);
   };
   
@@ -245,7 +327,7 @@ function CompanyRegester() {
 
                               <div className="mb-4">
                                 <label className="form-label" htmlFor="signupHeroFormSignupPassword">Password</label>
-                                <input type="password" className="form-control form-control-lg" name="password" id="signupHeroFormSignupPassword" placeholder="8+ characters required" aria-label="8+ characters required" required />
+                                <input value = "ajksbajks" type="password" className="form-control form-control-lg" name="password" id="signupHeroFormSignupPassword" placeholder="8+ characters required" aria-label="8+ characters required" required />
                                 <span className="invalid-feedback">Your password must include 8+ characters</span>
                               </div>
 

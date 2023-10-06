@@ -29,17 +29,16 @@ function OTP() {
 
   const [userDetails, setUserDetails] = useState<any>();
 
+  const router = useRouter();
 
-  const [otpValues, setOtpValues] = useState(['', '', '', '']);
+  const [otpValues, setOtpValues] = useState(['', '', '', '', '']);
   const inputRefs = [
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null),
-    useRef<HTMLInputElement>(null)
+    useRef<HTMLInputElement>(null),
   ];
-
-  const router = useRouter();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const value = e.target.value;
@@ -52,10 +51,18 @@ function OTP() {
       if (index < 4 && inputRefs[index + 1].current) {
         inputRefs[index + 1].current?.focus();
       }
+    } else {
+      // Clear the input if the value is not a number
+      const newOtpValues = [...otpValues];
+      newOtpValues[index] = '';
+      setOtpValues(newOtpValues);
+
+      // Optionally, you can move focus back to the previous input
+      if (index > 0 && inputRefs[index - 1].current) {
+        inputRefs[index - 1].current?.focus();
+      }
     }
   };
-
-
 
   //Reseting the password 
   const handleSubmitNewPass = async (e: any) => {
@@ -116,6 +123,9 @@ function OTP() {
   if (userDetails) {
     setEmailSent(true);
 
+  }else{
+    setEmailError(false);
+    setRegEmailError(true)
   }
  }
   }, [userDetails]);
@@ -128,6 +138,7 @@ function OTP() {
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
+      setRegEmailError(false)
       setEmailError(true);
       return;
     }
@@ -136,13 +147,19 @@ function OTP() {
     try {
       const onSubmitOTP = await sendOTP( { email: email } as IUserSendOTP); // Rename the constant
       if(onSubmitOTP !== 400){
+        setEmailError(false);
+
+        setRegEmailError(false);
         setUserDetails(onSubmitOTP);
-      }else{
+      }else if (onSubmitOTP == false) {
+        setEmailError(false);
+
         setRegEmailError(true);
         console.error('OTP failed');
       }
     } catch (error) {
-        console.error('Error:', error);
+   
+        console.log('Error:', error);
     }
 
 
@@ -164,10 +181,14 @@ function OTP() {
   if (emailsent) {
     return (
       <section className="otp">
-    <div className="top">
-      <Image src={logo} alt='logo'/>
-      <Link href='/'><h3><i className="bi bi-chevron-left"></i>Go to main</h3></Link>
-    </div>
+
+<div className="top">
+      <Link href= "/"> <Image style={{   cursor: "pointer"}} src={logo} alt="logo" /></Link> 
+        <Link href="/">
+          <i className="bi bi-chevron-left"></i>Go to main
+        </Link>
+      </div>
+
 
     <div className="otpMain">
       <div className="otp-image">
@@ -189,20 +210,19 @@ function OTP() {
               <span className='cta'><Link href='/auth/reset'><i className="bi bi-chevron-left"></i>Back to reset password</Link></span>
             </label>
             <div className='otpInputs'>
-              {inputRefs.map((ref, index) => (
-                <input
-                  key={index}
-                  type="text"
-                  id={`input${index + 1}`}
-                  maxLength={1}
-                  ref={ref}
-                  value={otpValues[index] || ''}
-                  onChange={(e) => handleInputChange(e, index)}
-
-                  required
-                />
-              ))}
-            </div>
+      {inputRefs.map((ref, index) => (
+        <input
+          key={index}
+          type="text"
+          id={`input${index + 1}`}
+          maxLength={1}
+          ref={ref}
+          value={otpValues[index]}
+          onChange={(e) => handleInputChange(e, index)}
+          required
+        />
+      ))}
+    </div>
           </div>
           <button>Submit</button>
         </form>
@@ -303,7 +323,9 @@ function OTP() {
                 value={email}
                 onChange={(e: any) => {
                   setEmail(e.target.value);
-                  console.log(email);
+                  setEmailError(false);
+
+        setRegEmailError(false);
                 }} 
               />
             </div>

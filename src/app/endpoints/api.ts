@@ -3,15 +3,14 @@ import axios from 'axios';
 import { IUser, IUserLogin, IUserResetPassword, IUserSendOTP } from '../interfaces/user';
 import {ICompanyRegister } from '../interfaces/organisation';
 
-const localUrl = "http://localhost:8080";
+const url = "https://viconet-vercel.vercel.app";
 // const renderUrl = "https://fraktional-web-backend.onrender.com";
-const renderUrl = "https://viconet-vercel.vercel.app";
 
 
 
 export async function registerUser(payload:IUser) {
   try {
-    const response = await axios.post(`${renderUrl}/api/users`, payload);
+    const response = await axios.post(`${url}/api/users`, payload);
 
     if (response.status === 200 || response.status === 201) {
       // Registration successful, you can redirect the user or show a success message.
@@ -31,7 +30,7 @@ export async function registerUser(payload:IUser) {
 
 export async function UserLogin(payload:IUserLogin) {
     try {
-      const response = await axios.post(`${renderUrl}/api/login`, payload);
+      const response = await axios.post(`${url}/api/login`, payload);
   
       if (response.status === 200 || response.status === 201) {
         // Registration successful, you can redirect the user or show a success message.
@@ -53,7 +52,7 @@ export async function UserLogin(payload:IUserLogin) {
 
 export async function resetPassword(payload:IUserResetPassword) {
     try {
-      const response = await axios.post(`${localUrl}/api/user/resetPassword`, payload);
+      const response = await axios.post(`${url}/api/user/resetPassword`, payload);
   
       if (response.status === 200 || response.status === 201) {
         // Registration successful, you can redirect the user or show a success message.
@@ -75,16 +74,24 @@ export async function resetPassword(payload:IUserResetPassword) {
 
 export async function sendOTP(payload:IUserSendOTP) {
     try {
-      const response = await axios.post(`${localUrl}/api/user/sendOTP`, payload);
+      const response = await axios.post(`${url}/api/user/sendOTP`, payload);
   
       if (response.status === 200 || response.status === 201) {
         // Registration successful, you can redirect the user or show a success message.
         console.log('otp sent successful');
-        return response.data._doc;
+        if( response.data._doc){
+            return response.data._doc;
+        }else{
+            return false;
+
+        }
+
       } else {
         // Registration failed, handle error (e.g., display error message).
-        console.error('otp not sent');
-        return response.data.code;
+     
+        return false;
+      
+
       }
     } catch (error) {
       // Handle network or other errors
@@ -95,10 +102,10 @@ export async function sendOTP(payload:IUserSendOTP) {
 
   export async function registerOrganisation(payload: ICompanyRegister) {
     try {
-      const response = await axios.post(`${localUrl}/api/user/organisation`, payload);
+      const response = await axios.post(`${url}/api/organisation`, payload);
   
       if (response.status === 200 || response.status === 201) {
-        
+
         console.log('password reset successful');
         return true;
       } else {
