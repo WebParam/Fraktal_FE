@@ -4,7 +4,8 @@ import { IUser, IUserLogin, IUserResetPassword, IUserSendOTP } from '../interfac
 import {ICompanyRegister } from '../interfaces/organisation';
 
 const localUrl = "http://localhost:8080";
-const renderUrl = "https://fraktional-web-backend.onrender.com";
+// const renderUrl = "https://fraktional-web-backend.onrender.com";
+const renderUrl = "https://viconet-vercel.vercel.app";
 
 
 
