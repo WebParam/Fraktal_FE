@@ -79,10 +79,16 @@ export async function sendOTP(payload:IUserSendOTP) {
       if (response.status === 200 || response.status === 201) {
         // Registration successful, you can redirect the user or show a success message.
         console.log('otp sent successful');
-        return response.data._doc;
+        if( response.data._doc){
+            return response.data._doc;
+        }else{
+            return false;
+
+        }
+
       } else {
         // Registration failed, handle error (e.g., display error message).
-        console.error('otp not sent');
+     
         return response.data.code;
       }
     } catch (error) {
@@ -94,10 +100,10 @@ export async function sendOTP(payload:IUserSendOTP) {
 
   export async function registerOrganisation(payload: ICompanyRegister) {
     try {
-      const response = await axios.post(`${localUrl}/api/user/organisation`, payload);
+      const response = await axios.post(`${localUrl}/api/organisation`, payload);
   
       if (response.status === 200 || response.status === 201) {
-        
+
         console.log('password reset successful');
         return true;
       } else {
