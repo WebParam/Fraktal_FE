@@ -17,6 +17,7 @@ function SignIn() {
   });
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
+  const [invaliLoginError, setInvalidLoginError] = useState<boolean>(false);
 
   const { email, password } = formData; // Destructure the values for easier access
 
@@ -29,6 +30,7 @@ function SignIn() {
   };
 
   const handleSubmit = async (e: any) => {
+    setInvalidLoginError(false)
     e.preventDefault();
     if (!email || !password) {
       if (!email) {
@@ -68,27 +70,16 @@ function SignIn() {
           toast.dismiss(_id);
         }, 2000);
       } else {
-        toast.update(_id, {
-          render: "error logging in..",
-          type: "error",
-          isLoading: false,
-        });
-        setTimeout(() => {
-          // setDisable(false)
-          toast.dismiss(_id);
-        }, 2000);
+    
+        toast.dismiss(_id);
+        setInvalidLoginError(true)
+
       }
     } catch (error) {
       // Handle errors
-      toast.update(_id, {
-        render: "error logging in..",
-        type: "error",
-        isLoading: false,
-      });
-      setTimeout(() => {
-        // setDisable(false)
-        toast.dismiss(_id);
-      }, 2000);
+      setInvalidLoginError(true)
+      toast.dismiss(_id);
+   
       console.error("Error:", error);
     }
   };
@@ -112,7 +103,7 @@ function SignIn() {
     <section className="signin">
       <ToastContainer />
       <div className="top">
-        <Image src={logo} alt="logo" />
+      <Link href= "/"> <Image style={{   cursor: "pointer"}} src={logo} alt="logo" /></Link> 
         <Link href="/">
           <i className="bi bi-chevron-left"></i>Go to main
         </Link>
@@ -136,7 +127,7 @@ function SignIn() {
 
           <form action="" method="get" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email">Your Email</label>
+              <label htmlFor="email">Your Email {invaliLoginError && <span style={{ color: "tomato", fontSize : "13px", fontWeight:"600", marginRight: "200px"}}>Invalid email or password</span>}</label>
               <input
                 style={inputEmailStyle}
                 type="email"

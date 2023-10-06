@@ -158,7 +158,8 @@ function OTP() {
         console.error('OTP failed');
       }
     } catch (error) {
-        console.error('Error:', error);
+   
+        console.log('Error:', error);
     }
 
 
@@ -180,10 +181,14 @@ function OTP() {
   if (emailsent) {
     return (
       <section className="otp">
-    <div className="top">
-      <Image src={logo} alt='logo'/>
-      <Link href='/'><h3><i className="bi bi-chevron-left"></i>Go to main</h3></Link>
-    </div>
+
+<div className="top">
+      <Link href= "/"> <Image style={{   cursor: "pointer"}} src={logo} alt="logo" /></Link> 
+        <Link href="/">
+          <i className="bi bi-chevron-left"></i>Go to main
+        </Link>
+      </div>
+
 
     <div className="otpMain">
       <div className="otp-image">
