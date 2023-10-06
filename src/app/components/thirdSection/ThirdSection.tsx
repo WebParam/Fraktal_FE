@@ -7,21 +7,23 @@ import svg2 from '../../../assets/svg/brands/airbnb-dark.svg';
 import svg3 from '../../../assets/svg/brands/visa.svg';
 import svg4 from '../../../assets/svg/brands/vidados-gray.svg';
 import Image from 'next/image';
+import check from '../../../assets/additional/check.svg';
+
 
 function ThirdSection() {
     return (
     <div className="position-relative bg-light rounded-2 mx-3 mx-lg-10 thirdsection">
         <div className="container content-space-2 content-space-lg-3">
         <div className="w-md-75 w-lg-50 text-center mx-md-auto mb-5">
-        <h2>Wow your audience from the first second</h2>
+        <h2 className='wow'>Wow your audience from the first second</h2>
         <p>The powerful and flexible theme for all kinds of businesses</p>
         </div>
-        <div className="text-center mb-10">
+        <div className="text-center mb-10 ">
         {/* List Checked */}
-        <ul className="list-inline list-checked list-checked-primary">
-            <li className="list-inline-item list-checked-item"><i className="bi bi-check"></i>Responsive</li>
-            <li className="list-inline-item list-checked-item"><i className="bi bi-check"></i>5-star support</li>
-            <li className="list-inline-item list-checked-item"><i className="bi bi-check"></i>Constant updates</li>
+        <ul className="list-inline list-checked list-checked-primary top-ul">
+            <li className="list-inline-item list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />Responsive</li>
+            <li className="list-inline-item list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />5-star support</li>
+            <li className="list-inline-item list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />Constant updates</li>
         </ul>
         {/* End List Checked */}
         </div>
@@ -53,13 +55,13 @@ function ThirdSection() {
             </div>
             {/* End Heading */}
             {/* List Checked */}
-            <ul className="list-checked list-checked-primary mb-5">
-            <li className="list-checked-item">Less routine – more creativity</li>
-            <li className="list-checked-item">Hundreds of thousands saved</li>
-            <li className="list-checked-item">Scale budgets efficiently</li>
+            <ul className="list-checked list-checked-primary mb-5 routine">
+            <li className="list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />Less routine – more creativity</li>
+            <li className="list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />Hundreds of thousands saved</li>
+            <li className="list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />Scale budgets efficiently</li>
             </ul>
             {/* End List Checked */}
-            <a className="btn btn-primary" href="#">Get started</a>
+            <a className="btn btn-primary started" href="#">Get started</a>
             <hr className="my-5" />
             <span className="d-block">Trusted by leading companies</span>
             <div className="row">

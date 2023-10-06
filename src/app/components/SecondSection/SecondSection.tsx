@@ -15,7 +15,7 @@ const SecondSection = (): ReactElement => {
             <h2>Learn to develop sites with components and design systems</h2>
             <div className="top-container">
                 <div>
-                    <Image src={check} alt='checkmark' width={20} height={20}/>
+                    <Image src={check} alt='checkmark' width={20} height={20} />
                     Asynchronous collaboration
                 </div>
                 <div>
@@ -29,39 +29,45 @@ const SecondSection = (): ReactElement => {
             </div>
             <div className="card-container">
                 <div className="card">
-                    <Image src={img1} alt='card image' />
-                    <h2>front App</h2>
-                    <p>Front App is an easier way to search on Android.</p>
+                    <div className='topPart'>
+                        <Image src={img1} alt='card image' />
+                        <h2>front App</h2>
+                        <p>Front App is an easier way to search on Android.</p>
+                    </div>
                     <div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Advanced Analytics</div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Digital Marketing</div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Organisation</div>
+                        <div><Image src={rightarrow} alt='right arrow'/><p>Advanced Analytics</p></div>
+                        <div><Image src={rightarrow} alt='right arrow'/><p>Digital Marketing</p></div>
+                        <div><Image src={rightarrow} alt='right arrow'/><p>Organisation</p></div>
                     </div>
                     <div className='more'>
                         Learn more <Image src={rightarrow} alt='right arrow'/>
                     </div>
                 </div>
                 <div className="card">
-                    <Image src={img2} alt='card image' />
-                    <h2>Front Chat</h2>
-                    <p>Front Chat is a new way to communicate with your team.</p>
+                    <div className='topPart'>
+                        <Image src={img2} alt='card image' />
+                        <h2>Front Chat</h2>
+                        <p>Front Chat is a new way to communicate with your team.</p>
+                    </div>
                     <div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Cost Transformation</div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Customer Experience</div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Mergers and Acquisitions</div>                    
+                        <div><Image src={rightarrow} alt='right arrow'/><p>Cost Transformation</p></div>
+                        <div><Image src={rightarrow} alt='right arrow'/><p>Customer Experience</p></div>
+                        <div><Image src={rightarrow} alt='right arrow'/><p>Mergers and Acquisitions</p></div>                    
                     </div>
                     <div className='more'>
                         Learn more <Image src={rightarrow} alt='right arrow'/>
                     </div>
                 </div>
                 <div className="card">
-                    <Image src={img3} alt='card image' />
-                    <h2>Front Calendar</h2>
-                    <p>Discover an easier way to manage contacts.</p>
+                    <div className='topPart'>
+                        <Image src={img3} alt='card image' />
+                        <h2>Front Calendar</h2>
+                        <p>Discover an easier way to manage contacts. sales and grow lasting relationships.</p>
+                    </div>
                     <div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Enterprise Technology</div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Private Equity</div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Sustainability</div>                      
+                        <div><Image src={rightarrow} alt='right arrow'/><p>Enterprise Technology</p></div>
+                        <div><Image src={rightarrow} alt='right arrow'/><p>Private Equity</p></div>
+                        <div><Image src={rightarrow} alt='right arrow'/><p>Sustainability</p></div>                      
                     </div>
                     <div className='more'>
                         Learn more <Image src={rightarrow} alt='right arrow'/>
