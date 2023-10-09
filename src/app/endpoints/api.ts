@@ -6,8 +6,6 @@ import {ICompanyRegister } from '../interfaces/organisation';
 const url = "https://viconet-vercel.vercel.app";
 const renderUrl = "http://localhost:8080";
 
-
-
 export async function registerUser(payload:IUser) {
   try {
     const response = await axios.post(`${url}/api/users`, payload);
@@ -29,26 +27,24 @@ export async function registerUser(payload:IUser) {
 }
 
 export async function UserLogin(payload:IUserLogin) {
-    try {
-      const response = await axios.post(`${url}/api/login`, payload);
-  
-      if (response.status === 200 || response.status === 201) {
-        // Registration successful, you can redirect the user or show a success message.
-        console.log('login successful');
-        return true;
-      } else {
-        // Registration failed, handle error (e.g., display error message).
-        console.error('login failed');
-        return false;;
-      }
-    } catch (error) {
-      // Handle network or other errors
-      console.error('Error:', error);
-      return false;
-    }
-  }
-  
+  try {
+    const response = await axios.post(`${url}/api/login`, payload);
 
+    if (response.status === 200 || response.status === 201) {
+      // Registration successful, you can redirect the user or show a success message.
+      console.log('login successful');
+      return true;
+    } else {
+      // Registration failed, handle error (e.g., display error message).
+      console.error('login failed');
+      return false;;
+    }
+  } catch (error) {
+    // Handle network or other errors
+    console.error('Error:', error);
+    return false;
+  }
+}
 
 export async function resetPassword(payload:IUserResetPassword) {
     try {
@@ -79,14 +75,25 @@ export async function sendOTP(payload:IUserSendOTP) {
       if (response.status === 200 || response.status === 201) {
         // Registration successful, you can redirect the user or show a success message.
         console.log('otp sent successful');
-        if( response.data._doc){
+        if ( response.data._doc){
             return response.data._doc;
+<<<<<<< HEAD
         }else{
          
           return response.data.code
         }
 
+=======
+        } else {
+          return false;
+        }
+
+      } else {
+        // Registration failed, handle error (e.g., display error message).
+        return false;
+>>>>>>> 42ad053e98c9e2167d794741094923a88551c6ca
       }
+      
     } catch (error) {
       // Handle network or other errors
       console.error('Error:', error);

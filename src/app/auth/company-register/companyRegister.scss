@@ -1,6 +1,10 @@
 .companyRegister {
     position: relative;
     top: 100px;
+
+    & button {
+        border: none;
+    }
 }
 .display-4{
     font-size: calc(1.475rem + 2.7vw);
@@ -86,6 +90,7 @@
         width: 70%;
         margin: 0 auto;
         height: 40px;
+        border: none;
     }
 }
 
