@@ -4,7 +4,7 @@ import { IUser, IUserLogin, IUserResetPassword, IUserSendOTP } from '../interfac
 import {ICompanyRegister } from '../interfaces/organisation';
 
 const url = "https://viconet-vercel.vercel.app";
-// const renderUrl = "https://fraktional-web-backend.onrender.com";
+const renderUrl = "http://localhost:8080";
 
 
 
@@ -52,7 +52,7 @@ export async function UserLogin(payload:IUserLogin) {
 
 export async function resetPassword(payload:IUserResetPassword) {
     try {
-      const response = await axios.post(`${url}/api/user/resetPassword`, payload);
+      const response = await axios.post(`${renderUrl}/api/user/resetPassword`, payload);
   
       if (response.status === 200 || response.status === 201) {
         // Registration successful, you can redirect the user or show a success message.
@@ -74,7 +74,7 @@ export async function resetPassword(payload:IUserResetPassword) {
 
 export async function sendOTP(payload:IUserSendOTP) {
     try {
-      const response = await axios.post(`${url}/api/user/sendOTP`, payload);
+      const response = await axios.post(`${renderUrl}/api/user/sendOTP`, payload);
   
       if (response.status === 200 || response.status === 201) {
         // Registration successful, you can redirect the user or show a success message.
@@ -82,15 +82,9 @@ export async function sendOTP(payload:IUserSendOTP) {
         if( response.data._doc){
             return response.data._doc;
         }else{
-            return false;
-
+         
+          return response.data.code
         }
-
-      } else {
-        // Registration failed, handle error (e.g., display error message).
-     
-        return false;
-      
 
       }
     } catch (error) {

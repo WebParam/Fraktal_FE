@@ -2,6 +2,11 @@
     position: relative;
     top: 100px;
 }
+.display-4{
+    font-size: calc(1.475rem + 2.7vw);
+    font-weight: 600;
+    line-height: 1.2;
+}
 
 .launching-text {
     margin: 100px 0 200px;
@@ -20,6 +25,7 @@
         display: flex;
         gap: 10px;
         flex-wrap: wrap;
+        
 
         & .mb-4 {
             max-width: 250px;

@@ -11,10 +11,11 @@ import loginImage from '../../../assets/additional/loginImage.jpg';
 import axios from 'axios';
 import { resetPassword, sendOTP } from '@/app/endpoints/api';
 import { IUserResetPassword, IUserSendOTP } from '@/app/interfaces/user';
+import './incorrectOtp.css'
 
 function OTP() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState();
   const [confirmedpassword, setConfirmedPassword] = useState('');
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [weakPasswordError, setWeakPasswordError] = useState<boolean>(false);
@@ -42,35 +43,41 @@ function OTP() {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const value = e.target.value;
-
+  
     if (/^[0-9]$/.test(value)) {
       const newOtpValues = [...otpValues];
       newOtpValues[index] = value;
       setOtpValues(newOtpValues);
-
+  
       if (index < 4 && inputRefs[index + 1].current) {
         inputRefs[index + 1].current?.focus();
       }
+  
+      // Remove the "incorrect" class when a valid input is entered
+      e.target.classList.remove('incorrect');
     } else {
       // Clear the input if the value is not a number
       const newOtpValues = [...otpValues];
       newOtpValues[index] = '';
       setOtpValues(newOtpValues);
-
+  
       // Optionally, you can move focus back to the previous input
       if (index > 0 && inputRefs[index - 1].current) {
         inputRefs[index - 1].current?.focus();
       }
+  
+      // Add the "incorrect" class to trigger the animation
+      e.target.classList.add('incorrect');
     }
   };
-
+  
   //Reseting the password 
   const handleSubmitNewPass = async (e: any) => {
     e.preventDefault();
 
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
 
-    if(password !== ""){
+    if(!password){
       setEmptypasswordError(true)
       return
     }
@@ -90,11 +97,11 @@ function OTP() {
      try {
       const changePassword = await resetPassword({email:email, password:password, otp:otp} as IUserResetPassword); // Rename the constant
       if(changePassword){
-              console.log('Registration successful');
+              console.log('reset password successful');
         router.push('/auth/login');
             
       }else{
-          console.error('Registration failed');
+          console.error('reset password failed');
       }
     } catch (error) {
         console.error('Error:', error);
@@ -151,7 +158,7 @@ function OTP() {
 
         setRegEmailError(false);
         setUserDetails(onSubmitOTP);
-      }else if (onSubmitOTP == false) {
+      }else if (onSubmitOTP == 400) {
         setEmailError(false);
 
         setRegEmailError(true);
@@ -210,19 +217,21 @@ function OTP() {
               <span className='cta'><Link href='/auth/reset'><i className="bi bi-chevron-left"></i>Back to reset password</Link></span>
             </label>
             <div className='otpInputs'>
-      {inputRefs.map((ref, index) => (
-        <input
-          key={index}
-          type="text"
-          id={`input${index + 1}`}
-          maxLength={1}
-          ref={ref}
-          value={otpValues[index]}
-          onChange={(e) => handleInputChange(e, index)}
-          required
-        />
-      ))}
-    </div>
+  {inputRefs.map((ref, index) => (
+    <input
+      key={index}
+      type="text"
+      id={`input${index + 1}`}
+      maxLength={1}
+      ref={ref}
+      value={otpValues[index]}
+      onChange={(e) => handleInputChange(e, index)}
+      className={`otpInput ${otpValues[index] !== '' ? 'incorrect' : ''}`}
+      required
+    />
+  ))}
+</div>
+
           </div>
           <button>Submit</button>
         </form>
@@ -255,13 +264,14 @@ function OTP() {
           <form onSubmit={handleSubmitNewPass}>
             <div>
               <label htmlFor="password">New Password{passwordError && <span style={{marginRight: "12em", color: "tomato", fontWeight: 600, fontSize: "small"}}>* passwords do not match</span>}
-              {weakPasswordError && <span style={{color: "tomato", fontWeight: 600, fontSize: "small"}}>* password must contain at least 8 characters</span>}</label>
+              {weakPasswordError && <span style={{color: "tomato", fontWeight: 600, fontSize: "small"}}>* weak password</span>}</label>
               <input style={inputPasswordStyle}
                 type="password"
                 name="password"
                 placeholder="8+ characters required"
                 value={password}
                 onChange={(e: any) => {
+                  setEmptypasswordError(false)
                     setPassword(e.target.value);
                   }}
               />
@@ -275,6 +285,7 @@ function OTP() {
                 placeholder="8+ characters required"
                 value={confirmedpassword}
                 onChange={(e: any) => {
+                  setEmptypasswordError(false)
                     setConfirmedPassword(e.target.value);
                   }}
               />

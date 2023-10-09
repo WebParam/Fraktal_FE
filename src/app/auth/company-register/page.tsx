@@ -15,6 +15,7 @@ import Image from 'next/image';
 import axios from 'axios';
 import { registerOrganisation } from '@/app/endpoints/api';
 import { ICompanyRegister } from '@/app/interfaces/organisation';
+import dynamic from 'next/dynamic';
 
 
 function CompanyRegester() {
@@ -188,12 +189,13 @@ function CompanyRegester() {
                     {/* End Col */}
                     <div className="col-lg-6">
                       {/* Form */}
+                      <div className="card-header border-bottom text-center">
+                            <h4 className="card-header-title">Try it free for 7 days <span className="badge text-dark rounded-pill startingPrice" style={{backgroundColor: 'lightpink'}}>starting at $59</span></h4>
+                          </div>
                       <form className="js-validate needs-validation company-form" onSubmit={handleSubmit}>
                         {/* Card */}
                         <div className="card">
-                          <div className="card-header border-bottom text-center">
-                            <h4 className="card-header-title">Try it free for 7 days <span className="badge text-dark rounded-pill startingPrice" style={{backgroundColor: 'lightpink'}}>starting at $59</span></h4>
-                          </div>
+                        
                           <div className="card-body form-body">
                             <div className="inputs-container">
                               <div className="mb-4">
@@ -363,13 +365,19 @@ function CompanyRegester() {
                         {/* End Card */}
                       </form>
                       {/* End Form */}
+                  
                     </div>
                     {/* End Col */}
                   </div>
                   {/* End Row */}
+
                 </div>
                 {/* End Hero */}
                 {/* Icon Blocks */}
+             
+             
+             
+             
                 <div id="aboutSection" className="container content-space-t-2 content-space-t-lg-3">
                   {/* Heading */}
                   <div className="w-lg-75 text-center mx-auto mb-5 mb-sm-9">
@@ -428,6 +436,8 @@ function CompanyRegester() {
                 </div>
                 {/* End Icon Blocks */}
                 {/* Devices */}
+              
+              
                 <div className="container">
                   <div className="w-75 mx-auto mb-7">
                     <Image className="img-fluid" src={threePointers} alt="SVG Arrow" />
@@ -465,6 +475,9 @@ function CompanyRegester() {
                 </div>
                 {/* End Devices */}
                 {/* Feature Stats */}
+               
+               
+               
                 <div className="content-space-2 content-space-lg-3 content">
                   <div className="rounded-2 mx-3 mx-xl-10">
                     <div className="container content-space-2 content-container">
@@ -1546,4 +1559,5 @@ function CompanyRegester() {
         }
     
 
-export default CompanyRegester;
+
+export default dynamic (() => Promise.resolve(CompanyRegester), {ssr: false})
