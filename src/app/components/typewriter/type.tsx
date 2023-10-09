@@ -5,7 +5,7 @@ import Typed from 'typed.js';
 function Type() {
   useEffect(() => {
     const options = {
-      strings: ["startup.", "future.", "success."],
+      strings: ["Developer", "Gig"],
       typeSpeed: 90,
       loop: true,
       backSpeed: 90,
@@ -19,7 +19,7 @@ function Type() {
   }, []);
 
   return (
-    <span className="js-typedjs" style={{color: '#FD2DC3', caretColor: '#FD2DC3'}}>future.</span>
+    <span className="js-typedjs" style={{color: '#FD2DC3', caretColor: '#FD2DC3'}}>Developer</span>
   );
 }
 

@@ -15,15 +15,15 @@ function ThirdSection() {
     <div className="position-relative bg-light rounded-2 mx-3 mx-lg-10 thirdsection">
         <div className="container content-space-2 content-space-lg-3">
         <div className="w-md-75 w-lg-50 text-center mx-md-auto mb-5">
-        <h2 className='wow'>Wow your audience from the first second</h2>
-        <p>The powerful and flexible theme for all kinds of businesses</p>
+        <h2 className='wow'>Fraktional.dev: Where Capacity Meets Flexibility</h2>
+        <p>Unlock tailored tech opportunities, balance costs, and connect effortlessly through Fraktional.</p>
         </div>
         <div className="text-center mb-10 ">
         {/* List Checked */}
         <ul className="list-inline list-checked list-checked-primary top-ul">
-            <li className="list-inline-item list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />Responsive</li>
-            <li className="list-inline-item list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />5-star support</li>
-            <li className="list-inline-item list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />Constant updates</li>
+            <li className="list-inline-item list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />Flexible.</li>
+            <li className="list-inline-item list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />Reliable.</li>
+            <li className="list-inline-item list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />Efficient</li>
         </ul>
         {/* End List Checked */}
         </div>
@@ -50,15 +50,15 @@ function ThirdSection() {
         <div className="col-lg-5">
             {/* Heading */}
             <div className="mb-4">
-            <h2>Collaborative tools to design user experience</h2>
-            <p>We help businesses bring ideas to life in the digital world, by designing and implementing the technology tools that they need to win.</p>
+            <h2>Are You Settling for Rigid Tech Resourcing?</h2>
+            <p>Don't be confined by traditional hiring practices. With Fraktional, dive into a dynamic pool of tech expertise tailored to your immediate project needs.</p>
             </div>
             {/* End Heading */}
             {/* List Checked */}
             <ul className="list-checked list-checked-primary mb-5 routine">
-            <li className="list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />Less routine – more creativity</li>
-            <li className="list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />Hundreds of thousands saved</li>
-            <li className="list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />Scale budgets efficiently</li>
+            <li className="list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />24 hour turnaround</li>
+            <li className="list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />Specialist Skills</li>
+            <li className="list-checked-item"><Image src={check} alt='checkmark' width={20} height={20} />30 Days Onboarding</li>
             </ul>
             {/* End List Checked */}
             <a className="btn btn-primary started" href="#">Get started</a>

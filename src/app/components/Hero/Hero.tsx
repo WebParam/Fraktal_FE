@@ -13,8 +13,8 @@ const Hero = (): ReactElement => {
   return (
     <section className='hero'>
       <div className="hero-texts">
-        <h1>Turn your ideas into a <span className="hero-texts_animate"><Type /></span></h1>
-        <p>Front's feature-rich designed demo pages help you create the best possible product.</p>
+        <h1>Looking for a Fraktional <span className="hero-texts_animate"><Type /></span></h1>
+        <p>We connect developers and organizations with each other for short to medium term projects</p>
         <div className="hero-texts_buttons">
      
         <button>
