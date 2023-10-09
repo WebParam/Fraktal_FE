@@ -1,6 +1,10 @@
 .companyRegister {
     position: relative;
     top: 100px;
+
+    & button {
+        border: none;
+    }
 }
 
 .launching-text {
@@ -80,6 +84,7 @@
         width: 70%;
         margin: 0 auto;
         height: 40px;
+        border: none;
     }
 }
 

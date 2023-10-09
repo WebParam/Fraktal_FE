@@ -5,16 +5,18 @@ import "./Signin.scss";
 import Image from "next/image";
 import logo from "../../../assets/img/logo.png";
 import loginImage from "../../../assets/additional/loginImage.jpg";
-import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { UserLogin } from "@/app/endpoints/api";
 import { IUserLogin } from "@/app/interfaces/user";
+
+
 function SignIn() {
   const [formData, setFormData] = useState<IUserLogin>({
     email: "",
     password: "",
   });
+  
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [invaliLoginError, setInvalidLoginError] = useState<boolean>(false);
