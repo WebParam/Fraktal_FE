@@ -48,6 +48,13 @@ function pricing() {
       "fixEffect": "slide"
     }'
   >
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css?family=Poppins"
+          rel="stylesheet"
+        />
+
     {/* Topbar */}
     <div className="container navbar-topbar">
       <nav className="js-mega-menu navbar-nav-wrap">
@@ -1240,7 +1247,7 @@ function pricing() {
               <input
                 className="js-toggle-switch form-check-input"
                 type="checkbox"
-                defaultChecked=""
+                // defaultChecked=""
                 data-hs-toggle-switch-options='{
                  "targetSelector": "#pricingCount1, #pricingCount2, #pricingCount3"
                }'

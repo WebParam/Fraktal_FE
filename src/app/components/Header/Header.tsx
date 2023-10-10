@@ -18,7 +18,16 @@ const Header = memo(({ menuTogglerFunction, menuTogglerValue }: HeaderProps): Re
   };
 
   return (
-    <header className='header'>
+    <>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css?family=Poppins"
+          rel="stylesheet"
+        />
+
+        <header className='header'>
       <Link href="/">
         <Image src={logo} alt="logo" priority={true} />
       </Link>
@@ -119,6 +128,10 @@ const Header = memo(({ menuTogglerFunction, menuTogglerValue }: HeaderProps): Re
         <span></span>
       </div>
     </header>
+
+    </>
+
+
   );
 });
 

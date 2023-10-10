@@ -15,12 +15,22 @@ import ThirdSection from "./components/thirdSection/ThirdSection";
 export default function HomePage() {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
 
+
+  
   const removeMenu = () => {
     setMenuToggler(prev => false);
   }
 
   return (
     <>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css?family=Poppins"
+          rel="stylesheet"
+        />
+        
       <Header 
         menuTogglerFunction={setMenuToggler} 
         menuTogglerValue={menuToggler} 
