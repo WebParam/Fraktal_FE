@@ -40,7 +40,7 @@ export default function RootLayout({
 
 
 
-      <body className={inter.className}>
+      <body >
          
         <>
           {/* ========== HEADER ========== */}
@@ -727,7 +727,9 @@ export default function RootLayout({
           </header>
         </>
 
-        {children}</body>
+        {children}
+        
+        </body>
     </html>
   )
 }
