@@ -44,8 +44,8 @@ export default function HomePage() {
                   <p className="lead">We connect developers and organizations with each other for short to medium term projects.</p>
                 </div>
                 <div className="d-grid d-sm-flex gap-3">
-                  <a className="btn btn-primary btn-transition px-6" href="./page-login-simple.html">Get started</a>
-                  <a className="btn btn-link" href="#">Learn more <i className="bi-chevron-right small ms-1" /></a>
+                  <a className="btn btn-primary btn-transition px-6 getStarted" href="./page-login-simple.html">Get started</a>
+                  <a className="btn btn-link learnmore" href="#">Learn more <i className="bi-chevron-right small ms-1" /></a>
                 </div>
               </div>
               {/* End Col */}
@@ -162,7 +162,7 @@ export default function HomePage() {
       {/* End Card Grid */}
       {/* Features */}
       <div className="position-relative bg-light rounded-2 mx-3 mx-lg-10">
-        <div className="container content-space-2 content-space-lg-3">
+        <div className="container content-space-2 content-space-lg-3 fraktionalDev">
           {/* Heading */}
           <div className="w-md-75 w-lg-50 text-center mx-md-auto mb-5">
             <h2>Fraktional.dev: Where Capacity Meets Flexibility</h2>
@@ -213,7 +213,7 @@ export default function HomePage() {
                 <li className="list-checked-item">30 Days Onboarding</li>
               </ul>
               {/* End List Checked */}
-              <a className="btn btn-primary" href="#">Get started</a>
+              <a className="btn btn-primary getStarted" href="#">Get started</a>
               <hr className="my-5" />
               <span className="d-block">Trusted by leading companies</span>
               <div className="row">
@@ -276,7 +276,7 @@ export default function HomePage() {
       </div>
       {/* End Testimonials */}
       {/* Stats */}
-      <div className="bg-light rounded-2 mx-3 mx-lg-10">
+      <div className="stats rounded-2 mx-3 mx-lg-10">
         <div className="container content-space-2">
           <div className="row justify-content-center">
             <div className="col-sm-6 col-md-4 mb-7 mb-md-0">
@@ -326,7 +326,7 @@ export default function HomePage() {
                 <Image className="card-img" src={card4} alt="Image Description" />
                 <div className="card-body">
                   <span className="card-subtitle text-body">Read the blog</span>
-                  <h4 className="card-title text-inherit">Expert Matching:</h4>
+                  <h4 className="card-title">Expert Matching:</h4>
                   <p className="card-text text-body">Connect companies with top-tier developers tailored to project needs.</p>
                 </div>
               </a>
@@ -339,7 +339,7 @@ export default function HomePage() {
                 <Image className="card-img" src={card5} alt="Image Description" />
                 <div className="card-body">
                   <span className="card-subtitle text-body">Read the blog</span>
-                  <h4 className="card-title text-inherit">Streamlined Process:</h4>
+                  <h4 className="card-title">Streamlined Process:</h4>
                   <p className="card-text text-body">Simplify tech resourcing through our efficient, user-friendly platform.</p>
                 </div>
               </a>
@@ -352,7 +352,7 @@ export default function HomePage() {
                 <Image className="card-img" src={card6} alt="Image Description" />
                 <div className="card-body">
                   <span className="card-subtitle text-body">Learn about other solutions</span>
-                  <h4 className="card-title text-inherit">Flexible Engagements:</h4>
+                  <h4 className="card-title">Flexible Engagements:</h4>
                   <p className="card-text text-body">Offer adaptable commitments, from fractional to full project involvement.</p>
                 </div>
               </a>
@@ -366,7 +366,7 @@ export default function HomePage() {
         <div className="text-center">
           <div className="card card-info-link card-sm">
             <div className="card-body">
-              Want to read more? <a className="card-link ms-2" href="#">Go here <span className="bi-chevron-right small ms-1" /></a>
+              Want to read more? <a className="card-link ms-2" href="#" style={{color: '#FD2DC3'}}>Go here <span className="bi-chevron-right small ms-1" /></a>
             </div>
           </div>
         </div>
