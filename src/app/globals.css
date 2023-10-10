@@ -6,13 +6,7 @@
 
 @font-face {
     font-family: 'Avenir';
-    src: url('../assets/fonts//avenir_ff/AvenirLTStd-Black.otf');
-}
-
-
-* {
-    color: #4B4C4E;
-    font-family: 'Poppins';
+    src: url('../assets/fonts//avenir_ff/AvenirLTStd-Book.otf');
 }
 
 a {

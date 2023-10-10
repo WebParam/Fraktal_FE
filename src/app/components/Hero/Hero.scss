@@ -25,14 +25,13 @@
             font-size: calc(1.5em + 2.7vw);
             line-height: 1.2;
             margin-bottom: 2rem;
-            font-family: 'Poppins';
 
             @media (min-width: 640px) {
-            font-size: calc(1.2rem + 3.7vw);
+            font-size: calc(.8rem + 3vw);
             }
 
             & .hero-texts_animate {
-                color: #FD2DC3;
+                color: #FD2DC3 !important;
                 padding-bottom: -5px;
                 border-bottom: 10px solid lightpink;
                 transition: opacity 0.3s ease-in-out;
@@ -41,13 +40,13 @@
 
         & p {
             font-size: calc(1.25625rem + .075vw);
-            font-weight: 400;
+            font-weight: 200;
             margin-top: 0;
             margin-bottom: 1rem;
-            font-family: 'Avenir';
 
             @media (min-width: 640px) {
-                font-size: calc(1.5rem + .075vw);
+                font-size: 1.5rem;
+                max-width: 85%;
             }
         }
 
@@ -62,7 +61,7 @@
                 flex-direction: row;
                 align-items: center;
                 justify-content: flex-start;
-                width: 70%;
+                width: 65%;
             }
 
             & > button {
@@ -74,6 +73,10 @@
                 @media (min-width: 640px) {
                     width: 40%;
                     align-items: flex-start;
+                }
+
+                & > a {
+                    color: #fff !important;
                 }
             }
 
@@ -87,6 +90,7 @@
                 width: 280px;
                 height: 40px;
                 margin: 10px 0;
+                color: #FD2DC3 !important;
             }
         }
     }
@@ -103,9 +107,10 @@
         &_container {
             position: relative;
             bottom: 40px;
-            left: 40px;
+            left: 50px;
             width: 100%;
-            height: 90%;
+            height: 80%;
+            transform: scaleX(1.5);
             border-radius: 50% 0 0 50%;
             transform: rotate(-40deg);
             overflow: hidden;
@@ -118,6 +123,7 @@
                 position: relative;
                 top: 50px; 
                 transform: rotate(-40deg);
+                z-index: 10;
             }
         }
 

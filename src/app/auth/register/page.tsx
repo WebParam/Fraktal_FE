@@ -266,12 +266,10 @@ function Register() {
       <ToastContainer />
 
       <div className="top">
-        <Image src={logo} alt="logo" />
-        <h3>
-          <Link href="/">
-            <i className="bi bi-chevron-left"></i>Go to main
-          </Link>
-        </h3>
+      <Link href= "/"> <Image style={{   cursor: "pointer"}} src={logo} alt="logo" /></Link> 
+        <Link href="/">
+          <i className="bi bi-chevron-left"></i>Go to main
+        </Link>
       </div>
 
       <div className="registerMain">

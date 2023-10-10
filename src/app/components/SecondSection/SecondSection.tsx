@@ -12,56 +12,62 @@ import img3 from '../../../assets/img/480x220/img3.jpg';
 const SecondSection = (): ReactElement => {
     return (
         <section className="secondSection">
-            <h2>Learn to develop sites with components and design systems</h2>
+            <h2>Expertise Across Domains: Transforming Tech, Data, and Intelligence</h2>
             <div className="top-container">
                 <div>
-                    <Image src={check} alt='checkmark' width={20} height={20}/>
-                    Asynchronous collaboration
+                    <Image src={check} alt='checkmark' width={20} height={20} />
+                    Innovate. Implement. Inspire.
                 </div>
                 <div>
                     <Image src={check} alt='checkmark' width={20} height={20}/>
-                    Updates and announcements 
+                    Analyze. Architect. Advance
                 </div>
                 <div>
                     <Image src={check} alt='checkmark' width={20} height={20}/>
-                    Training and team building
+                    Discover. Decode. Dominate.
                 </div>
             </div>
             <div className="card-container">
                 <div className="card">
-                    <Image src={img1} alt='card image' />
-                    <h2>front App</h2>
-                    <p>Front App is an easier way to search on Android.</p>
+                    <div className='topPart'>
+                        <Image src={img1} alt='card image' />
+                        <h2>Software Developers:</h2>
+                        <p>Building dynamic applications across platforms for optimal user experiences.</p>
+                    </div>
                     <div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Advanced Analytics</div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Digital Marketing</div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Organisation</div>
+                        <div><Image src={rightarrow} alt='right arrow'/><p>Full-Stack Developer</p></div>
+                        <div><Image src={rightarrow} alt='right arrow'/><p>Mobile Developer</p></div>
+                        <div><Image src={rightarrow} alt='right arrow'/><p>QA Testor</p></div>
                     </div>
                     <div className='more'>
                         Learn more <Image src={rightarrow} alt='right arrow'/>
                     </div>
                 </div>
                 <div className="card">
-                    <Image src={img2} alt='card image' />
-                    <h2>Front Chat</h2>
-                    <p>Front Chat is a new way to communicate with your team.</p>
+                    <div className='topPart'>
+                        <Image src={img2} alt='card image' />
+                        <h2>Data Engineering:</h2>
+                        <p>Crafting robust data infrastructures to drive informed business decisions.</p>
+                    </div>
                     <div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Cost Transformation</div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Customer Experience</div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Mergers and Acquisitions</div>                    
+                        <div><Image src={rightarrow} alt='right arrow'/><p>Big Data Specialist</p></div>
+                        <div><Image src={rightarrow} alt='right arrow'/><p>Cloud Specialist</p></div>
+                        <div><Image src={rightarrow} alt='right arrow'/><p>Data Analysts</p></div>                    
                     </div>
                     <div className='more'>
                         Learn more <Image src={rightarrow} alt='right arrow'/>
                     </div>
                 </div>
                 <div className="card">
-                    <Image src={img3} alt='card image' />
-                    <h2>Front Calendar</h2>
-                    <p>Discover an easier way to manage contacts.</p>
+                    <div className='topPart'>
+                        <Image src={img3} alt='card image' />
+                        <h2>AI/ML Engineers:</h2>
+                        <p>Designing intelligent systems that learn, adapt, and predict outcomes.</p>
+                    </div>
                     <div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Enterprise Technology</div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Private Equity</div>
-                        <div><Image src={rightarrow} alt='right arrow'/>Sustainability</div>                      
+                        <div><Image src={rightarrow} alt='right arrow'/><p>Machine Learning specialist</p></div>
+                        <div><Image src={rightarrow} alt='right arrow'/><p>Natural Language Processing</p></div>
+                        <div><Image src={rightarrow} alt='right arrow'/><p>Predictive Analytics</p></div>                      
                     </div>
                     <div className='more'>
                         Learn more <Image src={rightarrow} alt='right arrow'/>

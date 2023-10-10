@@ -15,24 +15,25 @@ const Discover = (): ReactElement => {
         <section className="discover">
             <h2>Discover more</h2>
             <div className="card-container">
+            <div className="card">
+                    <Image src={img3} alt='card image' />
+                    <p>LEARN ABOUT OTHER SOLUTION</p>
+                    <h2>Expert Matching:</h2>
+                    <p>Connect companies with top-tier developers tailored to project needs.</p>
+                </div>
                 <div className="card">
                     <Image src={img1} alt='card image' />
                     <p>READ THE BLOG</p>
-                    <h2>Have a meaningful impact</h2>
-                    <p>Opportunities to Front who have proven to be good at executing on them.</p>
+                    <h2>Streamlined Process:</h2>
+                    <p>Simplify tech resourcing through our efficient, user-friendly platform.</p>
                 </div>
                 <div className="card">
                     <Image src={img2} alt='card image' />
                     <p>READ THE BLOG</p>
-                    <h2>Documentation</h2>
-                    <p>Whether you're a startup or a global enterprise, learn how to  intergrate with a front.</p>
+                    <h2>Flexible Engagements:</h2>
+                    <p>Offer adaptable commitments, from fractional to full project involvement.</p>
                 </div>
-                <div className="card">
-                    <Image src={img3} alt='card image' />
-                    <p>LEARN ABOUT OTHER SOLUTION</p>
-                    <h2>Explore the snippets tool</h2>
-                    <p>Quickly Front sample components, copy-paste codes.</p>
-                </div>
+                
             </div>
             <div className="readmore">
                 <p>Want to read more? </p>
