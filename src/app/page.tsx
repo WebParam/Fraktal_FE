@@ -31,10 +31,10 @@ export default function HomePage() {
               <div className="col-lg-5">
                 <div className="mb-5">
                   <h1 className="display-4 mb-3">
-                    Turn your ideas into a
+                    Looking for a Fraktional
                     <span className="text-primary text-highlight-warning">
                       <span className="js-typedjs" data-hs-typed-options="{
-                        &quot;strings&quot;: [&quot;startup.&quot;, &quot;future.&quot;, &quot;success.&quot;],
+                        &quot;strings&quot;: [&quot;Developer.&quot;, &quot;Gig.&quot;],
                         &quot;typeSpeed&quot;: 90,
                         &quot;loop&quot;: true,
                         &quot;backSpeed&quot;: 30,
@@ -42,7 +42,7 @@ export default function HomePage() {
                       }" />
                     </span>
                   </h1>
-                  <p className="lead">Front's feature-rich designed demo pages help you create the best possible product.</p>
+                  <p className="lead">We connect developers and organizations with each other for short to medium term projects.</p>
                 </div>
                 <div className="d-grid d-sm-flex gap-3">
                   <a className="btn btn-primary btn-transition px-6" href="./page-login-simple.html">Get started</a>
@@ -78,15 +78,15 @@ export default function HomePage() {
       <div className="container content-space-2 content-space-t-xl-3 content-space-b-lg-3">
         {/* Heading */}
         <div className="w-md-75 w-lg-50 text-center mx-md-auto mb-5">
-          <h2>Learn to develop sites with components and design systems</h2>
+          <h2>Expertise Across Domains: Transforming Tech, Data, and Intelligence</h2>
         </div>
         {/* End Heading */}
         <div className="text-center mb-10">
           {/* List Checked */}
           <ul className="list-inline list-checked list-checked-primary">
-            <li className="list-inline-item list-checked-item">Asynchronous collaboration</li>
-            <li className="list-inline-item list-checked-item">Updates and announcements</li>
-            <li className="list-inline-item list-checked-item">Training and team building</li>
+            <li className="list-inline-item list-checked-item">Innovate. Implement. Inspire.</li>
+            <li className="list-inline-item list-checked-item">Analyze. Architect. Advance</li>
+            <li className="list-inline-item list-checked-item">Discover. Decode. Dominate.</li>
           </ul>
           {/* End List Checked */}
         </div>
@@ -98,13 +98,13 @@ export default function HomePage() {
                 <Image className="card-img" src={card1} alt="Image Description" />
               </div>
               <div className="card-body">
-                <h4 className="card-title">Front App</h4>
-                <p className="card-text">Front App is an easier way to search on Android.</p>
+                <h4 className="card-title">Software Developers:</h4>
+                <p className="card-text">Building dynamic applications across platforms for optimal user experiences.</p>
                 {/* List Pointer */}
                 <ul className="list-pointer mb-0">
-                  <li className="list-pointer-item">Advanced Analytics</li>
-                  <li className="list-pointer-item">Digital Marketing</li>
-                  <li className="list-pointer-item">Organization</li>
+                  <li className="list-pointer-item">Full-Stack Developer</li>
+                  <li className="list-pointer-item">Mobile Developer</li>
+                  <li className="list-pointer-item">QA Testor</li>
                 </ul>
                 {/* End List Pointer */}
               </div>
@@ -120,13 +120,13 @@ export default function HomePage() {
                 <Image className="card-img" src={card2} alt="Image Description" />
               </div>
               <div className="card-body">
-                <h4 className="card-title">Front Chat</h4>
-                <p className="card-text">Front Chat is a new way to communicate with your team.</p>
+                <h4 className="card-title">Data Engineering:</h4>
+                <p className="card-text">Crafting robust data infrastructures to drive informed business decisions.</p>
                 {/* List Pointer */}
                 <ul className="list-pointer mb-0">
-                  <li className="list-pointer-item">Cost Transformation</li>
-                  <li className="list-pointer-item">Customer Experience</li>
-                  <li className="list-pointer-item">Mergers and Acquisitions</li>
+                  <li className="list-pointer-item">Big Data Specialist</li>
+                  <li className="list-pointer-item">Cloud Specialist</li>
+                  <li className="list-pointer-item">Data Analyst</li>
                 </ul>
                 {/* End List Pointer */}
               </div>
@@ -142,13 +142,13 @@ export default function HomePage() {
                 <Image className="card-img" src={card3} alt="Image Description" />
               </div>
               <div className="card-body">
-                <h4 className="card-title">Front Calendar</h4>
-                <p className="card-text">Discover an easier way to manage contacts, sales and grow lasting relationships.</p>
+                <h4 className="card-title">AI/ML Engineers:</h4>
+                <p className="card-text">Designing intelligent systems that learn, adapt, and predict outcomes.</p>
                 {/* List Pointer */}
                 <ul className="list-pointer mb-0">
-                  <li className="list-pointer-item">Enterprise Technology</li>
-                  <li className="list-pointer-item">Private Equity</li>
-                  <li className="list-pointer-item">Sustainability</li>
+                  <li className="list-pointer-item">Machine Learning specialist</li>
+                  <li className="list-pointer-item">Natural Language Processing</li>
+                  <li className="list-pointer-item">Predictive Analytics</li>
                 </ul>
                 {/* End List Pointer */}
               </div>
@@ -166,16 +166,16 @@ export default function HomePage() {
         <div className="container content-space-2 content-space-lg-3">
           {/* Heading */}
           <div className="w-md-75 w-lg-50 text-center mx-md-auto mb-5">
-            <h2>Wow your audience from the first second</h2>
-            <p>The powerful and flexible theme for all kinds of businesses</p>
+            <h2>Fraktional.dev: Where Capacity Meets Flexibility</h2>
+            <p>Unlock tailored tech opportunities, balance costs, and connect effortlessly through Fraktional.</p>
           </div>
           {/* End Heading */}
           <div className="text-center mb-10">
             {/* List Checked */}
             <ul className="list-inline list-checked list-checked-primary">
-              <li className="list-inline-item list-checked-item">Responsive</li>
-              <li className="list-inline-item list-checked-item">5-star support</li>
-              <li className="list-inline-item list-checked-item">Constant updates</li>
+              <li className="list-inline-item list-checked-item">Flexible.</li>
+              <li className="list-inline-item list-checked-item">Reliable.</li>
+              <li className="list-inline-item list-checked-item">Efficient</li>
             </ul>
             {/* End List Checked */}
           </div>
@@ -203,15 +203,15 @@ export default function HomePage() {
             <div className="col-lg-5">
               {/* Heading */}
               <div className="mb-4">
-                <h2>Collaborative tools to design user experience</h2>
-                <p>We help businesses bring ideas to life in the digital world, by designing and implementing the technology tools that they need to win.</p>
+                <h2>Are You Settling for Rigid Tech Resourcing?</h2>
+                <p>Don't be confined by traditional hiring practices. With Fraktional, dive into a dynamic pool of expertise tailored to your immediate project needs.</p>
               </div>
               {/* End Heading */}
               {/* List Checked */}
               <ul className="list-checked list-checked-primary mb-5">
-                <li className="list-checked-item">Less routine – more creativity</li>
-                <li className="list-checked-item">Hundreds of thousands saved</li>
-                <li className="list-checked-item">Scale budgets efficiently</li>
+                <li className="list-checked-item">24 hour turnaround</li>
+                <li className="list-checked-item">Specialist Skills</li>
+                <li className="list-checked-item">30 Days Onboarding</li>
               </ul>
               {/* End List Checked */}
               <a className="btn btn-primary" href="#">Get started</a>
@@ -283,8 +283,8 @@ export default function HomePage() {
             <div className="col-sm-6 col-md-4 mb-7 mb-md-0">
               {/* Stats */}
               <div className="text-center">
-                <h2 className="display-4"><i className="bi-arrow-down-short text-danger" />47%</h2>
-                <p className="mb-0">fewer meetings across<br />organizations</p>
+                <h2 className="display-4"><i className="bi-arrow-down-short text-danger" />40%</h2>
+                <p className="mb-0">Reduced Hiring<br />Time</p>
               </div>
               {/* End Stats */}
             </div>
@@ -292,8 +292,8 @@ export default function HomePage() {
             <div className="col-sm-6 col-md-4 mb-7 mb-md-0">
               {/* Stats */}
               <div className="text-center">
-                <h2 className="display-4"><i className="bi-arrow-up-short text-success" />23%</h2>
-                <p className="mb-0">increase in traffic on<br />webpages with Looms</p>
+                <h2 className="display-4"><i className="bi-arrow-up-short text-success" />98%</h2>
+                <p className="mb-0">Client Satisfaction<br />Rate</p>
               </div>
               {/* End Stats */}
             </div>
@@ -302,7 +302,7 @@ export default function HomePage() {
               {/* Stats */}
               <div className="text-center">
                 <h2 className="display-4"><i className="bi-arrow-up-short text-success" />9.3%</h2>
-                <p className="mb-0">boost in reply rates across<br />sales outreach</p>
+                <p className="mb-0">Over 1,500 Vetted <br />Engineers</p>
               </div>
               {/* End Stats */}
             </div>
@@ -327,8 +327,8 @@ export default function HomePage() {
                 <Image className="card-img" src={card4} alt="Image Description" />
                 <div className="card-body">
                   <span className="card-subtitle text-body">Read the blog</span>
-                  <h4 className="card-title text-inherit">Have a meaningful impact</h4>
-                  <p className="card-text text-body">Opportunities to Front who have proven to be good at executing on them.</p>
+                  <h4 className="card-title text-inherit">Expert Matching:</h4>
+                  <p className="card-text text-body">Connect companies with top-tier developers tailored to project needs.</p>
                 </div>
               </a>
               {/* End Card */}
@@ -340,8 +340,8 @@ export default function HomePage() {
                 <Image className="card-img" src={card5} alt="Image Description" />
                 <div className="card-body">
                   <span className="card-subtitle text-body">Read the blog</span>
-                  <h4 className="card-title text-inherit">Documentation</h4>
-                  <p className="card-text text-body">Whether you're a startup or a global enterprise, learn how to integrate with Front.</p>
+                  <h4 className="card-title text-inherit">Streamlined Process:</h4>
+                  <p className="card-text text-body">Simplify tech resourcing through our efficient, user-friendly platform.</p>
                 </div>
               </a>
               {/* End Card */}
@@ -353,8 +353,8 @@ export default function HomePage() {
                 <Image className="card-img" src={card6} alt="Image Description" />
                 <div className="card-body">
                   <span className="card-subtitle text-body">Learn about other solutions</span>
-                  <h4 className="card-title text-inherit">Explore the Snippets tool</h4>
-                  <p className="card-text text-body">Quickly Front sample components, copy-paste codes.</p>
+                  <h4 className="card-title text-inherit">Flexible Engagements:</h4>
+                  <p className="card-text text-body">Offer adaptable commitments, from fractional to full project involvement.</p>
                 </div>
               </a>
               {/* End Card */}
