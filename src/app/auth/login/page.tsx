@@ -20,16 +20,18 @@ function SignIn() {
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [invaliLoginError, setInvalidLoginError] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("")
+  const [password, setPassword] = useState<string>("")
 
-  const { email, password } = formData; // Destructure the values for easier access
+  //const { email, password } = formData; // Destructure the values for easier access
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  // const handleChange = (e: any) => {
+  //   const { name, value } = e.target;
+  //   setFormData({
+  //     ...formData,
+  //     [name]: value,
+  //   });
+  // };
 
   const handleSubmit = async (e: any) => {
     setInvalidLoginError(false)
@@ -60,7 +62,7 @@ function SignIn() {
     });
 
     try {
-      const loginResult = await UserLogin(formData); // Rename the constant
+      const loginResult = await UserLogin({email, password}); // Rename the constant
       if (loginResult) {
         toast.update(_id, {
           render: "Logged in successfully",
@@ -100,6 +102,7 @@ function SignIn() {
       borderWidth: "1px",
     }),
   };
+  
 
   return (
     <section className="signin">
@@ -129,14 +132,20 @@ function SignIn() {
 
           <form action="" method="get" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email">Your Email {invaliLoginError && <span style={{ color: "tomato", fontSize : "13px", fontWeight:"600", marginRight: "200px"}}>Invalid email or password</span>}</label>
+            <div className = "label-loginError" style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
+            <label htmlFor="email">Your Email</label>
+              {invaliLoginError && <span style={{ color: "tomato", fontSize : "13px", fontWeight:"600", marginRight: "180px"}}>Invalid email or password</span>}
+            </div>
               <input
                 style={inputEmailStyle}
                 type="email"
                 name="email"
                 placeholder="email@site.com"
-                value={email}
-                onChange={handleChange}
+               
+                onChange={(e) => {
+                 setEmail(e.target.value);
+                  setEmailError(false)
+                }}
               />
             </div>
 
@@ -153,8 +162,12 @@ function SignIn() {
                 name="password"
                 id="password"
                 placeholder="8+ characters required"
-                value={password}
-                onChange={handleChange}
+               
+                onChange={(e) => {
+                  setPassword(e.target.value)
+                  setPasswordError(false)
+
+                }}
               />
             </div>
 

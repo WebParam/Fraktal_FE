@@ -14,6 +14,7 @@ import logo from '../../../assets/img/logo.png';
 import Image from 'next/image';
 import { registerOrganisation } from '@/app/endpoints/api';
 import { ICompanyRegister } from '@/app/interfaces/organisation';
+import dynamic from 'next/dynamic';
 
 
 function CompanyRegester() {
@@ -1539,4 +1540,5 @@ function CompanyRegester() {
 }
     
 
-export default CompanyRegester;
+
+export default dynamic (() => Promise.resolve(CompanyRegester), {ssr: false})
