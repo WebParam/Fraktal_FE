@@ -24,16 +24,9 @@ export default function HomePage() {
   return (
     <>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css?family=Poppins"
-          rel="stylesheet"
-        />
         
       <Header 
-        menuTogglerFunction={setMenuToggler} 
-        menuTogglerValue={menuToggler} 
+      
       />
       <MobileMenu removeMenu={removeMenu} menuToggler={menuToggler} />
       <Hero />
