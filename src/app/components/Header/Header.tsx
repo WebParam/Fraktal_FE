@@ -776,7 +776,7 @@ const Header = ()=> {
         >
           <img
             className="navbar-brand-logo"
-            src="../assets/svg/logos/logo.svg"
+            src={logo.src}
             alt="Logo"
           />
         </a>

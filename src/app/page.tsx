@@ -24,10 +24,10 @@ export default function HomePage() {
   return (
     <>
 
-        
+{/*         
       <Header 
       
-      />
+      /> */}
       <MobileMenu removeMenu={removeMenu} menuToggler={menuToggler} />
       <Hero />
       <SecondSection />

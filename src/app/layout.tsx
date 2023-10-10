@@ -1,12 +1,13 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-
+import logo from '../assets/img/logo.png';
 import "../assets/css/theme.min.css"
 import "../assets/vendor/bootstrap-icons/font/bootstrap-icons.css"
 import "../assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.css"
 import "../assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.css"
 import Header from './components/Header/Header'
+import Nav from './nav'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -693,7 +694,7 @@ export default function RootLayout({
                 >
                   <img
                     className="navbar-brand-logo"
-                    src="../assets/svg/logos/logo.svg"
+                    src={logo.src}
                     alt="Logo"
                   />
                 </a>
@@ -717,92 +718,9 @@ export default function RootLayout({
                 </button>
                 {/* End Toggler */}
                 {/* Collapse */}
-                <div className="navbar-collapse" id="navbarNavDropdown">
-                  <ul className="navbar-nav">
-                    <li className="nav-item">
-                      <a className="nav-link " href="../demo-jobs/index.html">
-                        Home
-                      </a>
-                    </li>
-                    {/* Dropdown */}
-                    <li className="hs-has-sub-menu nav-item">
-                      <a
-                        id="listingsDropdown"
-                        className="hs-mega-menu-invoker nav-link dropdown-toggle "
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Listings
-                      </a>
-                      <div
-                        className="hs-sub-menu dropdown-menu"
-                        aria-labelledby="listingsDropdown"
-                        style={{ minWidth: "14rem" }}
-                      >
-                        <a className="dropdown-item " href="../demo-jobs/job-list.html">
-                          Listing
-                        </a>
-                        <a className="dropdown-item " href="../demo-jobs/job-grid.html">
-                          Listing (Grid)
-                        </a>
-                      </div>
-                    </li>
-                    {/* End Dropdown */}
-                    {/* Dropdown */}
-                    <li className="hs-has-sub-menu nav-item">
-                      <a
-                        id="pagesDropdown"
-                        className="hs-mega-menu-invoker nav-link dropdown-toggle "
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Pages
-                      </a>
-                      <div
-                        className="hs-sub-menu dropdown-menu"
-                        aria-labelledby="listingsDropdown"
-                        style={{ minWidth: "14rem" }}
-                      >
-                        <a
-                          className="dropdown-item "
-                          href="../demo-jobs/job-overview.html"
-                        >
-                          Job Overview
-                        </a>
-                        <a
-                          className="dropdown-item "
-                          href="../demo-jobs/apply-for-job.html"
-                        >
-                          Apply for Job
-                        </a>
-                        <a className="dropdown-item " href="../demo-jobs/employee.html">
-                          Employee (Applicant)
-                        </a>
-                        <a className="dropdown-item " href="../demo-jobs/employer.html">
-                          Employer (Company)
-                        </a>
-                      </div>
-                    </li>
-                    {/* End Dropdown */}
-                    <li className="nav-item">
-                      <a className="nav-link " href="../demo-jobs/upload-resume.html">
-                        Upload resume
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a
-                        className="btn btn-primary btn-transition"
-                        href="../demo-jobs/post-job.html"
-                      >
-                        Post a job
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                <Nav/>
+          
+                  
                 {/* End Collapse */}
               </nav>
             </div>
