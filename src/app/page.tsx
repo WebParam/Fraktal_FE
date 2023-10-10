@@ -1,21 +1,25 @@
 "use client"
-import { useState } from 'react';
-
-
+import Image from 'next/image';
 import heroImage from '../assets/additional/heroImage.jpg';
+import card1 from "../assets/img/480x220/img1.jpg";
+import card2 from "../assets/img/480x220/img2.jpg";
+import card3 from "../assets/img/480x220/img3.jpg";
+import img6 from "../assets/img/1618x1010/img7.jpg";
+import fitbit from "../assets/svg/brands/fitbit-dark.svg";
+import forbes from "../assets/svg/brands/forbes-dark.svg";
+import mailchimp from "../assets/svg/brands/mailchimp-dark.svg";
+import layar from "../assets/svg/brands/layar-dark.svg";
+import bigAvatar from '../assets/additional/testimonyImage.jpg';
+import mailchimplogo from "../assets/svg/brands/mailchimp-primary.svg";
+import smallAvatar from '../assets/additional/testimonyAvatar.jpg';
+import card4 from "../assets/img/480x320/img33.jpg";
+import card5 from "../assets/img/480x320/img34.jpg";
+import card6 from "../assets/img/480x320/img35.jpg";
 
 export default function HomePage() {
-  const [menuToggler, setMenuToggler] = useState<boolean>(false);
-
-
-  
-  const removeMenu = () => {
-    setMenuToggler(prev => false);
-  }
 
   return (
     <div>
-
     {/* ========== MAIN CONTENT ========== */}
     <main id="content" role="main">
       {/* Hero */}
@@ -62,7 +66,7 @@ export default function HomePage() {
                 <use xlinkHref="#mainHeroSVG1" />
               </clipPath>
               <g transform="matrix(1 0 0 1 0 0)" clipPath="url(#mainHeroSVG2)">
-                <image width={750} height={750} xlinkHref={heroImage.src} transform="matrix(1.4462 0 0 1.4448 52.8755 0)" />
+                <Image width={750} height={750} src={heroImage} style={{transform: "matrix(1.4462 0 0 1.4448 52.8755 0)"}} alt='hero image' />
               </g>
             </svg>
           </div>
@@ -91,7 +95,7 @@ export default function HomePage() {
             {/* Card */}
             <div className="card card-sm h-100">
               <div className="p-2">
-                <img className="card-img" src="./assets/img/480x220/img1.jpg" alt="Image Description" />
+                <Image className="card-img" src={card1} alt="Image Description" />
               </div>
               <div className="card-body">
                 <h4 className="card-title">Front App</h4>
@@ -113,7 +117,7 @@ export default function HomePage() {
             {/* Card */}
             <div className="card card-sm h-100">
               <div className="p-2">
-                <img className="card-img" src="./assets/img/480x220/img2.jpg" alt="Image Description" />
+                <Image className="card-img" src={card2} alt="Image Description" />
               </div>
               <div className="card-body">
                 <h4 className="card-title">Front Chat</h4>
@@ -135,7 +139,7 @@ export default function HomePage() {
             {/* Card */}
             <div className="card card-sm h-100">
               <div className="p-2">
-                <img className="card-img" src="./assets/img/480x220/img3.jpg" alt="Image Description" />
+                <Image className="card-img" src={card3} alt="Image Description" />
               </div>
               <div className="card-body">
                 <h4 className="card-title">Front Calendar</h4>
@@ -189,7 +193,7 @@ export default function HomePage() {
                     <div className="device-browser-header-browser-bar">www.htmlstream.com/front/</div>
                   </div>
                   <div className="device-browser-frame">
-                    <img className="device-browser-img" src="./assets/img/1618x1010/img6.jpg" alt="Image Description" />
+                    <Image className="device-browser-img" src={img6} alt="Image Description" />
                   </div>
                 </figure>
                 {/* End Browser Device */}
@@ -215,19 +219,19 @@ export default function HomePage() {
               <span className="d-block">Trusted by leading companies</span>
               <div className="row">
                 <div className="col py-3">
-                  <img className="avatar avatar-4x3" src="./assets/svg/brands/fitbit-dark.svg" alt="Logo" />
+                  <Image className="avatar avatar-4x3" src={fitbit} alt="Logo" />
                 </div>
                 {/* End Col */}
                 <div className="col py-3">
-                  <img className="avatar avatar-4x3" src="./assets/svg/brands/forbes-dark.svg" alt="Logo" />
+                  <Image className="avatar avatar-4x3" src={forbes} alt="Logo" />
                 </div>
                 {/* End Col */}
                 <div className="col py-3">
-                  <img className="avatar avatar-4x3" src="./assets/svg/brands/mailchimp-dark.svg" alt="Logo" />
+                  <Image className="avatar avatar-4x3" src={mailchimp} alt="Logo" />
                 </div>
                 {/* End Col */}
                 <div className="col py-3">
-                  <img className="avatar avatar-4x3" src="./assets/svg/brands/layar-dark.svg" alt="Logo" />
+                  <Image className="avatar avatar-4x3" src={layar} alt="Logo" />
                 </div>
                 {/* End Col */}
               </div>
@@ -243,20 +247,20 @@ export default function HomePage() {
       <div className="container content-space-2 content-space-lg-3">
         <div className="row align-items-md-center">
           <div className="col-md-5 d-none d-md-block">
-            <img className="img-fluid rounded-2" src="./assets/img/400x500/img31.jpg" alt="Image Description" />
+            <Image className="img-fluid rounded-2" src={bigAvatar} alt="Image Description" />
           </div>
           {/* End Col */}
           <div className="col-md-7">
             {/* Blockquote */}
             <figure className="pe-md-7">
               <div className="mb-4">
-                <img className="avatar avatar-xl avatar-4x3" src="./assets/svg/brands/mailchimp-primary.svg" alt="Image Description" />
+                <Image className="avatar avatar-xl avatar-4x3" src={mailchimplogo} alt="Image Description" />
               </div>
               <blockquote className="blockquote blockquote-lg">" I'm absolutely floored by the level of care and attention to detail the team at Htmlstream have put into this theme and for one can guarantee that I will be a return customer. "</blockquote>
               <figcaption className="blockquote-footer">
                 <div className="d-flex align-items-center">
                   <div className="flex-shrink-0 d-md-none">
-                    <img className="avatar avatar-circle" src="./assets/img/160x160/img4.jpg" alt="Image Description" />
+                    <Image className="avatar avatar-circle" src={smallAvatar} alt="Image Description" />
                   </div>
                   <div className="flex-grow-1 ms-3 ms-md-0">
                     Lewis
@@ -320,7 +324,7 @@ export default function HomePage() {
             <div className="col-sm-6 col-lg-4 mb-5">
               {/* Card */}
               <a className="card card-flush h-100" href="#" data-aos="fade-up">
-                <img className="card-img" src="./assets/img/480x320/img33.jpg" alt="Image Description" />
+                <Image className="card-img" src={card4} alt="Image Description" />
                 <div className="card-body">
                   <span className="card-subtitle text-body">Read the blog</span>
                   <h4 className="card-title text-inherit">Have a meaningful impact</h4>
@@ -333,7 +337,7 @@ export default function HomePage() {
             <div className="col-sm-6 col-lg-4 mb-5">
               {/* Card */}
               <a className="card card-flush h-100" href="#" data-aos="fade-up" data-aos-delay={150}>
-                <img className="card-img" src="./assets/img/480x320/img34.jpg" alt="Image Description" />
+                <Image className="card-img" src={card5} alt="Image Description" />
                 <div className="card-body">
                   <span className="card-subtitle text-body">Read the blog</span>
                   <h4 className="card-title text-inherit">Documentation</h4>
@@ -346,7 +350,7 @@ export default function HomePage() {
             <div className="col-sm-6 col-lg-4 mb-5">
               {/* Card */}
               <a className="card card-flush h-100" href="#" data-aos="fade-up" data-aos-delay={200}>
-                <img className="card-img" src="./assets/img/480x320/img35.jpg" alt="Image Description" />
+                <Image className="card-img" src={card6} alt="Image Description" />
                 <div className="card-body">
                   <span className="card-subtitle text-body">Learn about other solutions</span>
                   <h4 className="card-title text-inherit">Explore the Snippets tool</h4>
