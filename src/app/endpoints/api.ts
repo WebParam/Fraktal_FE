@@ -77,13 +77,6 @@ export async function sendOTP(payload:IUserSendOTP) {
         console.log('otp sent successful');
         if ( response.data._doc){
             return response.data._doc;
-<<<<<<< HEAD
-        }else{
-         
-          return response.data.code
-        }
-
-=======
         } else {
           return false;
         }
@@ -91,7 +84,6 @@ export async function sendOTP(payload:IUserSendOTP) {
       } else {
         // Registration failed, handle error (e.g., display error message).
         return false;
->>>>>>> 42ad053e98c9e2167d794741094923a88551c6ca
       }
       
     } catch (error) {
