@@ -378,7 +378,3 @@ export default function HomePage() {
   </div>
   )
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 97d0ea949036aebcf28c6c8036e6109543d94aa3
