@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { IJobApplication } from '../interfaces/IJobApplication';
 import { CreateJob, GetApplicantProfile } from '../endpoints/api';
 // import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './company.scss';
 
 import profilecover from "../../assets/img/1920x400/img1.jpg";
@@ -36,6 +37,7 @@ import { useRouter } from 'next/router'
 function companyProfile() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const [activeStep, setActiveStep] = useState(0);
+
     //formInputs
     const [country, setCountry] = useState(0);
     const [language, setLanguage] = useState(0);

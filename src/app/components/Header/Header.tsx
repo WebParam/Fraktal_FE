@@ -1,6 +1,7 @@
 "use strict"
 import Link from 'next/link';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { memo, useState, ReactElement } from 'react';
 // import './Header.scss';
 =======
@@ -10,6 +11,12 @@ import './Header.scss';
 import Image from 'next/image';
 import logo from '../../../assets/img/logo.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
+=======
+import { ReactElement } from 'react';
+import './Header.scss';
+import Image from 'next/image';
+import logo from '../../../assets/img/logo.png';
+>>>>>>> 97d0ea949036aebcf28c6c8036e6109543d94aa3
 
 type HeaderProps = {
   menuTogglerFunction: (state: boolean) => void;
@@ -24,11 +31,15 @@ const Header = ()=> {
 
   return (
 <<<<<<< HEAD
+<<<<<<< HEAD
     <>
     {/* <header className='header'>
       <Link href="/">
         <Image src={logo} alt="logo" priority={true} />
       </Link>
+=======
+    // <>
+>>>>>>> 97d0ea949036aebcf28c6c8036e6109543d94aa3
 =======
     // <>
 >>>>>>> 97d0ea949036aebcf28c6c8036e6109543d94aa3
@@ -906,6 +917,7 @@ const Header = ()=> {
   </header>
 </>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
       <div
         className={`toggle ${menuTogglerValue ? 'toggled' : ''}`}
@@ -2085,10 +2097,15 @@ const Header = ()=> {
   );
 });
 =======
+=======
+>>>>>>> 97d0ea949036aebcf28c6c8036e6109543d94aa3
 </>
   )
 
 };
+<<<<<<< HEAD
+>>>>>>> 97d0ea949036aebcf28c6c8036e6109543d94aa3
+=======
 >>>>>>> 97d0ea949036aebcf28c6c8036e6109543d94aa3
 
 export default Header;

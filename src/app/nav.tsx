@@ -1,5 +1,6 @@
 "use client"
 import { useState,useEffect } from 'react';
+import Link from 'next/link';
 
 
 export default function Nav() {
@@ -34,9 +35,9 @@ export default function Nav() {
 <div className="navbar-collapse" id="navbarNavDropdown">
                   <ul className="navbar-nav">
                     <li className="nav-item">
-                      <a className={activeNav ==0? "nav-link active ": "nav-link"} href="/">
+                      <Link href="/">
                         Home
-                      </a>
+                      </Link>
                     </li>
                     {/* Dropdown */}
                     <li className="hs-has-sub-menu nav-item">

@@ -6,7 +6,11 @@ import './pricing.scss';
 import './checkbox.scss';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import checkmark from '../../assets/additional/check.svg';
+<<<<<<< HEAD
 import dots from '../../assets/svg/components/dots-lg.svg';
+=======
+import dots from '../../assets/additional/dots.svg';
+>>>>>>> 97d0ea949036aebcf28c6c8036e6109543d94aa3
 import Header from '../components/Header/Header';
 import MobileMenu from '../components/MobileMenu/MobileMenu';
 import card11 from '../../assets/img/card-11.svg';
@@ -22,10 +26,26 @@ import businesinsider from '../../assets/svg/brands/business-insider-dark.svg';
 import hubspot from '../../assets/svg/brands/hubspot-dark.svg';
 import layar from '../../assets/svg/brands/layar-dark.svg';
 import Footer from '../components/Footer/Footer';
+<<<<<<< HEAD
 import logo from '../../assets/img/logo.png';
 
 function pricing() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
+=======
+
+function pricing() {
+    const [menuToggler, setMenuToggler] = useState<boolean>(false);
+    const [isChecked, setIsChecked] = useState(true);
+
+    const toggleSwitch = () => {
+      setIsChecked(!isChecked); 
+    };
+    
+    const removeMenu = () => {
+        setMenuToggler(prev => false);
+      }
+
+>>>>>>> 97d0ea949036aebcf28c6c8036e6109543d94aa3
 
     return (
   <>
@@ -40,7 +60,10 @@ function pricing() {
     }'
   >
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 97d0ea949036aebcf28c6c8036e6109543d94aa3
     <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
@@ -675,14 +698,23 @@ function pricing() {
       </nav>
     </div>
     {/* End Topbar */}
+<<<<<<< HEAD
+>>>>>>> 97d0ea949036aebcf28c6c8036e6109543d94aa3
+=======
 >>>>>>> 97d0ea949036aebcf28c6c8036e6109543d94aa3
     <div className="container">
       <nav className="js-mega-menu navbar-nav-wrap">
         {/* Default Logo */}
         <a className="navbar-brand" href="./index.html" aria-label="Front">
+<<<<<<< HEAD
           <Image
             className="navbar-brand-logo"
             src={logo}
+=======
+          <img
+            className="navbar-brand-logo"
+            src="./assets/svg/logos/logo.svg"
+>>>>>>> 97d0ea949036aebcf28c6c8036e6109543d94aa3
             alt="Logo"
           />
         </a>
@@ -1242,7 +1274,11 @@ function pricing() {
                 className="js-toggle-switch form-check-input"
                 type="checkbox"
 <<<<<<< HEAD
+<<<<<<< HEAD
                 checked
+=======
+                // defaultChecked=""
+>>>>>>> 97d0ea949036aebcf28c6c8036e6109543d94aa3
 =======
                 // defaultChecked=""
 >>>>>>> 97d0ea949036aebcf28c6c8036e6109543d94aa3
@@ -1468,9 +1504,15 @@ function pricing() {
             className="position-absolute top-0 end-0 mt-n8 me-n8"
             style={{ width: "10rem" }}
           >
+<<<<<<< HEAD
             <Image
               className="img-fluid"
               src={dots}
+=======
+            <img
+              className="img-fluid"
+              src="./assets/svg/components/dots-lg.svg"
+>>>>>>> 97d0ea949036aebcf28c6c8036e6109543d94aa3
               alt="Image Description"
             />
           </figure>
