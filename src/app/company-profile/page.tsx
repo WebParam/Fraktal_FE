@@ -212,8 +212,8 @@ function companyProfile() {
                   <p>We're based in Manchester, United Kingdom, a city with a creative heart that was founded on science and industry and the birthplace of the modern computer.</p>
                 </div>
                 <a className="link link-collapse" data-bs-toggle="collapse" href="#employerOverviewDescriptionCollapse" role="button" aria-expanded="false" aria-controls="employerOverviewDescriptionCollapse">
-                  <span className="link-collapse-default">Read more</span>
-                  <span className="link-collapse-active">Read less</span>
+                  <span className="link-collapse-default" style={{color: '#FD2DC3'}}>Read more</span>
+                  <span className="link-collapse-active" style={{color: '#FD2DC3'}} >Read less</span>
                 </a>
               </div>
               <div id="fancyboxGallery">
