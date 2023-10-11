@@ -1,9 +1,10 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IJobApplication } from '../interfaces/IJobApplication';
 import { CreateJob } from '../endpoints/api';
+import AutoComplete from "react-google-autocomplete";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -16,15 +17,110 @@ function pricing() {
     //formInputs
     const [country, setCountry] = useState(0);
     const [language, setLanguage] = useState(0);
-    
+    const [companyName, setCompanyName] = useState('');
+    const [jobTitle, setJobTitle] = useState('');
+    const [streetAddress, setStreetAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [postcode, setCode] = useState("");
+    const [gpsLatitude, setGpsLatitude] = useState("");
+    const [gpsLongitude, setGpsLongitude] = useState("");
+    const [state, setState] = useState('');
+    const [zipCode, setZipCode] = useState('');
+    const [remote, setRemote] = useState(0);
+    const [jobtype, setJobType] = useState(0);
+    const [hires, setHires] = useState(0);
+    const [urgency, setUrgency] = useState(0);
+    const [pay, setPay] = useState(0);
+    const [currency, setCurrency] = useState(0);
+    const [fromDate, setFromDate] = useState('');
+    const [toDate, setToDate] = useState('');
+    const [period, setPeriod] = useState('');
+    const [signingBonus, setSigningBonus] = useState(0);
+    const [commisionPay, setCommisionPay] = useState(0);
+    const [bonusPay, setBonusPay] = useState(0);
+    const [tips, setTips] = useState(0);
+    const [otherPay, setOtherPay] = useState(0);
+    const [healthInsurance, setHealthInsurance] = useState(0 !== 0);
+    const [paidTimeOff, setPaidTimeOff] = useState(0 !== 0);
+    const [dentalInsurance, setDentalInsurance] = useState(0 !== 0);
+    const [retirememntFund, setRetirememntFund] = useState(0 !== 0);
+    const [flexibleSchedule, setFlexibleSchedule] = useState(0 !== 0);
+    const [tuition, setTuition] = useState(0 !== 0);
+    const [lifeInsurance, setLifeInsurance] = useState(0 !== 0);
+    const [retirememntFundMatch, setRetirememntFundMatch] = useState(0 !== 0);
+    const [disabilityInsurance, setDisabilityInsurance] = useState(0 !== 0);
+    const [retirementPlan,  setRetirementPlan] = useState(0 !== 0);
+    const [referalProgram, setReferalProgram] = useState(0 !== 0);
+    const [employeeDiscount, setEmployeeDiscount] = useState(0 !== 0);
+    const [spendingAccount, setSpendingAccount] = useState(0 !== 0);
+    const [relocation, setRelocation] = useState(0 !== 0);
+    const [parentalLeave, setParentalLeave] = useState(0 !== 0);
+    const [otherBenefits, setOtherBenefits] = useState(0 !== 0);
+    const [noBenefits, setNoBenefits] = useState(0 !== 0);
+    const [jobSchedule, setJobSchedule] = useState(0);
+    const [website, setWebsite] = useState('');
+    const [responsibilities, setResponsibilities] = useState('');
+    const [methodToRecieveApplications, setMethodToRecieveApplications] = useState(0);
+    const [submitResume, setSubmitResume] = useState(0);
+    const [dailyUpdateEmailAddress, setDailyUpdateEmailAddress] = useState('');
+    const [individualUpDateEmailAddress, setIndividualUpDateEmailAddress] = useState('');
+    const [dailyUpdateEmail, setDailyUpdateEmail] = useState(0 !== 0);
+    const [individualUpDateEmail, setIndividualUpDateEmail] = useState(0 !== 0);
+
 
     async function createJobPost(){
 
-      const payload = {
-        country:country,
-
-
-      } as IJobApplication
+      const payload: IJobApplication = {
+        country: country,
+        language: language,
+        companyName: companyName,
+        jobTitle:jobTitle,
+        streetAddress:streetAddress,
+        city:city,
+        state:state,
+        zipCode:zipCode,
+        remote:remote,
+        jobtype:jobtype,
+        hires:hires,
+        urgency:urgency,
+        pay:pay,
+        currency:currency,
+        fromDate:fromDate,
+        toDate:toDate,
+        period:period,
+        signingBonus:signingBonus,
+        commisionPay:commisionPay,
+        bonusPay:bonusPay,
+        tips:tips,
+        otherPay:otherPay,
+        healthInsurance:healthInsurance,
+        paidTimeOff:paidTimeOff,
+        dentalInsurance:dentalInsurance,
+        retirememntFund:retirememntFund,
+        flexibleSchedule:flexibleSchedule,
+        tuition:tuition,
+        lifeInsurance:lifeInsurance,    
+        retirememntFundMatch:retirememntFundMatch,
+        disabilityInsurance:disabilityInsurance,
+        retirementPlan:retirementPlan,
+        referalProgram:referalProgram,
+        employeeDiscount:employeeDiscount,
+        spendingAccount:spendingAccount,
+        relocation:relocation,
+        parentalLeave:parentalLeave,
+        otherBenefits:otherBenefits,
+        noBenefits:noBenefits,
+        jobSchedule:jobSchedule,
+        website:website,
+        responsibilities:responsibilities,
+        methodToRecieveApplications:methodToRecieveApplications,
+        submitResume:submitResume,
+        dailyUpdateEmailAddress:dailyUpdateEmailAddress,
+        individualUpDateEmailAddress:individualUpDateEmailAddress,
+        dailyUpdateEmail:dailyUpdateEmail,
+        individualUpDateEmail:individualUpDateEmail
+      };
+      
 
       //send to api: kwanele to provide endpoint -> add to /endpoints/api and call it from here
       const res = await CreateJob(payload);
@@ -39,6 +135,12 @@ function pricing() {
 
   }
 
+
+  
+
+  // const handleRemoteChange = (e) => {
+  //   setRemote(e.target.value);
+  // };
   
 
     return (
@@ -135,7 +237,7 @@ function pricing() {
                   <li className={`step-item ${activeStep==3? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                      href="javascript:;"
+                      onClick={()=>{setStepActive(3)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepPayment"
                 }'
@@ -152,7 +254,7 @@ function pricing() {
                   <li className={`step-item ${activeStep==4? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                      href="javascript:;"
+                      onClick={()=>{setStepActive(4)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepAdditionalJobDetails"
                 }'
@@ -171,7 +273,7 @@ function pricing() {
                   <li className={`step-item ${activeStep==5? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                      href="javascript:;"
+                      onClick={()=>{setStepActive(5)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepJobDescription"
                 }'
@@ -188,7 +290,7 @@ function pricing() {
                   <li className={`step-item ${activeStep==6? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                      href="javascript:;"
+                      onClick={()=>{setStepActive(6)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepJobApplicationSettings"
                 }'
@@ -258,6 +360,7 @@ function pricing() {
                       id="languageLabel"
                       className="form-select"
                       name="languageSelect"
+                      onChange={((e)=>setLanguage(parseInt(e.target.value)))}
                     >
                       <option label="empty" />
                       <option value={0}>English (US)</option>
@@ -286,6 +389,7 @@ function pricing() {
                       id="companyNameLabel"
                       placeholder="Htmlstream"
                       aria-label="Htmlstream"
+                      onChange={(e) => setCompanyName(String(e.target.value))}
                     />
                   </div>
                   {/* End Form */}
@@ -301,6 +405,7 @@ function pricing() {
                       id="jobTitleLabel"
                       placeholder="UI/UX Designer"
                       aria-label="UI/UX Designer"
+                      onChange={((e)=>setJobTitle(e.target.value))}
                     />
                   </div>
                   {/* End Form */}
@@ -310,6 +415,7 @@ function pricing() {
                 <div className="card-footer pt-0">
                   <div className="d-flex justify-content-end align-items-center">
                     <button
+                    onClick={()=>{setStepActive(1)}}
                       type="button"
                       className="btn btn-primary"
                       data-hs-step-form-next-options='{
@@ -359,14 +465,24 @@ function pricing() {
                       We won't share your street address. We use your location
                       to find candidates in your area.
                     </p>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="streetAddress"
-                      id="streetAddressLabel"
-                      placeholder="Arch 294 Jewell Street"
-                      aria-label="Arch 294 Jewell Street"
-                    />
+                    <AutoComplete
+                        apiKey={"AIzaSyDsGw9PT-FBFk7DvGK46BpvEURMxcfJX5k"}
+                        onPlaceSelected={(place) => {
+                          console.log(place);
+                          setCity(place?.address_components?.[0]?.long_name || '');
+                          setCountry(place?.address_components?.slice(-1)?.[0]?.long_name || '');
+                          setStreetAddress(place?.formatted_address || '');
+                          setGpsLatitude(`${place?.geometry?.location?.lat() || ''}`);
+                          setGpsLongitude(`${place?.geometry?.location?.lng() || ''}`);
+                          console.log(gpsLatitude)
+                        }}
+                        options={{
+                          types: ["(cities)"], //Must add street addresses not just cities
+                          componentRestrictions: { country: "za" },
+                        }}
+                      />
+                       
+
                   </div>
                   {/* End Form */}
                   <div className="row gx-3">
@@ -383,6 +499,7 @@ function pricing() {
                           id="cityLabel"
                           placeholder="London"
                           aria-label="London"
+                          onChange={((e)=>setCity(e.target.value))}
                         />
                       </div>
                       {/* End Form */}
@@ -401,6 +518,7 @@ function pricing() {
                           id="stateLabel"
                           placeholder="Camberwell"
                           aria-label="Camberwell"
+                          onChange={((e)=>setState(e.target.value))}
                         />
                       </div>
                       {/* End Form */}
@@ -422,6 +540,7 @@ function pricing() {
                           data-hs-mask-options='{
                            "template": "AA0 0AA"
                          }'
+                         onChange={((e)=>setZipCode(e.target.value))}
                         />
                       </div>
                       {/* End Form */}
@@ -448,6 +567,7 @@ function pricing() {
                             name="remoteOccasionRadioName"
                             id="remoteOccasionRadio1"
                             defaultChecked={true}
+                            // onChange={handleRemoteChange}
                           />
                           <span className="form-check-label">No</span>
                         </span>
@@ -464,6 +584,7 @@ function pricing() {
                             className="form-check-input"
                             name="remoteOccasionRadioName"
                             id="remoteOccasionRadio2"
+                            // onChange={handleRemoteChange}
                           />
                           <span className="form-check-label">Yes, always</span>
                         </span>
@@ -480,6 +601,7 @@ function pricing() {
                             className="form-check-input"
                             name="remoteOccasionRadioName"
                             id="remoteOccasionRadio3"
+                            // onChange={handleRemoteChange}
                           />
                           <span className="form-check-label">
                             Yes, occasionally
@@ -488,23 +610,7 @@ function pricing() {
                       </label>
                       {/* End Custom Radio */}
                       {/* Custom Radio */}
-                      <label
-                        className="form-control"
-                        htmlFor="remoteOccasionRadio4"
-                      >
-                        <span className="form-check custom-radio">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            name="remoteOccasionRadioName"
-                            id="remoteOccasionRadio4"
-                          />
-                          <span className="form-check-label">
-                            Yes, temporarily due to COVID-19
-                          </span>
-                        </span>
-                      </label>
-                      {/* End Custom Radio */}
+                    
                     </div>
                   </div>
                   {/* End Form */}
@@ -514,6 +620,7 @@ function pricing() {
                 <div className="card-footer pt-0">
                   <div className="d-flex align-items-center">
                     <button
+                    onClick={()=>{setStepActive(0)}}
                       type="button"
                       className="btn btn-ghost-secondary"
                       data-hs-step-form-prev-options='{
@@ -524,7 +631,7 @@ function pricing() {
                     </button>
                     <div className="ms-auto">
                       <button
-                      onClick={()=>{setStepActive(1)}}
+                      onClick={()=>{setStepActive(2)}}
                         type="button"
                         className="btn btn-primary"
                         data-hs-step-form-next-options='{
@@ -576,6 +683,7 @@ function pricing() {
                             name="jobTypeRadioName"
                             id="jobTypeRadio1"
                             defaultChecked={true}
+                            
                           />
                           <span className="form-check-label">Full time</span>
                         </span>
@@ -716,6 +824,7 @@ function pricing() {
                 <div className="card-footer pt-0">
                   <div className="d-flex align-items-center">
                     <button
+                    onClick={()=>{setStepActive(1)}}
                       type="button"
                       className="btn btn-ghost-secondary"
                       data-hs-step-form-prev-options='{
@@ -726,6 +835,7 @@ function pricing() {
                     </button>
                     <div className="ms-auto">
                       <button
+                      onClick={()=>{setStepActive(3)}}
                         type="button"
                         className="btn btn-primary"
                         data-hs-step-form-next-options='{
@@ -1371,6 +1481,7 @@ function pricing() {
                 <div className="card-footer pt-0">
                   <div className="d-flex align-items-center">
                     <button
+                    onClick={()=>{setStepActive(2)}}
                       type="button"
                       className="btn btn-ghost-secondary"
                       data-hs-step-form-prev-options='{
@@ -1381,6 +1492,7 @@ function pricing() {
                     </button>
                     <div className="ms-auto">
                       <button
+                      onClick={()=>{setStepActive(4)}}
                         type="button"
                         className="btn btn-primary"
                         data-hs-step-form-next-options='{
@@ -1629,6 +1741,7 @@ function pricing() {
                 <div className="card-footer pt-0">
                   <div className="d-flex align-items-center">
                     <button
+                    onClick={()=>{setStepActive(3)}}
                       type="button"
                       className="btn btn-ghost-secondary"
                       data-hs-step-form-prev-options='{
@@ -1639,6 +1752,7 @@ function pricing() {
                     </button>
                     <div className="ms-auto">
                       <button
+                      onClick={()=>{setStepActive(5)}}
                         type="button"
                         className="btn btn-primary"
                         data-hs-step-form-next-options='{
@@ -1709,12 +1823,12 @@ function pricing() {
                   {/* End Form */}
                   {/* Form */}
                   <div className="mb-4">
-                    <label className="form-label">
+                    {/* <label className="form-label">
                       Include COVID-19 precautions{" "}
                       <span className="badge bg-soft-dark text-dark ms-1">
                         Important to job seekers
                       </span>
-                    </label>
+                    </label> */}
                     <p className="small mt-n2">
                       We'll save this information to make posting faster in the
                       future.
@@ -1853,7 +1967,7 @@ function pricing() {
                   {/* Form */}
                   <div className="mb-4">
                     <div className="row mb-2">
-                      <div className="col">
+                      {/* <div className="col">
                         <label
                           htmlFor="additionalCovid19PrecautionsLabel"
                           className="form-label"
@@ -1864,7 +1978,7 @@ function pricing() {
                           Let job seekers know how you’re responding to
                           COVID-19.
                         </p>
-                      </div>
+                      </div> */}
                       <div className="col-auto align-self-end">
                         <span
                           id="additionalCovid19PrecautionsCountCharacters"
@@ -1893,6 +2007,7 @@ function pricing() {
                 <div className="card-footer pt-0">
                   <div className="d-flex align-items-center">
                     <button
+                    onClick={()=>{setStepActive(4)}}
                       type="button"
                       className="btn btn-ghost-secondary"
                       data-hs-step-form-prev-options='{
@@ -2108,6 +2223,7 @@ function pricing() {
                 <div className="card-footer pt-0">
                   <div className="d-flex align-items-center">
                     <button
+                    onClick={()=>{setStepActive(5)}}
                       type="button"
                       className="btn btn-ghost-secondary"
                       data-hs-step-form-prev-options='{
@@ -2118,6 +2234,7 @@ function pricing() {
                     </button>
                     <div className="ms-auto">
                       <button
+                      onClick={()=>{setStepActive(7)}}
                         id="postJobFinishBtn"
                         type="button"
                         className="btn btn-primary"
@@ -2134,7 +2251,7 @@ function pricing() {
               {/* Card */}
               <div
                 id="postJobStepJobPreviewJob"
-                style={{ display: activeStep!= 7? "none":"" }} 
+                style={{ display: activeStep!== 7? "none":"" }} 
                 className={activeStep==7?"card active":"card"}>
               
                 {/* Header */}
@@ -2575,6 +2692,7 @@ function pricing() {
                 <div className="card-footer pt-0">
                   <div className="d-flex align-items-center">
                     <button
+                    onClick={()=>{setStepActive(5)}}
                       type="button"
                       className="btn btn-ghost-secondary"
                       data-hs-step-form-prev-options='{
