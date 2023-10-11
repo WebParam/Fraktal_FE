@@ -64,7 +64,7 @@ function companyProfile() {
       <>
       <>
       {/* ========== MAIN CONTENT ========== */}
-      <main id="content" role="main">
+      <main id="content" role="main" style={{marginTop: '80px'}}>
         {/* Page Header */}
         <div className="container pt-4">
           <div className="page-header">

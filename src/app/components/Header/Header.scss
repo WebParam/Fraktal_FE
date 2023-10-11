@@ -1,5 +1,5 @@
 .header {
-  height: 100px;
+  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,9 +10,7 @@
   top: 0;
   z-index: 100;
   padding: 10px 10px 0;
-  background-color: rgba(255, 255, 255, 0.4);
-  -webkit-backdrop-filter: blur(5px);
-  backdrop-filter: blur(5px);
+  background-color: #fff;
 
   & nav {
     @media (max-width: 1020px) {
@@ -22,37 +20,54 @@
   
   // header-navItems
   &-navItems {
-    height: 80px;
+    height: 60px;
     list-style: none;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     padding-right: 50px;
 
     // header-navItems li
     & li {
       cursor: pointer;
-      font-family: 'Lato-regular';
-      
-      // header-navItems li::after
-      &:not(:last-child)::after {
-        content: '';
-        display: block;
-        position: relative;
-        top: -2px;
-        width: 0;
-        height: 2px;
-        background: #677788;
-        transition: width .5s;
+      width: 100px;
+      height: 50px;
+      text-align: center;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      text-align: center;
+      transition: .5s all;
+
+      &:hover {
+        color: #FD2DC3;
       }
 
-      header-navItems li:last-child::after {
-        width: 0; /* Remove the hover line for the last li element */
-      }
-      
-      // header-navItems li:hover::after
-      &:hover::after {
-          width: 100%;
+      .dropdown-Items {
+        position: absolute;
+        background-color: #fff;
+        top: 50px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 250px;
+        padding: 10px 20px;
+        display: none;
+        border-top: 2px solid lightpink;
+        box-shadow: 1px 1px 5px 1px lightgrey;
+        transition: .5s all;
+
+        & a {
+          color: #4B4C4E;
+          text-align: left;
+          transition: .3s;
+
+          &:hover {
+            color: #FD2DC3;
+          }
+        }
       }
     }
   }
@@ -142,3 +157,44 @@
   padding: 10px 30px;
 }
 
+.hirenow {
+  line-height: 40px;
+  padding: 0 15px;
+  height: 40px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.40) 124.34%);
+    
+  & > a {
+    color: #fff;
+  }
+}
+
+.liOne:hover {
+  .dropdownOne {
+    display: flex;
+  }
+}
+
+.liTwo:hover {
+  .dropdownTwo {
+    display: flex;
+  }
+}
+
+.liThree:hover {
+  .dropdownThree {
+    display: flex;
+  }
+}
+
+.liFour:hover {
+  .dropdownFour {
+    display: flex;
+  }
+}
+
+.liFive:hover {
+  .dropdownFive {
+    display: flex;
+  }
+}
