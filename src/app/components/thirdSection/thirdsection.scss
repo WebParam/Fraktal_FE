@@ -1,0 +1,38 @@
+.thirdsection {
+    padding: 60px 20px;
+    background-color: rgba(255, 123, 237, 0.15) !important;
+
+    & .wow {
+        max-width: 50%;
+        font-size: 1.8em;
+        margin: 10px auto;
+        text-align: center;
+
+    }
+
+    & .top-ul {
+        display: flex;
+        justify-content: center;
+
+        & li {
+            display: flex;
+            flex-direction: row;
+            width: fit-content;
+            gap: 5px;
+        }
+    }
+
+    & .routine {
+        padding-left: 0;
+
+        & li {
+            display: flex;
+            gap: 10px;
+        }
+    }
+
+    & .started {
+        background-color: #FD2DC3;
+        border: none;
+    }
+}
