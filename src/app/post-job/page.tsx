@@ -124,8 +124,9 @@ function pricing() {
       
 
       //send to api: kwanele to provide endpoint -> add to /endpoints/api and call it from here
-      const res = await CreateJob(payload);
+      // const res = await CreateJob(payload);
       //check response is successful and display success step
+      console.log(payload)
 
     }
 
@@ -2707,7 +2708,7 @@ function pricing() {
                     </button>
                     <div className="ms-auto">
                       <div className="d-flex gap-3">
-                        <button type="button" className="btn btn-white"  style={{ border: '#FD2DC3 ', color: '#FD2DC3' }}>
+                        <button type="button" className="btn btn-white"  style={{ border: '#FD2DC3 ' }}>
                           Save in drafts
                         </button>
                         <button
@@ -2715,6 +2716,7 @@ function pricing() {
                           type="button"
                           className="btn btn-primary"
                           style={{ backgroundColor: '#FD2DC3 !important', color: 'white' }}
+                          onClick={ createJobPost}
                         >
                           Confirm
                         </button>
