@@ -428,7 +428,10 @@ function pricing() {
                     onClick={()=>{setStepActive(1)}}
                       type="button"
                       className="btn btn-primary"
-                      style={{ backgroundColor: '#FD2DC3 !important', color: 'white' }}
+                      style={{ 
+                        background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
+                        color: 'white'
+                      }}
                       data-hs-step-form-next-options='{
                         "targetSelector": "#postJobStepAddress"
                       }'
@@ -645,7 +648,10 @@ function pricing() {
                       onClick={()=>{setStepActive(2)}}
                         type="button"
                         className="btn btn-primary"
-                        style={{ backgroundColor: '#FD2DC3 !important', color: 'white' }}
+                        style={{ 
+                          background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
+                          color: 'white'
+                        }}
                         data-hs-step-form-next-options='{
                           "targetSelector": "#postJobStepJobDetails"
                         }'
@@ -858,7 +864,10 @@ function pricing() {
                       onClick={()=>{setStepActive(3)}}
                         type="button"
                         className="btn btn-primary"
-                        style={{ backgroundColor: '#FD2DC3 !important', color: 'white' }}
+                        style={{ 
+                          background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
+                          color: 'white'
+                        }}
                         data-hs-step-form-next-options='{
                           "targetSelector": "#postJobStepPayment"
                         }'
@@ -1487,7 +1496,10 @@ function pricing() {
                       onClick={()=>{setStepActive(4)}}
                         type="button"
                         className="btn btn-primary"
-                        style={{ backgroundColor: '#FD2DC3 !important', color: 'white' }}
+                        style={{ 
+                          background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
+                          color: 'white'
+                        }}
                         data-hs-step-form-next-options='{
                           "targetSelector": "#postJobStepAdditionalJobDetails"
                         }'
@@ -1749,7 +1761,10 @@ function pricing() {
                       onClick={()=>{setStepActive(5)}}
                         type="button"
                         className="btn btn-primary"
-                        style={{ backgroundColor: '#FD2DC3 !important', color: 'white' }}
+                        style={{ 
+                          background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
+                          color: 'white'
+                        }}
                         data-hs-step-form-next-options='{
                           "targetSelector": "#postJobStepJobDescription"
                         }'
@@ -2015,7 +2030,10 @@ function pricing() {
                       <button
                         type="button"
                         className="btn btn-primary"
-                        style={{ backgroundColor: '#FD2DC3 !important', color: 'white' }}
+                        style={{ 
+                          background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
+                          color: 'white'
+                        }}
                         onClick={()=>{setStepActive(6)}}
                         data-hs-step-form-next-options='{
                           "targetSelector": "#postJobStepJobApplicationSettings"
@@ -2242,7 +2260,10 @@ function pricing() {
                         id="postJobFinishBtn"
                         type="button"
                         className="btn btn-primary"
-                        style={{ backgroundColor: '#FD2DC3 !important', color: 'white' }}
+                        style={{ 
+                          background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
+                          color: 'white'
+                        }}
                       >
                         Save and continue{" "}
                         <i className="bi-chevron-right small ms-1" />
