@@ -1789,7 +1789,7 @@ function pricing() {
                       Describe the responsibilities of this job, required work
                       experience, skills, or education.
                     </label>
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                       <a
                         href="javascript:;"
                         data-bs-toggle="modal"
@@ -1797,10 +1797,10 @@ function pricing() {
                       >
                         Upload a .pdf or .docx
                       </a>
-                    </div>
+                    </div> */}
                     {/* Quill */}
                     <div className="quill-custom">
-                      <div
+                      {/* <div
                         className="js-quill"
                         style={{ height: "15rem" }}
                         data-hs-quill-options='{
@@ -1811,7 +1811,7 @@ function pricing() {
                         ]
                       }
                      }'
-                      ></div>
+                      ></div> */}
                     </div>
                     {/* End Quill */}
                   </div>
