@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { IJobApplication } from '../interfaces/IJobApplication';
 import { CreateJob } from '../endpoints/api';
 import AutoComplete from "react-google-autocomplete";
+import Footer from '../components/Footer/Footer';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -28,10 +29,10 @@ function pricing() {
     const [zipCode, setZipCode] = useState('');
     const [remote, setRemote] = useState(0);
     const [jobtype, setJobType] = useState(0);
-    const [hires, setHires] = useState(0);
-    const [urgency, setUrgency] = useState(0);
+    const [hires, setHires] = useState('');
+    const [urgency, setUrgency] = useState('');
     const [pay, setPay] = useState(0);
-    const [currency, setCurrency] = useState(0);
+    const [currency, setCurrency] = useState('');
     const [fromDate, setFromDate] = useState('');
     const [toDate, setToDate] = useState('');
     const [period, setPeriod] = useState('');
@@ -135,12 +136,20 @@ function pricing() {
 
   }
 
-
+  const buttonStyle = {
+    backgroundColor: '#FD2DC3',
+    color: 'white',
+  };
   
 
-  // const handleRemoteChange = (e) => {
-  //   setRemote(e.target.value);
-  // };
+  const handleRemoteChange = (e : any) => {
+    const newValue = parseFloat(e.target.value);
+    setRemote(newValue);
+  };
+  const handleJobTypeChange = (e : any) => {
+    const newType = parseFloat(e.target.value);
+    setJobType(newType);
+  };
   
 
     return (
@@ -418,6 +427,7 @@ function pricing() {
                     onClick={()=>{setStepActive(1)}}
                       type="button"
                       className="btn btn-primary"
+                      style={{ backgroundColor: '#FD2DC3 !important', color: 'white' }}
                       data-hs-step-form-next-options='{
                         "targetSelector": "#postJobStepAddress"
                       }'
@@ -442,7 +452,7 @@ function pricing() {
                     backgroundImage: "url(../assets/svg/components/card-1.svg)"
                   }}
                 >
-                  <div className="flex-grow-1">
+                  <div className="flex-grow-1" >
                     <span className="d-lg-none">Step 2 of 7</span>
                     <h3 className="card-header-title">
                       Commute is the #2 reason candidates withdraw
@@ -567,7 +577,7 @@ function pricing() {
                             name="remoteOccasionRadioName"
                             id="remoteOccasionRadio1"
                             defaultChecked={true}
-                            // onChange={handleRemoteChange}
+                            onChange={handleRemoteChange}
                           />
                           <span className="form-check-label">No</span>
                         </span>
@@ -584,7 +594,7 @@ function pricing() {
                             className="form-check-input"
                             name="remoteOccasionRadioName"
                             id="remoteOccasionRadio2"
-                            // onChange={handleRemoteChange}
+                            onChange={handleRemoteChange}
                           />
                           <span className="form-check-label">Yes, always</span>
                         </span>
@@ -601,7 +611,7 @@ function pricing() {
                             className="form-check-input"
                             name="remoteOccasionRadioName"
                             id="remoteOccasionRadio3"
-                            // onChange={handleRemoteChange}
+                            onChange={handleRemoteChange}
                           />
                           <span className="form-check-label">
                             Yes, occasionally
@@ -634,6 +644,7 @@ function pricing() {
                       onClick={()=>{setStepActive(2)}}
                         type="button"
                         className="btn btn-primary"
+                        style={{ backgroundColor: '#FD2DC3 !important', color: 'white' }}
                         data-hs-step-form-next-options='{
                           "targetSelector": "#postJobStepJobDetails"
                         }'
@@ -683,6 +694,7 @@ function pricing() {
                             name="jobTypeRadioName"
                             id="jobTypeRadio1"
                             defaultChecked={true}
+                            onChange={handleJobTypeChange}
                             
                           />
                           <span className="form-check-label">Full time</span>
@@ -697,6 +709,7 @@ function pricing() {
                             className="form-check-input"
                             name="jobTypeRadioName"
                             id="jobTypeRadio2"
+                            onChange={handleJobTypeChange}
                           />
                           <span className="form-check-label">Part time</span>
                         </span>
@@ -710,6 +723,7 @@ function pricing() {
                             className="form-check-input"
                             name="jobTypeRadioName"
                             id="jobTypeRadio3"
+                            onChange={handleJobTypeChange}
                           />
                           <span className="form-check-label">Temporary</span>
                         </span>
@@ -723,6 +737,7 @@ function pricing() {
                             className="form-check-input"
                             name="jobTypeRadioName"
                             id="jobTypeRadio4"
+                            onChange={handleJobTypeChange}
                           />
                           <span className="form-check-label">Contract</span>
                         </span>
@@ -736,6 +751,7 @@ function pricing() {
                             className="form-check-input"
                             name="jobTypeRadioName"
                             id="jobTypeRadio5"
+                            onChange={handleJobTypeChange}
                           />
                           <span className="form-check-label">Internship</span>
                         </span>
@@ -749,6 +765,7 @@ function pricing() {
                             className="form-check-input"
                             name="jobTypeRadioName"
                             id="jobTypeRadio6"
+                            onChange={handleJobTypeChange}
                           />
                           <span className="form-check-label">
                             Commission only
@@ -772,6 +789,7 @@ function pricing() {
                       id="numberOfHiresLabel"
                       className="form-select"
                       name="numberOfHiresSelect"
+                      onChange={((e)=>setHires(e.target.value))}
                     >
                       <option value="numberOfHires1" selected={true}>
                         1
@@ -806,6 +824,7 @@ function pricing() {
                       id="deadlineLabel"
                       className="form-select"
                       name="deadlineSelect"
+                      onChange={((e)=>setUrgency(e.target.value))}
                     >
                       <option value="deadline1">1 to 3 days</option>
                       <option value="deadline2">3 to 7 days</option>
@@ -838,6 +857,7 @@ function pricing() {
                       onClick={()=>{setStepActive(3)}}
                         type="button"
                         className="btn btn-primary"
+                        style={{ backgroundColor: '#FD2DC3 !important', color: 'white' }}
                         data-hs-step-form-next-options='{
                           "targetSelector": "#postJobStepPayment"
                         }'
@@ -891,6 +911,7 @@ function pricing() {
                           id="jobSalaryTypeLabel"
                           className="form-select"
                           name="jobSalaryTypeSelect"
+                          // onChange={((e)=>setPay(e.target.value))}
                         >
                           <option value="jobSalaryType1" selected={true}>
                             Range
@@ -921,9 +942,10 @@ function pricing() {
                           id="jobSalaryCurrencyLabel"
                           className="form-select"
                           name="jobSalaryCurrencySelect"
+                          onChange={((e)=>setCurrency(e.target.value))}
                         >
-                          <option value="currency1" selected={true}>
-                            USD (United States Dollar)
+                          <option value="Rand" selected={true}>
+                            ZAR (South African Rand)
                           </option>
                           <option value="currency2">
                             GBP (United Kingdom Pound)
@@ -952,6 +974,7 @@ function pricing() {
                           name="salaryFromName"
                           id="salaryFromLabel"
                           placeholder={""}
+                          onChange={((e)=>setFromDate(e.target.value))}
                           // aria-label={0}
                         />
                       </div>
@@ -970,6 +993,7 @@ function pricing() {
                           name="salaryToName"
                           id="salaryToLabel"
                           placeholder={""}
+                          onChange={((e)=>setToDate(e.target.value))}
                           // aria-label={0}
                         />
                       </div>
@@ -990,6 +1014,7 @@ function pricing() {
                           id="jobSalaryPeriodLabel"
                           className="form-select"
                           name="jobSalaryPeriodSelect"
+                          onChange={((e)=>setPeriod(e.target.value))}
                         >
                           <option value="jobSalaryPeriod1">per hour</option>
                           <option value="jobSalaryPeriod2">per day</option>
@@ -1119,6 +1144,7 @@ function pricing() {
                                 className="form-check-input"
                                 name="benefitsCheckboxName"
                                 id="benefitsCheckbox1"
+                                onChange={((e)=>setHealthInsurance(e.target.checked))}
                               />
                               <span className="form-check-label">
                                 Health insurance
@@ -1137,6 +1163,7 @@ function pricing() {
                                 className="form-check-input"
                                 name="benefitsCheckboxName"
                                 id="benefitsCheckbox2"
+                                onChange={((e)=>setPaidTimeOff(e.target.checked))}
                               />
                               <span className="form-check-label">
                                 Paid time off
@@ -1155,47 +1182,14 @@ function pricing() {
                                 className="form-check-input"
                                 name="benefitsCheckboxName"
                                 id="benefitsCheckbox3"
+                                onChange={((e)=>setDentalInsurance(e.target.checked))}
                               />
                               <span className="form-check-label">
                                 Dental insurance
                               </span>
                             </span>
                           </label>
-                          {/* End Custom Radio */}
-                          {/* Custom Radio */}
-                          <label
-                            className="form-control"
-                            htmlFor="benefitsCheckbox4"
-                          >
-                            <span className="form-check">
-                              <input
-                                type="checkbox"
-                                className="form-check-input"
-                                name="benefitsCheckboxName"
-                                id="benefitsCheckbox4"
-                              />
-                              <span className="form-check-label">401(k)</span>
-                            </span>
-                          </label>
-                          {/* End Custom Radio */}
-                          {/* Custom Radio */}
-                          <label
-                            className="form-control"
-                            htmlFor="benefitsCheckbox5"
-                          >
-                            <span className="form-check">
-                              <input
-                                type="checkbox"
-                                className="form-check-input"
-                                name="benefitsCheckboxName"
-                                id="benefitsCheckbox5"
-                              />
-                              <span className="form-check-label">
-                                Vision insurance
-                              </span>
-                            </span>
-                          </label>
-                          {/* End Custom Radio */}
+                          {/* End Custom Radio */}               
                           {/* Custom Radio */}
                           <label
                             className="form-control"
@@ -1207,6 +1201,7 @@ function pricing() {
                                 className="form-check-input"
                                 name="benefitsCheckboxName"
                                 id="benefitsCheckbox6"
+                                onChange={((e)=>setFlexibleSchedule(e.target.checked))}
                               />
                               <span className="form-check-label">
                                 Flexible schedule
@@ -1225,6 +1220,7 @@ function pricing() {
                                 className="form-check-input"
                                 name="benefitsCheckboxName"
                                 id="benefitsCheckbox7"
+                                onChange={((e)=>setTuition(e.target.checked))}
                               />
                               <span className="form-check-label">
                                 Tuition reimbursement
@@ -1243,27 +1239,10 @@ function pricing() {
                                 className="form-check-input"
                                 name="benefitsCheckboxName"
                                 id="benefitsCheckbox8"
+                                onChange={((e)=>setLifeInsurance(e.target.checked))}
                               />
                               <span className="form-check-label">
                                 Life insurance
-                              </span>
-                            </span>
-                          </label>
-                          {/* End Custom Radio */}
-                          {/* Custom Radio */}
-                          <label
-                            className="form-control"
-                            htmlFor="benefitsCheckbox9"
-                          >
-                            <span className="form-check">
-                              <input
-                                type="checkbox"
-                                className="form-check-input"
-                                name="benefitsCheckboxName"
-                                id="benefitsCheckbox9"
-                              />
-                              <span className="form-check-label">
-                                401(k) matching
                               </span>
                             </span>
                           </label>
@@ -1279,6 +1258,7 @@ function pricing() {
                                 className="form-check-input"
                                 name="benefitsCheckboxName"
                                 id="benefitsCheckbox10"
+                                onChange={((e)=>setDisabilityInsurance(e.target.checked))}
                               />
                               <span className="form-check-label">
                                 Disability insurance
@@ -1302,27 +1282,10 @@ function pricing() {
                                 className="form-check-input"
                                 name="benefitsCheckboxName"
                                 id="benefitsCheckbox11"
+                                onChange={((e)=>setRetirementPlan(e.target.checked))}
                               />
                               <span className="form-check-label">
                                 Retirement plan
-                              </span>
-                            </span>
-                          </label>
-                          {/* End Custom Radio */}
-                          {/* Custom Radio */}
-                          <label
-                            className="form-control"
-                            htmlFor="benefitsCheckbox12"
-                          >
-                            <span className="form-check">
-                              <input
-                                type="checkbox"
-                                className="form-check-input"
-                                name="benefitsCheckboxName"
-                                id="benefitsCheckbox12"
-                              />
-                              <span className="form-check-label">
-                                Referral program
                               </span>
                             </span>
                           </label>
@@ -1338,45 +1301,10 @@ function pricing() {
                                 className="form-check-input"
                                 name="benefitsCheckboxName"
                                 id="benefitsCheckbox13"
+                                onChange={((e)=>setEmployeeDiscount(e.target.checked))}
                               />
                               <span className="form-check-label">
                                 Employee discount
-                              </span>
-                            </span>
-                          </label>
-                          {/* End Custom Radio */}
-                          {/* Custom Radio */}
-                          <label
-                            className="form-control"
-                            htmlFor="benefitsCheckbox14"
-                          >
-                            <span className="form-check">
-                              <input
-                                type="checkbox"
-                                className="form-check-input"
-                                name="benefitsCheckboxName"
-                                id="benefitsCheckbox14"
-                              />
-                              <span className="form-check-label">
-                                Flexible spending account
-                              </span>
-                            </span>
-                          </label>
-                          {/* End Custom Radio */}
-                          {/* Custom Radio */}
-                          <label
-                            className="form-control"
-                            htmlFor="benefitsCheckbox15"
-                          >
-                            <span className="form-check">
-                              <input
-                                type="checkbox"
-                                className="form-check-input"
-                                name="benefitsCheckboxName"
-                                id="benefitsCheckbox15"
-                              />
-                              <span className="form-check-label">
-                                Disability insurance
                               </span>
                             </span>
                           </label>
@@ -1392,9 +1320,29 @@ function pricing() {
                                 className="form-check-input"
                                 name="benefitsCheckboxName"
                                 id="benefitsCheckbox16"
+                                onChange={((e)=>setRelocation(e.target.checked))}
                               />
                               <span className="form-check-label">
                                 Relocation assistance
+                              </span>
+                            </span>
+                          </label>
+                          {/* End Custom Radio */}
+                                            {/* Custom Radio */}
+                                            <label
+                            className="form-control"
+                            htmlFor="benefitsCheckbox16"
+                          >
+                            <span className="form-check">
+                              <input
+                                type="checkbox"
+                                className="form-check-input"
+                                name="benefitsCheckboxName"
+                                id="benefitsCheckbox16"
+                                onChange={((e)=>setReferalProgram(e.target.checked))}
+                              />
+                              <span className="form-check-label">
+                                Referral Program
                               </span>
                             </span>
                           </label>
@@ -1410,6 +1358,8 @@ function pricing() {
                                 className="form-check-input"
                                 name="benefitsCheckboxName"
                                 id="benefitsCheckbox17"
+                                onChange={((e)=>setParentalLeave(e.target.checked))}
+                                
                               />
                               <span className="form-check-label">
                                 Parental leave
@@ -1428,9 +1378,48 @@ function pricing() {
                                 className="form-check-input"
                                 name="benefitsCheckboxName"
                                 id="benefitsCheckbox18"
+                                onChange={((e)=>setSpendingAccount(e.target.checked))}
                               />
                               <span className="form-check-label">
-                                Employee assistance program
+                                FLexible Spending Account
+                              </span>
+                            </span>
+                          </label>
+                          {/* End Custom Radio */}
+                          {/* Custom Radio */}
+                          <label
+                            className="form-control"
+                            htmlFor="benefitsCheckbox18"
+                          >
+                            <span className="form-check">
+                              <input
+                                type="checkbox"
+                                className="form-check-input"
+                                name="benefitsCheckboxName"
+                                id="benefitsCheckbox18"
+                                onChange={((e)=>setRetirememntFund(e.target.checked))}
+                              />
+                              <span className="form-check-label">
+                                401k
+                              </span>
+                            </span>
+                          </label>
+                          {/* End Custom Radio */}
+                                {/* Custom Radio */}
+                                <label
+                            className="form-control"
+                            htmlFor="benefitsCheckbox18"
+                          >
+                            <span className="form-check">
+                              <input
+                                type="checkbox"
+                                className="form-check-input"
+                                name="benefitsCheckboxName"
+                                id="benefitsCheckbox18"
+                                onChange={((e)=>setRetirememntFundMatch(e.target.checked))}
+                              />
+                              <span className="form-check-label">
+                                401k Match
                               </span>
                             </span>
                           </label>
@@ -1446,6 +1435,7 @@ function pricing() {
                                 className="form-check-input"
                                 name="benefitsCheckboxName"
                                 id="benefitsCheckbox19"
+                                onChange={((e)=>setOtherBenefits(e.target.checked))}
                               />
                               <span className="form-check-label">Other</span>
                             </span>
@@ -1463,6 +1453,7 @@ function pricing() {
                                 name="benefitsCheckboxName"
                                 id="benefitsCheckbox20"
                                 defaultChecked={true}
+                                onChange={((e)=>setNoBenefits(e.target.checked))}
                               />
                               <span className="form-check-label">None</span>
                             </span>
@@ -1495,6 +1486,7 @@ function pricing() {
                       onClick={()=>{setStepActive(4)}}
                         type="button"
                         className="btn btn-primary"
+                        style={{ backgroundColor: '#FD2DC3 !important', color: 'white' }}
                         data-hs-step-form-next-options='{
                           "targetSelector": "#postJobStepAdditionalJobDetails"
                         }'
@@ -1732,6 +1724,7 @@ function pricing() {
                       id="companyWebsiteLabel"
                       placeholder="http://site.com/"
                       aria-label="http://site.com/"
+                      onChange={((e)=>setWebsite(e.target.value))}
                     />
                   </div>
                   {/* End Form */}
@@ -1755,6 +1748,7 @@ function pricing() {
                       onClick={()=>{setStepActive(5)}}
                         type="button"
                         className="btn btn-primary"
+                        style={{ backgroundColor: '#FD2DC3 !important', color: 'white' }}
                         data-hs-step-form-next-options='{
                           "targetSelector": "#postJobStepJobDescription"
                         }'
@@ -2020,6 +2014,8 @@ function pricing() {
                       <button
                         type="button"
                         className="btn btn-primary"
+                        style={{ backgroundColor: '#FD2DC3 !important', color: 'white' }}
+                        onClick={()=>{setStepActive(6)}}
                         data-hs-step-form-next-options='{
                           "targetSelector": "#postJobStepJobApplicationSettings"
                         }'
@@ -2078,6 +2074,7 @@ function pricing() {
                         id="receiveApplicationsOption1"
                         autoComplete="off"
                         defaultChecked={true}
+                        onChange={((e)=>setMethodToRecieveApplications(parseInt(e.target.value)))}
                       />
                       <label
                         className="btn btn-sm"
@@ -2091,6 +2088,7 @@ function pricing() {
                         name="receiveApplicationsName"
                         id="receiveApplicationsOption2"
                         autoComplete="off"
+                        onChange={((e)=>setMethodToRecieveApplications(parseInt(e.target.value)))}
                       />
                       <label
                         className="btn btn-sm"
@@ -2104,6 +2102,7 @@ function pricing() {
                         name="receiveApplicationsName"
                         id="receiveApplicationsOption3"
                         autoComplete="off"
+                        onChange={((e)=>setMethodToRecieveApplications(parseInt(e.target.value)))}
                       />
                       <label
                         className="btn btn-sm"
@@ -2133,6 +2132,7 @@ function pricing() {
                         id="submitApplicationsOption1"
                         autoComplete="off"
                         defaultChecked={true}
+                        onChange={((e)=>setSubmitResume(parseInt(e.target.value)))}
                       />
                       <label
                         className="btn btn-sm"
@@ -2146,6 +2146,7 @@ function pricing() {
                         name="receiveApplicationsName"
                         id="submitApplicationsOption2"
                         autoComplete="off"
+                        onChange={((e)=>setSubmitResume(parseInt(e.target.value)))}
                       />
                       <label
                         className="btn btn-sm"
@@ -2186,6 +2187,7 @@ function pricing() {
                       id="canditateApplicationsSentToEmailNameLabel"
                       placeholder="email@site.com"
                       aria-label="email@site.com"
+                      onChange={((e)=>setDailyUpdateEmailAddress(e.target.value))}
                     />
                   </div>
                   {/* End Form */}
@@ -2205,6 +2207,7 @@ function pricing() {
                         className="form-check-input"
                         id="sendEmailUpdatesCheckbox"
                         defaultChecked={true}
+                        onChange={((e)=>setDailyUpdateEmail(e.target.checked))}
                       />
                       <label
                         className="form-check-label"
@@ -2238,6 +2241,7 @@ function pricing() {
                         id="postJobFinishBtn"
                         type="button"
                         className="btn btn-primary"
+                        style={{ backgroundColor: '#FD2DC3 !important', color: 'white' }}
                       >
                         Save and continue{" "}
                         <i className="bi-chevron-right small ms-1" />
@@ -2703,13 +2707,14 @@ function pricing() {
                     </button>
                     <div className="ms-auto">
                       <div className="d-flex gap-3">
-                        <button type="button" className="btn btn-white">
+                        <button type="button" className="btn btn-white"  style={{ border: '#FD2DC3 ', color: '#FD2DC3' }}>
                           Save in drafts
                         </button>
                         <button
                           id="postJobFinishBtn"
                           type="button"
                           className="btn btn-primary"
+                          style={{ backgroundColor: '#FD2DC3 !important', color: 'white' }}
                         >
                           Confirm
                         </button>
@@ -2768,7 +2773,7 @@ function pricing() {
   </main>
   {/* ========== END MAIN CONTENT ========== */}
 </>
-
+<Footer/>
 </>
    
     );
