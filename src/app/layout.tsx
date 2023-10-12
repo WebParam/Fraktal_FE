@@ -27,7 +27,7 @@ export default function RootLayout({
 
 
   function removeMenu(): void {
-    throw new Error('Function not implemented.');
+    
   }
 
   return (

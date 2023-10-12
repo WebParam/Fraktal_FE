@@ -10,11 +10,6 @@ type HeaderProps = {
 };
 
 const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: HeaderProps): ReactElement => {
-  const [activeMenuItem, setActiveMenuItem] = useState('home');
-
-  const handleMenuItemClick = (menuItem: string) => {
-    setActiveMenuItem(menuItem);
-  };
 
   return (
     <header className='header'>

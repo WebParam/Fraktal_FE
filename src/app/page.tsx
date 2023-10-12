@@ -33,7 +33,7 @@ export default function HomePage() {
             <div className="row">
               <div className="col-lg-5">
                 <div className="mb-5">
-                  <h1 className="display-4 mb-3">
+                  <h1 className="display-4 mb-3" style={{fontSize:'calc(1.475rem + 1vw)'}}>
                     Looking for a Fraktional
                     <span className="text-primary text-highlight-warning">
                       <span className="animatedText">
