@@ -313,81 +313,81 @@ function pricing() {
         </div>
         {/* End Col */}
         <div className="col-4 col-sm-3 col-md-2 py-3">
-          <img
+          <Image
             className="avatar avatar-lg avatar-4x3 avatar-centered"
-            src="./assets/svg/brands/kaplan-dark.svg"
+            src={kaplan}
             alt="Logo"
           />
         </div>
         {/* End Col */}
         <div className="col-4 col-sm-3 col-md-2 py-3">
-          <img
+          <Image
             className="avatar avatar-lg avatar-4x3 avatar-centered"
-            src="./assets/svg/brands/google-dark.svg"
+            src={google}
             alt="Logo"
           />
         </div>
         {/* End Col */}
         <div className="col-4 col-sm-3 col-md-2 py-3">
-          <img
+          <Image
             className="avatar avatar-lg avatar-4x3 avatar-centered"
-            src="./assets/svg/brands/airbnb-dark.svg"
+            src={airbnb}
             alt="Logo"
           />
         </div>
         {/* End Col */}
         <div className="col-4 col-sm-3 col-md-2 py-3">
-          <img
+          <Image
             className="avatar avatar-lg avatar-4x3 avatar-centered"
-            src="./assets/svg/brands/shopify-dark.svg"
+            src={shopify}
             alt="Logo"
           />
         </div>
         {/* End Col */}
         <div className="col-4 col-sm-3 col-md-2 py-3">
-          <img
+          <Image
             className="avatar avatar-lg avatar-4x3 avatar-centered"
-            src="./assets/svg/brands/vidados-dark.svg"
+            src={vidados}
             alt="Logo"
           />
         </div>
         {/* End Col */}
         <div className="col-4 col-sm-3 col-md-2 py-3">
-          <img
+          <Image
             className="avatar avatar-lg avatar-4x3 avatar-centered"
-            src="./assets/svg/brands/capsule-dark.svg"
+            src={capsule}
             alt="Logo"
           />
         </div>
         {/* End Col */}
         <div className="col-4 col-sm-3 col-md-2 py-3">
-          <img
+          <Image
             className="avatar avatar-lg avatar-4x3 avatar-centered"
-            src="./assets/svg/brands/forbes-dark.svg"
+            src={forbes}
             alt="Logo"
           />
         </div>
         {/* End Col */}
         <div className="col-4 col-sm-3 col-md-2 py-3">
-          <img
+          <Image
             className="avatar avatar-lg avatar-4x3 avatar-centered"
-            src="./assets/svg/brands/business-insider-dark.svg"
+            src={businesinsider}
             alt="Logo"
           />
         </div>
         {/* End Col */}
         <div className="col-4 col-sm-3 col-md-2 py-3">
-          <img
+          <Image
             className="avatar avatar-lg avatar-4x3 avatar-centered"
-            src="./assets/svg/brands/hubspot-dark.svg"
+            src={hubspot}
             alt="Logo"
           />
         </div>
         {/* End Col */}
         <div className="col-4 col-sm-3 col-md-2 py-3">
-          <img
+          <Image
             className="avatar avatar-lg avatar-4x3 avatar-centered"
-            src="./assets/svg/brands/layar-dark.svg"
+            src={layar}
             alt="Logo"
           />
         </div>
@@ -416,7 +416,7 @@ function pricing() {
               <th scope="col" style={{ width: "20%" }}>
                 <span className="d-block">
                   Team{" "}
-                  <span className="badge bg-warning text-dark rounded-pill ms-1">
+                  <span className="badge text-dark rounded-pill ms-1" style={{backgroundColor: 'lightpink'}}>
                     Hot
                   </span>
                 </span>
@@ -434,10 +434,10 @@ function pricing() {
                 Cross-platform UI toolkit
               </th>
               <td className="table-text-center">
-                <i className="bi-check-circle text-success me-2" />
+                <i className="bi-check-circle me-2" style={{color: '#FD2DC3'}} />
               </td>
               <td className="table-text-center">
-                <i className="bi-check-circle text-success me-2" />
+                <i className="bi-check-circle me-2" style={{color: '#FD2DC3'}} />
               </td>
               <td />
             </tr>
@@ -446,13 +446,13 @@ function pricing() {
                 14-days free trial
               </th>
               <td className="table-text-center">
-                <i className="bi-check-circle text-success me-2" />
+                <i className="bi-check-circle me-2" style={{color: '#FD2DC3'}} />
               </td>
               <td className="table-text-center">
-                <i className="bi-check-circle text-success me-2" />
+                <i className="bi-check-circle me-2" style={{color: '#FD2DC3'}} />
               </td>
               <td className="table-text-center">
-                <i className="bi-check-circle text-success me-2" />
+                <i className="bi-check-circle me-2" style={{color: '#FD2DC3'}} />
               </td>
             </tr>
             <tr>
@@ -461,10 +461,10 @@ function pricing() {
               </th>
               <td />
               <td className="table-text-center">
-                <i className="bi-check-circle text-success me-2" />
+                <i className="bi-check-circle me-2" style={{color: '#FD2DC3'}} />
               </td>
               <td className="table-text-center">
-                <i className="bi-check-circle text-success me-2" />
+                <i className="bi-check-circle me-2" style={{color: '#FD2DC3'}} />
               </td>
             </tr>
             <tr>
@@ -474,7 +474,7 @@ function pricing() {
               <td />
               <td />
               <td className="table-text-center">
-                <i className="bi-check-circle text-success me-2" />
+                <i className="bi-check-circle me-2" style={{color: '#FD2DC3'}} />
               </td>
             </tr>
             <tr>
@@ -482,13 +482,13 @@ function pricing() {
                 Email support
               </th>
               <td>
-                <span className="badge bg-soft-primary text-primary rounded-pill">
+                <span className="badge text-primary rounded-pill" style={{backgroundColor: '#FD2DC3', color: '#fff !important'}}>
                   Add-on available
                 </span>
               </td>
               <td />
               <td className="table-text-center">
-                <i className="bi-check-circle text-success me-2" />
+                <i className="bi-check-circle me-2" style={{color: '#FD2DC3'}} />
               </td>
             </tr>
             <tr>
@@ -497,7 +497,7 @@ function pricing() {
               </th>
               <td />
               <td className="table-text-center">
-                <i className="bi-check-circle text-success me-2" />
+                <i className="bi-check-circle me-2" style={{color: '#FD2DC3'}} />
               </td>
               <td />
             </tr>
@@ -507,24 +507,24 @@ function pricing() {
               </th>
               <td />
               <td className="table-text-center">
-                <i className="bi-check-circle text-success me-2" />
+                <i className="bi-check-circle me-2" style={{color: '#FD2DC3'}} />
               </td>
               <td className="table-text-center">
-                <i className="bi-check-circle text-success me-2" />
+                <i className="bi-check-circle me-2" style={{color: '#FD2DC3'}} />
               </td>
             </tr>
             <tr>
-              <th scope="row" className="text-dark">
+              <th scope="row" className="text-dark" >
                 Active maintenance &amp; support
               </th>
               <td className="table-text-center">
-                <i className="bi-check-circle text-success me-2" />
+                <i className="bi-check-circle me-2" style={{color: '#FD2DC3'}} />
               </td>
               <td className="table-text-center">
-                <i className="bi-check-circle text-success me-2" />
+                <i className="bi-check-circle me-2" style={{color: '#FD2DC3'}} />
               </td>
               <td className="table-text-center">
-                <i className="bi-check-circle text-success me-2" />
+                <i className="bi-check-circle me-2" style={{color: '#FD2DC3'}} />
               </td>
             </tr>
             <tr>
@@ -533,12 +533,12 @@ function pricing() {
               </th>
               <td />
               <td>
-                <span className="badge bg-soft-primary text-primary rounded-pill">
+                <span className="badge text-primary rounded-pill" style={{backgroundColor: '#', color: '#fff !important'}}>
                   Add-on available
                 </span>
               </td>
               <td className="table-text-center">
-                <i className="bi-check-circle text-success me-2" />
+                <i className="bi-check-circle me-2" style={{color: '#FD2DC3'}} />
               </td>
             </tr>
             <tr>
@@ -546,7 +546,8 @@ function pricing() {
               <td>
                 <button
                   type="button"
-                  className="btn btn-soft-dark btn-sm btn-transition"
+                  className="btn btn-sm btn-transition"
+                  style={{backgroundColor: '#ED5C9B', color: '#fff !important'}}
                 >
                   Choose plan
                 </button>
@@ -554,7 +555,8 @@ function pricing() {
               <td>
                 <button
                   type="button"
-                  className="btn btn-soft-dark btn-sm btn-transition"
+                  className="btn btn-sm btn-transition"
+                  style={{backgroundColor: '#ED5C9B', color: '#fff !important'}}
                 >
                   Choose plan
                 </button>
@@ -563,6 +565,7 @@ function pricing() {
                 <button
                   type="button"
                   className="btn btn-primary btn-sm btn-transition"
+                  style={{backgroundColor: '#FD2DC3', color: '#fff !important', border: 'none'}}
                 >
                   Contact us
                 </button>
