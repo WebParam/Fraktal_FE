@@ -113,9 +113,14 @@
   }
 }
 
-
-
 .hirenow {
-  max-width: 200px;
-  margin: 0 auto;
+  line-height: 40px;
+  padding: 0 15px;
+  height: 100px;
+  border-radius: 1px;
+  background: linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.40) 124.34%);
+    
+  & > a {
+    color: #fff;
+  }
 }

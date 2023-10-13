@@ -7,8 +7,6 @@ import { CreateJob } from '../endpoints/api';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-
-
 function pricing() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const [activeStep, setActiveStep] = useState(0);

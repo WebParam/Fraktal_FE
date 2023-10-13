@@ -18,8 +18,9 @@ import card5 from "../assets/img/480x320/img34.jpg";
 import card6 from "../assets/img/480x320/img35.jpg";
 import React, { useEffect } from 'react';
 import TypedText from './TypedText';
+import dynamic from "next/dynamic";
 
-export default function HomePage() {
+function HomePage() {
 
   return (
     <div>
@@ -378,3 +379,6 @@ export default function HomePage() {
   </div>
   )
 }
+
+export default dynamic (() => Promise.resolve(HomePage), {ssr: false})
+

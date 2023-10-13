@@ -10,7 +10,7 @@ import appDeskImage from '../../../assets/additional/appImage.jpg';
 import signupimage from '../../../assets/img/1618x1010/img5.jpg';
 import signupimage1 from '../../../assets/img/1618x1010/img4.jpg';
 import illustration1 from '../../../assets/svg/illustrations/oc-person-3.svg';
-import logo from '../../../assets/img/logo.png';
+import logo from '../../../assets/additional/logo.webp'
 import Image from 'next/image';
 import { registerOrganisation } from '@/app/endpoints/api';
 import { ICompanyRegister } from '@/app/interfaces/organisation';

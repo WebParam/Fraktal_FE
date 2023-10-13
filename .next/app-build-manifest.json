@@ -1,10 +1,28 @@
 {
   "pages": {
+    "/company-profile/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/company-profile/page.css",
+      "static/chunks/app/company-profile/page.js"
+    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
+    ],
+    "/applicant-profile/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/applicant-profile/page.css",
+      "static/chunks/app/applicant-profile/page.js"
+    ],
+    "/auth/register/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/auth/register/page.css",
+      "static/chunks/app/auth/register/page.js"
     ],
     "/page": [
       "static/chunks/webpack.js",
@@ -12,11 +30,11 @@
       "static/css/app/page.css",
       "static/chunks/app/page.js"
     ],
-    "/auth/register/page": [
+    "/pricing/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/auth/register/page.css",
-      "static/chunks/app/auth/register/page.js"
+      "static/css/app/pricing/page.css",
+      "static/chunks/app/pricing/page.js"
     ]
   }
 }
