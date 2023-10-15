@@ -6,10 +6,6 @@ import "../assets/css/theme.min.css"
 import "../assets/vendor/bootstrap-icons/font/bootstrap-icons.css"
 import "../assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.css"
 import "../assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.css"
-import Header from './components/Header/Header'
-// import Nav from './nav'
-import { useState } from 'react';
-import MobileMenu from './components/MobileMenu/MobileMenu';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,12 +19,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const [menuToggler, setMenuToggler] = useState(false);
-
-
-  function removeMenu(): void {
-    
-  }
+  
 
   return (
     <html lang="en">
@@ -46,11 +37,6 @@ export default function RootLayout({
 
       </head>
       <body> 
-      <Header 
-        menuTogglerFunction={setMenuToggler} 
-        menuTogglerValue={menuToggler} 
-      />
-      <MobileMenu removeMenu={removeMenu} menuToggler={menuToggler} />
 
       {children}
       </body>

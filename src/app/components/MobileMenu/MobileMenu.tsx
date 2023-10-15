@@ -3,11 +3,10 @@ import './MobileMenu.scss';
 import Link from 'next/link';
 
 type MobileMenuProps = {
-  removeMenu: () => void;
   menuToggler: boolean;
 };
 
-const MobileMenu = ({ removeMenu, menuToggler }: MobileMenuProps): ReactElement => {
+const MobileMenu = ({ menuToggler }: MobileMenuProps): ReactElement => {
   const [home, setHome] = useState(true);
   const [company, setCompany] = useState(false);
   const [account, setAccount] = useState(false);
@@ -25,7 +24,6 @@ const MobileMenu = ({ removeMenu, menuToggler }: MobileMenuProps): ReactElement 
       <ul className={`${menuToggler ? 'open' : ''}`}>
         <li
           onClick={() => {
-            removeMenu();
             selectItemHandler('home');
           }}
         >
@@ -37,7 +35,6 @@ const MobileMenu = ({ removeMenu, menuToggler }: MobileMenuProps): ReactElement 
           className='dropdown-li liOne'
           style={{color: `${selectedItem === 'company' ? 'lightpink' : ''}`}}
           onClick={() => {
-            removeMenu();
             selectItemHandler('company');
             setCompany(!true)
           }}
@@ -60,7 +57,6 @@ const MobileMenu = ({ removeMenu, menuToggler }: MobileMenuProps): ReactElement 
           className='dropdown-li liTwo'
           style={{color: `${selectedItem === 'account' ? 'lightpink' : ''}`}}
           onClick={() => {
-            removeMenu();
             selectItemHandler('account');
           }}
         >
@@ -82,7 +78,6 @@ const MobileMenu = ({ removeMenu, menuToggler }: MobileMenuProps): ReactElement 
           className='dropdown-li liThree'
           style={{color: `${selectedItem === 'pages' ? 'lightpink' : ''}`}}
           onClick={() => {
-            removeMenu();
             selectItemHandler('pages');
           }}
         >
@@ -102,7 +97,6 @@ const MobileMenu = ({ removeMenu, menuToggler }: MobileMenuProps): ReactElement 
           className={`dropdown-li liFour ${selectedItem === 'blog' ? 'clicked' : ''}`}
           style={{color: `${selectedItem === 'blog' ? 'lightpink' : ''}`}}
           onClick={() => {
-            removeMenu();
             selectItemHandler('blog');
           }}
         >
@@ -119,7 +113,6 @@ const MobileMenu = ({ removeMenu, menuToggler }: MobileMenuProps): ReactElement 
           className='dropdown-li liFive'
           style={{color: `${selectedItem === 'portfolio' ? 'lightpink' : ''}`}}
           onClick={() => {
-            removeMenu();
             selectItemHandler('portfolio');
           }}
         >
