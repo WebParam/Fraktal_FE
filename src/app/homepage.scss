@@ -1,4 +1,13 @@
+.heroText {
+        
+    @media (min-width: 600px) {
+        font-size: calc(1.85rem + 1.5vw);   
+    }
 
+    @media (min-width: 900px) {
+        font-size: calc(2rem + 1.5vw);
+    }
+}
 
 .getStarted {
     border-radius: 8px;

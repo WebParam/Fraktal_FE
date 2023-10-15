@@ -1,7 +1,7 @@
 "use client"
 import Image from 'next/image';
 import './homepage.scss';
-import heroImage from '../assets/additional/heroImage.jpg';
+// import heroImage from '../assets/additional/heroImage.jpg';
 import card1 from "../assets/img/480x220/img1.jpg";
 import card2 from "../assets/img/480x220/img2.jpg";
 import card3 from "../assets/img/480x220/img3.jpg";
@@ -16,23 +16,19 @@ import smallAvatar from '../assets/additional/testimonyAvatar.jpg';
 import card4 from "../assets/img/480x320/img33.jpg";
 import card5 from "../assets/img/480x320/img34.jpg";
 import card6 from "../assets/img/480x320/img35.jpg";
-import React, { useEffect, useState } from 'react';
-import TypedText from './TypedText';
-import dynamic from "next/dynamic";
-import Footer from './components/Footer/Footer';
 import koala from '../assets/additional/koala.png';
+import Footer from './components/Footer/Footer';
+
+import dynamic from "next/dynamic";
+import TypedText from './TypedText';
+import React, { useEffect, useState } from 'react';
 import Header from './components/Header/Header'
 import MobileMenu from './components/MobileMenu/MobileMenu';
-
 
 
 function HomePage() {
   const [menuToggler, setMenuToggler] = useState(false);
 
-
-  function removeMenu(): void {
-    throw new Error('Function not implemented.');
-  }
 
   return (
     <div>
@@ -52,8 +48,8 @@ function HomePage() {
             <div className="row">
               <div className="col-lg-5">
                 <div className="mb-5">
-                  <h1 className="display-4 mb-3" style={{fontSize:'calc(1.475rem + 1vw)'}}>
-                    Looking for a Fraktional
+                  <h1 className="display-4 mb-3 heroText" style={{fontSize:'calc(1.475rem + 1.5vw)'}}>
+                    Looking for a <br /> Fraktional
                     <span className="text-primary text-highlight-warning">
                       <span className="animatedText">
                         <TypedText />
