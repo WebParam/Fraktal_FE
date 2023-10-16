@@ -29,7 +29,12 @@ function pricing() {
 
     return (
   <>
-  <> 
+  <>
+  <Header 
+        menuTogglerFunction={setMenuToggler} 
+        menuTogglerValue={menuToggler} 
+      />
+      <MobileMenu menuToggler={menuToggler} />
   {/* ========== MAIN CONTENT ========== */}
   <main id="content" role="main">
     <div className="overflow-hidden">
@@ -639,8 +644,8 @@ function pricing() {
     {/* End FAQ */}
   </main>
   {/* ========== END MAIN CONTENT ========== */}
-</>
-
+  <Footer />
+  </>
   </>
    
     );

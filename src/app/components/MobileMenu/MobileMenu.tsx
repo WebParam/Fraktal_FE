@@ -35,8 +35,12 @@ const MobileMenu = ({ menuToggler }: MobileMenuProps): ReactElement => {
           className='dropdown-li liOne'
           style={{color: `${selectedItem === 'company' ? 'lightpink' : ''}`}}
           onClick={() => {
-            selectItemHandler('company');
-            setCompany(!true)
+            if (selectedItem === 'company') {
+              selectItemHandler('');
+            } else {
+              selectItemHandler('company');
+
+            }
           }}
         >
           Company <i className="bi bi-chevron-down"></i>
