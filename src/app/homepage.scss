@@ -41,14 +41,13 @@
     color: #FD2DC3 !important;
 }
 
-.container-homepage {
-    border: 1px solid red;
-}
 
 .koalaContainer {
     height: 85vh;
 }
 
 .koalaHero {
-    height: 100%;
+    height: 130%;
+    position: relative;
+    top: -20%;
 }

@@ -24,7 +24,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
               Home
             </Link>
           </li>
-          <li className="dropdown-li liOne">
+          <li className="dropdown-li liOneDesk">
             Company <i className="bi bi-chevron-down"></i>
             <div className='dropdown-Items dropdownOne'>
               <Link href='/about'>About</Link>
@@ -39,7 +39,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
               <Link href='/'>Contacts: Startup</Link>
             </div>
           </li>
-          <li className="dropdown-li liTwo">
+          <li className="dropdown-li liTwoDesk">
             Account <i className="bi bi-chevron-down"></i>
             <div className='dropdown-Items dropdownTwo'>
               <Link href='/auth/register'>Authentication</Link>
@@ -54,7 +54,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
               <Link href='/'>Teams</Link>
             </div>
           </li>
-          <li className="dropdown-li liThree">
+          <li className="dropdown-li liThreeDesk">
           Pages <i className="bi bi-chevron-down"></i>
             <div className='dropdown-Items dropdownThree'>
               <Link href='/'>FAQ</Link>
@@ -67,7 +67,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
               <Link href='/'>Error 404</Link>
             </div>
           </li>
-          <li className="dropdown-li liFour">
+          <li className="dropdown-li liFourDesk">
           Blog <i className="bi bi-chevron-down"></i>
             <div className='dropdown-Items dropdownFour'>
               <Link href='/'>Journal</Link>
@@ -77,7 +77,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
               <Link href='/'>Author Profile</Link>
             </div>
           </li>
-          <li className="dropdown-li liFive">
+          <li className="dropdown-li liFiveDesk">
           Portfolio <i className="bi bi-chevron-down"></i>
             <div className='dropdown-Items dropdownFive'>
               <Link href='/'>Grid</Link>

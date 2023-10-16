@@ -1,6 +1,5 @@
 {
   "/page": "app/page.js",
-  "/pricing/page": "app/pricing/page.js",
-  "/admin/page": "app/admin/page.js",
-  "/auth/register/page": "app/auth/register/page.js"
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/developer-overview/page": "app/developer-overview/page.js"
 }
