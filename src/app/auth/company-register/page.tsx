@@ -153,7 +153,7 @@ function CompanyRegester() {
         menuTogglerValue={menuToggler}  
       />
 
-      <MobileMenu removeMenu={removeMenu} menuToggler={menuToggler} />
+      <MobileMenu  menuToggler={menuToggler} />
       <main id="content" role="main" className='companyRegister'>
         <div className="container position-relative content-space-t-3 content-space-t-md-4 content-space-t-lg-4">
           <div className="row justify-content-lg-between align-items-lg-center">
