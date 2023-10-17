@@ -38,3 +38,37 @@ export interface IUser {
     email:string;
   
   }
+
+  export interface IJobResponsibilities{
+    content:string
+  }
+  
+
+  export interface IDeveloperProfile{
+    information :string,
+    currentJob:string,
+    previousWorkExperience:IWorkExperience[],
+    yearsOfExperience:string, 
+    education:IEducationInformation[], 
+    keySkills:string,
+    keyCourses :string, 
+    cvUrl:string, 
+    personalInformation:string, 
+    _user:string,
+    preferedWorkMethod:string
+  }
+
+  export interface IWorkExperience{
+    employer?:string,
+    jobTitle?:string,
+    startDate?:string,
+    endDate?:string
+    responsibilities?:IJobResponsibilities,
+    location?:string
+  }
+
+  export interface IEducationInformation{
+    instituteName:string,
+    qualification:string,
+    dateCompleted:string
+  }

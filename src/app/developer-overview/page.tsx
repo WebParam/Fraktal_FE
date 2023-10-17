@@ -9,15 +9,33 @@ import mailchimpicon from "../../assets/svg/brands/mailchimp-icon.svg";
 import googleicon from "../../assets/svg/brands/google-icon.svg";
 import varsity from "../../assets/svg/brands/the-university-of-manchester.svg";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
+import { IDeveloperProfile, IEducationInformation, IWorkExperience } from "../interfaces/user";
+import { GetDeveloperProfile, UpdateDeveloperProfile } from "../endpoints/api";
 
 
 function developerOverview() {
   const [workModalOpen, setWorkModalOpen] = useState(false);
   const [EducationModalOpen, setEducationModalOpen] = useState(false);
-  
+
+  //form
+  const [information, setInformation] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [surname, setSurname] = useState("");
+
+  const [currentJob, setCurrentJob] = useState("");
+  const [previousWorkExperience, setPreviousWorkExperience] = useState<IWorkExperience[]>([]);
+  const [yearsOfExperience, setYearsOfExperience] = useState("");
+  const [education, setEducation] = useState<IEducationInformation[]>([]);
+  const [keyCourses, setKeyCourses] = useState("");
+  const [cvUrl, setCVUrl] = useState("");
+  const [_user, setUser] = useState("");
+  const [preferedWorkMethod, setPreferedWorkMethod] = useState("");
+  const [phone, setPhone] = useState("");
+  const [currentProfile, setCurrentProfile] = useState<IDeveloperProfile>();
+  const [gender, setGender] = useState(0);
   function workModal(): void {
     setWorkModalOpen(true);
   }
@@ -26,6 +44,64 @@ function developerOverview() {
     setEducationModalOpen(true);
   }
 
+async function _GetDeveloperProfile(id:string){
+
+  var res = await GetDeveloperProfile(id) as any;
+  setCurrentProfile(res.data);
+
+  setInformation(res?.data?.information);
+  setFirstName(res?.data?.firstName);
+  setSurname(res?.data?.surname);
+  setCurrentJob(res?.data?.currentJob);
+  setPreviousWorkExperience(res?.data?.previousWorkExperience);
+  setYearsOfExperience(res?.data?.yearsOfExperience);
+  setEducation(res?.data?.education);
+  setKeyCourses(res?.data?.keyCourses);
+  setCVUrl(res?.data?.cvUrl);
+  setUser(res?.data?.user); // change
+  setPreferedWorkMethod(res?.data?.preferedWorkMethod);
+
+}
+
+
+function addWorkExperience(){
+
+}
+
+function addEducation(){
+
+}
+
+useEffect(() => {
+  //check url and setActive
+ _GetDeveloperProfile("")
+  
+  }, []);
+
+
+
+  async function updateProfile(){
+
+    const payload = {
+      firstName:firstName,
+      surname:surname,
+      information: information, 
+      currentJob:currentJob,
+      previousWorkExperience:[],
+      yearsOfExperience:yearsOfExperience,
+      education:[], 
+      keySkills:"", 
+      keyCourses:keyCourses,
+      cvUrl:cvUrl,
+      personalInformation:"",
+      _user: "",
+      preferedWorkMethod: preferedWorkMethod
+    } as IDeveloperProfile
+
+    const res = await UpdateDeveloperProfile(payload);
+
+  }
+  
     return (
     <main id="content" role="main" className="bg-light">
   {/* Breadcrumb */}
@@ -189,17 +265,17 @@ function developerOverview() {
                   <label htmlFor="firstNameLabel" className="col-sm-3 col-form-label form-label">Full name <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Displayed on public forums, such as Front." /></label>
                   <div className="col-sm-9">
                     <div className="input-group">
-                      <input type="text" className="form-control" name="firstName" id="firstNameLabel" placeholder="Clarice" aria-label="Clarice" defaultValue="Natalie" />
-                      <input type="text" className="form-control" name="lastName" id="lastNameLabel" placeholder="Boone" aria-label="Boone" defaultValue="Curtis" />
+                      <input type="text" onChange={(e)=> setFirstName(e.target.value)} className="form-control" name="firstName" id="firstNameLabel" placeholder="Clarice" aria-label="Clarice" defaultValue="Natalie" />
+                      <input type="text" onChange={(e)=> setSurname(e.target.value)} className="form-control" name="lastName" id="lastNameLabel" placeholder="Boone" aria-label="Boone" defaultValue="Curtis" />
                     </div>
                   </div>
                 </div>
                 {/* End Form */}
                 {/* Form */}
                 <div className="row mb-4">
-                  <label htmlFor="emailLabel" className="col-sm-3 col-form-label form-label">Email</label>
+                  <label htmlFor="emailLabel"  className="col-sm-3 col-form-label form-label">Email</label>
                   <div className="col-sm-9">
-                    <input type="email" className="form-control" name="email" id="emailLabel" placeholder="clarice@example.com" aria-label="clarice@example.com" defaultValue="natalie@example.com" />
+                    <input type="email" readOnly className="form-control" name="email" id="emailLabel" placeholder="clarice@example.com" aria-label="clarice@example.com" defaultValue="natalie@example.com" />
                   </div>
                 </div>
                 {/* End Form */}
@@ -222,10 +298,10 @@ function developerOverview() {
                               &quot;hideSearch&quot;: true
                             }">
                           <option value="Mobile" selected>Mobile</option>
-                          <option value="Home">Home</option>
+                          {/* <option value="Home">Home</option>
                           <option value="Work">Work</option>
                           <option value="Fax">Fax</option>
-                          <option value="Direct">Direct</option>
+                          <option value="Direct">Direct</option> */}
                         </select>
                       </div>
                       {/* End Select */}
@@ -241,7 +317,7 @@ function developerOverview() {
                 {/* Add Phone Input Field */}
                 <div id="addPhoneFieldTemplate" style={{display: 'none', position: 'relative'}}>
                   <div className="input-group input-group-add-field">
-                    <input type="text" className="js-input-mask-dynamic form-control" data-name="additionlPhone" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" data-hs-mask-options="{
+                    <input type="text" className="js-input-mask-dynamic form-control" onChange={(e)=>setPhone(e.target.value)} data-name="additionlPhone" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" data-hs-mask-options="{
                          &quot;mask&quot;: &quot;+{0}(000)000-00-00&quot;
                        }" />
                     {/* Select */}
@@ -272,7 +348,7 @@ function developerOverview() {
                       {/* Radio Check */}
                       <label className="form-control" htmlFor="genderTypeRadio1">
                         <span className="form-check">
-                          <input type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio1" />
+                          <input  onChange={(e)=>setGender(0)}  type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio1" />
                           <span className="form-check-label">Male</span>
                         </span>
                       </label>
@@ -280,7 +356,7 @@ function developerOverview() {
                       {/* Radio Check */}
                       <label className="form-control" htmlFor="genderTypeRadio2">
                         <span className="form-check">
-                          <input type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio2" defaultChecked />
+                          <input onChange={(e)=>setGender(1)} type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio2" defaultChecked />
                           <span className="form-check-label">Female</span>
                         </span>
                       </label>
@@ -288,7 +364,7 @@ function developerOverview() {
                       {/* Radio Check */}
                       <label className="form-control" htmlFor="genderTypeRadio3">
                         <span className="form-check">
-                          <input type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio3" />
+                          <input onChange={(e)=>setGender(2)}   type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio3" />
                           <span className="form-check-label">Other</span>
                         </span>
                       </label>
@@ -304,7 +380,7 @@ function developerOverview() {
                     {/* Quill */}
                     <div className="quill-custom">
                       <div className="js-quill" style={{height: '15rem'}}>
-                        <textarea name="summary" id="textarea" placeholder="enter summary" style={{height: '100%', width: '100%', padding: '10px'}}></textarea>
+                        <textarea onChange={(e)=>setInformation(e.target.value)} name="summary" id="textarea" placeholder="enter summary" style={{height: '100%', width: '100%', padding: '10px'}}></textarea>
                       </div>
                     </div>
                     {/* End Quill */}
@@ -351,20 +427,24 @@ function developerOverview() {
               
               <div className="mb-4">
                 <ul className="step step-icon-sm">
-                  <li className="step-item">
+
+                  {previousWorkExperience.map(x=>{
+                    return   <li className="step-item">
                     <div className="step-content-wrapper">
                       <div className="step-avatar step-avatar-sm">
                         <Image className="step-avatar-img" src={dropboxicon} alt="Image Description" />
                       </div>
                       <div className="step-content">
-                        <h5 className="step-title">Head of IT Department</h5>
-                        <span className="d-block text-dark">Dropbox - London</span>
-                        <small className="d-block mb-4">December 2016 to Present</small>
-                        <p className="text-body mb-0">The company has high expectations and using OKRs there is a mutual understanding of expectations and performance.</p>
+                        <h5 className="step-title">{x.jobTitle}</h5>
+                        <span className="d-block text-dark">{x.employer} - {x.location}</span>
+                        <small className="d-block mb-4">{x.startDate} to {x.endDate}</small>
+                        <p className="text-body mb-0">{x.responsibilities?.content}.</p>
                       </div>
                     </div>
                   </li>
-                  <li className="step-item">
+                  })}
+                
+                  {/* <li className="step-item">
                     <div className="step-content-wrapper">
                       <div className="step-avatar step-avatar-sm">
                         <Image className="step-avatar-img" src={mailchimpicon} alt="Image Description" />
@@ -389,7 +469,7 @@ function developerOverview() {
                         <p className="text-body mb-0">Work in Google is one of the beautiful experience I can do in my entire life. There are a lot of interesting thing to learn and manager respect your time and your personality.</p>
                       </div>
                     </div>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
 
@@ -417,19 +497,30 @@ function developerOverview() {
               
               <div className="mb-4">
               <ul className="step step-icon-sm">
+                {education.map(x=>{
+
+                  return <>
+
                       <li className="step-item">
                         <div className="step-content-wrapper">
                           <div className="step-avatar step-avatar-sm">
                             <Image className="step-avatar-img" src={varsity} alt="Image Description" />
                           </div>
                           <div className="step-content">
-                            <h5 className="step-title">Master's degree in Computer Software Engineering</h5>
-                            <span className="d-block text-dark">The University of Manchester - Manchester</span>
-                            <small className="d-block">October 2012 to December 2013</small>
+                            <h5 className="step-title">{x.qualification}</h5>
+                            <span className="d-block text-dark">{x.instituteName}</span>
+                            <small className="d-block">{x.dateCompleted}</small>
                           </div>
                         </div>
                       </li>
-                      <li className="step-item">
+
+                  </>
+                }
+               )
+
+                }
+                    
+                      {/* <li className="step-item">
                         <div className="step-content-wrapper">
                           <span className="step-icon step-icon-soft-dark">
                             <i className="bi-award" />
@@ -440,7 +531,7 @@ function developerOverview() {
                             <small className="d-block">October 2009 to May 2012</small>
                           </div>
                         </div>
-                      </li>
+                      </li> */}
                     </ul>
               </div>
               <button className="add" onClick={educationModal}>Add</button>

@@ -1,6 +1,6 @@
 // api.js
 import axios from 'axios';
-import { IUser, IUserLogin, IUserResetPassword, IUserSendOTP } from '../interfaces/user';
+import { IDeveloperProfile, IUser, IUserLogin, IUserResetPassword, IUserSendOTP } from '../interfaces/user';
 import {ICompanyRegister } from '../interfaces/organisation';
 import { IJobApplication } from '../interfaces/IJobApplication';
 
@@ -45,7 +45,49 @@ export async function UserLogin(payload:IUserLogin) {
     console.error('Error:', error);
     return false;
   }
+}\
+
+export async function GetDeveloperProfile(id:string) {
+  try {
+    const response = await axios.get(`${url}/api/personnel/${id}`);
+
+    if (response.status === 200 || response.status === 201) {
+      // Registration successful, you can redirect the user or show a success message.
+      console.log('update successful');
+      return response;
+    } else {
+      // Registration failed, handle error (e.g., display error message).
+      console.error('update failed');
+      return response;;
+    }
+  } catch (error) {
+    // Handle network or other errors
+    console.error('Error:', error);
+    return error;
+  }
 }
+
+
+export async function UpdateDeveloperProfile(payload:IDeveloperProfile) {
+  try {
+    const response = await axios.post(`${url}/api/personnel`, payload);
+
+    if (response.status === 200 || response.status === 201) {
+      // Registration successful, you can redirect the user or show a success message.
+      console.log('update successful');
+      return true;
+    } else {
+      // Registration failed, handle error (e.g., display error message).
+      console.error('update failed');
+      return false;;
+    }
+  } catch (error) {
+    // Handle network or other errors
+    console.error('Error:', error);
+    return false;
+  }
+}
+
 
 export async function CreateJob(payload:IJobApplication) {
   try {
@@ -66,6 +108,8 @@ export async function CreateJob(payload:IJobApplication) {
     return false;
   }
 }
+
+
 
 export async function GetApplicantProfile(id:string) {
   try {
