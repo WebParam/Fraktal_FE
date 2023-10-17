@@ -8,7 +8,8 @@ import dropboxicon from "../../assets/svg/brands/dropbox-icon.svg";
 import mailchimpicon from "../../assets/svg/brands/mailchimp-icon.svg";
 import googleicon from "../../assets/svg/brands/google-icon.svg";
 import varsity from "../../assets/svg/brands/the-university-of-manchester.svg";
-// import ocChatting from "../../assets/svg/illustrations/oc-chatting.svg";
+import Link from "next/link";
+
 
 function developerOverview() {
     return (
@@ -30,22 +31,11 @@ function developerOverview() {
           </nav>
           {/* End Breadcrumb */}
         </div>
-        {/* End Col */}
-        <div className="col-auto">
-          {/* Responsive Toggle Button */}
-          <button className="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarNav" aria-controls="sidebarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-default">
-              <i className="bi-list" />
-            </span>
-            <span className="navbar-toggler-toggled">
-              <i className="bi-x" />
-            </span>
-          </button>
-          {/* End Responsive Toggle Button */}
+
+        <div className="col Gotohome">
+          <Link href='/' style={{color: '#fff', textDecoration: 'underline'}}>Go to Home</Link>
         </div>
-        {/* End Col */}
       </div>
-      {/* End Row */}
     </div>
   </div>
   {/* End Breadcrumb */}
