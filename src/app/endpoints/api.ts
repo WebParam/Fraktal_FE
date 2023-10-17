@@ -49,7 +49,7 @@ export async function UserLogin(payload:IUserLogin) {
 
 export async function CreateJob(payload:IJobApplication) {
   try {
-    const response = await axios.post(`${url}/api/login`, payload);
+    const response = await axios.post(`${url}/api/jobApplications`, payload);
 
     if (response.status === 200 || response.status === 201) {
       // Registration successful, you can redirect the user or show a success message.
@@ -155,4 +155,5 @@ export async function sendOTP(payload:IUserSendOTP) {
       return false;
     }
   }
+
   

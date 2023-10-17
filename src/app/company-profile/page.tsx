@@ -64,7 +64,7 @@ function companyProfile() {
       <>
       <>
       {/* ========== MAIN CONTENT ========== */}
-      <main id="content" role="main">
+      <main id="content" role="main" style={{marginTop: '80px'}}>
         {/* Page Header */}
         <div className="container pt-4">
           <div className="page-header">
@@ -278,7 +278,7 @@ function companyProfile() {
                       <Image className="img-fluid rounded-2" src={img9} alt="Image Description" />
                       <span className="media-viewer-container">
                         <span className="media-viewer-icon media-viewer-icon-active">
-                          <span className="media-viewer-icon-inner">+2</span>
+                          <span className="media-viewer-icon-inner ">+2</span>
                         </span>
                       </span>
                     </a>
@@ -320,7 +320,7 @@ function companyProfile() {
                       <a className="text-dark" href="../demo-jobs/employer.html">Senior B2B sales consultant</a>
                     </h3>
                     <span className="d-block small text-body mb-1">$125k-$135k yearly</span>
-                    <span className="badge bg-soft-info text-info me-2">
+                    <span className="badge bg-soft-info text-info me-2 remote">
                       <span className="legend-indicator bg-info" />Remote
                     </span>
                   </div>
@@ -398,7 +398,7 @@ function companyProfile() {
                       <a className="text-dark" href="../demo-jobs/employer.html">Senior backend developer</a>
                     </h3>
                     <span className="d-block small text-body mb-1">$75k-$85k yearly</span>
-                    <span className="badge bg-soft-info text-info me-2">
+                    <span className="badge bg-soft-info text-info me-2 remote">
                       <span className="legend-indicator bg-info" />Remote
                     </span>
                   </div>
@@ -451,8 +451,8 @@ function companyProfile() {
                       <a className="text-dark" href="../demo-jobs/employer.html">iOS Engineer</a>
                     </h3>
                     <span className="d-block small text-body mb-1">$500-$1000 weekly</span>
-                    <span className="badge bg-soft-info text-info me-2">
-                      <span className="legend-indicator bg-info" />Remote
+                    <span className="badge bg-soft-info text-info me-2 remote" style={{backgroundColor: 'lightpink !impoortant'}}>
+                      <span className="legend-indicator" />Remote
                     </span>
                   </div>
                   {/* End Card Body */}
@@ -489,7 +489,7 @@ function companyProfile() {
                 <div className="card-body">
                   <div className="row align-items-center">
                     <div className="col">
-                      <h5 className="card-title text-inherit">Management</h5>
+                      <h5 className="card-title card-title_costom">Management</h5>
                       <p className="card-text text-body small">4 job positions</p>
                     </div>
                     {/* End Col */}
@@ -512,7 +512,7 @@ function companyProfile() {
                 <div className="card-body">
                   <div className="row align-items-center">
                     <div className="col">
-                      <h5 className="card-title text-inherit">App Development</h5>
+                      <h5 className="card-title card-title_costom">App Development</h5>
                       <p className="card-text text-body small">26 job positions</p>
                     </div>
                     {/* End Col */}
@@ -535,7 +535,7 @@ function companyProfile() {
                 <div className="card-body">
                   <div className="row align-items-center">
                     <div className="col">
-                      <h5 className="card-title text-inherit">Arts &amp; Entertainment</h5>
+                      <h5 className="card-title card-title_costom">Arts &amp; Entertainment</h5>
                       <p className="card-text text-body small">9 job positions</p>
                     </div>
                     {/* End Col */}
@@ -558,7 +558,7 @@ function companyProfile() {
                 <div className="card-body">
                   <div className="row align-items-center">
                     <div className="col">
-                      <h5 className="card-title text-inherit">Accounting</h5>
+                      <h5 className="card-title card-title_costom">Accounting</h5>
                       <p className="card-text text-body small">11 job positions</p>
                     </div>
                     {/* End Col */}
@@ -581,7 +581,7 @@ function companyProfile() {
                 <div className="card-body">
                   <div className="row align-items-center">
                     <div className="col">
-                      <h5 className="card-title text-inherit">UI Designer</h5>
+                      <h5 className="card-title card-title_costom">UI Designer</h5>
                       <p className="card-text text-body small">37 job positions</p>
                     </div>
                     {/* End Col */}
@@ -604,7 +604,7 @@ function companyProfile() {
                 <div className="card-body">
                   <div className="row align-items-center">
                     <div className="col">
-                      <h5 className="card-title text-inherit">Apps</h5>
+                      <h5 className="card-title card-title_costom">Apps</h5>
                       <p className="card-text text-body small">2 job positions</p>
                     </div>
                     {/* End Col */}
@@ -627,7 +627,7 @@ function companyProfile() {
                 <div className="card-body">
                   <div className="row align-items-center">
                     <div className="col">
-                      <h5 className="card-title text-inherit">Content Writer</h5>
+                      <h5 className="card-title card-title_costom">Content Writer</h5>
                       <p className="card-text text-body small">10 job positions</p>
                     </div>
                     {/* End Col */}
@@ -650,7 +650,7 @@ function companyProfile() {
                 <div className="card-body">
                   <div className="row align-items-center">
                     <div className="col">
-                      <h5 className="card-title text-inherit">Analytics</h5>
+                      <h5 className="card-title card-title_costom">Analytics</h5>
                       <p className="card-text text-body small">14 job positions</p>
                     </div>
                     {/* End Col */}
@@ -669,7 +669,7 @@ function companyProfile() {
             {/* End Col */}
           </div>
           {/* End Row */}
-          <a className="btn btn-outline-primary" href="../demo-jobs/job-list.html">View all available jobs <i className="bi-chevron-right small ms-1" /></a>
+          <a className="btn btn-outline-primary" style={{backgroundColor: '#FD2DC3 !important'}} href="../demo-jobs/job-list.html">View all available jobs <i className="bi-chevron-right small ms-1" /></a>
         </div>
         {/* End Card Grid */}
         {/* Divider */}
@@ -829,7 +829,7 @@ function companyProfile() {
                 {/* End Item */}
               </ul>
               {/* End Comment */}
-              <a className="btn btn-outline-primary" href="#">View all reviews <i className="bi-chevron-right small ms-1" /></a>
+              <a href="#" className='viewallreviews'>View all reviews <i className="bi-chevron-right small ms-1" /></a>
               {/* Sticky Block End Point */}
               <div id="stickyBlockEndPoint" />
             </div>
@@ -854,7 +854,7 @@ function companyProfile() {
                           <p className="card-text">Help fellow job seekers by sharing your unique experience.</p>
                         </div>
                         <div className="d-grid mb-5">
-                          <a className="btn btn-primary btn-sm" href="#">Select a subscription</a>
+                          <a className="btn btn-primary btn-sm subscription" href="#">Select a subscription</a>
                         </div>
                         <Image className="card-img-bottom" src={ocChatting} alt="Image Description" />
                       </div>
@@ -1085,14 +1085,14 @@ function companyProfile() {
                           <Image className="avatar avatar-sm avatar-circle" src={london} alt="SVG" />
                         </div>
                         <div className="flex-grow-1 ms-3">
-                          <h5 className="card-title text-inherit">London, UK</h5>
+                          <h5 className="card-title card-title_costom">London, UK</h5>
                         </div>
                       </div>
                     </div>
                     {/* End Col */}
                     <div className="col-auto">
                       <span className="text-muted">
-                        <i className="bi-chevron-right small" />
+                        <i className="bi-chevron-right small" style={{color: '#FD2DC3'}} />
                       </span>
                     </div>
                     {/* End Col */}
@@ -1114,14 +1114,14 @@ function companyProfile() {
                           <Image className="avatar avatar-sm avatar-circle" src={img08} alt="SVG" />
                         </div>
                         <div className="flex-grow-1 ms-3">
-                          <h5 className="card-title text-inherit">Bristol, UK</h5>
+                          <h5 className="card-title card-title_costom">Bristol, UK</h5>
                         </div>
                       </div>
                     </div>
                     {/* End Col */}
                     <div className="col-auto">
                       <span className="text-muted">
-                        <i className="bi-chevron-right small" />
+                        <i className="bi-chevron-right small" style={{color: '#FD2DC3'}} />
                       </span>
                     </div>
                     {/* End Col */}
@@ -1143,14 +1143,14 @@ function companyProfile() {
                           <Image className="avatar avatar-sm avatar-circle" src={img29} alt="SVG" />
                         </div>
                         <div className="flex-grow-1 ms-3">
-                          <h5 className="card-title text-inherit">Oxford, UK</h5>
+                          <h5 className="card-title card-title_costom">Oxford, UK</h5>
                         </div>
                       </div>
                     </div>
                     {/* End Col */}
                     <div className="col-auto">
                       <span className="text-muted">
-                        <i className="bi-chevron-right small" />
+                        <i className="bi-chevron-right small" style={{color: '#FD2DC3'}} />
                       </span>
                     </div>
                     {/* End Col */}
@@ -1172,14 +1172,14 @@ function companyProfile() {
                           <Image className="avatar avatar-sm avatar-circle" src={img11} alt="SVG" />
                         </div>
                         <div className="flex-grow-1 ms-3">
-                          <h5 className="card-title text-inherit">Edinburgh, UK</h5>
+                          <h5 className="card-title card-title_costom">Edinburgh, UK</h5>
                         </div>
                       </div>
                     </div>
                     {/* End Col */}
                     <div className="col-auto">
                       <span className="text-muted">
-                        <i className="bi-chevron-right small" />
+                        <i className="bi-chevron-right small" style={{color: '#FD2DC3'}} />
                       </span>
                     </div>
                     {/* End Col */}
@@ -1201,14 +1201,14 @@ function companyProfile() {
                           <Image className="avatar avatar-sm avatar-circle" src={img10} alt="SVG" />
                         </div>
                         <div className="flex-grow-1 ms-3">
-                          <h5 className="card-title text-inherit">Newcastle, UK</h5>
+                          <h5 className="card-title card-title_costom">Newcastle, UK</h5>
                         </div>
                       </div>
                     </div>
                     {/* End Col */}
                     <div className="col-auto">
                       <span className="text-muted">
-                        <i className="bi-chevron-right small" />
+                        <i className="bi-chevron-right small" style={{color: '#FD2DC3'}} />
                       </span>
                     </div>
                     {/* End Col */}
@@ -1230,14 +1230,14 @@ function companyProfile() {
                           <Image className="avatar avatar-sm avatar-circle" src={london} alt="SVG" />
                         </div>
                         <div className="flex-grow-1 ms-3">
-                          <h5 className="card-title text-inherit">Liverpool, UK</h5>
+                          <h5 className="card-title card-title_costom">Liverpool, UK</h5>
                         </div>
                       </div>
                     </div>
                     {/* End Col */}
                     <div className="col-auto">
                       <span className="text-muted">
-                        <i className="bi-chevron-right small" />
+                        <i className="bi-chevron-right small" style={{color: '#FD2DC3'}} />
                       </span>
                     </div>
                     {/* End Col */}

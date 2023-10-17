@@ -6,6 +6,7 @@ export interface IUser {
     email?:string;
     password?:string;
     mobileNumber?:string;
+    skills:string[];
     //userstate: 
     //0 = otp unverified
     //1 = otp verified
