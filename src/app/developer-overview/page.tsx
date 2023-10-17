@@ -9,9 +9,22 @@ import mailchimpicon from "../../assets/svg/brands/mailchimp-icon.svg";
 import googleicon from "../../assets/svg/brands/google-icon.svg";
 import varsity from "../../assets/svg/brands/the-university-of-manchester.svg";
 import Link from "next/link";
+import { useState } from "react";
+import { Modal } from 'react-responsive-modal';
 
 
 function developerOverview() {
+  const [workModalOpen, setWorkModalOpen] = useState(false);
+  const [EducationModalOpen, setEducationModalOpen] = useState(false);
+  
+  function workModal(): void {
+    setWorkModalOpen(true);
+  }
+
+  function educationModal(): void {
+    setEducationModalOpen(true);
+  }
+
     return (
     <main id="content" role="main" className="bg-light">
   {/* Breadcrumb */}
@@ -336,49 +349,55 @@ function developerOverview() {
             <div className="card-body">
               
               <div className="mb-4">
-              <ul className="step step-icon-sm">
-                      <li className="step-item">
-                        <div className="step-content-wrapper">
-                          <div className="step-avatar step-avatar-sm">
-                            <Image className="step-avatar-img" src={dropboxicon} alt="Image Description" />
-                          </div>
-                          <div className="step-content">
-                            <h5 className="step-title">Head of IT Department</h5>
-                            <span className="d-block text-dark">Dropbox - London</span>
-                            <small className="d-block mb-4">December 2016 to Present</small>
-                            <p className="text-body mb-0">The company has high expectations and using OKRs there is a mutual understanding of expectations and performance.</p>
-                          </div>
-                        </div>
-                      </li>
-                      <li className="step-item">
-                        <div className="step-content-wrapper">
-                          <div className="step-avatar step-avatar-sm">
-                            <Image className="step-avatar-img" src={mailchimpicon} alt="Image Description" />
-                          </div>
-                          <div className="step-content">
-                            <h5 className="step-title">Senior Software Engineer</h5>
-                            <span className="d-block text-dark">Mailchimp - London</span>
-                            <small className="d-block mb-4">November 2014 to December 2016</small>
-                            <p className="text-body mb-0">This is an excellent company and they reward their employees. It's becoming a big company but it's still private, so the culture is as good as it gets at 1,000+ employees if you ask me. Managers are still adapting to the growth I think, but everyone has to. Great place to work.</p>
-                          </div>
-                        </div>
-                      </li>
-                      <li className="step-item">
-                        <div className="step-content-wrapper">
-                          <div className="step-avatar step-avatar-sm">
-                            <Image className="step-avatar-img" src={googleicon} alt="Image Description" />
-                          </div>
-                          <div className="step-content">
-                            <h5 className="step-title">Junior Software Engineer</h5>
-                            <span className="d-block text-dark">Google - London</span>
-                            <small className="d-block mb-4">January 2014 to November 2014</small>
-                            <p className="text-body mb-0">Work in Google is one of the beautiful experience I can do in my entire life. There are a lot of interesting thing to learn and manager respect your time and your personality.</p>
-                          </div>
-                        </div>
-                      </li>
-                     
-              </ul>
+                <ul className="step step-icon-sm">
+                  <li className="step-item">
+                    <div className="step-content-wrapper">
+                      <div className="step-avatar step-avatar-sm">
+                        <Image className="step-avatar-img" src={dropboxicon} alt="Image Description" />
+                      </div>
+                      <div className="step-content">
+                        <h5 className="step-title">Head of IT Department</h5>
+                        <span className="d-block text-dark">Dropbox - London</span>
+                        <small className="d-block mb-4">December 2016 to Present</small>
+                        <p className="text-body mb-0">The company has high expectations and using OKRs there is a mutual understanding of expectations and performance.</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li className="step-item">
+                    <div className="step-content-wrapper">
+                      <div className="step-avatar step-avatar-sm">
+                        <Image className="step-avatar-img" src={mailchimpicon} alt="Image Description" />
+                      </div>
+                      <div className="step-content">
+                        <h5 className="step-title">Senior Software Engineer</h5>
+                        <span className="d-block text-dark">Mailchimp - London</span>
+                        <small className="d-block mb-4">November 2014 to December 2016</small>
+                        <p className="text-body mb-0">This is an excellent company and they reward their employees. It's becoming a big company but it's still private, so the culture is as good as it gets at 1,000+ employees if you ask me. Managers are still adapting to the growth I think, but everyone has to. Great place to work.</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li className="step-item">
+                    <div className="step-content-wrapper">
+                      <div className="step-avatar step-avatar-sm">
+                        <Image className="step-avatar-img" src={googleicon} alt="Image Description" />
+                      </div>
+                      <div className="step-content">
+                        <h5 className="step-title">Junior Software Engineer</h5>
+                        <span className="d-block text-dark">Google - London</span>
+                        <small className="d-block mb-4">January 2014 to November 2014</small>
+                        <p className="text-body mb-0">Work in Google is one of the beautiful experience I can do in my entire life. There are a lot of interesting thing to learn and manager respect your time and your personality.</p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
               </div>
+
+              <button className="add" onClick={workModal}>Add</button>
+              {workModalOpen
+               &&  
+               <Modal open={workModalOpen} onClose={() => setWorkModalOpen(false)} center>
+                  Modal content
+               </Modal>}
             </div>
             {/* End Body */}
           </div>
@@ -418,6 +437,12 @@ function developerOverview() {
                       </li>
                     </ul>
               </div>
+              <button className="add" onClick={educationModal}>Add</button>
+              {EducationModalOpen
+               &&  
+               <Modal open={EducationModalOpen} onClose={() => setEducationModalOpen(false)} center>
+                  Modal content
+               </Modal>}
             </div>
             {/* End Body */}
           </div>
