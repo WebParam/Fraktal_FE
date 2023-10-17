@@ -11,6 +11,7 @@ import varsity from "../../assets/svg/brands/the-university-of-manchester.svg";
 import Link from "next/link";
 import { useState } from "react";
 import { Modal } from 'react-responsive-modal';
+import 'react-responsive-modal/styles.css';
 
 
 function developerOverview() {
@@ -395,8 +396,13 @@ function developerOverview() {
               <button className="add" onClick={workModal}>Add</button>
               {workModalOpen
                &&  
-               <Modal open={workModalOpen} onClose={() => setWorkModalOpen(false)} center>
-                  Modal content
+               <Modal 
+                open={workModalOpen}
+                closeOnOverlayClick={true}
+                onClose={() => setWorkModalOpen(false)} 
+                center
+                >
+                  Modal content for work experience
                </Modal>}
             </div>
             {/* End Body */}
@@ -440,8 +446,13 @@ function developerOverview() {
               <button className="add" onClick={educationModal}>Add</button>
               {EducationModalOpen
                &&  
-               <Modal open={EducationModalOpen} onClose={() => setEducationModalOpen(false)} center>
-                  Modal content
+               <Modal 
+                open={EducationModalOpen} 
+                closeOnOverlayClick={true} 
+                onClose={() => setEducationModalOpen(false)} 
+                center
+                >
+                  Modal content for education
                </Modal>}
             </div>
             {/* End Body */}
