@@ -57,3 +57,11 @@
     position: relative;
     top: -20%;
 }
+
+.card-link {
+    transition: .5s all;
+
+    &:hover {
+        color: #FD2DC3 !important;
+    }
+}

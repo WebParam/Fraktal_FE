@@ -20,7 +20,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
       <nav>
         <ul className='header-navItems'>
           <li>
-            <Link href='/' style={{color: '#4B4C4E'}}>
+            <Link href='/' passHref>
               Home
             </Link>
           </li>
