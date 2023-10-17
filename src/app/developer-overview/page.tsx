@@ -458,8 +458,8 @@ function developerOverview() {
                               <input 
                                 type="text" 
                                 className="form-control form-control-lg" 
-                                name="hireUsFormTitle" 
-                                id="hireUsFormTitle" 
+                                name="Title" 
+                                id="Title" 
                                 placeholder="Title" 
                                 aria-label="Title"
                                 value={workData.Title}
@@ -472,35 +472,30 @@ function developerOverview() {
                           <div className="col-sm-6">
                             {/* Form */}
                             <div className="mb-3">
-                              <label className="form-label" htmlFor="hireUsFormCompanyName">Company Name</label>
+                              <label className="form-label" htmlFor="CompanyName">Company Name</label>
                               <input 
                                 type="text" 
                                 className="form-control form-control-lg" 
-                                name="hireUsFormNameCompanyName" 
-                                id="hireUsFormCompanyName" 
+                                name="CompanyName" 
                                 placeholder="Company Name" 
                                 aria-label="Company Name" 
                                 value={workData.CompanyName}
                                 onChange={handleChange}
                                 />
                             </div>
-                            {/* End Form */}
                           </div>
-                          {/* End Col */}
                         </div>
-                        {/* End Row */}
+   
                         <div className="row gx-3">
                           <div className="col-sm-6">
                             {/* Form */}
                             <div className="mb-3">
-                              <label className="form-label" htmlFor="hireUsFormWorkLocation">Location</label>
+                              <label className="form-label" htmlFor="locationWork">Location</label>
                               <input 
                                 type="text" 
                                 className="form-control form-control-lg" 
-                                name="hireUsFormNameWorkLocation" 
-                                id="hireUsFormWorkLocation" 
+                                name="LocationWork" 
                                 placeholder="eg. Johannesburg" 
-                                aria-label="Location" 
                                 value={workData.Location}
                                 onChange={handleChange}
                               />
@@ -511,13 +506,13 @@ function developerOverview() {
                           <div className="col-sm-6">
                             {/* Form */}
                             <div className="mb-3">
-                              <label className="form-label" htmlFor="hireUsFormDuation">Duration</label>
+                              <label className="form-label" htmlFor="durationStartwork">Duration</label>
                               <div className="dateInputs">
                                 <input 
                                   type="date" 
                                   className="form-control form-control-lg" 
-                                  name="hireUsFormNamePhone" 
-                                  id="hireUsFormDuration" 
+                                  name="DurationStartwork" 
+                                  id="DurationStartwork" 
                                   aria-label="Duration" 
                                   value={workData.DurationStart}
                                   onChange={handleChange}
@@ -525,8 +520,8 @@ function developerOverview() {
                                 <input 
                                   type="date" 
                                   className="form-control form-control-lg" 
-                                  name="hireUsFormNamePhone" 
-                                  id="hireUsFormDuration" 
+                                  name="durationEndwork" 
+                                  id="durationEndwork" 
                                   aria-label="Duration" 
                                   value={workData.DurationEnd}
                                   onChange={handleChange}
@@ -540,16 +535,15 @@ function developerOverview() {
                         {/* End Row */}
                         {/* Form */}
                         <div className="mb-3">
-                          <label className="form-label" htmlFor="hireUsFormDetails">Description</label>
+                          <label className="form-label" htmlFor="description">Description</label>
                           <textarea 
                             className="form-control form-control-lg" 
-                            name="hireUsFormNameDetails" 
-                            id="hireUsFormDetails" 
+                            name="Description" 
+                            id="Description" 
                             placeholder="Tell us about your ..." 
-                            aria-label="Tell us about your ..." 
+                            aria-label="description" 
                             rows={4} 
-                            defaultValue={""} 
-                            value={workData.description} // Bind the value to the state
+                            value={workData.description}
                             onChange={handleChange}
                             />
                         </div>
@@ -626,10 +620,10 @@ function developerOverview() {
                               <input 
                                 type="text" 
                                 className="form-control form-control-lg" 
-                                name="hireUsFormTitle" 
-                                id="hireUsFormTitle" 
+                                name="Certificate" 
+                                id="certifficate" 
                                 placeholder="eg. Master's degree in Computer Software Engineering" 
-                                aria-label="Title" 
+                                aria-label="Certificate" 
                                 value={educationData.certificate}
                                 onChange={handleChangeEducation}
                               />
@@ -644,10 +638,10 @@ function developerOverview() {
                               <input 
                                 type="text" 
                                 className="form-control form-control-lg" 
-                                name="hireUsFormNameCompanyName" 
-                                id="hireUsFormCompanyName" 
-                                placeholder="Company Name" 
-                                aria-label="Company Name" 
+                                name="SchoolName" 
+                                id="schoolName" 
+                                placeholder="School Name" 
+                                aria-label="School Name" 
                                 value={educationData.schoolName}
                                 onChange={handleChangeEducation}  
                               />
@@ -661,12 +655,12 @@ function developerOverview() {
                           <div className="col-sm-6">
                             {/* Form */}
                             <div className="mb-3">
-                              <label className="form-label" htmlFor="hireUsFormWorkLocation">Location</label>
+                              <label className="form-label" htmlFor="Location">Location</label>
                               <input 
                                 type="text" 
                                 className="form-control form-control-lg" 
-                                name="hireUsFormNameWorkLocation" 
-                                id="hireUsFormWorkLocation" 
+                                name="Location" 
+                                id="Location" 
                                 placeholder="eg. Johannesburg" 
                                 aria-label="Location" 
                                 value={educationData.Locationedu}
@@ -684,17 +678,17 @@ function developerOverview() {
                                 <input 
                                   type="date" 
                                   className="form-control form-control-lg" 
-                                  name="hireUsFormNamePhone" 
-                                  id="hireUsFormDuration" 
-                                  aria-label="Duration" 
+                                  name="durationStart" 
+                                  id="durationStartEdu" 
+                                  aria-label="durationEdu" 
                                   value={educationData.DurationStartedu}
                                   onChange={handleChangeEducation}
                                   />To
                                 <input 
                                   type="date" 
                                   className="form-control form-control-lg" 
-                                  name="hireUsFormNamePhone" 
-                                  id="hireUsFormDuration" 
+                                  name="durationEnd" 
+                                  id="durationEndedu" 
                                   aria-label="Duration" 
                                   value={educationData.DurationEndEdu}
                                   onChange={handleChangeEducation}
