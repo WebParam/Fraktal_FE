@@ -7,6 +7,8 @@ import './DevOverview.scss';
 import dropboxicon from "../../assets/svg/brands/dropbox-icon.svg";
 import mailchimpicon from "../../assets/svg/brands/mailchimp-icon.svg";
 import googleicon from "../../assets/svg/brands/google-icon.svg";
+import varsity from "../../assets/svg/brands/the-university-of-manchester.svg";
+// import ocChatting from "../../assets/svg/illustrations/oc-chatting.svg";
 
 function developerOverview() {
     return (
@@ -390,6 +392,46 @@ function developerOverview() {
             </div>
             {/* End Body */}
           </div>
+
+          <div className="card">
+            <div className="card-header border-bottom">
+              <h4 className="card-header-title">Education</h4>
+            </div>
+            {/* Body */}
+            <div className="card-body">
+              
+              <div className="mb-4">
+              <ul className="step step-icon-sm">
+                      <li className="step-item">
+                        <div className="step-content-wrapper">
+                          <div className="step-avatar step-avatar-sm">
+                            <Image className="step-avatar-img" src={varsity} alt="Image Description" />
+                          </div>
+                          <div className="step-content">
+                            <h5 className="step-title">Master's degree in Computer Software Engineering</h5>
+                            <span className="d-block text-dark">The University of Manchester - Manchester</span>
+                            <small className="d-block">October 2012 to December 2013</small>
+                          </div>
+                        </div>
+                      </li>
+                      <li className="step-item">
+                        <div className="step-content-wrapper">
+                          <span className="step-icon step-icon-soft-dark">
+                            <i className="bi-award" />
+                          </span>
+                          <div className="step-content">
+                            <h5 className="step-title">Bachelor's degree in Computer Software Engineering</h5>
+                            <span className="d-block text-dark">University of Oxford - Oxford</span>
+                            <small className="d-block">October 2009 to May 2012</small>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+              </div>
+            </div>
+            {/* End Body */}
+          </div>
+
           <div className="card">
             <div className="card-header border-bottom">
               <h4 className="card-header-title">Links</h4>
