@@ -313,7 +313,7 @@ function developerOverview() {
             <div className="card-footer pt-0">
               <div className="d-flex justify-content-end gap-3">
                 <a className="btn btn-white" href="javascript:;">Cancel</a>
-                <a className="btn btn-primary" href="javascript:;">Save changes</a>
+                <a className="btn" href="javascript:;" style={{backgroundColor: '##FD2DC3'}}>Save changes</a>
               </div>
             </div>
             {/* End Footer */}
@@ -344,7 +344,7 @@ function developerOverview() {
             <div className="card-body">
               
               <div className="mb-4">
-              {/* <ul className="step step-icon-sm">
+              <ul className="step step-icon-sm">
                       <li className="step-item">
                         <div className="step-content-wrapper">
                           <div className="step-avatar step-avatar-sm">
@@ -385,7 +385,7 @@ function developerOverview() {
                         </div>
                       </li>
                      
-              </ul> */}
+              </ul>
               </div>
             </div>
             {/* End Body */}
@@ -397,8 +397,21 @@ function developerOverview() {
             {/* Body */}
             <div className="card-body">
               <div className="mb-4">
-                <p>Portfolio</p>
-                <p>Linkedin (url)</p>
+              <div className="linksContainer">
+                  <p>
+                    Portfolio
+                  </p>
+                  <input 
+                    type="text" 
+                    className="portfolioInput"
+                    placeholder="www.portfoliolink.com" 
+                  />
+                </div>
+
+                <div className="linksContainer">
+                  <p>Linkedin (url)</p>
+                  <input type="text" className="linkedinInput" placeholder="linkedin.com/username" />
+                </div>
               </div>
             </div>
             {/* End Body */}
