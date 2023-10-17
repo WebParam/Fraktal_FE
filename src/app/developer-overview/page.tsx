@@ -17,6 +17,38 @@ import 'react-responsive-modal/styles.css';
 function developerOverview() {
   const [workModalOpen, setWorkModalOpen] = useState(false);
   const [EducationModalOpen, setEducationModalOpen] = useState(false);
+  const [workData, setworkData] = useState({
+    Title: '',
+    CompanyName: '',
+    Location: '',
+    DurationStart: '',
+    DurationEnd: '',
+    description: ''
+  });
+
+  const [educationData, seteducationData] = useState({
+    certificate: '',
+    schoolName: '',
+    Locationedu: '',
+    DurationStartedu: '',
+    DurationEndEdu: '',
+  });
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setworkData({
+      ...workData,
+      [name]: value,
+    });
+  };
+
+  const handleChangeEducation = (e: any) => {
+    const { name, value } = e.target;
+    seteducationData({
+      ...educationData,
+      [name]: value,
+    });
+  };
   
   function workModal(): void {
     setWorkModalOpen(true);
@@ -24,6 +56,14 @@ function developerOverview() {
 
   function educationModal(): void {
     setEducationModalOpen(true);
+  }
+
+  function handleWorkExperienceSubmit(event: any): void {
+    alert('Work added!');
+  }
+
+  function handleEducationExperienceSubmit(event: any): void {
+    alert('Education Added');
   }
 
     return (
@@ -409,13 +449,22 @@ function developerOverview() {
                         <h2>Add Work Eperience</h2>
                       </div>
                       {/* Form */}
-                      <form>
+                      <form onSubmit={handleWorkExperienceSubmit}>
                         <div className="row gx-3">
                           <div className="col-sm-6">
                             {/* Form */}
                             <div className="mb-3">
                               <label className="form-label" htmlFor="hireUsFormTitle">Title</label>
-                              <input type="text" className="form-control form-control-lg" name="hireUsFormTitle" id="hireUsFormTitle" placeholder="Title" aria-label="Title" />
+                              <input 
+                                type="text" 
+                                className="form-control form-control-lg" 
+                                name="hireUsFormTitle" 
+                                id="hireUsFormTitle" 
+                                placeholder="Title" 
+                                aria-label="Title"
+                                value={workData.Title}
+                                onChange={handleChange} 
+                              />
                             </div>
                             {/* End Form */}
                           </div>
@@ -424,7 +473,16 @@ function developerOverview() {
                             {/* Form */}
                             <div className="mb-3">
                               <label className="form-label" htmlFor="hireUsFormCompanyName">Company Name</label>
-                              <input type="text" className="form-control form-control-lg" name="hireUsFormNameCompanyName" id="hireUsFormCompanyName" placeholder="Company Name" aria-label="Company Name" />
+                              <input 
+                                type="text" 
+                                className="form-control form-control-lg" 
+                                name="hireUsFormNameCompanyName" 
+                                id="hireUsFormCompanyName" 
+                                placeholder="Company Name" 
+                                aria-label="Company Name" 
+                                value={workData.CompanyName}
+                                onChange={handleChange}
+                                />
                             </div>
                             {/* End Form */}
                           </div>
@@ -436,7 +494,16 @@ function developerOverview() {
                             {/* Form */}
                             <div className="mb-3">
                               <label className="form-label" htmlFor="hireUsFormWorkLocation">Location</label>
-                              <input type="text" className="form-control form-control-lg" name="hireUsFormNameWorkLocation" id="hireUsFormWorkLocation" placeholder="eg. Johannesburg" aria-label="Location" />
+                              <input 
+                                type="text" 
+                                className="form-control form-control-lg" 
+                                name="hireUsFormNameWorkLocation" 
+                                id="hireUsFormWorkLocation" 
+                                placeholder="eg. Johannesburg" 
+                                aria-label="Location" 
+                                value={workData.Location}
+                                onChange={handleChange}
+                              />
                             </div>
                             {/* End Form */}
                           </div>
@@ -446,8 +513,24 @@ function developerOverview() {
                             <div className="mb-3">
                               <label className="form-label" htmlFor="hireUsFormDuation">Duration</label>
                               <div className="dateInputs">
-                                <input type="date" className="form-control form-control-lg" name="hireUsFormNamePhone" id="hireUsFormDuration" aria-label="Duration" />To
-                                <input type="date" className="form-control form-control-lg" name="hireUsFormNamePhone" id="hireUsFormDuration" aria-label="Duration" />
+                                <input 
+                                  type="date" 
+                                  className="form-control form-control-lg" 
+                                  name="hireUsFormNamePhone" 
+                                  id="hireUsFormDuration" 
+                                  aria-label="Duration" 
+                                  value={workData.DurationStart}
+                                  onChange={handleChange}
+                                />To
+                                <input 
+                                  type="date" 
+                                  className="form-control form-control-lg" 
+                                  name="hireUsFormNamePhone" 
+                                  id="hireUsFormDuration" 
+                                  aria-label="Duration" 
+                                  value={workData.DurationEnd}
+                                  onChange={handleChange}
+                                  />
                               </div>
                             </div>
                             {/* End Form */}
@@ -458,7 +541,17 @@ function developerOverview() {
                         {/* Form */}
                         <div className="mb-3">
                           <label className="form-label" htmlFor="hireUsFormDetails">Description</label>
-                          <textarea className="form-control form-control-lg" name="hireUsFormNameDetails" id="hireUsFormDetails" placeholder="Tell us about your ..." aria-label="Tell us about your ..." rows={4} defaultValue={""} />
+                          <textarea 
+                            className="form-control form-control-lg" 
+                            name="hireUsFormNameDetails" 
+                            id="hireUsFormDetails" 
+                            placeholder="Tell us about your ..." 
+                            aria-label="Tell us about your ..." 
+                            rows={4} 
+                            defaultValue={""} 
+                            value={workData.description} // Bind the value to the state
+                            onChange={handleChange}
+                            />
                         </div>
                         {/* End Form */}
                         <div className="d-grid">
@@ -524,13 +617,22 @@ function developerOverview() {
                         <h2>Add Education</h2>
                       </div>
                       {/* Form */}
-                      <form>
+                      <form onSubmit={handleEducationExperienceSubmit}>
                         <div className="row gx-3">
                           <div className="col-sm-6">
                             {/* Form */}
                             <div className="mb-3">
                               <label className="form-label" htmlFor="hireUsFormTitle">Certificate</label>
-                              <input type="text" className="form-control form-control-lg" name="hireUsFormTitle" id="hireUsFormTitle" placeholder="eg. Master's degree in Computer Software Engineering" aria-label="Title" />
+                              <input 
+                                type="text" 
+                                className="form-control form-control-lg" 
+                                name="hireUsFormTitle" 
+                                id="hireUsFormTitle" 
+                                placeholder="eg. Master's degree in Computer Software Engineering" 
+                                aria-label="Title" 
+                                value={educationData.certificate}
+                                onChange={handleChangeEducation}
+                              />
                             </div>
                             {/* End Form */}
                           </div>
@@ -539,7 +641,16 @@ function developerOverview() {
                             {/* Form */}
                             <div className="mb-3">
                               <label className="form-label" htmlFor="hireUsFormCompanyName">School Name</label>
-                              <input type="text" className="form-control form-control-lg" name="hireUsFormNameCompanyName" id="hireUsFormCompanyName" placeholder="Company Name" aria-label="Company Name" />
+                              <input 
+                                type="text" 
+                                className="form-control form-control-lg" 
+                                name="hireUsFormNameCompanyName" 
+                                id="hireUsFormCompanyName" 
+                                placeholder="Company Name" 
+                                aria-label="Company Name" 
+                                value={educationData.schoolName}
+                                onChange={handleChangeEducation}  
+                              />
                             </div>
                             {/* End Form */}
                           </div>
@@ -551,7 +662,16 @@ function developerOverview() {
                             {/* Form */}
                             <div className="mb-3">
                               <label className="form-label" htmlFor="hireUsFormWorkLocation">Location</label>
-                              <input type="text" className="form-control form-control-lg" name="hireUsFormNameWorkLocation" id="hireUsFormWorkLocation" placeholder="eg. Johannesburg" aria-label="Location" />
+                              <input 
+                                type="text" 
+                                className="form-control form-control-lg" 
+                                name="hireUsFormNameWorkLocation" 
+                                id="hireUsFormWorkLocation" 
+                                placeholder="eg. Johannesburg" 
+                                aria-label="Location" 
+                                value={educationData.Locationedu}
+                                onChange={handleChangeEducation}
+                              />
                             </div>
                             {/* End Form */}
                           </div>
@@ -561,8 +681,24 @@ function developerOverview() {
                             <div className="mb-3">
                               <label className="form-label" htmlFor="hireUsFormDuation">Duration</label>
                               <div className="dateInputs">
-                                <input type="date" className="form-control form-control-lg" name="hireUsFormNamePhone" id="hireUsFormDuration" aria-label="Duration" />To
-                                <input type="date" className="form-control form-control-lg" name="hireUsFormNamePhone" id="hireUsFormDuration" aria-label="Duration" />
+                                <input 
+                                  type="date" 
+                                  className="form-control form-control-lg" 
+                                  name="hireUsFormNamePhone" 
+                                  id="hireUsFormDuration" 
+                                  aria-label="Duration" 
+                                  value={educationData.DurationStartedu}
+                                  onChange={handleChangeEducation}
+                                  />To
+                                <input 
+                                  type="date" 
+                                  className="form-control form-control-lg" 
+                                  name="hireUsFormNamePhone" 
+                                  id="hireUsFormDuration" 
+                                  aria-label="Duration" 
+                                  value={educationData.DurationEndEdu}
+                                  onChange={handleChangeEducation}
+                                />
                               </div>
                             </div>
                             {/* End Form */}
