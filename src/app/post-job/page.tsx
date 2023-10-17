@@ -17,9 +17,13 @@ function pricing() {
 
     //formInputs
     const [country, setCountry] = useState(0);
+    const [editCountry,setEditCountry] = useState(false);
     const [language, setLanguage] = useState(0);
+    const [editLanguage,setEditLanguage] = useState(false);
     const [companyName, setCompanyName] = useState('');
+    const [editCompanyName,setEditCompanyName] = useState(false);
     const [jobTitle, setJobTitle] = useState('');
+    const [editJobTitle,setEditJobTitle] = useState(false);
     const [streetAddress, setStreetAddress] = useState('');
     const [city, setCity] = useState('');
     const [postcode, setCode] = useState("");
@@ -29,6 +33,7 @@ function pricing() {
     const [zipCode, setZipCode] = useState('');
     const [remote, setRemote] = useState(0);
     const [jobtype, setJobType] = useState(0);
+    const [editJobTybe, setEditJobType] = useState(false);
     const [hires, setHires] = useState('');
     const [urgency, setUrgency] = useState('');
     const [pay, setPay] = useState(0);
@@ -151,8 +156,16 @@ function pricing() {
     const newType = parseFloat(e.target.value);
     setJobType(newType);
   };
-  
-
+  const handleEditClick = () => {
+    setEditJobType(true);
+    setEditCompanyName(true)
+    setEditCountry(true)
+    setEditJobTitle(true)
+    setEditLanguage(true)
+  };
+  const handleInputChange = (e : any) => {
+    setCompanyName(e.target.value);
+  };
     return (
 
 
@@ -2309,7 +2322,7 @@ function pricing() {
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Job Title</h5>
-                          <span className="d-block">UI/UX Designer</span>
+                          <span className="d-block">{jobTitle}</span>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2329,13 +2342,47 @@ function pricing() {
                       </div>
                       {/* End Row */}
                     </li>
+                    {/* <div>
+                        <div className="mb-4">
+                          <label htmlFor="companyNameLabel" className="form-label">
+                            Company name
+                          </label>
+                          {editCompanyName ? (
+                            <div>
+                              <input
+                                type="text"
+                                className="form-control"
+                                name="companyName"
+                                id="companyNameLabel"
+                                placeholder="Htmlstream"
+                                aria-label="Htmlstream"
+                                value={companyName}
+                                onChange={handleInputChange}
+                              />
+                            </div>
+                          ) : (
+                            <div>
+                              <h5>Company</h5>
+                              <span className="d-block">{companyName}</span>
+                              <button
+                                type="button"
+                                className="btn btn-sm btn-outline-primary"
+                                onClick={handleEditClick}
+                              >
+                                <i className="bi-pencil-fill small me-1" /> Edit
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                        </div> */}
                     <li className="border-bottom">
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Company</h5>
-                          <span className="d-block">Capsule</span>
+                          <span className="d-block">{companyName}</span>
                         </div>
                         {/* End Col */}
+                        
                         <div className="col-sm-4">
                           <div className="d-sm-flex justify-content-sm-end">
                             <button
@@ -2358,9 +2405,9 @@ function pricing() {
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Location</h5>
                           <span className="d-block mb-2">
-                            Remote work allowed: No
+                            Remote work allowed: {remote}
                           </span>
-                          <span className="d-block">Camberwell, SE5 0BU</span>
+                          <span className="d-block">{city}</span>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2411,7 +2458,7 @@ function pricing() {
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Pay and Benefits</h5>
                           <span className="d-block mb-2">
-                            Salary based on experience
+                            {pay}
                           </span>
                           <span className="d-block">
                             Benefits: Health insurance, Flexible schedule,
@@ -2440,7 +2487,7 @@ function pricing() {
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Job Type</h5>
-                          <span className="d-block">Full time</span>
+                          <span className="d-block">{jobtype}</span>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2463,7 +2510,7 @@ function pricing() {
                     <li className="border-bottom">
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
-                          <h5>Job Description</h5>
+                          {/* <h5>Job Description</h5>
                           <h5>Who we are:</h5>
                           <p>
                             We are reinventing personal communication for the
@@ -2499,8 +2546,8 @@ function pricing() {
                             understand our user base, and work to improve
                             business needs, related requirements and technical
                             constraints.
-                          </p>
-                          <h5>About you:</h5>
+                          </p> */}
+                          {/* <h5>About you:</h5>
                           <ul className="mb-3">
                             <li>
                               You're always on top of the latest design trends,
@@ -2522,8 +2569,8 @@ function pricing() {
                               ownership of your work; a perfectionist and are
                               used to working in a fast-paced environment.
                             </li>
-                          </ul>
-                          <h5>Requirements:</h5>
+                          </ul> */}
+                          {/* <h5>Requirements:</h5>
                           <ul className="mb-3">
                             <li>
                               You're a driven designer and have a minimum of 2-3
@@ -2548,11 +2595,11 @@ function pricing() {
                               You've used Figma and are an Adobe Creative Cloud
                               expert (Photoshop, Illustrator, After Effects).
                             </li>
-                          </ul>
-                          <h5>COVID-19 precautions</h5>
+                          </ul> */}
+                          {/* <h5>COVID-19 precautions</h5>
                           <span className="d-block">
                             Remote interview process
-                          </span>
+                          </span> */}
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2576,7 +2623,7 @@ function pricing() {
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Language</h5>
-                          <span className="d-block">English</span>
+                          <span className="d-block">{language}</span>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2600,7 +2647,7 @@ function pricing() {
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Expected Hiring Date</h5>
-                          <span className="d-block">More than 4 weeks</span>
+                          <span className="d-block">{urgency}</span>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2624,7 +2671,7 @@ function pricing() {
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Hires Needed</h5>
-                          <span className="d-block">1</span>
+                          <span className="d-block">{hires}</span>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2648,7 +2695,7 @@ function pricing() {
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Schedule</h5>
-                          <span className="d-block">Monday to Friday</span>
+                          <span className="d-block">{jobSchedule}</span>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2674,17 +2721,17 @@ function pricing() {
                           <h5>Application Settings</h5>
                           <span className="d-block">
                             Apply method:{" "}
-                            <span className="fw-semibold text-dark">Email</span>
+                            <span className="fw-semibold text-dark">{methodToRecieveApplications}</span>
                           </span>
                           <span className="d-block mb-2">
                             Send updates to:{" "}
                             <span className="fw-semibold text-dark">
-                              maria@gmail.com
+                            {dailyUpdateEmailAddress}
                             </span>
                           </span>
                           <span className="d-block">
                             Do you want applicants to submit a resume?{" "}
-                            <span className="fw-semibold text-dark">Yes</span>
+                            <span className="fw-semibold text-dark">{submitResume}</span>
                           </span>
                         </div>
                         {/* End Col */}
