@@ -402,7 +402,72 @@ function developerOverview() {
                 onClose={() => setWorkModalOpen(false)} 
                 center
                 >
-                  Modal content for work experience
+                  <div className="card">
+                    <div className="card-body">
+                      {/* Heading */}
+                      <div className="text-center mb-5 mb-md-9">
+                        <h2>Add Work Eperience</h2>
+                      </div>
+                      {/* Form */}
+                      <form>
+                        <div className="row gx-3">
+                          <div className="col-sm-6">
+                            {/* Form */}
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="hireUsFormTitle">Title</label>
+                              <input type="text" className="form-control form-control-lg" name="hireUsFormTitle" id="hireUsFormTitle" placeholder="Title" aria-label="Title" />
+                            </div>
+                            {/* End Form */}
+                          </div>
+                          {/* End Col */}
+                          <div className="col-sm-6">
+                            {/* Form */}
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="hireUsFormCompanyName">Company Name</label>
+                              <input type="text" className="form-control form-control-lg" name="hireUsFormNameCompanyName" id="hireUsFormCompanyName" placeholder="Company Name" aria-label="Company Name" />
+                            </div>
+                            {/* End Form */}
+                          </div>
+                          {/* End Col */}
+                        </div>
+                        {/* End Row */}
+                        <div className="row gx-3">
+                          <div className="col-sm-6">
+                            {/* Form */}
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="hireUsFormWorkLocation">Location</label>
+                              <input type="text" className="form-control form-control-lg" name="hireUsFormNameWorkLocation" id="hireUsFormWorkLocation" placeholder="eg. Johannesburg" aria-label="Location" />
+                            </div>
+                            {/* End Form */}
+                          </div>
+                          {/* End Col */}
+                          <div className="col-sm-6">
+                            {/* Form */}
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="hireUsFormDuation">Duration</label>
+                              <div className="dateInputs">
+                                <input type="date" className="form-control form-control-lg" name="hireUsFormNamePhone" id="hireUsFormDuration" aria-label="Duration" />To
+                                <input type="date" className="form-control form-control-lg" name="hireUsFormNamePhone" id="hireUsFormDuration" aria-label="Duration" />
+                              </div>
+                            </div>
+                            {/* End Form */}
+                          </div>
+                          {/* End Col */}
+                        </div>
+                        {/* End Row */}
+                        {/* Form */}
+                        <div className="mb-3">
+                          <label className="form-label" htmlFor="hireUsFormDetails">Description</label>
+                          <textarea className="form-control form-control-lg" name="hireUsFormNameDetails" id="hireUsFormDetails" placeholder="Tell us about your ..." aria-label="Tell us about your ..." rows={4} defaultValue={""} />
+                        </div>
+                        {/* End Form */}
+                        <div className="d-grid">
+                          <button type="submit" className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Add Work</button>
+                        </div>
+                      </form>
+                      {/* End Form */}
+                    </div>
+                  </div>
                </Modal>}
             </div>
             {/* End Body */}
@@ -452,7 +517,66 @@ function developerOverview() {
                 onClose={() => setEducationModalOpen(false)} 
                 center
                 >
-                  Modal content for education
+                     <div className="card">
+                    <div className="card-body">
+                      {/* Heading */}
+                      <div className="text-center mb-5 mb-md-9">
+                        <h2>Add Education</h2>
+                      </div>
+                      {/* Form */}
+                      <form>
+                        <div className="row gx-3">
+                          <div className="col-sm-6">
+                            {/* Form */}
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="hireUsFormTitle">Certificate</label>
+                              <input type="text" className="form-control form-control-lg" name="hireUsFormTitle" id="hireUsFormTitle" placeholder="eg. Master's degree in Computer Software Engineering" aria-label="Title" />
+                            </div>
+                            {/* End Form */}
+                          </div>
+                          {/* End Col */}
+                          <div className="col-sm-6">
+                            {/* Form */}
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="hireUsFormCompanyName">School Name</label>
+                              <input type="text" className="form-control form-control-lg" name="hireUsFormNameCompanyName" id="hireUsFormCompanyName" placeholder="Company Name" aria-label="Company Name" />
+                            </div>
+                            {/* End Form */}
+                          </div>
+                          {/* End Col */}
+                        </div>
+                        {/* End Row */}
+                        <div className="row gx-3">
+                          <div className="col-sm-6">
+                            {/* Form */}
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="hireUsFormWorkLocation">Location</label>
+                              <input type="text" className="form-control form-control-lg" name="hireUsFormNameWorkLocation" id="hireUsFormWorkLocation" placeholder="eg. Johannesburg" aria-label="Location" />
+                            </div>
+                            {/* End Form */}
+                          </div>
+                          {/* End Col */}
+                          <div className="col-sm-6">
+                            {/* Form */}
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="hireUsFormDuation">Duration</label>
+                              <div className="dateInputs">
+                                <input type="date" className="form-control form-control-lg" name="hireUsFormNamePhone" id="hireUsFormDuration" aria-label="Duration" />To
+                                <input type="date" className="form-control form-control-lg" name="hireUsFormNamePhone" id="hireUsFormDuration" aria-label="Duration" />
+                              </div>
+                            </div>
+                            {/* End Form */}
+                          </div>
+                          {/* End Col */}
+                        </div>
+                        {/* End Row */}
+                        <div className="d-grid">
+                          <button type="submit" className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Add Work</button>
+                        </div>
+                      </form>
+                      {/* End Form */}
+                    </div>
+                  </div>
                </Modal>}
             </div>
             {/* End Body */}
