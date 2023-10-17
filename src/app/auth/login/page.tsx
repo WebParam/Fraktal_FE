@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import "./Signin.scss";
 import Image from "next/image";
-import logo from "../../../assets/img/logo.png";
+import logo from "../../../assets/additional/logo.png";
 import loginImage from "../../../assets/additional/loginImage.jpg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
