@@ -315,7 +315,7 @@ function developerOverview() {
             <div className="card-footer pt-0">
               <div className="d-flex justify-content-end gap-3">
                 <a className="btn btn-white" href="javascript:;">Cancel</a>
-                <a className="btn" href="javascript:;" style={{backgroundColor: '##FD2DC3'}}>Save changes</a>
+                <a className="btn" href="javascript:;" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Save changes</a>
               </div>
             </div>
             {/* End Footer */}
