@@ -33,7 +33,7 @@ function developerOverview() {
         </div>
 
         <div className="col Gotohome">
-          <Link href='/' style={{color: '#fff', textDecoration: 'underline'}}>Go to Home</Link>
+          <Link href='/' >Go to Home</Link>
         </div>
       </div>
     </div>

@@ -5,6 +5,15 @@
 .Gotohome {
     display: flex;
     justify-content: flex-end;
+
+    & > a {
+        color: #fff;
+        transition: .5s all;
+
+        &:hover {
+            text-decoration: underline !important;
+        }
+    }
 }
 
 .form-check-downloadCV {

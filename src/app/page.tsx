@@ -2,10 +2,10 @@
 import Image from 'next/image';
 import './homepage.scss';
 // import heroImage from '../assets/additional/heroImage.jpg';
-import card1 from "../assets/img/480x220/img1.jpg";
-import card2 from "../assets/img/480x220/img2.jpg";
-import card3 from "../assets/img/480x220/img3.jpg";
-import img6 from "../assets/img/1618x1010/img7.jpg";
+import card1 from "../assets/additional/images/laptop.png";
+import card2 from "../assets/additional/images/pinkHat.png";
+import card3 from "../assets/additional/images/robot.png";
+import fraktionalOverview from "../assets/additional/images/fraktionalOverview.png";
 import fitbit from "../assets/svg/brands/fitbit-dark.svg";
 import forbes from "../assets/svg/brands/forbes-dark.svg";
 import mailchimp from "../assets/svg/brands/mailchimp-dark.svg";
@@ -13,9 +13,9 @@ import layar from "../assets/svg/brands/layar-dark.svg";
 import bigAvatar from '../assets/additional/testimonyImage.jpg';
 import mailchimplogo from "../assets/svg/brands/mailchimp-primary.svg";
 import smallAvatar from '../assets/additional/testimonyAvatar.jpg';
-import card4 from "../assets/img/480x320/img33.jpg";
-import card5 from "../assets/img/480x320/img34.jpg";
-import card6 from "../assets/img/480x320/img35.jpg";
+import card4 from "../assets/additional/images/meeting1.png";
+import card5 from "../assets/additional/images/meeting2.png";
+import card6 from "../assets/additional/images/meeting3.png";
 import koala from '../assets/additional/koala.png';
 import Footer from './components/Footer/Footer';
 
@@ -193,7 +193,7 @@ function HomePage() {
                     <div className="device-browser-header-browser-bar">www.htmlstream.com/front/</div>
                   </div>
                   <div className="device-browser-frame">
-                    <Image className="device-browser-img" src={img6} alt="Image Description" />
+                    <Image className="device-browser-img" src={fraktionalOverview} alt="Image Description" />
                   </div>
                 </figure>
                 {/* End Browser Device */}
