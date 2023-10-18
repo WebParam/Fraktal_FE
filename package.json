@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    // "@next/swc-win32-x64-msvc": "^13.5.5",
+ 
     "aos": "^2.3.4",
     "autoprefixer": "10.4.15",
     "axios": "^1.5.1",
