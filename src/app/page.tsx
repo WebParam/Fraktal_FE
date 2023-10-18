@@ -2,10 +2,10 @@
 import Image from 'next/image';
 import './homepage.scss';
 // import heroImage from '../assets/additional/heroImage.jpg';
-import card1 from "../assets/img/480x220/img1.jpg";
-import card2 from "../assets/img/480x220/img2.jpg";
-import card3 from "../assets/img/480x220/img3.jpg";
-import img6 from "../assets/img/1618x1010/img7.jpg";
+import card1 from "../assets/additional/images/laptop.png";
+import card2 from "../assets/additional/images/pinkHat.png";
+import card3 from "../assets/additional/images/robot.png";
+import fraktionalOverview from "../assets/additional/images/fraktionalOverview.png";
 import fitbit from "../assets/svg/brands/fitbit-dark.svg";
 import forbes from "../assets/svg/brands/forbes-dark.svg";
 import mailchimp from "../assets/svg/brands/mailchimp-dark.svg";
@@ -13,9 +13,9 @@ import layar from "../assets/svg/brands/layar-dark.svg";
 import bigAvatar from '../assets/additional/testimonyImage.jpg';
 import mailchimplogo from "../assets/svg/brands/mailchimp-primary.svg";
 import smallAvatar from '../assets/additional/testimonyAvatar.jpg';
-import card4 from "../assets/img/480x320/img33.jpg";
-import card5 from "../assets/img/480x320/img34.jpg";
-import card6 from "../assets/img/480x320/img35.jpg";
+import card4 from "../assets/additional/images/meeting1.png";
+import card5 from "../assets/additional/images/meeting2.png";
+import card6 from "../assets/additional/images/meeting3.png";
 import koala from '../assets/additional/koala.png';
 import Footer from './components/Footer/Footer';
 
@@ -59,8 +59,8 @@ function HomePage() {
                   <p className="lead">We connect developers and organizations with each other for short to medium term projects.</p>
                 </div>
                 <div className="d-grid d-sm-flex gap-3">
-                  <a className="btn btn-primary btn-transition px-6 getStarted" href="./page-login-simple.html">Get started</a>
-                  <a className="btn btn-link learnmore" href="#">Learn more <i className="bi-chevron-right small ms-1" /></a>
+                  <a className="btn btn-primary btn-transition px-6 getStarted" href="auth/register">Get started</a>
+                  <a className="btn btn-link learnmore" href="/about">Learn more <i className="bi-chevron-right small ms-1" /></a>
                 </div>
               </div>
               {/* End Col */}
@@ -193,7 +193,7 @@ function HomePage() {
                     <div className="device-browser-header-browser-bar">www.htmlstream.com/front/</div>
                   </div>
                   <div className="device-browser-frame">
-                    <Image className="device-browser-img" src={img6} alt="Image Description" />
+                    <Image className="device-browser-img" src={fraktionalOverview} alt="Image Description" />
                   </div>
                 </figure>
                 {/* End Browser Device */}
@@ -214,7 +214,7 @@ function HomePage() {
                 <li className="list-checked-item">30 Days Onboarding</li>
               </ul>
               {/* End List Checked */}
-              <a className="btn btn-primary getStarted" href="#">Get started</a>
+              <a className="btn btn-primary getStarted" href="/register">Get started</a>
               <hr className="my-5" />
               <span className="d-block">Trusted by leading companies</span>
               <div className="row">
@@ -367,7 +367,7 @@ function HomePage() {
         <div className="text-center">
           <div className="card card-info-link card-sm">
             <div className="card-body">
-              Want to read more? <a className="card-link ms-2" href="#" style={{color: '#FD2DC3'}}>Go here <span className="bi-chevron-right small ms-1" /></a>
+              Want to read more? <a className="card-link ms-2" href="/about" style={{color: '#FD2DC3'}}>Go here <span className="bi-chevron-right small ms-1" /></a>
             </div>
           </div>
         </div>

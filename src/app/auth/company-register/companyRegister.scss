@@ -1,176 +1,173 @@
-.companyRegister {
-    position: relative;
-    top: 100px;
+.register {
+    color: #4B4C4E;
 
-    & button {
-        border: none;
-    }
-}
-.display-4{
-    font-size: calc(1.475rem + 2.7vw);
-    font-weight: 600;
-    line-height: 1.2;
-}
-
-.launching-text {
-    margin: 100px 0 200px;
-}
-
-.content-container {
-    padding: 100px;
-    margin: 50px auto;
-    background-color: #e5e7eb;
-    border-radius: 20px;
-}
-
-.company-form {
-
-    & .inputs-container {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        
-
-        & .mb-4 {
-            max-width: 250px;
-            min-width: 250px;
-        }
-
-    }
-}
-
-// stats, images in triangle amd how many copies hv been purchased 
-.container-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 10px;
-    padding: 10px 0;
-    height: fit-content;
-}
-
-.card-container {
-    width: 270px;
-    height: 350px;
-    margin: 0;
-}
-
-.card-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: transparent !important;
-    border: none;
-
-    // blue circle icons
-    & span {
-        width: fit-content;
-        margin: 0 auto;
-    }
-}
-
-.card-ul-container {
-    height: 150px;
-}
-
-
-.card-footer {
-    border: none;
-    background-color: transparent;
-
-    & button {
-        width: 70%;
-        margin: 0 auto;
-        height: 40px;
-        border: none;
-    }
-}
-
-.card2 {
-    height: 400px;
-}
-
-.card3 {
-    height: 450px;
-}
-
-.custom-plan {
-    border: 1px solid rgba(33, 50, 91, 0.1);
-    width: fit-content;
-    padding: 10px 20px;
-    margin: 10px auto 100px;
-    border-radius: 20px;
-
-    & a {
-        text-decoration: none;
-    }
-}
-
-.avatar {
-    width: 100px;
-    height: 100px;
-    margin: 150px auto 10px;
-}
-
-.calender-container {
-    background-color: #e5e7eb;
-    padding: 100px 10px;
-}
-
-.calender-nav {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-
-    & li {
-        height: 40px;
-        border-radius: 20px;
-        overflow: hidden;
-
-        & a {
-            height: 100%;
-        }
-    }
-
-    & li a.active {
-        color: #1e2022 !important;
-        background-color: #fff !important;
-        box-shadow: 0 .1875rem .375rem 0 rgba(140,152,164,.25) !important;
-    }
-
-    & .active {
-        border-bottom: 0; 
-        padding-bottom: 0;
-    }
-}
-
-.contactsSection {
-    padding: 100px;
-    margin: 100px 0;
-}
-
-footer.container {
-    margin-bottom: 20px;
-
-    & img {
+    & .top {
         height: 70px;
-        width: 70px;
-    }
+        padding: 0 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1;
+        position: absolute;
+        top: 1%;
+        left: 0;
+        right: 0;
 
-    & li {
-        padding: 0 5px;
-
-        & a {
-            text-decoration: none;
+        & img {
+            height: 100%;
+            transform: scale(1.3);
+            width: 60px;
         }
     }
+
+    & .registerMain {
+        display: flex;
+        z-index: 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+
+        & .register-image {
+            display: none;
+
+            @media (min-width: 910px) {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 15px;
+                width: 45%;
+                background: rgba(255, 123, 237, 0.50);
+
+                & h2 {
+                    font-style: italic;
+                } 
+
+                & .desc {
+                    font-size: 1.3em;
+                    width: 60%;
+                    text-align: center;
+                }
+
+                & img {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50px;
+                }
+
+                & h3 {
+                    font-size: 1.1em;
+                    font-weight: 700;
+                }
+            }
+        }
+
+        & .registerForm {
+            margin: 0 auto;
+            overflow-y: scroll;
+            position: relative;
+            height: 85vh;
+            top: 3%;
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            align-self: center;
+
+            @media (min-width: 1019px) {
+                // scrollbar width
+                &::-webkit-scrollbar {
+                    width: 5px;
+                }
+                
+                /* Track */
+                &::-webkit-scrollbar-track {
+                    background: #574a4a;
+                }
+                
+                /* Handle */
+                &::-webkit-scrollbar-thumb {
+                    background: #8f4343;
+                    height: 100px;
+                }
+                
+                /* Handle on hover */
+                &::-webkit-scrollbar-thumb:hover {
+                    background: #f26666;
+                }
+            }
+
+            @media (min-width: 1019px) {
+                width: 70%;
+            }
+
+            & h2 {
+                font-size: 2em;
+                margin: 15px 0 5px;
+            }
+
+            & form {
+                margin: 20px 0;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                max-width: 450px;
+                
+
+                & div {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+
+                    & label {
+                        display: flex;
+                        justify-content: space-between;
+                    }
+
+                    & input {
+                        height: 50px;
+                        padding-left: 5px;
+                        border: .0625rem solid rgba(33,50,91,.1);
+                        outline: none;
+
+                        &:focus {
+                            border: none;
+                            box-shadow: 0 0 5px rgba(33, 50, 91, 0.5); /* Add this line to create a box shadow on click */
+                        }
+                    }
+
+                    & select {
+                        height: 50px;
+                        padding-left: 5px;
+                        border: .0625rem solid rgba(33,50,91,.1);
+                        outline: none;
+                    }
+
+                }
+
+                & button {
+                    margin: 10px;
+                    height: 40px;
+                    border-radius: 5px;
+                    background-color: #FD2DC3;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+
+.cta {
+    color: #FD2DC3;
+}
+
+.css-13cymwt-control {
+    border: 1px solid red;
+    flex-direction: row !important;
+    align-items: center !important;
+    max-height: 50px;
 }
