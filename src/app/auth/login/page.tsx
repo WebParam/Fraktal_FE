@@ -22,6 +22,7 @@ function SignIn() {
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [invaliLoginError, setInvalidLoginError] = useState<boolean>(false);
+  const [userVerifyError, setUserVerifyError] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [skills, setSkills] = useState<string[]>([])
@@ -65,25 +66,36 @@ function SignIn() {
     });
 
     try {
-      const loginResult = await UserLogin({email, password, skills}); // Rename the constant
+      const loginResult = await UserLogin({email, password}); // Rename the constant
       if (loginResult) {
-        debugger;
-        cookies.set('fraktional-user', JSON.stringify(loginResult), { path: '/' });
-        toast.update(_id, {
-          render: "Logged in successfully",
-          type: "success",
-          isLoading: false,
-        });
 
-        if(loginResult.type==0){
-          window.location.href = "/developer-overview"
+        if(loginResult.status == 1){
+
+          cookies.set('fraktional-user', JSON.stringify(loginResult), { path: '/' });
+          toast.update(_id, {
+            render: "Logged in successfully",
+            type: "success",
+            isLoading: false,
+          });
+  
+          if(loginResult.type==0){
+            window.location.href = "/developer-overview"
+          }else{
+            window.location.href = "/company-overview"
+          }
+          setTimeout(() => {
+            // setDisable(false)
+            toast.dismiss(_id);
+          }, 2000);
         }else{
-          window.location.href = "/company-overview"
+          setTimeout(() => {
+            // setDisable(false)
+            toast.dismiss(_id);
+          });
+          setUserVerifyError(true)
+          
         }
-        setTimeout(() => {
-          // setDisable(false)
-          toast.dismiss(_id);
-        }, 2000);
+  
       } else {
     
         toast.dismiss(_id);
@@ -145,7 +157,9 @@ function SignIn() {
             <div>
             <div className = "label-loginError" style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
             <label htmlFor="email">Your Email</label>
-              {invaliLoginError && <span style={{ color: "tomato", fontSize : "13px", fontWeight:"600", marginRight: "180px"}}>Invalid email or password</span>}
+            {userVerifyError && <span style={{ color: "tomato", fontSize : "13px", fontWeight:"600", marginRight: "150px"}}>Email address not verified</span>}
+
+              {invaliLoginError && <span style={{ color: "tomato", fontSize : "13px", fontWeight:"600", marginRight: "150px"}}>Invalid email or password</span>}
             </div>
               <input
                 style={inputEmailStyle}

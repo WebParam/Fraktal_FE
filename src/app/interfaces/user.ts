@@ -42,6 +42,11 @@ export interface IUser {
   export interface IJobResponsibilities{
     content:string
   }
+
+  export interface IVerifyOtp{
+    email:string
+    otp:string | Number
+  }
   
 
   export interface IDeveloperProfile{
