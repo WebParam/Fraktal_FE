@@ -14,8 +14,8 @@ import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 import { IDeveloperProfile, IEducationInformation, IWorkExperience } from "../interfaces/user";
 import { CreateDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile } from "../endpoints/api";
-import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
-const cookies = new Cookies(); // Create an instance of Cookies
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 
 
@@ -231,65 +231,27 @@ useEffect(() => {
                 {/* List */}
                 <ul className="nav nav-sm nav-tabs nav-vertical mb-4">
                   <li className="nav-item">
-                    <a className="nav-link active" href="./account-overview.html">
+                    <a className="nav-link active" style={{cursor: 'pointer'}}>
                       <i className="bi-person-badge nav-icon" /> Personal info
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link " href="./account-security.html">
+                    <a className="nav-link" href='/' style={{pointerEvents: 'none', cursor: 'none', opacity: '.5'}}>
                       <i className="bi-shield-shaded nav-icon" /> Security
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link " href="./account-notifications.html">
+                    <a className="nav-link " style={{pointerEvents: 'none', cursor: 'none', opacity: '.5'}}>
                       <i className="bi-bell nav-icon" /> Notifications
-                      <span className="badge bg-soft-dark text-dark rounded-pill nav-link-badge">1</span>
+                      {/* <span className="badge bg-soft-dark text-dark rounded-pill nav-link-badge">1</span> */}
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link " href="./account-preferences.html">
+                    <a className="nav-link " style={{pointerEvents: 'none', cursor:'none', opacity: '.5'}}>
                       <i className="bi-sliders nav-icon" /> Preferences
                     </a>
                   </li>
                 </ul>
-                {/* End List */}
-                <span className="text-cap">Shopping</span>
-                {/* List */}
-                <ul className="nav nav-sm nav-tabs nav-vertical mb-4">
-                  <li className="nav-item">
-                    <a className="nav-link " href="./account-orders.html">
-                      <i className="bi-basket nav-icon" /> Your orders
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link " href="./account-wishlist.html">
-                      <i className="bi-heart nav-icon" /> Wishlist
-                      <span className="badge bg-soft-dark text-dark rounded-pill nav-link-badge">2</span>
-                    </a>
-                  </li>
-                </ul>
-                {/* End List */}
-                <span className="text-cap">Billing</span>
-                {/* List */}
-                <ul className="nav nav-sm nav-tabs nav-vertical">
-                  <li className="nav-item">
-                    <a className="nav-link " href="./account-payments.html">
-                      <i className="bi-credit-card nav-icon" /> Payments
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link " href="./account-address.html">
-                      <i className="bi-geo-alt nav-icon" /> Address
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link " href="./account-teams.html">
-                      <i className="bi-people nav-icon" /> Teams
-                      <span className="badge bg-soft-dark text-dark rounded-pill nav-link-badge">+2 new users</span>
-                    </a>
-                  </li>
-                </ul>
-                
               </div>
             </div>
             {/* End Card */}
@@ -376,19 +338,11 @@ useEffect(() => {
                               &quot;hideSearch&quot;: true
                             }">
                           <option value="Mobile" selected>Mobile</option>
-                          {/* <option value="Home">Home</option>
-                          <option value="Work">Work</option>
-                          <option value="Fax">Fax</option>
-                          <option value="Direct">Direct</option> */}
                         </select>
                       </div>
-                      {/* End Select */}
                     </div>
-                    {/* Container For Input Field */}
+
                     <div id="addPhoneFieldContainer" />
-                    {/* <a href="javascript:;" className="js-create-field form-link">
-                      <i className="bi-plus-circle me-1" /> Add phone
-                    </a> */}
                   </div>
                 </div>
                 {/* End Form */}
@@ -503,9 +457,9 @@ useEffect(() => {
             
             {/* Body */}
             <div className="card-body">
-            <a onClick={workModal} href="javascript:;" className="js-create-field form-link">
-                      <i className="bi-plus-circle me-1" /> Add
-                    </a>
+              <a onClick={workModal} href="javascript:;" className="js-create-field form-link" style={{color: '#FD2DC3'}}>
+                <i className="bi-plus-circle me-1" /> Add
+              </a>
               <div className="mb-4">
                 <ul className="step step-icon-sm">
 
@@ -696,7 +650,7 @@ useEffect(() => {
             </div>
             {/* Body */}
             <div className="card-body">
-            <a onClick={educationModal} href="javascript:;" className="js-create-field form-link">
+            <a onClick={educationModal} href="javascript:;" className="js-create-field form-link" style={{color: '#FD2DC3'}}>
                       <i className="bi-plus-circle me-1" /> Add
                     </a>
               <div className="mb-4">
