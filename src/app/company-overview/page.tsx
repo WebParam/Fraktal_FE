@@ -150,7 +150,7 @@ useEffect(() => {
                 {/* List */}
                 <ul className="nav nav-sm nav-tabs nav-vertical mb-4">
                   <li className="nav-item">
-                    <a className="nav-link active" >
+                    <a className="nav-link active" style={{cursor: 'pointer'}}>
                       <i className="bi-person-badge nav-icon" /> Company info
                     </a>
                   </li>
