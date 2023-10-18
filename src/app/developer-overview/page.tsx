@@ -81,7 +81,6 @@ async function _GetDeveloperProfile(id:string){
   setUser(res?.data?.user); // change
   setPreferedWorkMethod(res?.data?.preferedWorkMethod);
   setExistingUser(true);
-
   }
 
 }
@@ -139,6 +138,10 @@ function removeEducation(index:number){
   setEducation(filtered);
 }
 
+
+function updateProfilePic(){
+
+}
 
 useEffect(() => {
   //check url and setActive
