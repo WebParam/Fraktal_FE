@@ -150,65 +150,28 @@ useEffect(() => {
                 {/* List */}
                 <ul className="nav nav-sm nav-tabs nav-vertical mb-4">
                   <li className="nav-item">
-                    <a className="nav-link active" href="./account-overview.html">
-                      <i className="bi-person-badge nav-icon" /> Personal info
+                    <a className="nav-link active" >
+                      <i className="bi-person-badge nav-icon" /> Company info
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link " href="./account-security.html">
+                    <a className="nav-link " style={{pointerEvents: 'none', cursor: 'none', opacity: '.5'}}>
                       <i className="bi-shield-shaded nav-icon" /> Security
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link " href="./account-notifications.html">
+                    <a className="nav-link " style={{pointerEvents: 'none', cursor: 'none', opacity: '.5'}}>
                       <i className="bi-bell nav-icon" /> Notifications
-                      <span className="badge bg-soft-dark text-dark rounded-pill nav-link-badge">1</span>
+                      {/* <span className="badge bg-soft-dark text-dark rounded-pill nav-link-badge">1</span> */}
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link " href="./account-preferences.html">
+                    <a className="nav-link " style={{pointerEvents: 'none', cursor: 'none', opacity: '.5'}}>
                       <i className="bi-sliders nav-icon" /> Preferences
                     </a>
                   </li>
                 </ul>
                 {/* End List */}
-                <span className="text-cap">Shopping</span>
-                {/* List */}
-                <ul className="nav nav-sm nav-tabs nav-vertical mb-4">
-                  <li className="nav-item">
-                    <a className="nav-link " href="./account-orders.html">
-                      <i className="bi-basket nav-icon" /> Your orders
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link " href="./account-wishlist.html">
-                      <i className="bi-heart nav-icon" /> Wishlist
-                      <span className="badge bg-soft-dark text-dark rounded-pill nav-link-badge">2</span>
-                    </a>
-                  </li>
-                </ul>
-                {/* End List */}
-                <span className="text-cap">Billing</span>
-                {/* List */}
-                <ul className="nav nav-sm nav-tabs nav-vertical">
-                  <li className="nav-item">
-                    <a className="nav-link " href="./account-payments.html">
-                      <i className="bi-credit-card nav-icon" /> Payments
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link " href="./account-address.html">
-                      <i className="bi-geo-alt nav-icon" /> Address
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link " href="./account-teams.html">
-                      <i className="bi-people nav-icon" /> Teams
-                      <span className="badge bg-soft-dark text-dark rounded-pill nav-link-badge">+2 new users</span>
-                    </a>
-                  </li>
-                </ul>
-                
               </div>
             </div>
             {/* End Card */}

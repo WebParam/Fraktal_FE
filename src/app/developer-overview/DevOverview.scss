@@ -68,3 +68,11 @@
     align-items: center;
     gap: 10px;
 }
+
+.nav-link.active {
+    color: #FD2DC3 !important;
+}
+
+.nav-vertical.nav-tabs .nav-link.active  {
+    border-color: #FD2DC3;
+}
