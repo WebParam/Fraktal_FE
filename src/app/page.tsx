@@ -1,7 +1,7 @@
 "use client"
 import Image from 'next/image';
 import './homepage.scss';
-import heroImage from '../assets/additional/heroImage.jpg';
+// import heroImage from '../assets/additional/heroImage.jpg';
 import card1 from "../assets/img/480x220/img1.jpg";
 import card2 from "../assets/img/480x220/img2.jpg";
 import card3 from "../assets/img/480x220/img3.jpg";
@@ -16,13 +16,28 @@ import smallAvatar from '../assets/additional/testimonyAvatar.jpg';
 import card4 from "../assets/img/480x320/img33.jpg";
 import card5 from "../assets/img/480x320/img34.jpg";
 import card6 from "../assets/img/480x320/img35.jpg";
-import React, { useEffect } from 'react';
-import TypedText from './TypedText';
+import koala from '../assets/additional/koala.png';
+import Footer from './components/Footer/Footer';
 
-export default function HomePage() {
+import dynamic from "next/dynamic";
+import TypedText from './TypedText';
+import React, { useEffect, useState } from 'react';
+import Header from './components/Header/Header'
+import MobileMenu from './components/MobileMenu/MobileMenu';
+
+
+function HomePage() {
+  const [menuToggler, setMenuToggler] = useState(false);
+
 
   return (
     <div>
+      <Header 
+        menuTogglerFunction={setMenuToggler} 
+        menuTogglerValue={menuToggler} 
+      />
+      <MobileMenu menuToggler={menuToggler} />
+
     {/* ========== MAIN CONTENT ========== */}
     <main id="content" role="main">
       {/* Hero */}
@@ -33,8 +48,8 @@ export default function HomePage() {
             <div className="row">
               <div className="col-lg-5">
                 <div className="mb-5">
-                  <h1 className="display-4 mb-3" style={{fontSize:'calc(1.475rem + 1vw)'}}>
-                    Looking for a Fraktional
+                  <h1 className="display-4 mb-3 heroText" style={{fontSize:'calc(1.475rem + 1.5vw)'}}>
+                    Looking for a <br /> Fraktional
                     <span className="text-primary text-highlight-warning">
                       <span className="animatedText">
                         <TypedText />
@@ -53,23 +68,9 @@ export default function HomePage() {
             {/* End Row */}
           </div>
           {/* End Title & Description */}
-          {/* SVG Shape */}
-          <div className="col-lg-7 col-xl-6 d-none d-lg-block position-absolute top-0 end-0 pe-0" style={{marginTop: '6.75rem'}}>
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1137.5 979.2">
-              <path fill="#F9FBFF" d="M565.5,957.4c81.1-7.4,155.5-49.3,202.4-115.7C840,739.8,857,570,510.7,348.3C-35.5-1.5-4.2,340.3,2.7,389
-                c0.7,4.7,1.2,9.5,1.7,14.2l29.3,321c14,154.2,150.6,267.8,304.9,253.8L565.5,957.4z" />
-              <defs>
-                <path id="mainHeroSVG1" d="M1137.5,0H450.4l-278,279.7C22.4,430.6,24.3,675,176.8,823.5l0,0C316.9,960,537.7,968.7,688.2,843.6l449.3-373.4V0z" />
-              </defs>
-              <clipPath id="mainHeroSVG2">
-                <use xlinkHref="#mainHeroSVG1" />
-              </clipPath>
-              <g transform="matrix(1 0 0 1 0 0)" clipPath="url(#mainHeroSVG2)">
-                <Image src={heroImage} width={750} height={750} style={{ transform: "matrix(1.4462 0 0 1.4448 52.8755 0)" }} alt='hero image' />
-              </g>
-            </svg>
+          <div className="col-lg-7 col-xl-6 d-none d-lg-block position-absolute top-0 end-0 pe-0 koalaContainer" style={{marginTop: '6.75rem'}}>
+            <Image src={koala} alt='koala' className='koalaHero' />
           </div>
-          {/* End SVG Shape */}
         </div>
       </div>
       {/* End Hero */}
@@ -375,6 +376,10 @@ export default function HomePage() {
       {/* End Card Grid */}
     </main>
     {/* ========== END MAIN CONTENT ========== */}
+    <Footer />
   </div>
   )
 }
+
+export default dynamic (() => Promise.resolve(HomePage), {ssr: false})
+

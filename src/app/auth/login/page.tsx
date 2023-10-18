@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import "./Signin.scss";
 import Image from "next/image";
-import logo from "../../../assets/img/logo.png";
+import logo from "../../../assets/additional/logo.png";
 import loginImage from "../../../assets/additional/loginImage.jpg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,6 +15,7 @@ function SignIn() {
   const [formData, setFormData] = useState<IUserLogin>({
     email: "",
     password: "",
+    skills:[]
   });
   
   const [emailError, setEmailError] = useState<boolean>(false);
@@ -22,6 +23,7 @@ function SignIn() {
   const [invaliLoginError, setInvalidLoginError] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
+  const [skills, setSkills] = useState<string[]>([])
 
   //const { email, password } = formData; // Destructure the values for easier access
 
@@ -62,7 +64,7 @@ function SignIn() {
     });
 
     try {
-      const loginResult = await UserLogin({email, password}); // Rename the constant
+      const loginResult = await UserLogin({email, password, skills}); // Rename the constant
       if (loginResult) {
         toast.update(_id, {
           render: "Logged in successfully",

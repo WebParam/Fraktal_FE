@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useRef, ChangeEvent, FormEvent,useEffect } from 'react';
 import Image from 'next/image';
-import logo from '../../../assets/img/logo.png';
+import logo from '../../../assets/additional/logo.png';
 import loginImage from '../../../assets/additional/loginImage.jpg';
 import axios from 'axios';
 import { resetPassword, sendOTP } from '@/app/endpoints/api';

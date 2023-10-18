@@ -116,7 +116,7 @@
   position: absolute;
   width: 30px;
   height: 3px;
-  background-color: #252525;
+  background-color: #F18DBC;
   border-radius: 6px;
   cursor: pointer;
   transition: 0.5s;
@@ -169,32 +169,32 @@
   }
 }
 
-.liOne:hover {
+.liOneDesk:hover {
   .dropdownOne {
-    display: flex;
+    display: flex !important;
   }
 }
 
-.liTwo:hover {
+.liTwoDesk:hover {
   .dropdownTwo {
-    display: flex;
+    display: flex !important;
   }
 }
 
-.liThree:hover {
+.liThreeDesk:hover {
   .dropdownThree {
-    display: flex;
+    display: flex !important;
   }
 }
 
-.liFour:hover {
+.liFourDesk:hover {
   .dropdownFour {
-    display: flex;
+    display: flex !important;
   }
 }
 
-.liFive:hover {
+.liFiveDesk:hover {
   .dropdownFive {
-    display: flex;
+    display: flex !important;
   }
 }

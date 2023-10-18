@@ -1,0 +1,17 @@
+#textarea {
+    border: .0625rem solid rgba(33,50,91,.1);
+}
+
+.form-check-downloadCV {
+    display: flex;
+    justify-content: center !important;
+
+    & > button {
+        width: 183px;
+        height: 55px;
+        flex-shrink: 0;
+        border-radius: 4px;
+        background: #FD2DC3;
+        color: #fff;    
+    }
+}

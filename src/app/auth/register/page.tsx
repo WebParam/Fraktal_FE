@@ -10,18 +10,20 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { registerUser} from "@/app/endpoints/api";
 import { IUser } from "@/app/interfaces/user";
+import Select from 'react-select';
+import { StylesConfig } from 'react-select';
+
 
 function Register() {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [formData, setFormData] = useState<IUser>({
-    title: "mr", // Default title
+    title: "mr",
     firstName: "",
     surname: "",
     email: "",
     mobileNumber: "",
-
+    skills: [],
     password: "",
-
   }) ;
 
   const [firstNameError, setFirstNameError] = useState<boolean>(false);
@@ -33,6 +35,8 @@ function Register() {
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [confirm_PasswordError, setConfirm_PasswordError] = useState<boolean>(false);
   const [regError, setRegErrro] = useState<boolean>(false);
+  const [skillsError, setSkillsError] = useState<boolean>(false);
+  const [skills, setSkills] = useState<any>("")
 
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -44,7 +48,10 @@ function Register() {
       [name]: value,
     });
   };
-
+  const handleSkillsChange = (selectedOptions:any) => {
+    const selectedValuesString = scaffold(selectedOptions);
+    setSkills(selectedValuesString);
+  };
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log(formData);
@@ -53,8 +60,7 @@ function Register() {
 
 
   if (
-      formData.firstName||
-      formData.email||
+      formData.firstName||      formData.email||
       formData.password||
       formData.mobileNumber||
 
@@ -236,6 +242,14 @@ function Register() {
     }),
   };
 
+  const inputSkillsStyle = {
+    ...(skillsError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
+
 
   const inputPasswordStyle = {
     ...(passwordError && {
@@ -259,6 +273,21 @@ function Register() {
       borderWidth: "1px",
     }),
   };
+
+  const scaffold = (options:any) => {
+    const values = options?.map((option:any) => option.value);
+    return values.join(',');
+  }
+
+  const skillOptions = [
+    { value: 'software', label: 'Software Development' },
+    { value: 'project', label: 'Project Management' },
+    { value: 'testing', label: 'Software Testing' },
+    { value: 'analyst', label: 'Business Analysis' },
+    { value: 'devops', label: 'Devops' },
+    { value: 'architecture', label: 'Software Architecture' }
+  ];
+
 
 
   return (
@@ -318,7 +347,7 @@ function Register() {
             <div>
               <label htmlFor="surname">Your Lastname</label>
               <input
-                     style={inputSurnameStyle}
+                style={inputSurnameStyle}
                 type="text"
                 name="surname"
                 placeholder="surname"
@@ -339,7 +368,27 @@ function Register() {
               />
             </div>
 
-    
+            <div className="mb-3 col-md-12">
+                <label className="form-label" htmlFor="inputPassword4">Skills</label>
+                <Select
+              
+                onChange={handleSkillsChange}
+                isMulti
+                name="skills"
+                options={[
+                  { value: 'software', label: 'Software Development' },
+                  { value: 'project', label: 'Project Management' },
+                  { value: 'testing', label: 'Software Testing' },
+                  { value: 'analyst', label: 'Business Analysis' },
+                  { value: 'devops', label: 'Devops' },
+                  { value: 'architecture', label: 'Software Architecture' }
+
+                ]
+              }
+                className="basic-multi-select"
+                classNamePrefix="select"
+              />
+            </div>
 
             <div>
               <label htmlFor="mobileNumber">Your Number</label>
@@ -398,3 +447,7 @@ function Register() {
 }
 
 export default Register;
+function scaffold(selectedOptions: any) {
+  throw new Error("Function not implemented.");
+}
+

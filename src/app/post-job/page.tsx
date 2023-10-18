@@ -9,8 +9,6 @@ import Footer from '../components/Footer/Footer';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-
-
 function pricing() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const [activeStep, setActiveStep] = useState(0);
@@ -156,13 +154,13 @@ function pricing() {
     const newType = parseFloat(e.target.value);
     setJobType(newType);
   };
-  const handleEditClick = () => {
-    setEditJobType(true);
-    setEditCompanyName(true)
-    setEditCountry(true)
-    setEditJobTitle(true)
-    setEditLanguage(true)
-  };
+  // const handleEditClick = () => {
+  //   setEditJobType(true);
+  //   setEditCompanyName(true)
+  //   setEditCountry(true)
+  //   setEditJobTitle(true)
+  //   setEditLanguage(true)
+  // };
   const handleInputChange = (e : any) => {
     setCompanyName(e.target.value);
   };

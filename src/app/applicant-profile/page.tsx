@@ -1,10 +1,9 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { IJobApplication } from '../interfaces/IJobApplication';
 import { CreateJob, GetApplicantProfile } from '../endpoints/api';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import { useRouter } from 'next/router'
 import './applicant.scss';
 import img9 from '../../assets/img/160x160/img9.jpg';
@@ -13,10 +12,19 @@ import mailchimpicon from "../../assets/svg/brands/mailchimp-icon.svg";
 import googleicon from "../../assets/svg/brands/google-icon.svg";
 import varsity from "../../assets/svg/brands/the-university-of-manchester.svg";
 import ocChatting from "../../assets/svg/illustrations/oc-chatting.svg";
+import koala from '../../assets/additional/koala.png';
 
 function applicantProfile() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const [activeStep, setActiveStep] = useState(0);
+    const [bio, setBio] = useState('');
+    const [jobTitle, setJobTitle] = useState('');
+    const [desiredSalary, setDesiredSalary] = useState('');
+    const [jobType, setJobType] = useState('');
+    const [workSchedule, setWorkSchedule] = useState('');
+    const [relocate, setRelocate] = useState(false);
+    const [canWork, setCanWork] = useState(false);
+
 
     //formInputs
     const [country, setCountry] = useState(0);
@@ -26,12 +34,9 @@ function applicantProfile() {
     async function getApplicantProfile(){
 
       const id="" //get from url
-      if(id!=undefined){
+      if ( id != undefined) {
         const res = await GetApplicantProfile(id as string);    //get from api: kwanele to provide endpoint 
       }
-
-      //check response is successful and display success step
-
     }
  
     useEffect(() => {
@@ -51,7 +56,7 @@ function applicantProfile() {
                     {/* Media */}
                     <div className="d-flex align-items-lg-center">
                       <div className="flex-shrink-0">
-                        <Image className="avatar avatar-xl avatar-circle" src={img9} alt="Image Description" />
+                        <Image className="avatar avatar-xl avatar-circle" src={koala} alt="Image Description" />
                       </div>
                       <div className="flex-grow-1 ms-4">
                         <div className="row">
@@ -59,7 +64,7 @@ function applicantProfile() {
                         <h1 className="page-header-title h2">Maria Williams</h1>
                         <ul className="list-inline list-separator">
                           <li className="list-inline-item">
-                            <i className="bi-geo-alt-fill text-primary me-1" style={{color: 'pink !important'}}/> London, UK
+                            <i className="bi-geo-alt-fill text-primary me-1" style={{color: 'pink !important'}}/> Johannesburg, SA
                           </li>
                           <li className="list-inline-item">maria@gmail.com</li>
                           <li className="list-inline-item">+1 (062) 109-9222</li>
@@ -104,33 +109,56 @@ function applicantProfile() {
             <div className="container content-space-2">
               <div className="row">
                 <div className="col-lg-8">
-                  <div className="mb-8">
+                  <div className="mb-8 bio-container">
                     <h3>Bio</h3>
-                    <p>A Frontend developer, and UI/UX Designer offering over 8 years of success in various leadership roles in the areas of Web design and development and customer support. I love coding and problem solving. Love working on both server and client side code. I like to get to know my clients closely to facilitate better communication.</p>
-                    <ul className="mb-4">
-                      <li>Authorized to work in the UK for any employer</li>
-                      <li>Willing to relocate to anywhere</li>
+                    <textarea name="bio" id="bio" placeholder='Enter bio'></textarea>
+                   <ul className="mb-4">
+                      <li><input type="checkbox" />Authorized to work in the UK for any employer</li>
+                      <li><input type="checkbox" name="" id="" />Willing to relocate to anywhere</li>
                     </ul>
                     <div className="row">
                       <div className="col-sm-6">
                         <div className="mb-4">
                           <h5>Desired job title</h5>
-                          <p>UI Designer/Developer</p>
+                          <select name="" id="">
+                            <option value="">select from list</option>
+                            <option value="softwareDeveloper">Software Developer</option>
+                            <option value="UI-UX">UI Designer/Developer</option>
+                            <option value="FrontEndDeveloper">Front-End Developer</option>
+                            <option value="backenddeveloper">Backend developer</option>
+                            <option value="sqlDeveloper">SQL Developer</option>
+                            <option value="ReactDeveloper">React Developer</option>
+                          </select>
                         </div>
                         <div className="mb-4">
                           <h5>Desired job types</h5>
-                          <p>Full time</p>
+                          <select name="" id="">
+                            <option value="">select from list</option>
+                            <option value="fulltime">Full Time</option>
+                            <option value="parttime">Part Time</option>
+                            <option value="remote">Remote</option>
+                            <option value="hybrid">Hybrid</option>
+                          </select>
                         </div>
                       </div>
                       {/* End Col */}
                       <div className="col-sm-6">
                         <div className="mb-4">
                           <h5>Desired work schedule</h5>
-                          <p>Monday to Friday</p>
+                          <select name="" id="">
+                            <option value="">select from list</option>
+                            <option value="">Monday to Friday excluding weekends</option>
+                            <option value="">Monday to Friday including weekends</option>
+                          </select>
                         </div>
                         <div className="mb-4">
                           <h5>Desired salary</h5>
-                          <p>$90k per year</p>
+                          <select name="" id="">
+                            <option value="80To90">$80k - $90k per year</option>
+                            <option value="100To110">$100k - $110k per year</option>
+                            <option value="120To130">$120k - $130k per year</option>
+                            <option value="140Above">$140k above</option>
+                          </select>
                         </div>
                       </div>
                       {/* End Col */}
