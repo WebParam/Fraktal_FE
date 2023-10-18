@@ -254,17 +254,17 @@ function HomePage() {
             {/* Blockquote */}
             <figure className="pe-md-7">
               <div className="mb-4">
-                <Image className="avatar avatar-xl avatar-4x3" src={mailchimplogo} alt="Image Description" />
+                {/* <Image className="avatar avatar-xl avatar-4x3" src={mailchimplogo} alt="Image Description" /> */}
               </div>
-              <blockquote className="blockquote blockquote-lg">" I'm absolutely floored by the level of care and attention to detail the team at Htmlstream have put into this theme and for one can guarantee that I will be a return customer. "</blockquote>
+              <blockquote className="blockquote blockquote-lg">" I'm absolutely floored by speed and quality of service that was provided and can guarantee that I will be a return customer. "</blockquote>
               <figcaption className="blockquote-footer">
                 <div className="d-flex align-items-center">
                   <div className="flex-shrink-0 d-md-none">
                     <Image className="avatar avatar-circle" src={smallAvatar} alt="Image Description" />
                   </div>
                   <div className="flex-grow-1 ms-3 ms-md-0">
-                    Lewis
-                    <span className="blockquote-footer-source">Senior Director of Operations at Mailchimp</span>
+                    Kweku
+                    <span className="blockquote-footer-source">Founder: The App Lab</span>
                   </div>
                 </div>
               </figcaption>

@@ -171,16 +171,16 @@ const contactus = () => {
                       className="form-control form-control-lg"
                       name="hireUsFormNameDetails"
                       id="hireUsFormDetails"
-                      placeholder="Tell us about your ..."
-                      aria-label="Tell us about your ..."
+                      placeholder="Tell us about your needs..."
+                      aria-label="Tell us about your needs..."
                       rows={4}
                       defaultValue={""}
                     />
                   </div>
                   {/* End Form */}
                   <div className="d-grid">
-                    <button type="submit" className="btn btn-primary btn-lg">
-                      Send inquiry
+                    <button type="submit" className="btn btn-primary btn-lg hirenow" style={{border:"none"}}>
+                      Send enquiry
                     </button>
                   </div>
                   <div className="text-center">
