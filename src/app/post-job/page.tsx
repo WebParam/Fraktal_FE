@@ -15,13 +15,9 @@ function pricing() {
 
     //formInputs
     const [country, setCountry] = useState(0);
-    const [editCountry,setEditCountry] = useState(false);
     const [language, setLanguage] = useState(0);
-    const [editLanguage,setEditLanguage] = useState(false);
     const [companyName, setCompanyName] = useState('');
-    const [editCompanyName,setEditCompanyName] = useState(false);
     const [jobTitle, setJobTitle] = useState('');
-    const [editJobTitle,setEditJobTitle] = useState(false);
     const [streetAddress, setStreetAddress] = useState('');
     const [city, setCity] = useState('');
     const [postcode, setCode] = useState("");
@@ -31,7 +27,6 @@ function pricing() {
     const [zipCode, setZipCode] = useState('');
     const [remote, setRemote] = useState(0);
     const [jobtype, setJobType] = useState(0);
-    const [editJobTybe, setEditJobType] = useState(false);
     const [hires, setHires] = useState('');
     const [urgency, setUrgency] = useState('');
     const [pay, setPay] = useState(0);
@@ -126,9 +121,9 @@ function pricing() {
       };
       
 
-      //send to api: kwanele to provide endpoint -> add to /endpoints/api and call it from here
+  
       // const res = await CreateJob(payload);
-      //check response is successful and display success step
+
       console.log(payload)
 
     }
@@ -154,16 +149,10 @@ function pricing() {
     const newType = parseFloat(e.target.value);
     setJobType(newType);
   };
-  // const handleEditClick = () => {
-  //   setEditJobType(true);
-  //   setEditCompanyName(true)
-  //   setEditCountry(true)
-  //   setEditJobTitle(true)
-  //   setEditLanguage(true)
+
+  // const handleInputChange = (e : any) => {
+  //   setCompanyName(e.target.value);
   // };
-  const handleInputChange = (e : any) => {
-    setCompanyName(e.target.value);
-  };
     return (
 
 
@@ -1988,18 +1977,6 @@ function pricing() {
                   {/* Form */}
                   <div className="mb-4">
                     <div className="row mb-2">
-                      {/* <div className="col">
-                        <label
-                          htmlFor="additionalCovid19PrecautionsLabel"
-                          className="form-label"
-                        >
-                          Are you taking any additional COVID-19 precautions?
-                        </label>
-                        <p className="small mt-n2 mb-0">
-                          Let job seekers know how you’re responding to
-                          COVID-19.
-                        </p>
-                      </div> */}
                       <div className="col-auto align-self-end">
                         <span
                           id="additionalCovid19PrecautionsCountCharacters"
@@ -2340,39 +2317,6 @@ function pricing() {
                       </div>
                       {/* End Row */}
                     </li>
-                    {/* <div>
-                        <div className="mb-4">
-                          <label htmlFor="companyNameLabel" className="form-label">
-                            Company name
-                          </label>
-                          {editCompanyName ? (
-                            <div>
-                              <input
-                                type="text"
-                                className="form-control"
-                                name="companyName"
-                                id="companyNameLabel"
-                                placeholder="Htmlstream"
-                                aria-label="Htmlstream"
-                                value={companyName}
-                                onChange={handleInputChange}
-                              />
-                            </div>
-                          ) : (
-                            <div>
-                              <h5>Company</h5>
-                              <span className="d-block">{companyName}</span>
-                              <button
-                                type="button"
-                                className="btn btn-sm btn-outline-primary"
-                                onClick={handleEditClick}
-                              >
-                                <i className="bi-pencil-fill small me-1" /> Edit
-                              </button>
-                            </div>
-                          )}
-                        </div>
-                        </div> */}
                     <li className="border-bottom">
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
