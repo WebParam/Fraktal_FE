@@ -190,7 +190,7 @@ function HomePage() {
                       <span className="device-browser-header-btn-list-btn" />
                       <span className="device-browser-header-btn-list-btn" />
                     </div>
-                    <div className="device-browser-header-browser-bar">www.htmlstream.com/front/</div>
+                    <div className="device-browser-header-browser-bar">www.fraktional.dev/</div>
                   </div>
                   <div className="device-browser-frame">
                     <Image className="device-browser-img" src={fraktionalOverview} alt="Image Description" />
@@ -323,7 +323,7 @@ function HomePage() {
           <div className="row gx-lg-7">
             <div className="col-sm-6 col-lg-4 mb-5">
               {/* Card */}
-              <a className="card card-flush h-100" href="#" data-aos="fade-up">
+              <a className="card card-flush h-100" data-aos="fade-up">
                 <Image className="card-img" src={card4} alt="Image Description" />
                 <div className="card-body">
                   <span className="card-subtitle text-body">Read the blog</span>
@@ -336,7 +336,7 @@ function HomePage() {
             {/* End Col */}
             <div className="col-sm-6 col-lg-4 mb-5">
               {/* Card */}
-              <a className="card card-flush h-100" href="#" data-aos="fade-up" data-aos-delay={150}>
+              <a className="card card-flush h-100" data-aos="fade-up" data-aos-delay={150}>
                 <Image className="card-img" src={card5} alt="Image Description" />
                 <div className="card-body">
                   <span className="card-subtitle text-body">Read the blog</span>
@@ -349,7 +349,7 @@ function HomePage() {
             {/* End Col */}
             <div className="col-sm-6 col-lg-4 mb-5">
               {/* Card */}
-              <a className="card card-flush h-100" href="#" data-aos="fade-up" data-aos-delay={200}>
+              <a className="card card-flush h-100" data-aos="fade-up" data-aos-delay={200}>
                 <Image className="card-img" src={card6} alt="Image Description" />
                 <div className="card-body">
                   <span className="card-subtitle text-body">Learn about other solutions</span>
