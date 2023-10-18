@@ -1,6 +1,6 @@
 // api.js
 import axios from 'axios';
-import { IDeveloperProfile, IUser, IUserLogin, IUserResetPassword, IUserSendOTP } from '../interfaces/user';
+import { IDeveloperProfile, IUser, IUserLogin, IUserResetPassword, IUserSendOTP, IVerifyOtp } from '../interfaces/user';
 import {ICompanyRegister } from '../interfaces/organisation';
 import { IJobApplication } from '../interfaces/IJobApplication';
 
@@ -12,16 +12,15 @@ export async function registerUser(payload:IUser) {
     const response = await axios.post(`${url}/api/users`, payload);
 
     if (response.status === 200 || response.status === 201) {
-      // Registration successful, you can redirect the user or show a success message.
       console.log('Registration successful');
       return true;
     } else {
-      // Registration failed, handle error (e.g., display error message).
+ 
       console.error('Registration failed');
       return false;;
     }
   } catch (error) {
-    // Handle network or other errors
+   
     console.error('Error:', error);
     return false;
   }
@@ -287,3 +286,25 @@ export async function sendOTP(payload:IUserSendOTP) {
   }
 
   
+  export async function verifyOtp(payload:IVerifyOtp) {
+    try {
+      const response = await axios.post(`${url}/api/users/verify`, payload);
+  
+      if (response.status === 200 || response.status === 201) {
+
+        if(response.data.code === 400){
+    
+          return false;
+
+        }else{    
+            console.log('otp verified successful');
+          return true;
+
+        }
+      } 
+    } catch (error) {
+      console.error('Error:', error);
+      return false;
+    }
+  }
+

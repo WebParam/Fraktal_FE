@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './companyRegister.scss';
-
-import { registerOrganisation } from '@/app/endpoints/api';
+import { Modal } from 'react-responsive-modal';
+import { registerOrganisation, sendOTP } from '@/app/endpoints/api';
 import { ICompanyRegister } from '@/app/interfaces/organisation';
 import dynamic from 'next/dynamic';
 import Link from "next/link";
@@ -15,10 +15,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from 'react-select';
 import { StylesConfig } from 'react-select';
+import { IUserSendOTP } from '@/app/interfaces/user';
+import {VerifyOtp} from './verify-otp';
 
 
 function Register() {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [regEmailError, setRegEmailError] = useState<boolean>(false);
+  const [userDetails, setUserDetails] = useState<any>();
+  const [email, setEmail] = useState('');
   const [formData, setFormData] = useState<ICompanyRegister>({
     userName: "",
     userSurname: "",
@@ -34,6 +39,7 @@ function Register() {
     password: ""
   });
 
+  const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [firstNameError, setFirstNameError] = useState<boolean>(false);
   const [surnameError, setSurnameError] = useState<boolean>(false);
   const [titleError, setTitleError] = useState<boolean>(false);
@@ -56,6 +62,7 @@ function Register() {
   };
   
   const handleSubmit = async (e: any) => {
+
     e.preventDefault();
     console.log(formData);
     console.log(confirmPassword)
@@ -63,12 +70,12 @@ function Register() {
 
 
   if (
-      formData.userName||      formData.email||
-      formData.password||
-      formData.userNumber||
+      formData.userName == "" ||      formData.email == ""||
+      formData.password==""||
+      formData.userNumber==""||
 
-      formData.userSurname ||
-      formData.title
+      formData.userSurname=="" ||
+      formData.title == ""
     ) {
       if (formData.userName === "") {
         setFirstNameError(true);
@@ -95,83 +102,48 @@ function Register() {
         setMobileNumberError(true);
         
       }
-      if (confirmPassword === "") {
-        setConfirm_PasswordError(true);
+      if (formData.password === "") {
+        setPasswordError(true);
         
       }
 
+    if(formData.password !== ""){
       if (formData.password !== confirmPassword) {
         setConfirm_PasswordError(true);
-        setPasswordError(true);
       }
     }
-
+ }
 
     if (
-      formData.userName == ""||
-      formData.email == "" ||
-      formData.password == ""||
-      formData.userNumber == ""||
-      formData.userSurname == "" ||
+      formData.userName == "" ||      formData.email == ""||
+      formData.password==""||
+      formData.userNumber==""||
+
+      formData.userSurname=="" ||
       formData.title == ""
     ){
       return;
     }
 
-      let _id = toast.loading("Registering user..", {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
 
-    
-          try {
 
-            if (!emailRegex.test(formData.email!)) {
-              toast.update(_id, {
-                render: "Invalid email address",
-                type: "error",
-                isLoading: false,
-              });
-              setTimeout(() => {
-               // setDisable(false)
-                toast.dismiss(_id);
-              }, 2000);
-                 return;
-            }else if(!passwordRegex.test(formData.password!)){
-             toast.update(_id, {
-               render:
-                 "Password must contain at least 8 characters, including uppercase and lowercase letters, numbers, and special characters",
-               type: "error",
-               isLoading: false,
-             });
-             setTimeout(() => {
-            //  setDisable(false)
-              toast.dismiss(_id);
-            }, 2000);
-            return;
-            }
+    let _id = toast.loading("Registering user..", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
 
-           const registrationResult = await Register();
-            
-           if(registrationResult){
+  
+        try {
+
+          if (!emailRegex.test(formData.email!)) {
             toast.update(_id, {
-              render: "user registered successfully",
-              type: "success",
-              isLoading: false,
-            });
-            setTimeout(() => {
-             // setDisable(false)
-              toast.dismiss(_id);
-            }, 2000);
-           }else{
-            toast.update(_id, {
-              render: "error registering user",
+              render: "Invalid email address",
               type: "error",
               isLoading: false,
             });
@@ -179,23 +151,56 @@ function Register() {
              // setDisable(false)
               toast.dismiss(_id);
             }, 2000);
-           }
-          
-          } catch (error) {
-            // Handle errors
-            toast.update(_id, {
-              render: "error registering user",
-              type: "error",
-              isLoading: false,
-            });
-            setTimeout(() => {
-             // setDisable(false)
-              toast.dismiss(_id);
-            }, 2000);
-            console.error("Error:", error);
+               return;
+          }else if(!passwordRegex.test(formData.password!)){
+           toast.update(_id, {
+             render:
+               "Password must contain at least 8 characters, including uppercase and lowercase letters, numbers, and special characters",
+             type: "error",
+             isLoading: false,
+           });
+           setTimeout(() => {
+          //  setDisable(false)
+            toast.dismiss(_id);
+          }, 2000);
+          return;
           }
-        
 
+         const registrationResult = await registerOrganisation(formData) ;
+          
+         if(registrationResult){
+          setEditModalOpen(true)
+  
+          setTimeout(() => {
+           // setDisable(false)
+            toast.dismiss(_id);
+          }, 2000);
+         }else{
+          toast.update(_id, {
+            render: "error registering user",
+            type: "error",
+            isLoading: false,
+          });
+          setTimeout(() => {
+           // setDisable(false)
+            toast.dismiss(_id);
+          }, 2000);
+         }
+        
+        } catch (error) {
+          // Handle errors
+          toast.update(_id, {
+            render: "error registering user",
+            type: "error",
+            isLoading: false,
+          });
+          setTimeout(() => {
+           // setDisable(false)
+            toast.dismiss(_id);
+          }, 2000);
+          console.error("Error:", error);
+        }
+      
 
       
      
@@ -221,16 +226,6 @@ function Register() {
   };
   const inputTitleStyle = {
     ...(titleError && {
-      outlineStyle: "solid",
-     color: "tomato",
-      borderWidth: "1px",
-    }),
-  };
-
-
-
-  const inputRoleStyle = {
-    ...(positionError && {
       outlineStyle: "solid",
      color: "tomato",
       borderWidth: "1px",
@@ -271,11 +266,29 @@ function Register() {
   };
 
 
+  function saveAndCloseEditModal(){
+
+    setEditModalOpen(false)
+
+  
+  }
+  
+const customModalStyles = {
+  modal: {
+
+    width: '40%',
+    scrollX:"none"
+ 
+  },
+};
 
   return (
     <section className="register">
       <ToastContainer />
-
+      <Modal styles={customModalStyles}  open={editModalOpen} onClose={() => setEditModalOpen(false)} center>
+        <VerifyOtp email = {formData.userEmail} onClose={saveAndCloseEditModal} />
+        
+      </Modal>
       <div className="top">
       <Link href= "/"> <Image style={{   cursor: "pointer"}} src={logo} alt="logo" /></Link> 
         <Link href="/">
@@ -299,6 +312,19 @@ function Register() {
           <p>Fill out the form to get started.</p>
 
           <form onSubmit={handleSubmit}>
+          <div>
+              <label htmlFor="title">Title </label> 
+              <select
+             style={inputTitleStyle}
+             name="title"
+                value={formData.title}
+                onChange={handleChange}
+              >
+                <option value="mr">Mr</option>
+                <option value="mrs">Mrs</option>
+                <option value="miss">Miss</option>
+              </select>
+            </div>
   <div>
     <label htmlFor="userName">Your Firstname</label>
     <input
@@ -324,13 +350,13 @@ function Register() {
   </div>
 
   <div>
-    <label htmlFor="email">Your Email</label>
+    <label htmlFor="companyNumber">Your Email</label>
     <input
-      style={inputEmailStyle}
-      type="email"
-      name="email"
-      placeholder="email@site.com"
-      value={formData.email}
+      style={inputMobileNumberStyle}
+      type="tel"
+      name="userEmail"
+      placeholder="Your Email"
+      value={formData.userEmail}
       onChange={handleChange}
     />
   </div>
@@ -343,6 +369,18 @@ function Register() {
       name="userNumber"
       placeholder="number"
       value={formData.userNumber}
+      onChange={handleChange}
+    />
+  </div>
+
+  <div>
+    <label htmlFor="companyNumber">Company Email</label>
+    <input
+      style={inputMobileNumberStyle}
+      type="tel"
+      name="email"
+      placeholder="Company Email"
+      value={formData.email}
       onChange={handleChange}
     />
   </div>
@@ -435,7 +473,9 @@ function Register() {
     />
   </div>
 
-  <button type="submit">Register</button>
+  <button onClick={() =>
+    handleSubmit
+   } type="submit">Register</button>
 </form>
 
 
@@ -452,7 +492,5 @@ function Register() {
 }
 
 export default Register;
-function scaffold(selectedOptions: any) {
-  throw new Error("Function not implemented.");
-}
+
 
