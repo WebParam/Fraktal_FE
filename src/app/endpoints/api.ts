@@ -161,11 +161,11 @@ export async function CreateJob(payload:IJobApplication) {
     const response = await axios.post(`${url}/api/jobApplications`, payload);
 
     if (response.status === 200 || response.status === 201) {
-      // Registration successful, you can redirect the user or show a success message.
+      // Job Created successfully, you can redirect the user or show a success message.
       console.log('login successful');
       return true;
     } else {
-      // Registration failed, handle error (e.g., display error message).
+      // CreateJob failed, handle error (e.g., display error message).
       console.error('login failed');
       return false;;
     }
@@ -175,6 +175,25 @@ export async function CreateJob(payload:IJobApplication) {
     return false;
   }
 }
+  export async function UpdateJob(payload:IJobApplication) {
+    try {
+      const response = await axios.post(`${url}/api/jobApplications`, payload);
+  
+      if (response.status === 200 || response.status === 201) {
+        // Job Updated successfully, you can redirect the user or show a success message.
+        console.log('Job Updated');
+        return true;
+      } else {
+        // UpdateJob failed, handle error (e.g., display error message).
+        console.error('Job not updated');
+        return false;;
+      }
+    } catch (error) {
+      // Handle network or other errors
+      console.error('Error:', error);
+      return false;
+    }
+  }
 
 
 
