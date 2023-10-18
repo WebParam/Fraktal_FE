@@ -25,23 +25,23 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
             </Link>
           </li>
           <li className="dropdown-li liOneDesk">
-            Company <i className="bi bi-chevron-down"></i>
+            About <i className="bi bi-chevron-down"></i>
             <div className='dropdown-Items dropdownOne'>
               <Link href='/about'>About</Link>
-              <Link href='/services'>Services</Link>
-              <Link href='/'>Customer Stories</Link>
+              <Link href='/services'>FAQ</Link>
+              {/* <Link href='/'>Customer Stories</Link>
               <Link href='/'>Customer Story</Link>
               <Link href='/'>Careers</Link>
               <Link href='/'>Careers Overview</Link>
               <Link href='/'>Hire Us</Link>
               <Link href='/pricing'>Pricing</Link>
               <Link href='/'>Contacts: Agency</Link>
-              <Link href='/'>Contacts: Startup</Link>
+              <Link href='/'>Contacts: Startup</Link> */}
             </div>
           </li>
-          <li className="dropdown-li liTwoDesk">
-            Account <i className="bi bi-chevron-down"></i>
-            <div className='dropdown-Items dropdownTwo'>
+          <li className="dropdown liTwoDesk">
+            Contact 
+            {/* <div className='dropdown-Items dropdownTwo'>
               <Link href='/auth/register'>Authentication</Link>
               <Link href='/'>Personal Info</Link>
               <Link href='/'>Security</Link>
@@ -52,9 +52,9 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
               <Link href='/'>Payments</Link>
               <Link href='/'>Address</Link>
               <Link href='/'>Teams</Link>
-            </div>
+            </div> */}
           </li>
-          <li className="dropdown-li liThreeDesk">
+          {/* <li className="dropdown-li liThreeDesk">
           Pages <i className="bi bi-chevron-down"></i>
             <div className='dropdown-Items dropdownThree'>
               <Link href='/'>FAQ</Link>
@@ -85,7 +85,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
               <Link href='/'>Case Studies: Branding</Link>
               <Link href='/'>Case Studies: Product</Link>
             </div>
-          </li>
+          </li> */}
         
           <li className='hirenow'>
               <Link href='/auth/register'>
@@ -93,6 +93,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
               </Link>
             
           </li>
+         
         </ul>
       </nav>
 

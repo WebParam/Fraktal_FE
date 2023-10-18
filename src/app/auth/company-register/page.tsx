@@ -31,8 +31,11 @@ function CompanyRegester() {
     password: '',
     title: '',
     companyReg:'',
-    userNumber:''
+    userNumber:'',
+   
   });
+
+  const [confirmPassword, setConfirmPassword] = useState("");
 
    // Initialize form errors state
    const [formErrors, setFormErrors] = useState({
@@ -52,6 +55,7 @@ function CompanyRegester() {
 
   // Function to handle form input changes
   const handleInputChange = (e:any) => {
+    debugger;
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -90,7 +94,7 @@ function CompanyRegester() {
 
   // Example: Validate that the company number is not empty
   if (!formData.companyNumber.trim()) {
-    errors.companyNumber = 'Please enter Company Number';
+    errors.companyNumber = 'Please enter your mobile number';
   }
 
   // Example: Validate that the company name is not empty
@@ -128,6 +132,7 @@ function CompanyRegester() {
     const Addorganisation = await registerOrganisation( formData as ICompanyRegister); // Rename the constant
     if(Addorganisation){
             console.log('Registration successful');
+      window.location.href = "/auth/login";
           
     }else{
         console.error('Registration failed');
@@ -170,7 +175,7 @@ function CompanyRegester() {
                       &quot;backSpeed&quot;: 30,
                       &quot;backDelay&quot;: 2500
                     }" />
-                  </span>startup
+                  </span>fraktional team
                 </h1>
                 <p className="lead">Whatever your goal - we will get your there.</p>
               </div>
@@ -186,7 +191,9 @@ function CompanyRegester() {
                 {/* Card */}
                 <div className="card">
                   <div className="card-header border-bottom text-center">
-                    <h4 className="card-header-title">Try it free for 7 days <span className="badge text-dark rounded-pill startingPrice" style={{backgroundColor: 'lightpink'}}>starting at $59</span></h4>
+                    <h4 className="card-header-title">Try it free 
+                    {/* for 7 days <span className="badge text-dark rounded-pill startingPrice" style={{backgroundColor: 'lightpink'}}>starting at $59</span> */}
+                    </h4>
                   </div>
                   <div className="card-body form-body">
                     <div className="inputs-container">
@@ -195,7 +202,7 @@ function CompanyRegester() {
                         <input 
                           type="text" 
                           className="form-control form-control-lg" 
-                          name="signupHeroFormNameFirstName" 
+                          name="userName" 
                           value={formData.userName}
                           onChange={handleInputChange}
                           id="signupHeroFormFirstName" 
@@ -212,7 +219,7 @@ function CompanyRegester() {
                         <input 
                           type="text" 
                           className="form-control form-control-lg" 
-                          name="signupHeroFormNameLastName" 
+                          name="userSurname" 
                           value={formData.userSurname}
                           onChange={handleInputChange}
                           id="signupHeroFormLasttName" 
@@ -228,7 +235,7 @@ function CompanyRegester() {
                         <input 
                           type="email" 
                           className="form-control form-control-lg" 
-                          name="signupHeroFormNameWorkEmail" 
+                          name="userEmail" 
                           value={formData.userEmail}
                           onChange={handleInputChange}
                           id="signupHeroFormWorkEmail" 
@@ -240,11 +247,11 @@ function CompanyRegester() {
                       </div>
                     
                       <div className="mb-4">
-                        <label className="form-label" htmlFor="signupHeroFormCompanyNumber">Company Number</label>
+                        <label className="form-label" htmlFor="signupHeroFormCompanyNumber">Mobile Number</label>
                         <input 
                           type="text" 
                           className="form-control form-control-lg" 
-                          name="signupHeroFormCompanyNumber" 
+                          name="companyNumber" 
                           value={formData.companyNumber}
                             onChange={handleInputChange}
                           id="signupHeroFormCompanyNumber" 
@@ -259,7 +266,7 @@ function CompanyRegester() {
                         <input 
                           type="text" 
                           className="form-control form-control-lg" 
-                          name="signupHeroFormCompanyName" 
+                          name="companyName" 
                           value={formData.companyName}
                           onChange={handleInputChange}
                           id="signupHeroFormCompanyName" 
@@ -276,7 +283,7 @@ function CompanyRegester() {
                         <input 
                           type="text" 
                           className="form-control form-control-lg" 
-                          name="signupHeroFormCompanyAddress" 
+                          name="companyAdrress" 
                           value={formData.companyAdrress}
                           onChange={handleInputChange}
                           id="signupHeroFormCompanyAddress" 
@@ -292,7 +299,7 @@ function CompanyRegester() {
                         <input 
                           type="text" 
                           className="form-control form-control-lg" 
-                          name="signupHeroFormCompanyEmail" 
+                          name="email" 
                           value={formData.email}
                           onChange={handleInputChange}
                           id="signupHeroFormCompanyEmail" 
@@ -308,7 +315,7 @@ function CompanyRegester() {
                         <input 
                           type="text" 
                           className="form-control form-control-lg" 
-                          name="signupHeroFormPosition" 
+                          name="position" 
                           value={formData.position}
                           onChange={handleInputChange}
                           id="signupHeroFormPosition" 
@@ -321,7 +328,9 @@ function CompanyRegester() {
 
                       <div className="mb-4">
                         <label className="form-label" htmlFor="signupHeroFormSignupPassword">Password</label>
-                        <input value = "ajksbajks" type="password" className="form-control form-control-lg" name="password" id="signupHeroFormSignupPassword" placeholder="8+ characters required" aria-label="8+ characters required" required />
+                        <input   value={formData.password} 
+                         onChange={handleInputChange}
+                        type="password" className="form-control form-control-lg" name="password" id="signupHeroFormSignupPassword" placeholder="8+ characters required" aria-label="8+ characters required" required />
                         <span className="invalid-feedback">Your password must include 8+ characters</span>
                       </div>
 
@@ -331,8 +340,8 @@ function CompanyRegester() {
                           type="password" 
                           className="form-control form-control-lg" 
                           name="confirmPassword" 
-                          value={formData.password}
-                          onChange={handleInputChange}
+                          value={confirmPassword}
+                          onChange={(e)=>setConfirmPassword(e.target.value)}
                           id="signupHeroFormSignupConfirmPassword" 
                           placeholder="8+ characters required" 
                           aria-label="8+ characters required" 

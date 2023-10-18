@@ -9,7 +9,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { UserLogin } from "@/app/endpoints/api";
 import { IUserLogin } from "@/app/interfaces/user";
-
+import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
+const cookies = new Cookies(); // Create an instance of Cookies
 
 function SignIn() {
   const [formData, setFormData] = useState<IUserLogin>({
@@ -66,11 +67,19 @@ function SignIn() {
     try {
       const loginResult = await UserLogin({email, password, skills}); // Rename the constant
       if (loginResult) {
+        debugger;
+        cookies.set('fraktional-user', JSON.stringify(loginResult), { path: '/' });
         toast.update(_id, {
           render: "Logged in successfully",
           type: "success",
           isLoading: false,
         });
+
+        if(loginResult.type==0){
+          window.location.href = "/developer-overview"
+        }else{
+          window.location.href = "/company-overview"
+        }
         setTimeout(() => {
           // setDisable(false)
           toast.dismiss(_id);

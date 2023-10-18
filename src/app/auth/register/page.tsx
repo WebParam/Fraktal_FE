@@ -303,14 +303,13 @@ function Register() {
 
       <div className="registerMain">
         <div className="register-image">
-          <h2>MailChimp</h2>
+          <h2>Param Solutions</h2>
           <p className="desc">
-            “ It has many landing page variations to choose from, which one is
-            always a big advantage. ”
+            “So simple and easy to find well paying jobs ”
           </p>
           <Image src={loginImage} alt="" />
-          <h3>Lida Reidy</h3>
-          <p>Project Manager | Mailchimp</p>
+          <h3>Atlegang Kola</h3>
+          <p>Developer | Param Solutions</p>
         </div>
 
         <div className="registerForm">
@@ -365,28 +364,6 @@ function Register() {
                 placeholder="email@site.com"
                 value={formData.email}
                 onChange={handleChange}
-              />
-            </div>
-
-            <div className="mb-3 col-md-12">
-                <label className="form-label" htmlFor="inputPassword4">Skills</label>
-                <Select
-              
-                onChange={handleSkillsChange}
-                isMulti
-                name="skills"
-                options={[
-                  { value: 'software', label: 'Software Development' },
-                  { value: 'project', label: 'Project Management' },
-                  { value: 'testing', label: 'Software Testing' },
-                  { value: 'analyst', label: 'Business Analysis' },
-                  { value: 'devops', label: 'Devops' },
-                  { value: 'architecture', label: 'Software Architecture' }
-
-                ]
-              }
-                className="basic-multi-select"
-                classNamePrefix="select"
               />
             </div>
 

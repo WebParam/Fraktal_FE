@@ -53,7 +53,7 @@ export interface IUser {
     keySkills:string,
     keyCourses :string, 
     cvUrl:string, 
-    personalInformation:string, 
+    personalInformation:IPersonalInformation, 
     _user:string,
     preferedWorkMethod:string
   }
@@ -66,6 +66,18 @@ export interface IUser {
     responsibilities?:IJobResponsibilities,
     location?:string
   }
+
+  export interface IPersonalInformation{
+    _id?:string;
+    about? :string;
+    name?:string;
+    surname?:string;
+    dateOfBirth?	:string; //not sent
+    address?	:string; //not sent
+    country?:string; //not sent 
+    province?:string;
+  }
+
 
   export interface IEducationInformation{
     instituteName:string,

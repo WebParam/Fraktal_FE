@@ -13,7 +13,10 @@ import { useEffect, useState } from "react";
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 import { IDeveloperProfile, IEducationInformation, IWorkExperience } from "../interfaces/user";
-import { GetDeveloperProfile, UpdateDeveloperProfile } from "../endpoints/api";
+import { CreateDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile } from "../endpoints/api";
+import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
+const cookies = new Cookies(); // Create an instance of Cookies
+
 
 
 function developerOverview() {
@@ -36,6 +39,22 @@ function developerOverview() {
   const [phone, setPhone] = useState("");
   const [currentProfile, setCurrentProfile] = useState<IDeveloperProfile>();
   const [gender, setGender] = useState(0);
+
+  // modals
+  const [wrk_employer, setWrk_employee] = useState("");
+  const [wrk_jobTitle, setWrk_jobTitle] = useState("");
+  const [wrk_startDate, setWrk_startDate] = useState("");
+  const [wrk_endDate, setWrkendDate] = useState("");
+  const [wrk_responsibilities, setWrk_responsibilities] = useState("");
+  const [wrk_location, setWrkLocation] = useState("");
+
+  const [edu_InsituteName, setEduInstituteName] = useState("");
+  const [edu_Qualification, setEduQualification] = useState("");
+  const [edu_completionDate, setEduCompletionDate] = useState("");
+
+  const loggedInUser = cookies.get("fraktional-user")??"{}";
+  const [existingUser, setExistingUser] = useState(false);
+
   function workModal(): void {
     setWorkModalOpen(true);
   }
@@ -47,9 +66,10 @@ function developerOverview() {
 async function _GetDeveloperProfile(id:string){
 
   var res = await GetDeveloperProfile(id) as any;
+  if(res.data){
   setCurrentProfile(res.data);
 
-  setInformation(res?.data?.information);
+  setInformation(res?.data?.personalInformation?.about);
   setFirstName(res?.data?.firstName);
   setSurname(res?.data?.surname);
   setCurrentJob(res?.data?.currentJob);
@@ -60,22 +80,70 @@ async function _GetDeveloperProfile(id:string){
   setCVUrl(res?.data?.cvUrl);
   setUser(res?.data?.user); // change
   setPreferedWorkMethod(res?.data?.preferedWorkMethod);
+  setExistingUser(true);
+
+  }
 
 }
 
 
 function addWorkExperience(){
 
+  const payload = {
+
+    employer:wrk_employer,
+    jobTitle:wrk_jobTitle,
+    startDate:wrk_startDate,
+    endDate:wrk_endDate,
+    responsibilities:{content: wrk_responsibilities},
+    location:wrk_location
+  } as IWorkExperience
+
+  setWrk_employee("");
+  setWrk_jobTitle("");
+  setWrk_startDate("");
+  setWrkendDate("");
+  setWrkLocation("");
+  setWrk_responsibilities("");
+  setWorkModalOpen(false);
+
+  setPreviousWorkExperience([...previousWorkExperience, payload]);
+
+
+}
+
+function removeWorkExperience(index:number){
+  const filtered = previousWorkExperience.filter((x,i)=> {return i!=index });
+  setPreviousWorkExperience(filtered);
 }
 
 function addEducation(){
 
+  const payload = {
+    instituteName: edu_InsituteName,
+    qualification:edu_Qualification,
+    dateCompleted:edu_completionDate
+  } as IEducationInformation;
+
+  debugger;
+  setEducation([...education, payload]);
+
+  setEduCompletionDate("");
+  setEduQualification("");
+  setEduInstituteName("");
+  setEducationModalOpen(false)
 }
+
+function removeEducation(index:number){
+  const filtered = education.filter((x,i)=> {return i!=index });
+  setEducation(filtered);
+}
+
 
 useEffect(() => {
   //check url and setActive
- _GetDeveloperProfile("")
-  
+  loggedInUser._id&& _GetDeveloperProfile(loggedInUser?._id)
+   
   }, []);
 
 
@@ -87,20 +155,28 @@ useEffect(() => {
       surname:surname,
       information: information, 
       currentJob:currentJob,
-      previousWorkExperience:[],
+      previousWorkExperience:previousWorkExperience,
       yearsOfExperience:yearsOfExperience,
-      education:[], 
+      education:education, 
       keySkills:"", 
       keyCourses:keyCourses,
       cvUrl:cvUrl,
-      personalInformation:"",
-      _user: "",
+      personalInformation:{about:information},
+      _user: loggedInUser._id,
       preferedWorkMethod: preferedWorkMethod
     } as IDeveloperProfile
 
-    const res = await UpdateDeveloperProfile(payload);
+    if(existingUser){
+      debugger;
+      const res = await UpdateDeveloperProfile(payload, loggedInUser._id);
+    }else{
+      const res = await CreateDeveloperProfile(payload);
+    }
+    
 
   }
+
+  
   
     return (
     <main id="content" role="main" className="bg-light">
@@ -145,8 +221,9 @@ useEffect(() => {
                     <Image className="avatar-img" src={img9} alt="Image Description" />
                     <Image className="avatar-status avatar-lg-status" src={topVendor} alt="Image Description" data-bs-toggle="tooltip" data-bs-placement="top" title="Verified user" />
                   </div>
-                  <h4 className="card-title mb-0">Natalie Curtis</h4>
-                  <p className="card-text small">natalie@example.com</p>
+
+                 <h4 className="card-title mb-0">{firstName!=""? firstName: loggedInUser.firstName} {surname!=""? surname: loggedInUser.surname}</h4>
+                  <p className="card-text small">{loggedInUser.email}</p>
                 </div>
                 {/* End Avatar */}
                 {/* Nav */}
@@ -265,8 +342,9 @@ useEffect(() => {
                   <label htmlFor="firstNameLabel" className="col-sm-3 col-form-label form-label">Full name <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Displayed on public forums, such as Front." /></label>
                   <div className="col-sm-9">
                     <div className="input-group">
-                      <input type="text" onChange={(e)=> setFirstName(e.target.value)} className="form-control" name="firstName" id="firstNameLabel" placeholder="Clarice" aria-label="Clarice" defaultValue="Natalie" />
-                      <input type="text" onChange={(e)=> setSurname(e.target.value)} className="form-control" name="lastName" id="lastNameLabel" placeholder="Boone" aria-label="Boone" defaultValue="Curtis" />
+                      <input type="text" onChange={(e)=> setFirstName(e.target.value)} defaultValue={firstName!="" ? firstName: loggedInUser.firstName} className="form-control" name="firstName" id="firstNameLabel" placeholder="Enter first name" aria-label="Clarice" />
+                      {/* <small>This field is required</small> */}
+                      <input type="text" onChange={(e)=> setSurname(e.target.value)} defaultValue={surname!="" ?surname: loggedInUser.surname} className="form-control" name="lastName" id="lastNameLabel" placeholder="Enter last name" aria-label="Boone"  />
                     </div>
                   </div>
                 </div>
@@ -275,7 +353,7 @@ useEffect(() => {
                 <div className="row mb-4">
                   <label htmlFor="emailLabel"  className="col-sm-3 col-form-label form-label">Email</label>
                   <div className="col-sm-9">
-                    <input type="email" readOnly className="form-control" name="email" id="emailLabel" placeholder="clarice@example.com" aria-label="clarice@example.com" defaultValue="natalie@example.com" />
+                    <input type="email" readOnly className="form-control" name="email" id="emailLabel" placeholder="Email" aria-label="clarice@example.com" defaultValue={loggedInUser.email} />
                   </div>
                 </div>
                 {/* End Form */}
@@ -288,7 +366,7 @@ useEffect(() => {
                   <label htmlFor="phoneLabel" className="col-sm-3 col-form-label form-label">Phone <span className="form-label-secondary">(Optional)</span></label>
                   <div className="col-sm-9">
                     <div className="input-group">
-                      <input type="text" className="js-input-mask form-control" name="phone" id="phoneLabel" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" defaultValue="+1(605)5618929" data-hs-mask-options="{
+                      <input type="text" className="js-input-mask form-control" name="phone" id="phoneLabel" placeholder="+x(xx)xxx-xxxx" aria-label="+x(xxx)xxx-xx-xx" defaultValue={loggedInUser.mobileNumber} data-hs-mask-options="{
                            &quot;mask&quot;: &quot;+{0}(000)000-00-00&quot;
                          }" />
                       {/* Select */}
@@ -308,16 +386,16 @@ useEffect(() => {
                     </div>
                     {/* Container For Input Field */}
                     <div id="addPhoneFieldContainer" />
-                    <a href="javascript:;" className="js-create-field form-link">
+                    {/* <a href="javascript:;" className="js-create-field form-link">
                       <i className="bi-plus-circle me-1" /> Add phone
-                    </a>
+                    </a> */}
                   </div>
                 </div>
                 {/* End Form */}
                 {/* Add Phone Input Field */}
                 <div id="addPhoneFieldTemplate" style={{display: 'none', position: 'relative'}}>
                   <div className="input-group input-group-add-field">
-                    <input type="text" className="js-input-mask-dynamic form-control" onChange={(e)=>setPhone(e.target.value)} data-name="additionlPhone" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" data-hs-mask-options="{
+                    <input type="text" className="js-input-mask-dynamic form-control" value={phone!="" ? phone:loggedInUser.mobileNumber} onChange={(e)=>setPhone(e.target.value)} data-name="additionlPhone" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" data-hs-mask-options="{
                          &quot;mask&quot;: &quot;+{0}(000)000-00-00&quot;
                        }" />
                     {/* Select */}
@@ -356,7 +434,7 @@ useEffect(() => {
                       {/* Radio Check */}
                       <label className="form-control" htmlFor="genderTypeRadio2">
                         <span className="form-check">
-                          <input onChange={(e)=>setGender(1)} type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio2" defaultChecked />
+                          <input onChange={(e)=>setGender(1)} type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio2" />
                           <span className="form-check-label">Female</span>
                         </span>
                       </label>
@@ -375,12 +453,12 @@ useEffect(() => {
                 {/* End Form */}
                 {/* Form */}
                 <div className="row mb-4">
-                  <label className="col-sm-3 col-form-label form-label">Summary</label>
+                  <label className="col-sm-3 col-form-label form-label">Bio</label>
                   <div className="col-sm-9">
                     {/* Quill */}
                     <div className="quill-custom">
                       <div className="js-quill" style={{height: '15rem'}}>
-                        <textarea onChange={(e)=>setInformation(e.target.value)} name="summary" id="textarea" placeholder="enter summary" style={{height: '100%', width: '100%', padding: '10px'}}></textarea>
+                        <textarea onChange={(e)=>setInformation(e.target.value)} name="summary" defaultValue={information} id="textarea" placeholder="Enter bio" style={{height: '100%', width: '100%', padding: '10px'}}></textarea>
                       </div>
                     </div>
                     {/* End Quill */}
@@ -395,7 +473,7 @@ useEffect(() => {
             <div className="card-footer pt-0">
               <div className="d-flex justify-content-end gap-3">
                 <a className="btn btn-white" href="javascript:;">Cancel</a>
-                <a className="btn" href="javascript:;" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Save changes</a>
+                <a className="btn" onClick={()=>updateProfile()} style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Save changes</a>
               </div>
             </div>
             {/* End Footer */}
@@ -411,7 +489,7 @@ useEffect(() => {
               <div className="mb-4">
                 {/* Check */}
                 <div className="form-check-downloadCV">
-                    <button >DOWNLOAD CV</button>
+                    <button >Upload CV</button>
                 </div>
                 {/* End Check */}
               </div>
@@ -422,13 +500,16 @@ useEffect(() => {
             <div className="card-header border-bottom">
               <h4 className="card-header-title">Work Experience</h4>
             </div>
+            
             {/* Body */}
             <div className="card-body">
-              
+            <a onClick={workModal} href="javascript:;" className="js-create-field form-link">
+                      <i className="bi-plus-circle me-1" /> Add
+                    </a>
               <div className="mb-4">
                 <ul className="step step-icon-sm">
 
-                  {previousWorkExperience.map(x=>{
+                  {previousWorkExperience?.map((x,i)=>{
                     return   <li className="step-item">
                     <div className="step-content-wrapper">
                       <div className="step-avatar step-avatar-sm">
@@ -440,6 +521,7 @@ useEffect(() => {
                         <small className="d-block mb-4">{x.startDate} to {x.endDate}</small>
                         <p className="text-body mb-0">{x.responsibilities?.content}.</p>
                       </div>
+                      <span onClick={()=>{removeWorkExperience(i)}}>Delete</span>
                     </div>
                   </li>
                   })}
@@ -473,16 +555,136 @@ useEffect(() => {
                 </ul>
               </div>
 
-              <button className="add" onClick={workModal}>Add</button>
+              {/* <button className="add" onClick={workModal}>Add</button> */}
+           
               {workModalOpen
                &&  
                <Modal 
+               classNames={{modal:"card"}}
                 open={workModalOpen}
                 closeOnOverlayClick={true}
                 onClose={() => setWorkModalOpen(false)} 
                 center
                 >
-                  Modal content for work experience
+                  <div>
+                    <div className="card-body">
+                      {/* Heading */}
+                      <div className="text-center mb-5 mb-md-9">
+                        <h2>Add your work experience</h2>
+                      </div>
+                      {/* Form */}
+                      <form >
+                        <div className="row gx-3">
+                          <div className="col-sm-6">
+                            {/* Form */}
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="hireUsFormTitle">Title</label>
+                              <input 
+                                type="text" 
+                                className="form-control form-control-lg" 
+                                name="Title" 
+                                id="Title" 
+                                placeholder="Title" 
+                                aria-label="Title"
+                                onChange={(e)=>{setWrk_jobTitle(e.target.value)}}
+                                // value={workData.Title}
+                                // onChange={handleChange} 
+                              />
+                            </div>
+                            {/* End Form */}
+                          </div>
+                          {/* End Col */}
+                          <div className="col-sm-6">
+                            {/* Form */}
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="CompanyName">Company Name</label>
+                              <input 
+                                type="text" 
+                                className="form-control form-control-lg" 
+                                name="CompanyName" 
+                                placeholder="Company Name" 
+                                aria-label="Company Name" 
+                                onChange={(e)=>{setWrk_employee(e.target.value)}}
+                                // value={workData.CompanyName}
+                                // onChange={handleChange}
+                                />
+                            </div>
+                          </div>
+                        </div>
+   
+                        <div className="row gx-3">
+                          <div className="col-sm-6">
+                            {/* Form */}
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="locationWork">Location</label>
+                              <input 
+                                type="text" 
+                                className="form-control form-control-lg" 
+                                name="LocationWork" 
+                                placeholder="eg. Johannesburg" 
+                                aria-label="Location"
+                                onChange={(e)=>{setWrkLocation(e.target.value)}}
+                                // value={workData.Location}
+                                // onChange={handleChange}
+                              />
+                            </div>
+                            {/* End Form */}
+                          </div>
+                          {/* End Col */}
+                          <div className="col-sm-6">
+                            {/* Form */}
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="durationStartwork">Duration</label>
+                              <div className="dateInputs">
+                                <input 
+                                  type="date" 
+                                  className="form-control form-control-lg" 
+                                  name="DurationStartwork" 
+                                  id="DurationStartwork" 
+                                  aria-label="Duration" 
+                                  onChange={(e)=>{setWrk_startDate(e.target.value)}}
+                                  // value={workData.DurationStart}
+                                  // onChange={handleChange}
+                                />to
+                                <input 
+                                  type="date" 
+                                  className="form-control form-control-lg" 
+                                  name="durationEndwork" 
+                                  id="durationEndwork" 
+                                  aria-label="Duration" 
+                                  onChange={(e)=>{setWrkendDate(e.target.value)}}
+                                  // value={workData.DurationEnd}
+                                  // onChange={handleChange}
+                                  />
+                              </div>
+                            </div>
+                            {/* End Form */}
+                          </div>
+                          {/* End Col */}
+                        </div>
+                        {/* End Row */}
+                        {/* Form */}
+                        <div className="mb-3">
+                          <label className="form-label" htmlFor="description">Details (responsibilities & key activities)</label>
+                          <textarea 
+                            className="form-control form-control-lg" 
+                            name="Description" 
+                            id="Description" 
+                            placeholder="Tell us about your ..." 
+                            aria-label="description" 
+                            rows={4} 
+                            // value={workData.description}
+                            // onChange={handleChange}
+                            />
+                        </div>
+                        {/* End Form */}
+                        <div className="d-grid">
+                          <button type="submit"onClick={(e)=>{e.preventDefault(); addWorkExperience()}} className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Save changes</button>
+                        </div>
+                      </form>
+                      {/* End Form */}
+                    </div>
+                  </div>
                </Modal>}
             </div>
             {/* End Body */}
@@ -494,10 +696,12 @@ useEffect(() => {
             </div>
             {/* Body */}
             <div className="card-body">
-              
+            <a onClick={educationModal} href="javascript:;" className="js-create-field form-link">
+                      <i className="bi-plus-circle me-1" /> Add
+                    </a>
               <div className="mb-4">
               <ul className="step step-icon-sm">
-                {education.map(x=>{
+                {education?.map((x,i)=>{
 
                   return <>
 
@@ -511,6 +715,7 @@ useEffect(() => {
                             <span className="d-block text-dark">{x.instituteName}</span>
                             <small className="d-block">{x.dateCompleted}</small>
                           </div>
+                          <span onClick={()=>{removeEducation(i)}}>Delete</span>
                         </div>
                       </li>
 
@@ -534,47 +739,115 @@ useEffect(() => {
                       </li> */}
                     </ul>
               </div>
-              <button className="add" onClick={educationModal}>Add</button>
               {EducationModalOpen
                &&  
                <Modal 
+               classNames={{modal:"card"}}
                 open={EducationModalOpen} 
                 closeOnOverlayClick={true} 
                 onClose={() => setEducationModalOpen(false)} 
                 center
                 >
-                  Modal content for education
-               </Modal>}
+                   <div >
+                    <div className="card-body">
+                      {/* Heading */}
+                      <div className="text-center mb-5 mb-md-9">
+                        <h2>Add education details</h2>
+                      </div>
+                      {/* Form */}
+                      <form>
+                      <div className="row gx-3">
+                          <div className="col-sm-12">
+                            {/* Form */}
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="hireUsFormTitle">Certificate</label>
+                              <input 
+                                type="text" 
+                                className="form-control form-control-lg" 
+                                name="Certificate" 
+                                id="certifficate" 
+                                placeholder="eg. Master's degree in Computer Software Engineering" 
+                                aria-label="Certificate" 
+                                onChange={(e)=>{setEduQualification(e.target.value)}}
+                                // value={educationData.certificate}
+                                // onChange={handleChangeEducation}
+                              />
+                            </div>
+                            {/* End Form */}
+                          </div>
+                          {/* End Col */}
+                        
+                          {/* End Col */}
+                        </div>
+
+
+
+                        <div className="row gx-3">
+                  
+                          {/* End Col */}
+                          <div className="col-sm-8">
+                            {/* Form */}
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="hireUsFormCompanyName">Institute</label>
+                              <input 
+                                type="text" 
+                                className="form-control form-control-lg" 
+                                name="SchoolName" 
+                                id="schoolName" 
+                                placeholder="School Name" 
+                                aria-label="School Name" 
+                                onChange={(e)=>{setEduInstituteName(e.target.value)}}
+                                // value={educationData.schoolName}
+                                // onChange={handleChangeEducation}  
+                              />
+                            </div>
+                            {/* End Form */}
+                          </div>
+                          <div className="col-sm-4">
+                            {/* Form */}
+                            <div className="mb-3">
+                              <label className="form-label" htmlFor="hireUsFormDuation">Completion date</label>
+                              <div className="dateInputs">
+                                <input 
+                                  type="date" 
+                                  onChange={(e)=>{setEduCompletionDate(e.target.value)}}
+                                  className="form-control form-control-lg" 
+                                  name="durationStart" 
+                                  id="durationStartEdu" 
+                                  aria-label="durationEdu" 
+                                  // value={educationData.DurationStartedu}
+                                  // onChange={handleChangeEducation}
+                                  />
+                               
+                              </div>
+                            </div>
+                            {/* End Form */}
+                          </div>
+                          {/* End Col */}
+                        </div>
+                        {/* End Row */}
+                        
+                        {/* End Row */}
+                        <div className="d-grid">
+                          <button  onClick={(e)=>{e.preventDefault(); addEducation()}} className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Save changes</button>
+                        </div>
+                      </form>
+                      {/* End Form */}
+                    </div>
+                  </div>
+               </Modal>
+               
+               }
             </div>
             {/* End Body */}
           </div>
-
-          <div className="card">
-            <div className="card-header border-bottom">
-              <h4 className="card-header-title">Links</h4>
-            </div>
-            {/* Body */}
-            <div className="card-body">
-              <div className="mb-4">
-              <div className="linksContainer">
-                  <p>
-                    Portfolio
-                  </p>
-                  <input 
-                    type="text" 
-                    className="portfolioInput"
-                    placeholder="www.portfoliolink.com" 
-                  />
-                </div>
-
-                <div className="linksContainer">
-                  <p>Linkedin (url)</p>
-                  <input type="text" className="linkedinInput" placeholder="linkedin.com/username" />
+          <div className="card-footer pt-0">
+                <div className="d-flex justify-content-end gap-3">
+                  <a className="btn btn-white" href="javascript:;">Cancel</a>
+                  <a className="btn" onClick={()=>updateProfile()} style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Save changes</a>
                 </div>
               </div>
-            </div>
-            {/* End Body */}
-          </div>
+          
           {/* Card */}
           <div className="card">
             <div className="card-header border-bottom">

@@ -59,8 +59,8 @@ function HomePage() {
                   <p className="lead">We connect developers and organizations with each other for short to medium term projects.</p>
                 </div>
                 <div className="d-grid d-sm-flex gap-3">
-                  <a className="btn btn-primary btn-transition px-6 getStarted" href="./page-login-simple.html">Get started</a>
-                  <a className="btn btn-link learnmore" href="#">Learn more <i className="bi-chevron-right small ms-1" /></a>
+                  <a className="btn btn-primary btn-transition px-6 getStarted" href="auth/register">Get started</a>
+                  <a className="btn btn-link learnmore" href="/about">Learn more <i className="bi-chevron-right small ms-1" /></a>
                 </div>
               </div>
               {/* End Col */}
@@ -214,7 +214,7 @@ function HomePage() {
                 <li className="list-checked-item">30 Days Onboarding</li>
               </ul>
               {/* End List Checked */}
-              <a className="btn btn-primary getStarted" href="#">Get started</a>
+              <a className="btn btn-primary getStarted" href="/register">Get started</a>
               <hr className="my-5" />
               <span className="d-block">Trusted by leading companies</span>
               <div className="row">
@@ -367,7 +367,7 @@ function HomePage() {
         <div className="text-center">
           <div className="card card-info-link card-sm">
             <div className="card-body">
-              Want to read more? <a className="card-link ms-2" href="#" style={{color: '#FD2DC3'}}>Go here <span className="bi-chevron-right small ms-1" /></a>
+              Want to read more? <a className="card-link ms-2" href="/about" style={{color: '#FD2DC3'}}>Go here <span className="bi-chevron-right small ms-1" /></a>
             </div>
           </div>
         </div>

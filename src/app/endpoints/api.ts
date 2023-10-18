@@ -4,7 +4,7 @@ import { IDeveloperProfile, IUser, IUserLogin, IUserResetPassword, IUserSendOTP 
 import {ICompanyRegister } from '../interfaces/organisation';
 import { IJobApplication } from '../interfaces/IJobApplication';
 
-const url = "https://viconet-vercel.vercel.app";
+const url = "http://localhost:8080";
 const renderUrl = "http://localhost:8080";
 
 export async function registerUser(payload:IUser) {
@@ -34,7 +34,7 @@ export async function UserLogin(payload:IUserLogin) {
     if (response.status === 200 || response.status === 201) {
       // Registration successful, you can redirect the user or show a success message.
       console.log('login successful');
-      return true;
+      return response.data;
     } else {
       // Registration failed, handle error (e.g., display error message).
       console.error('login failed');
@@ -45,19 +45,39 @@ export async function UserLogin(payload:IUserLogin) {
     console.error('Error:', error);
     return false;
   }
-}\
+}
 
 export async function GetDeveloperProfile(id:string) {
   try {
-    const response = await axios.get(`${url}/api/personnel/${id}`);
-
+    const response = await axios.get(`${url}/api/personnelByUserId/${id}`);
+debugger;
     if (response.status === 200 || response.status === 201) {
       // Registration successful, you can redirect the user or show a success message.
-      console.log('update successful');
+      console.log('retrieved successful');
       return response;
     } else {
       // Registration failed, handle error (e.g., display error message).
-      console.error('update failed');
+      console.error('retrieve failed');
+      return response;;
+    }
+  } catch (error) {
+    // Handle network or other errors
+    console.error('Error:', error);
+    return error;
+  }
+}
+
+export async function GetStaffInfo(id:string) {
+  try {
+    const response = await axios.get(`${url}/api/staffuser/${id}`);
+debugger;
+    if (response.status === 200 || response.status === 201) {
+      // Registration successful, you can redirect the user or show a success message.
+      console.log('retrieved successful');
+      return response;
+    } else {
+      // Registration failed, handle error (e.g., display error message).
+      console.error('retrieve failed');
       return response;;
     }
   } catch (error) {
@@ -68,7 +88,7 @@ export async function GetDeveloperProfile(id:string) {
 }
 
 
-export async function UpdateDeveloperProfile(payload:IDeveloperProfile) {
+export async function CreateDeveloperProfile(payload:IDeveloperProfile) {
   try {
     const response = await axios.post(`${url}/api/personnel`, payload);
 
@@ -87,6 +107,27 @@ export async function UpdateDeveloperProfile(payload:IDeveloperProfile) {
     return false;
   }
 }
+
+export async function UpdateDeveloperProfile(payload:IDeveloperProfile, id:string) {
+  try {
+    const response = await axios.post(`${url}/api/personnel/${id}`, payload);
+
+    if (response.status === 200 || response.status === 201) {
+      // Registration successful, you can redirect the user or show a success message.
+      console.log('update successful');
+      return true;
+    } else {
+      // Registration failed, handle error (e.g., display error message).
+      console.error('update failed');
+      return false;;
+    }
+  } catch (error) {
+    // Handle network or other errors
+    console.error('Error:', error);
+    return false;
+  }
+}
+
 
 
 export async function CreateJob(payload:IJobApplication) {
