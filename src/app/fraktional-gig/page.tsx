@@ -8,12 +8,12 @@ import MobileMenu from '../components/MobileMenu/MobileMenu';
 
 import img23 from "../../assets/img/900x900/img23.jpg";
 import google from "../../assets/svg/brands/google.svg";
-import mailchimp from "../../assets/svg/brands/mailchimp-icon.svg";
+import mailchimp from "../../assets/svg/brands/frontapp-icon.svg";
 import topVendor from "../../assets/svg/illustrations/top-vendor.svg";
 import capsule from "../../assets/svg/brands/capsule-icon.svg";
 import dropbox from "../../assets/svg/brands/dropbox-icon.svg";
 import prosperus from "../../assets/svg/brands/prosperops-icon.svg";
-import airbnb from "../../assets/svg/brands/airbnb-icon.svg";
+import airbnb from "../../assets/svg/brands/flow-xo-gray.svg";
 import guideline from "../../assets/svg/brands/guideline-icon.svg";
 import img24 from "../../assets/img/900x900/img24.jpg";
 import Footer from '../components/Footer/Footer';
@@ -60,11 +60,11 @@ function jobs() {
                             <input type="text" className="form-control" id="cityForm" placeholder="City" aria-label="City, state, or zip" />
                             </div>
                         </div>
-                        <button type="button" className="btn btn-primary" style={{background: '#FD2DC3 !important', border: 'none'}}>Search</button>
+                        <button type="button" className="btn btn-primary" disabled={true} style={{background: '#FD2DC3 !important', border: 'none'}}>Search</button>
                         </div>
                         {/* End Input Card */}
                     </form>
-                    <p className="form-text">Search through over 1200 listings</p>
+                    <p className="form-text">Search through 120+ jobs</p>
                     </div>
                     {/* End Col */}
                 </div>
@@ -95,7 +95,7 @@ function jobs() {
                 {/* Heading */}
                 <div className="w-md-75 w-lg-50 text-center mx-md-auto mb-7">
                 <h2>Explore over 2 million tech and startup job-opportunities</h2>
-                <p>Find a job you love. <a className="link" href="#" style={{color: '#FD2DC3'}}>Set your career interests.</a></p>
+                <p>Find a job you love. <a className="link"  style={{color: '#FD2DC3'}}>Superchange your career.</a></p>
                 </div>
                 {/* End Heading */}
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mb-5">
@@ -113,7 +113,7 @@ function jobs() {
                             </div>
                             <div className="flex-grow-1 ms-3">
                                 <h6 className="card-title">
-                                <a className="text-dark" href="#">Mailchimp</a>
+                                <a className="text-dark" href="#">J-T Consulting</a>
                                 <Image className="avatar avatar-xss ms-1" src={topVendor} alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
                                 </h6>
                             </div>
@@ -124,9 +124,9 @@ function jobs() {
                         </div>
                         {/* End Row */}
                         <h3 className="card-title">
-                        <a className="text-dark" href="#">Senior B2B sales consultant</a>
+                        <a className="text-dark" href="#">Senior Devops Engineer</a>
                         </h3>
-                        <span className="d-block small text-body mb-1">$125k-$135k yearly</span>
+                        <span className="d-block small text-body mb-1">R125k-R135k month</span>
                         <span className="badge me-2" style={{backgroundColor: 'lightpink', color: '#fff'}}>
                         <span className="legend-indicator bg-info" />Remote
                         </span>
@@ -135,8 +135,8 @@ function jobs() {
                     {/* Card Footer */}
                     <div className="card-footer pt-0">
                         <ul className="list-inline list-separator small text-body">
-                        <li className="list-inline-item">Posted 7 hours ago</li>
-                        <li className="list-inline-item">Oxford</li>
+                        <li className="list-inline-item">Posted today</li>
+                        <li className="list-inline-item">Johannesburg</li>
                         <li className="list-inline-item">Full time</li>
                         </ul>
                     </div>
@@ -159,7 +159,7 @@ function jobs() {
                             </div>
                             <div className="flex-grow-1 ms-3">
                                 <h6 className="card-title">
-                                <a className="text-dark" href="../demo-jobs/employer.html">Capsule</a>
+                                <a className="text-dark" href="../demo-jobs/employer.html">Tuto</a>
                                 </h6>
                             </div>
                             </div>
@@ -169,16 +169,16 @@ function jobs() {
                         </div>
                         {/* End Row */}
                         <h3 className="card-title">
-                        <a className="text-dark" href="../demo-jobs/employer.html">Office assistant/Social media assistant</a>
+                        <a className="text-dark" href="../demo-jobs/employer.html">Intermediate JS Front End Developer</a>
                         </h3>
-                        <span className="d-block small text-body mb-1">$50-$135 hourly</span>
+                        <span className="d-block small text-body mb-1">R500 hourly</span>
                     </div>
                     {/* End Card Body */}
                     {/* Card Footer */}
                     <div className="card-footer pt-0">
                         <ul className="list-inline list-separator small text-body">
-                        <li className="list-inline-item">Posted 21 hours ago</li>
-                        <li className="list-inline-item">Newcastle</li>
+                        <li className="list-inline-item">Posted today</li>
+                        <li className="list-inline-item">Pretoria</li>
                         <li className="list-inline-item">Part time</li>
                         </ul>
                     </div>
@@ -197,11 +197,11 @@ function jobs() {
                             {/* Media */}
                             <div className="d-flex align-items-center">
                             <div className="flex-shrink-0">
-                                <Image className="avatar avatar-sm avatar-4x3" src={dropbox} alt="Image Description" />
+                                <Image className="avatar avatar-sm avatar-4x3" src={capsule} alt="Image Description" />
                             </div>
                             <div className="flex-grow-1 ms-3">
                                 <h6 className="card-title">
-                                <a className="text-dark" href="../demo-jobs/employer.html">Dropbox</a>
+                                <a className="text-dark" href="../demo-jobs/employer.html">Tuto</a>
                                 </h6>
                             </div>
                             </div>
@@ -211,17 +211,17 @@ function jobs() {
                         </div>
                         {/* End Row */}
                         <h3 className="card-title">
-                        <a className="text-dark" href="../demo-jobs/employer.html">Marketing and Communications Manager</a>
+                        <a className="text-dark" href="../demo-jobs/employer.html">Senior full-stack developer</a>
                         </h3>
-                        <span className="d-block small text-body mb-1">$5k monthly</span>
+                        <span className="d-block small text-body mb-1">R900 hourly</span>
                     </div>
                     {/* End Card Body */}
                     {/* Card Footer */}
                     <div className="card-footer pt-0">
                         <ul className="list-inline list-separator small text-body">
                         <li className="list-inline-item">Posted 1 day ago</li>
-                        <li className="list-inline-item">London</li>
-                        <li className="list-inline-item">Full time</li>
+                        <li className="list-inline-item">Pretoria</li>
+                        <li className="list-inline-item">Part time</li>
                         </ul>
                     </div>
                     {/* End Card Footer */}
@@ -253,9 +253,9 @@ function jobs() {
                         </div>
                         {/* End Row */}
                         <h3 className="card-title">
-                        <a className="text-dark" href="../demo-jobs/employer.html">Senior backend developer</a>
+                        <a className="text-dark" href="../demo-jobs/employer.html">Senior Project Manager</a>
                         </h3>
-                        <span className="d-block small text-body mb-1">$75k-$85k yearly</span>
+                        <span className="d-block small text-body mb-1">R750 hourly</span>
                         <span className="badge me-2"  style={{backgroundColor: 'lightpink', color: '#fff'}}>
                         <span className="legend-indicator bg-info" />Remote
                         </span>
@@ -265,9 +265,9 @@ function jobs() {
                     <div className="card-footer pt-0">
                         <ul className="list-inline list-separator small text-body">
                         <li className="list-inline-item">Posted 1 day ago</li>
-                        <li className="list-inline-item">Liverpool</li>
+                        <li className="list-inline-item">Cape town</li>
                         <li className="list-inline-item">Full time</li>
-                        </ul>
+                        </ul> 
                     </div>
                     {/* End Card Footer */}
                     </div>
@@ -288,7 +288,7 @@ function jobs() {
                             </div>
                             <div className="flex-grow-1 ms-3">
                                 <h6 className="card-title">
-                                <a className="text-dark" href="../demo-jobs/employer.html">Airbnb</a>
+                                <a className="text-dark" href="../demo-jobs/employer.html">The App Lab</a>
                                 <Image className="avatar avatar-xss ms-1" src={topVendor} alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
                                 </h6>
                             </div>
@@ -301,14 +301,14 @@ function jobs() {
                         <h3 className="card-title">
                         <a className="text-dark" href="../demo-jobs/employer.html">Senior product manager</a>
                         </h3>
-                        <span className="d-block small text-body mb-1">$76k-$98k yearly</span>
+                        <span className="d-block small text-body mb-1">R75K per month</span>
                     </div>
                     {/* End Card Body */}
                     {/* Card Footer */}
                     <div className="card-footer pt-0">
                         <ul className="list-inline list-separator small text-body">
-                        <li className="list-inline-item">Posted 2 days ago</li>
-                        <li className="list-inline-item">London</li>
+                        <li className="list-inline-item">Posted 1 day ago</li>
+                        <li className="list-inline-item">Johannesburg</li>
                         <li className="list-inline-item">Full time</li>
                         </ul>
                     </div>
@@ -343,7 +343,7 @@ function jobs() {
                         <h3 className="card-title">
                         <a className="text-dark" href="../demo-jobs/employer.html">iOS Engineer</a>
                         </h3>
-                        <span className="d-block small text-body mb-1">$500-$1000 weekly</span>
+                        <span className="d-block small text-body mb-1">R800 hourly</span>
                         <span className="badge me-2"  style={{backgroundColor: 'lightpink', color: '#fff'}}>
                         <span className="legend-indicator bg-info" />Remote
                         </span>
@@ -352,8 +352,8 @@ function jobs() {
                     {/* Card Footer */}
                     <div className="card-footer pt-0">
                         <ul className="list-inline list-separator small text-body">
-                        <li className="list-inline-item">Posted 3 days ago</li>
-                        <li className="list-inline-item">Manchester</li>
+                        <li className="list-inline-item">Posted 1 day ago</li>
+                        <li className="list-inline-item">Johannesburg</li>
                         <li className="list-inline-item">Part time</li>
                         </ul>
                     </div>
@@ -400,27 +400,27 @@ function jobs() {
                         </div>
                         {/* Blockquote */}
                         <figure className="mb-5">
-                        <blockquote className="blockquote blockquote-lg">" Save time and effort in your hiring journey. Front's simple and powerful tools let you source, screen, and hire faster. "</blockquote>
+                        <blockquote className="blockquote blockquote-lg">" Save time and effort in your hiring journey. Fraktiional's simple process let you source, screen, and hire faster. "</blockquote>
                         <figcaption className="blockquote-footer">
-                            Anna Lowry
-                            <span className="blockquote-footer-source">HR Director | Capsule</span>
+                            Ameil
+                            <span className="blockquote-footer-source">Project manager | SSN</span>
                         </figcaption>
                         </figure>
                         {/* End Blockquote */}
                         <div className="row">
                         <div className="col-sm-6 col-md-4 mb-3 mb-sm-0">
-                            <h2 className="mb-1" style={{color: '#FD2DC3'}}>59%</h2>
-                            <p className="small mb-0">in budget saved on unconverting ads</p>
+                            <h2 className="mb-1" style={{color: '#FD2DC3'}}>40%</h2>
+                            <p className="small mb-0">Reduced hiring time</p>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-6 col-md-4 mb-3 mb-sm-0">
-                            <h2 className="mb-1" style={{color: '#FD2DC3'}}>27%</h2>
-                            <p className="small mb-0">in time saved on campaign management</p>
+                            <h2 className="mb-1" style={{color: '#FD2DC3'}}>98%</h2>
+                            <p className="small mb-0">Client satisfaction rate</p>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-6 col-md-4">
-                            <h2 className="mb-1" style={{color: '#FD2DC3'}}>2.1x</h2>
-                            <p className="small mb-0">more split tests and experiments</p>
+                            <h2 className="mb-1" style={{color: '#FD2DC3'}}>1500+</h2>
+                            <p className="small mb-0">vetted engineers</p>
                         </div>
                         {/* End Col */}
                         </div>
@@ -437,14 +437,14 @@ function jobs() {
             <div className="container content-space-2 content-space-lg-3">
                 {/* Heading */}
                 <div className="w-md-75 w-lg-50 text-center mx-md-auto mb-7">
-                <h2>Explore Startups</h2>
-                <p>Find a job you love. <a href="#" style={{color: '#FD2DC3'}}>Set your career interests.</a></p>
+                <h2>Find a gig</h2>
+                <p>Find a job you love. <a href="#" style={{color: '#FD2DC3'}}>Search according to your career interests.</a></p>
                 </div>
                 {/* End Heading */}
                 <div className="row row-cols-1 row-cols-sm-2 1 row-cols-md-3 row-cols-lg-4 mb-5">
                 <div className="col mb-3 mb-sm-4">
                     {/* Card */}
-                    <a className="card card-sm card-bordered card-transition h-100" href="../demo-jobs/job-overview.html">
+                    <a className="card card-sm card-bordered card-transition h-100">
                     <div className="card-body">
                         <div className="row align-items-center">
                         <div className="col">
@@ -467,7 +467,7 @@ function jobs() {
                 {/* End Col */}
                 <div className="col mb-3 mb-sm-4">
                     {/* Card */}
-                    <a className="card card-sm card-bordered card-transition h-100" href="../demo-jobs/job-overview.html">
+                    <a className="card card-sm card-bordered card-transition h-100" >
                     <div className="card-body">
                         <div className="row align-items-center">
                         <div className="col">
@@ -490,7 +490,7 @@ function jobs() {
                 {/* End Col */}
                 <div className="col mb-3 mb-sm-4">
                     {/* Card */}
-                    <a className="card card-sm card-bordered card-transition h-100" href="../demo-jobs/job-overview.html">
+                    <a className="card card-sm card-bordered card-transition h-100" >
                     <div className="card-body">
                         <div className="row align-items-center">
                         <div className="col">
@@ -513,7 +513,7 @@ function jobs() {
                 {/* End Col */}
                 <div className="col mb-3 mb-sm-4">
                     {/* Card */}
-                    <a className="card card-sm card-bordered card-transition h-100" href="../demo-jobs/job-overview.html">
+                    <a className="card card-sm card-bordered card-transition h-100">
                     <div className="card-body">
                         <div className="row align-items-center">
                         <div className="col">
@@ -536,7 +536,7 @@ function jobs() {
                 {/* End Col */}
                 <div className="col mb-3 mb-sm-4">
                     {/* Card */}
-                    <a className="card card-sm card-bordered card-transition h-100" href="../demo-jobs/job-overview.html">
+                    <a className="card card-sm card-bordered card-transition h-100">
                     <div className="card-body">
                         <div className="row align-items-center">
                         <div className="col">
@@ -559,7 +559,7 @@ function jobs() {
                 {/* End Col */}
                 <div className="col mb-3 mb-sm-4">
                     {/* Card */}
-                    <a className="card card-sm card-bordered card-transition h-100" href="../demo-jobs/job-overview.html">
+                    <a className="card card-sm card-bordered card-transition h-100" >
                     <div className="card-body">
                         <div className="row align-items-center">
                         <div className="col">
@@ -582,7 +582,7 @@ function jobs() {
                 {/* End Col */}
                 <div className="col mb-3 mb-sm-4">
                     {/* Card */}
-                    <a className="card card-sm card-bordered card-transition h-100" href="../demo-jobs/job-overview.html">
+                    <a className="card card-sm card-bordered card-transition h-100" >
                     <div className="card-body">
                         <div className="row align-items-center">
                         <div className="col">
@@ -605,7 +605,7 @@ function jobs() {
                 {/* End Col */}
                 <div className="col mb-3 mb-sm-4">
                     {/* Card */}
-                    <a className="card card-sm card-bordered card-transition h-100" href="../demo-jobs/job-overview.html">
+                    <a className="card card-sm card-bordered card-transition h-100">
                     <div className="card-body">
                         <div className="row align-items-center">
                         <div className="col">
@@ -629,7 +629,7 @@ function jobs() {
                 </div>
                 {/* End Row */}
                 <div className="text-center">
-                <a className="btn view-All-Startups-Text" href="#" >View all startups <i className="bi-chevron-right small ms-1" /></a>
+                <a className="btn view-All-Startups-Text" >View all companies <i className="bi-chevron-right small ms-1" /></a>
                 </div>
             </div>
             {/* End Card Grid */}
