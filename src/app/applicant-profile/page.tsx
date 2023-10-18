@@ -39,6 +39,8 @@ function applicantProfile() {
       }
     }
  
+  
+
     useEffect(() => {
       //check url and setActive
       getApplicantProfile();

@@ -36,7 +36,7 @@ function jobs() {
                     <div className="col-lg-8">
                     {/* Heading */}
                     <div className="w-lg-75 text-center text-lg-start mb-5 mb-lg-7">
-                        <h1 className="display-4">Find the most<br /><span className="text-highlight-warning" style={{color: '#FD2DC3'}}>exciting</span> startup jobs</h1>
+                        <h1 className="display-4">Find the most<br /><span className="text-highlight-warning" style={{color: '#FD2DC3'}}>exciting</span> jobs</h1>
                     </div>
                     {/* End Heading */}
                     <form>
@@ -52,19 +52,19 @@ function jobs() {
                             </div>
                         </div>
                         <div className="input-card-form">
-                            <label htmlFor="cityForm" className="form-label visually-hidden">City, state, or zip</label>
+                            <label htmlFor="cityForm" className="form-label visually-hidden">City</label>
                             <div className="input-group input-group-merge">
                             <span className="input-group-prepend input-group-text">
                                 <i className="bi-geo-alt" />
                             </span>
-                            <input type="text" className="form-control" id="cityForm" placeholder="City, state, or zip" aria-label="City, state, or zip" />
+                            <input type="text" className="form-control" id="cityForm" placeholder="City" aria-label="City, state, or zip" />
                             </div>
                         </div>
                         <button type="button" className="btn btn-primary" style={{background: '#FD2DC3 !important', border: 'none'}}>Search</button>
                         </div>
                         {/* End Input Card */}
                     </form>
-                    <p className="form-text">Search through over 125,000 listings</p>
+                    <p className="form-text">Search through over 1200 listings</p>
                     </div>
                     {/* End Col */}
                 </div>
@@ -85,7 +85,7 @@ function jobs() {
                     </svg>
                     </div>
                     {/* End SVG Shape */}
-                    <p className="form-text">Powered by: <Image className="avatar avatar-sm avatar-4x3" src={google} alt="Image Description" /></p>
+                    {/* <p className="form-text">Powered by: <Image className="avatar avatar-sm avatar-4x3" src={google} alt="Image Description" /></p> */}
                 </div>
                 </div>
             </div>

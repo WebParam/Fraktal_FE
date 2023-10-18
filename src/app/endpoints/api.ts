@@ -47,6 +47,21 @@ export async function UserLogin(payload:IUserLogin) {
   }
 }
 
+export async function uploadProfilePic(profilePic: FormData, userId:string){
+
+  const config = {     
+      headers: { 'content-type': 'multipart/form-data',  "Access-Control-Allow-Origin": "*"},
+      
+  }
+ const resp = await axios.post(`${url}/api/upload_profilepicture/${userId}`, profilePic, config)
+ console.log("profilePicRes", resp)
+ return resp;
+
+}
+
+
+
+
 export async function GetDeveloperProfile(id:string) {
   try {
     const response = await axios.get(`${url}/api/personnelByUserId/${id}`);
@@ -86,6 +101,7 @@ debugger;
     return error;
   }
 }
+
 
 
 export async function CreateDeveloperProfile(payload:IDeveloperProfile) {
@@ -128,7 +144,17 @@ export async function UpdateDeveloperProfile(payload:IDeveloperProfile, id:strin
   }
 }
 
+export async function uploadCV(formData: FormData){
 
+  const config = {     
+      headers: { 'content-type': 'multipart/form-data',  "Access-Control-Allow-Origin": "*"},
+      
+  }
+ const resp = await axios.post(`${url}/api/upload_cv/1`, formData, config)
+ return resp;
+
+
+}
 
 export async function CreateJob(payload:IJobApplication) {
   try {
