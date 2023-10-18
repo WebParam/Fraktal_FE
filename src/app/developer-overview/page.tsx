@@ -9,11 +9,11 @@ import mailchimpicon from "../../assets/svg/brands/mailchimp-icon.svg";
 import googleicon from "../../assets/svg/brands/google-icon.svg";
 import varsity from "../../assets/svg/brands/the-university-of-manchester.svg";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 import { IDeveloperProfile, IEducationInformation, IWorkExperience } from "../interfaces/user";
-import { CreateDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile } from "../endpoints/api";
+import { CreateDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile, uploadCV, uploadProfilePic } from "../endpoints/api";
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
@@ -51,10 +51,42 @@ function developerOverview() {
   const [edu_InsituteName, setEduInstituteName] = useState("");
   const [edu_Qualification, setEduQualification] = useState("");
   const [edu_completionDate, setEduCompletionDate] = useState("");
-
+  const [currentProfilePic, setCurrentProfilePic] = useState("");
   const loggedInUser = cookies.get("fraktional-user")??"{}";
   const [existingUser, setExistingUser] = useState(false);
 
+  
+  const [cv, setCV] = useState<Blob | undefined>();
+  const [hasChanged, setHasChanged] = useState(false);
+  const cvPayload = new FormData();
+  const hiddenCVInput = useRef<HTMLInputElement>(null);
+  const saveCV = (e: any) => {
+    setCV(e.target.files[0]);
+    setHasChanged(true);
+  };
+
+
+  const saveProfilePic = async (e: any) => {
+    const pp = e.target.files[0];
+    // updateProfilePic();
+    const profilePicUpload = new FormData();
+debugger;
+    if(pp){
+      profilePicUpload.append("profilePic", pp as Blob);
+      const profilePicDoc = await uploadProfilePic(profilePicUpload,loggedInUser._id??"");
+      
+      console.log("profres", profilePicDoc);
+      const newImage = profilePicDoc.data.data.Location
+      const newUser = {...loggedInUser, profilePicture:newImage};
+      cookies.remove("fraktional-user", { path: '/' });
+
+      setCurrentProfilePic(newImage);
+      
+       cookies.set("fraktional-user", newUser as any, { path: "/" });
+    }
+  };
+
+  
   function workModal(): void {
     setWorkModalOpen(true);
   }
@@ -62,6 +94,12 @@ function developerOverview() {
   function educationModal(): void {
     setEducationModalOpen(true);
   }
+
+  const handleCvClick = (event:any) => {
+    if (hiddenCVInput !== null && hiddenCVInput.current!=null) {
+      hiddenCVInput?.current.click();
+    }
+  };
 
 async function _GetDeveloperProfile(id:string){
 
@@ -77,11 +115,11 @@ async function _GetDeveloperProfile(id:string){
   setYearsOfExperience(res?.data?.yearsOfExperience);
   setEducation(res?.data?.education);
   setKeyCourses(res?.data?.keyCourses);
+  debugger;
   setCVUrl(res?.data?.cvUrl);
   setUser(res?.data?.user); // change
   setPreferedWorkMethod(res?.data?.preferedWorkMethod);
   setExistingUser(true);
-
   }
 
 }
@@ -149,8 +187,10 @@ useEffect(() => {
 
 
   async function updateProfile(){
+    // setSaving(true)
+    setHasChanged(false)
 
-    const payload = {
+  let payload = {
       firstName:firstName,
       surname:surname,
       information: information, 
@@ -164,7 +204,18 @@ useEffect(() => {
       personalInformation:{about:information},
       _user: loggedInUser._id,
       preferedWorkMethod: preferedWorkMethod
-    } as IDeveloperProfile
+    } as IDeveloperProfile;
+    debugger;
+
+    if (cv) {
+      cvPayload.append("cv", cv as Blob);
+      const cvDoc = await uploadCV(cvPayload);
+      const path = cvDoc.data.data.Location;
+      payload.cvUrl = path;
+    }
+
+
+  
 
     if(existingUser){
       debugger;
@@ -218,7 +269,7 @@ useEffect(() => {
                 {/* Avatar */}
                 <div className="d-none d-lg-block text-center mb-5">
                   <div className="avatar avatar-xxl avatar-circle mb-3">
-                    <Image className="avatar-img" src={img9} alt="Image Description" />
+                    <Image className="avatar-img" fill={true}  src={currentProfilePic!=""? currentProfilePic: cookies.get("fraktional-user")?.profilePicture??""} alt="Image Description" />
                     <Image className="avatar-status avatar-lg-status" src={topVendor} alt="Image Description" data-bs-toggle="tooltip" data-bs-placement="top" title="Verified user" />
                   </div>
 
@@ -278,18 +329,18 @@ useEffect(() => {
                     <div className="d-flex align-items-center">
                       {/* Avatar */}
                       <label className="avatar avatar-xl avatar-circle" htmlFor="avatarUploader">
-                        <Image id="avatarImg" className="avatar-img" src={img9} alt="Image Description" />
+                        <Image id="avatarImg" className="avatar-img" 
+                        fill={true}
+                         src={currentProfilePic!=""? currentProfilePic: cookies.get("fraktional-user")?.profilePicture??""}
+                        alt="Image Description" />
                       </label>
                       <div className="d-grid d-sm-flex gap-2 ms-4">
                         <div className="form-attachment-btn btn btn-sm" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Upload photo
-                          <input type="file" className="js-file-attach form-attachment-btn-label" id="avatarUploader" data-hs-file-attach-options="{
-                                &quot;textTarget&quot;: &quot;#avatarImg&quot;,
-                                &quot;mode&quot;: &quot;image&quot;,
-                                &quot;targetAttr&quot;: &quot;src&quot;,
-                                &quot;resetTarget&quot;: &quot;.js-file-attach-reset-img&quot;,
-                                &quot;resetImg&quot;: &quot;./assets/img/160x160/img1.jpg&quot;,
-                                &quot;allowTypes&quot;: [&quot;.png&quot;, &quot;.jpeg&quot;, &quot;.jpg&quot;]
-                             }" />
+                          <input type="file"  onChange={saveProfilePic} 
+                          className="js-file-attach form-attachment-btn-label"
+                        
+                          id="avatarUploader" 
+                                />
                         </div>
                         {/* End Avatar */}
                         <button type="button" className="js-file-attach-reset-img btn btn-white btn-sm">Delete</button>
@@ -443,10 +494,26 @@ useEffect(() => {
               <div className="mb-4">
                 {/* Check */}
                 <div className="form-check-downloadCV">
-                    <button >Upload CV</button>
+                    <button onClick={handleCvClick}>Upload CV</button>
+                    <input
+                      ref={hiddenCVInput}
+                      style={{ display:"none" }}
+                      className="form-control inputfile ml-5"
+                      type="file"
+                      id="cv"
+                      name="cv"
+                      onChange={saveCV}
+                    /> 
+                    {/* { cvUrl && cvUrl != "" && ( */}
+                      <a href={cvUrl} target="_blank">
+                         
+                        <label className="l-18-n" style={{margin: "10px"}}>Download CV</label>
+                      </a>
+                       {/* )} */}
                 </div>
                 {/* End Check */}
               </div>
+             
             </div>
             {/* End Body */}
           </div>

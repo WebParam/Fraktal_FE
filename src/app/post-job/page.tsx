@@ -121,9 +121,9 @@ function pricing() {
       };
       
 
-      //send to api: kwanele to provide endpoint -> add to /endpoints/api and call it from here
+  
       // const res = await CreateJob(payload);
-      //check response is successful and display success step
+
       console.log(payload)
 
     }
@@ -149,8 +149,10 @@ function pricing() {
     const newType = parseFloat(e.target.value);
     setJobType(newType);
   };
-  
 
+  // const handleInputChange = (e : any) => {
+  //   setCompanyName(e.target.value);
+  // };
     return (
 
 
@@ -1975,18 +1977,6 @@ function pricing() {
                   {/* Form */}
                   <div className="mb-4">
                     <div className="row mb-2">
-                      {/* <div className="col">
-                        <label
-                          htmlFor="additionalCovid19PrecautionsLabel"
-                          className="form-label"
-                        >
-                          Are you taking any additional COVID-19 precautions?
-                        </label>
-                        <p className="small mt-n2 mb-0">
-                          Let job seekers know how you’re responding to
-                          COVID-19.
-                        </p>
-                      </div> */}
                       <div className="col-auto align-self-end">
                         <span
                           id="additionalCovid19PrecautionsCountCharacters"
@@ -2307,7 +2297,7 @@ function pricing() {
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Job Title</h5>
-                          <span className="d-block">UI/UX Designer</span>
+                          <span className="d-block">{jobTitle}</span>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2331,9 +2321,10 @@ function pricing() {
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Company</h5>
-                          <span className="d-block">Capsule</span>
+                          <span className="d-block">{companyName}</span>
                         </div>
                         {/* End Col */}
+                        
                         <div className="col-sm-4">
                           <div className="d-sm-flex justify-content-sm-end">
                             <button
@@ -2356,9 +2347,9 @@ function pricing() {
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Location</h5>
                           <span className="d-block mb-2">
-                            Remote work allowed: No
+                            Remote work allowed: {remote}
                           </span>
-                          <span className="d-block">Camberwell, SE5 0BU</span>
+                          <span className="d-block">{city}</span>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2409,7 +2400,7 @@ function pricing() {
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Pay and Benefits</h5>
                           <span className="d-block mb-2">
-                            Salary based on experience
+                            {pay}
                           </span>
                           <span className="d-block">
                             Benefits: Health insurance, Flexible schedule,
@@ -2438,7 +2429,7 @@ function pricing() {
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Job Type</h5>
-                          <span className="d-block">Full time</span>
+                          <span className="d-block">{jobtype}</span>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2461,7 +2452,7 @@ function pricing() {
                     <li className="border-bottom">
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
-                          <h5>Job Description</h5>
+                          {/* <h5>Job Description</h5>
                           <h5>Who we are:</h5>
                           <p>
                             We are reinventing personal communication for the
@@ -2497,8 +2488,8 @@ function pricing() {
                             understand our user base, and work to improve
                             business needs, related requirements and technical
                             constraints.
-                          </p>
-                          <h5>About you:</h5>
+                          </p> */}
+                          {/* <h5>About you:</h5>
                           <ul className="mb-3">
                             <li>
                               You're always on top of the latest design trends,
@@ -2520,8 +2511,8 @@ function pricing() {
                               ownership of your work; a perfectionist and are
                               used to working in a fast-paced environment.
                             </li>
-                          </ul>
-                          <h5>Requirements:</h5>
+                          </ul> */}
+                          {/* <h5>Requirements:</h5>
                           <ul className="mb-3">
                             <li>
                               You're a driven designer and have a minimum of 2-3
@@ -2546,11 +2537,11 @@ function pricing() {
                               You've used Figma and are an Adobe Creative Cloud
                               expert (Photoshop, Illustrator, After Effects).
                             </li>
-                          </ul>
-                          <h5>COVID-19 precautions</h5>
+                          </ul> */}
+                          {/* <h5>COVID-19 precautions</h5>
                           <span className="d-block">
                             Remote interview process
-                          </span>
+                          </span> */}
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2574,7 +2565,7 @@ function pricing() {
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Language</h5>
-                          <span className="d-block">English</span>
+                          <span className="d-block">{language}</span>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2598,7 +2589,7 @@ function pricing() {
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Expected Hiring Date</h5>
-                          <span className="d-block">More than 4 weeks</span>
+                          <span className="d-block">{urgency}</span>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2622,7 +2613,7 @@ function pricing() {
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Hires Needed</h5>
-                          <span className="d-block">1</span>
+                          <span className="d-block">{hires}</span>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2646,7 +2637,7 @@ function pricing() {
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Schedule</h5>
-                          <span className="d-block">Monday to Friday</span>
+                          <span className="d-block">{jobSchedule}</span>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2672,17 +2663,17 @@ function pricing() {
                           <h5>Application Settings</h5>
                           <span className="d-block">
                             Apply method:{" "}
-                            <span className="fw-semibold text-dark">Email</span>
+                            <span className="fw-semibold text-dark">{methodToRecieveApplications}</span>
                           </span>
                           <span className="d-block mb-2">
                             Send updates to:{" "}
                             <span className="fw-semibold text-dark">
-                              maria@gmail.com
+                            {dailyUpdateEmailAddress}
                             </span>
                           </span>
                           <span className="d-block">
                             Do you want applicants to submit a resume?{" "}
-                            <span className="fw-semibold text-dark">Yes</span>
+                            <span className="fw-semibold text-dark">{submitResume}</span>
                           </span>
                         </div>
                         {/* End Col */}

@@ -1,0 +1,18 @@
+.card-title {
+    color: #FD2DC3 !important;
+
+    &:hover {
+        color: #FD2DC3 !important;
+    }
+}
+
+.view-All-Startups-Text {
+    color: #FD2DC3;
+    border: 1px solid #FD2DC3;
+    transition: .5s all;
+
+    &:hover {
+         background-color: #FD2DC3;
+         color: #fff;
+    }
+}

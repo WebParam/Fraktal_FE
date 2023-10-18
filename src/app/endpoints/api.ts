@@ -46,6 +46,21 @@ export async function UserLogin(payload:IUserLogin) {
   }
 }
 
+export async function uploadProfilePic(profilePic: FormData, userId:string){
+
+  const config = {     
+      headers: { 'content-type': 'multipart/form-data',  "Access-Control-Allow-Origin": "*"},
+      
+  }
+ const resp = await axios.post(`${url}/api/upload_profilepicture/${userId}`, profilePic, config)
+ console.log("profilePicRes", resp)
+ return resp;
+
+}
+
+
+
+
 export async function GetDeveloperProfile(id:string) {
   try {
     const response = await axios.get(`${url}/api/personnelByUserId/${id}`);
@@ -85,6 +100,7 @@ debugger;
     return error;
   }
 }
+
 
 
 export async function CreateDeveloperProfile(payload:IDeveloperProfile) {
@@ -127,18 +143,28 @@ export async function UpdateDeveloperProfile(payload:IDeveloperProfile, id:strin
   }
 }
 
+export async function uploadCV(formData: FormData){
 
+  const config = {     
+      headers: { 'content-type': 'multipart/form-data',  "Access-Control-Allow-Origin": "*"},
+      
+  }
+ const resp = await axios.post(`${url}/api/upload_cv/1`, formData, config)
+ return resp;
+
+
+}
 
 export async function CreateJob(payload:IJobApplication) {
   try {
     const response = await axios.post(`${url}/api/jobApplications`, payload);
 
     if (response.status === 200 || response.status === 201) {
-      // Registration successful, you can redirect the user or show a success message.
+      // Job Created successfully, you can redirect the user or show a success message.
       console.log('login successful');
       return true;
     } else {
-      // Registration failed, handle error (e.g., display error message).
+      // CreateJob failed, handle error (e.g., display error message).
       console.error('login failed');
       return false;;
     }
@@ -148,6 +174,25 @@ export async function CreateJob(payload:IJobApplication) {
     return false;
   }
 }
+  export async function UpdateJob(payload:IJobApplication) {
+    try {
+      const response = await axios.post(`${url}/api/jobApplications`, payload);
+  
+      if (response.status === 200 || response.status === 201) {
+        // Job Updated successfully, you can redirect the user or show a success message.
+        console.log('Job Updated');
+        return true;
+      } else {
+        // UpdateJob failed, handle error (e.g., display error message).
+        console.error('Job not updated');
+        return false;;
+      }
+    } catch (error) {
+      // Handle network or other errors
+      console.error('Error:', error);
+      return false;
+    }
+  }
 
 
 
