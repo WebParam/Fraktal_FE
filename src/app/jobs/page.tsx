@@ -127,7 +127,7 @@ function jobs() {
                         <a className="text-dark" href="#">Senior B2B sales consultant</a>
                         </h3>
                         <span className="d-block small text-body mb-1">$125k-$135k yearly</span>
-                        <span className="badge bg-soft-info text-info me-2">
+                        <span className="badge me-2" style={{backgroundColor: 'lightpink', color: '#fff'}}>
                         <span className="legend-indicator bg-info" />Remote
                         </span>
                     </div>
@@ -256,7 +256,7 @@ function jobs() {
                         <a className="text-dark" href="../demo-jobs/employer.html">Senior backend developer</a>
                         </h3>
                         <span className="d-block small text-body mb-1">$75k-$85k yearly</span>
-                        <span className="badge bg-soft-info text-info me-2">
+                        <span className="badge me-2"  style={{backgroundColor: 'lightpink', color: '#fff'}}>
                         <span className="legend-indicator bg-info" />Remote
                         </span>
                     </div>
@@ -344,7 +344,7 @@ function jobs() {
                         <a className="text-dark" href="../demo-jobs/employer.html">iOS Engineer</a>
                         </h3>
                         <span className="d-block small text-body mb-1">$500-$1000 weekly</span>
-                        <span className="badge bg-soft-info text-info me-2">
+                        <span className="badge me-2"  style={{backgroundColor: 'lightpink', color: '#fff'}}>
                         <span className="legend-indicator bg-info" />Remote
                         </span>
                     </div>
