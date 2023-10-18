@@ -76,7 +76,8 @@ email
     if(otp.toString().length == 5){
       const verify = await verifyOtp({email,otp})
       if(verify){
-        alert("Verification Success")
+        window.location.href="/auth/login"
+       
       }else{
         alert("invalid otp");
       }
