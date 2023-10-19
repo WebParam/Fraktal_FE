@@ -13,9 +13,9 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
 
   return (
     <header className='header'>
-      <a href="#home">
+      <Link href="/">
         <Image src={logo} alt="logo" />
-      </a>
+      </Link>
 
       <nav>
         <ul className='header-navItems'>
