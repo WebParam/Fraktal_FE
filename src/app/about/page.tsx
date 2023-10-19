@@ -36,7 +36,8 @@ function About() {
                 {/* Heading */}
                 <div className="mb-5 mb-md-10">
                     <h1 className="display-4" style={{color: '#4B4C4E'}}>About Us</h1>
-                    <p className="lead">Fraktional is a web company that builds websites. Businesses of every size—from new startups to public companies—use our theme to build  and manage their businesses online.</p>
+                    <p className="lead">Fraktional.dev is a platform that offers organizations access to on-demand IT engineers for
+short-medium term projects.</p>
                 </div>
                 {/* End Heading */}
                 </div>
@@ -87,22 +88,22 @@ function About() {
                 <div className="row justify-content-lg-center">
                 <div className="col-sm-4 col-lg-3 mb-7 mb-sm-0">
                     <div className="text-center">
-                    <h2 className="display-4">7</h2>
-                    <p className="small">years in business</p>
+                    <h2 className="display-4">40% </h2>
+                    <p className="small">Reduced Hiring Time</p>
                     </div>
                 </div>
                 {/* End Col */}
                 <div className="col-sm-4 col-lg-3 mb-7 mb-sm-0">
                     <div className="text-center">
-                    <h2 className="display-4">3,5k+</h2>
-                    <p className="small">copies sold</p>
+                    <h2 className="display-4">98% </h2>
+                    <p className="small">Client Satisfaction Rate </p>
                     </div>
                 </div>
                 {/* End Col */}
                 <div className="col-sm-4 col-lg-3">
                     <div className="text-center">
-                    <h2 className="display-4">85%</h2>
-                    <p className="small">happy customers</p>
+                    <h2 className="display-4">1500+</h2>
+                    <p className="small">Vetted Engineers</p>
                     </div>
                 </div>
                 {/* End Col */}
@@ -115,12 +116,39 @@ function About() {
   <div className="container content-space-2 content-space-lg-3">
     <div className="row justify-content-lg-between">
       <div className="col-lg-4 mb-5 mb-lg-0">
-        <h2>Tools should adapt to the user, not the other way around.</h2>
+        <h2>Where capacity meets flexibility.</h2>
       </div>
       {/* End Col */}
       <div className="col-lg-6">
-        <p>Since 2007, we have helped 25 companies launch over 1k incredible products. We believe the best digital solutions are built at the intersection of business strategy, available technology, and real user's needs.</p>
-        <p>Things can get really complex, really quickly, and a pragmatic, synthetic and clear vision is essential to be able to create something that, after all, is meant to be used. Emotions also have a big role to play and developing clear and beautiful aesthetics is of the utmost importance to create a pleasant environment in which the user actually enjoys the time spent in it. In the end, we're all suckers for beautiful things that just work</p>
+        <h3>How We Work.</h3>
+        <br/><br/>
+        <h4>For Clients</h4>
+        <p>Post your project requirements and job listings.
+Review developer applications that match your
+project's needs.
+Select the ideal candidate for your project</p>
+
+<br/><br/>
+        <h4>For Developers</h4>
+        <p>Submit your CV to showcase your skills and
+          experience.
+          Receive notifications about projects that match your
+          profile.
+          Get selected by clients and start working on exciting
+          projects</p>
+
+          
+<br/><br/>
+        <h4>Why Choose Fraktional.dev</h4>
+        <p>We make finding the right IT talent or project simple
+and convenient.
+Our platform is designed to match developers with
+their ideal projects.
+We prioritize privacy and data security to ensure a
+safe and trusted environment.
+Join Fraktional.dev today to experience a smarter,
+more efficient way to connect IT talent with projects</p>
+
       </div>
       {/* End Col */}
     </div>
@@ -133,7 +161,7 @@ function About() {
     {/* Heading */}
     <div className="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
       <span className="text-cap">Our team</span>
-      <h2>Creative minds</h2>
+      <h2>Passionate about helping you</h2>
     </div>
     {/* End Heading */}
     <div className="row gx-3 mb-5">
@@ -144,19 +172,19 @@ function About() {
             <div className="avatar avatar-lg avatar-circle mb-4">
               <Image className="avatar-img" src={team1} alt="Image Description" />
             </div>
-            <span className="card-subtitle">Founder / CEO</span>
-            <h4 className="card-title">Christina Kray</h4>
-            <p className="card-text">I am an ambitious workaholic, but apart from that, pretty simple person.</p>
+            <span className="card-subtitle">John Kitenge</span>
+            <h4 className="card-title">Founder / CEO</h4>
+            <p className="card-text">I am an ambitious workaholic, passionate about strategical growth in the African market.</p>
           </div>
           <div className="card-footer pt-0">
             {/* Socials */}
             <ul className="list-inline mb-0">
-              <li className="list-inline-item">
-                <a className="btn btn-outline-primary btn-xs btn-icon rounded" href="#">
-                  <i className="bi-facebook" />
+            <li className="list-inline-item">
+                <a className="btn btn-outline-primary btn-xs btn-icon rounded" target="_blank" href="https://www.linkedin.com/in/john-kitenge-731a431b0/">
+                  <i className="bi-linkedin" />
                 </a>
               </li>
-              <li className="list-inline-item">
+              {/* <li className="list-inline-item">
                 <a className="btn btn-outline-primary btn-xs btn-icon rounded" href="#">
                   <i className="bi-google" />
                 </a>
@@ -165,7 +193,7 @@ function About() {
                 <a className="btn btn-outline-primary btn-xs btn-icon rounded" href="#">
                   <i className="bi-twitter" />
                 </a>
-              </li>
+              </li> */}
             </ul>
             {/* End Socials */}
           </div>
@@ -180,19 +208,19 @@ function About() {
             <div className="avatar avatar-lg avatar-circle mb-4">
               <Image className="avatar-img" src={team2} alt="Image Description" />
             </div>
-            <span className="card-subtitle">Project Manager</span>
-            <h4 className="card-title">Jeff Fisher</h4>
-            <p className="card-text">I am an ambitious workaholic, but apart from that, pretty simple person.</p>
+            <span className="card-subtitle">Nobuhle Mazibuko</span>
+            <h4 className="card-title">Head of operations</h4>
+            <p className="card-text">Focussed on delivering world class customer service.</p>
           </div>
           <div className="card-footer pt-0">
             {/* Socials */}
             <ul className="list-inline mb-0">
-              <li className="list-inline-item">
-                <a className="btn btn-outline-primary btn-xs btn-icon rounded" href="#">
-                  <i className="bi-facebook" />
+            <li className="list-inline-item">
+                <a className="btn btn-outline-primary btn-xs btn-icon rounded" target="_blank" href="https://www.linkedin.com/in/nobuhle-mazibuko-progchick/">
+                  <i className="bi-linkedin" />
                 </a>
               </li>
-              <li className="list-inline-item">
+              {/* <li className="list-inline-item">
                 <a className="btn btn-outline-primary btn-xs btn-icon rounded" href="#">
                   <i className="bi-google" />
                 </a>
@@ -201,7 +229,7 @@ function About() {
                 <a className="btn btn-outline-primary btn-xs btn-icon rounded" href="#">
                   <i className="bi-twitter" />
                 </a>
-              </li>
+              </li> */}
             </ul>
             {/* End Socials */}
           </div>
@@ -216,19 +244,19 @@ function About() {
             <div className="avatar avatar-lg avatar-circle mb-4">
               <Image className="avatar-img" src={team3} alt="Image Description" />
             </div>
-            <span className="card-subtitle">Product Designer</span>
-            <h4 className="card-title">Amy Forren</h4>
-            <p className="card-text">I am an ambitious workaholic, but apart from that, pretty simple person.</p>
+            <span className="card-subtitle">Njinu Kimani</span>
+            <h4 className="card-title">Head of engineering</h4>
+            <p className="card-text">Process optimizer and standards junkie.</p>
           </div>
           <div className="card-footer pt-0">
             {/* Socials */}
             <ul className="list-inline mb-0">
-              <li className="list-inline-item">
-                <a className="btn btn-outline-primary btn-xs btn-icon rounded" href="#">
-                  <i className="bi-facebook" />
+            <li className="list-inline-item">
+                <a className="btn btn-outline-primary btn-xs btn-icon rounded" target="_blank" href="https://www.linkedin.com/in/njinu-kimani-1241a575/">
+                  <i className="bi-linkedin" />
                 </a>
               </li>
-              <li className="list-inline-item">
+              {/* <li className="list-inline-item">
                 <a className="btn btn-outline-primary btn-xs btn-icon rounded" href="#">
                   <i className="bi-google" />
                 </a>
@@ -237,7 +265,7 @@ function About() {
                 <a className="btn btn-outline-primary btn-xs btn-icon rounded" href="#">
                   <i className="bi-twitter" />
                 </a>
-              </li>
+              </li> */}
             </ul>
             {/* End Socials */}
           </div>
@@ -252,19 +280,19 @@ function About() {
             <div className="avatar avatar-lg avatar-circle mb-4">
               <Image className="avatar-img" src={team4} alt="Image Description" />
             </div>
-            <span className="card-subtitle">Support Consultant</span>
-            <h4 className="card-title">Philip Williams</h4>
-            <p className="card-text">I am an ambitious workaholic, but apart from that, pretty simple person.</p>
+            <span className="card-subtitle">Annie Kapenda</span>
+            <h4 className="card-title">Head of growth</h4>
+            <p className="card-text">Communicating our value clearly is half the sale won.</p>
           </div>
           <div className="card-footer pt-0">
             {/* Socials */}
             <ul className="list-inline mb-0">
               <li className="list-inline-item">
-                <a className="btn btn-outline-primary btn-xs btn-icon rounded" href="#">
-                  <i className="bi-facebook" />
+                <a className="btn btn-outline-primary btn-xs btn-icon rounded" target="_blank" href="https://www.linkedin.com/in/annie-kapenda-00848519b/">
+                  <i className="bi-linkedin" />
                 </a>
               </li>
-              <li className="list-inline-item">
+              {/* <li className="list-inline-item">
                 <a className="btn btn-outline-primary btn-xs btn-icon rounded" href="#">
                   <i className="bi-google" />
                 </a>
@@ -273,7 +301,7 @@ function About() {
                 <a className="btn btn-outline-primary btn-xs btn-icon rounded" href="#">
                   <i className="bi-twitter" />
                 </a>
-              </li>
+              </li> */}
             </ul>
             {/* End Socials */}
           </div>

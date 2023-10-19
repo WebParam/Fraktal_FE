@@ -48,7 +48,13 @@ export interface IUser {
     otp:string | Number
   }
   
-
+export interface IContactForm{
+  details:string,
+  firstName:string,
+  lastName:string,
+  email:string,
+  phone:string
+}
   export interface IDeveloperProfile{
     information :string,
     currentJob:string,

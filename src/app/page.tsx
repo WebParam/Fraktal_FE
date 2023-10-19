@@ -6,10 +6,10 @@ import card1 from "../assets/additional/images/laptop.png";
 import card2 from "../assets/additional/images/pinkHat.png";
 import card3 from "../assets/additional/images/robot.png";
 import fraktionalOverview from "../assets/additional/images/fraktionalOverview.png";
-import fitbit from "../assets/svg/brands/fitbit-dark.svg";
-import forbes from "../assets/svg/brands/forbes-dark.svg";
-import mailchimp from "../assets/svg/brands/mailchimp-dark.svg";
-import layar from "../assets/svg/brands/layar-dark.svg";
+import fitbit from "../assets/svg/brands/stb.png";
+import forbes from "../assets/svg/brands/toyota.png";
+import mailchimp from "../assets/svg/brands/sanlam.png";
+import layar from "../assets/svg/brands/avis.png";
 import bigAvatar from '../assets/additional/testimonyImage.jpg';
 import mailchimplogo from "../assets/svg/brands/mailchimp-primary.svg";
 import smallAvatar from '../assets/additional/testimonyAvatar.jpg';
@@ -59,7 +59,7 @@ function HomePage() {
                   <p className="lead">We connect developers and organizations with each other for short to medium term projects.</p>
                 </div>
                 <div className="d-grid d-sm-flex gap-3">
-                  <a className="btn btn-primary btn-transition px-6 getStarted" href="auth/register">Get started</a>
+                  <a className="btn btn-primary btn-transition px-6 getStarted" href="/fraktional-dev">Get started</a>
                   <a className="btn btn-link learnmore" href="/about">Learn more <i className="bi-chevron-right small ms-1" /></a>
                 </div>
               </div>
@@ -108,7 +108,7 @@ function HomePage() {
                 </ul>
                 {/* End List Pointer */}
               </div>
-              <a className="card-footer card-link border-top" href="#">Learn more <i className="bi-chevron-right small ms-1" /></a>
+              <a className="card-footer card-link border-top" href="/about">Learn more <i className="bi-chevron-right small ms-1" /></a>
             </div>
             {/* End Card */}
           </div>
@@ -130,7 +130,7 @@ function HomePage() {
                 </ul>
                 {/* End List Pointer */}
               </div>
-              <a className="card-footer card-link border-top" href="#">Learn more <i className="bi-chevron-right small ms-1" /></a>
+              <a className="card-footer card-link border-top" href="/about">Learn more <i className="bi-chevron-right small ms-1" /></a>
             </div>
             {/* End Card */}
           </div>
@@ -152,7 +152,7 @@ function HomePage() {
                 </ul>
                 {/* End List Pointer */}
               </div>
-              <a className="card-footer card-link border-top" href="#">Learn more <i className="bi-chevron-right small ms-1" /></a>
+              <a className="card-footer card-link border-top" href="/about">Learn more <i className="bi-chevron-right small ms-1" /></a>
             </div>
             {/* End Card */}
           </div>
@@ -214,24 +214,24 @@ function HomePage() {
                 <li className="list-checked-item">30 Days Onboarding</li>
               </ul>
               {/* End List Checked */}
-              <a className="btn btn-primary getStarted" href="/register">Get started</a>
+              <a className="btn btn-primary getStarted" style={{border:"0px"}} href="/fraktional-dev">Get started</a>
               <hr className="my-5" />
               <span className="d-block">Trusted by leading companies</span>
               <div className="row">
                 <div className="col py-3">
-                  <Image className="avatar avatar-4x3" src={fitbit} alt="Logo" />
+                  <Image style={{height:"40px", width:"40%"}} className="avatar avatar-4x3" src={fitbit} alt="Logo" />
                 </div>
                 {/* End Col */}
                 <div className="col py-3">
-                  <Image className="avatar avatar-4x3" src={forbes} alt="Logo" />
+                  <Image style={{height:"40px", width:"50%"}} className="avatar avatar-4x3" src={forbes} alt="Logo" />
                 </div>
                 {/* End Col */}
                 <div className="col py-3">
-                  <Image className="avatar avatar-4x3" src={mailchimp} alt="Logo" />
+                  <Image style={{height:"40px", width:"100%" }} className="avatar avatar-4x3" src={mailchimp} alt="Logo" />
                 </div>
                 {/* End Col */}
                 <div className="col py-3">
-                  <Image className="avatar avatar-4x3" src={layar} alt="Logo" />
+                  <Image style={{height:"50px",width:"100%" }} className="avatar avatar-4x3" src={layar} alt="Logo" />
                 </div>
                 {/* End Col */}
               </div>

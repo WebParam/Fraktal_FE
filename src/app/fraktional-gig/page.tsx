@@ -365,7 +365,7 @@ function jobs() {
                 </div>
                 {/* End Row */}
                 <div className="text-center">
-                <a className="btn" href="#" style={{color: '#FD2DC3'}}>View all jobs <i className="bi-chevron-right small ms-1" /></a>
+                <a className="btn" href="/auth/register" style={{color: '#FD2DC3'}}>View all jobs <i className="bi-chevron-right small ms-1" /></a>
                 </div>
             </div>
             {/* End Card Grid */}
@@ -629,7 +629,7 @@ function jobs() {
                 </div>
                 {/* End Row */}
                 <div className="text-center">
-                <a className="btn view-All-Startups-Text" >View all companies <i className="bi-chevron-right small ms-1" /></a>
+                <a className="btn view-All-Startups-Text" href="/auth/register" >View all companies <i className="bi-chevron-right small ms-1" /></a>
                 </div>
             </div>
             {/* End Card Grid */}

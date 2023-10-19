@@ -1,6 +1,6 @@
 // api.js
 import axios from 'axios';
-import { IDeveloperProfile, IUser, IUserLogin, IUserResetPassword, IUserSendOTP, IVerifyOtp } from '../interfaces/user';
+import { IContactForm, IDeveloperProfile, IUser, IUserLogin, IUserResetPassword, IUserSendOTP, IVerifyOtp } from '../interfaces/user';
 import {ICompanyRegister } from '../interfaces/organisation';
 import { IJobApplication } from '../interfaces/IJobApplication';
 
@@ -57,9 +57,6 @@ export async function uploadProfilePic(profilePic: FormData, userId:string){
  return resp;
 
 }
-
-
-
 
 export async function GetDeveloperProfile(id:string) {
   try {
@@ -142,7 +139,25 @@ export async function UpdateDeveloperProfile(payload:IDeveloperProfile, id:strin
     return false;
   }
 }
+export async function PostContact(payload:IContactForm) {
+  try {
+    const response = await axios.post(`https://eov2bsfe8acwzc6.m.pipedream.net`, payload);
 
+    if (response.status === 200 || response.status === 201) {
+      // Registration successful, you can redirect the user or show a success message.
+      console.log('update successful');
+      return true;
+    } else {
+      // Registration failed, handle error (e.g., display error message).
+      console.error('update failed');
+      return false;;
+    }
+  } catch (error) {
+    // Handle network or other errors
+    console.error('Error:', error);
+    return false;
+  }
+}
 export async function uploadCV(formData: FormData){
 
   const config = {     

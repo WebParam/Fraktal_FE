@@ -580,7 +580,7 @@ function Fraktional() {
                   <div className="mb-5">
                     <h2>Fraktional takes care of your recruitment functions so that you can focus on project delivery.</h2>
                   </div>
-                  <a className="btn btn-outline-primary" href="./page-login.html">Sign up today</a>
+                  <a className="btn btn-outline-primary" href="./auth/register">Sign up today</a>
                 </div>
                 {/* End Col */}
                 <div className="col-sm-6 col-lg-5">

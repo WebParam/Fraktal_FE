@@ -15,15 +15,15 @@ const Footer = (): ReactElement => {
                     <h2>FRAKTIONAL.DEV</h2>
                 </div>
                 <p><i className="bi bi-geo-alt-fill" style={{color: "white"}}></i> 70 7th Ave Rosebank</p>
-                <p><i className="bi bi-telephone-inbound-fill" style={{color: "white"}}></i> 075 173 9986</p>
-                <p><i className="bi bi-envelope-fill" style={{color: "white"}}></i> support@webparam.org</p>
+                <p><i className="bi bi-telephone-inbound-fill" style={{color: "white"}}></i> (010) 346 5261</p>
+                <p><i className="bi bi-envelope-fill" style={{color: "white"}}></i> accounts@fraktional.dev</p>
             </div>
 
                 <div>
-                    <h2>Company</h2>
-                    <p>About</p>
-                    <p>Careers</p>
-                    <p>Blog</p>
+                    <h2><a href="/">Home</a></h2>
+                    <p><a href="/about">About</a></p>
+                    <p><a href="/fraktional-gig">Gigs</a></p>
+                    <p><a href="/fraktional-dev">Devs</a></p>
                     <p>Customers</p>
                     <p>Hire Us</p>
                 </div>

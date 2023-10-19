@@ -29,7 +29,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
           Get a F/ Dev <i className="bi bi-chevron-down"></i>
             <div className='dropdown-Items dropdownOne'>
               <Link href='/fraktional-dev'>Start Hiring on Fraktional</Link>
-              <Link href='/faq'>FAQ</Link>
+              {/* <Link href='/faq'>FAQ</Link> */}
              
             </div>
           </li>
@@ -37,7 +37,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
           Get a F/ Gig <i className="bi bi-chevron-down"></i>
             <div className='dropdown-Items dropdownOne'>
               <Link href='/fraktional-gig'>Fraktional Gigs</Link>
-              <Link href='/devfaq'>FAQ</Link>
+              {/* <Link href='/devfaq'>FAQ</Link> */}
             
             </div>
           </li>
@@ -45,7 +45,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
           <Link style={{color: '#4B4C4E'}} href='/about'>About</Link>
           </li>
           <li className="dropdown liTwoDesk">
-          <Link style={{color: '#4B4C4E'}} href='/contact-us'>Contacts us</Link>
+          <Link style={{color: '#4B4C4E'}} href='/contact-us'>Contact us</Link>
           </li>
           {/* <li className="dropdown-li liThreeDesk">
           Pages <i className="bi bi-chevron-down"></i>
@@ -81,7 +81,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
           </li> */}
         
           <li className='hirenow'>
-              <Link href='/auth/company-register'>
+              <Link href='/auth/register'>
                 Hire Now
               </Link>
             

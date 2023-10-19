@@ -12,6 +12,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { IDeveloperProfile, IEducationInformation, IWorkExperience } from "../interfaces/user";
 import { CreateDeveloperProfile, GetDeveloperProfile, GetStaffInfo, UpdateDeveloperProfile } from "../endpoints/api";
 import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
@@ -72,6 +74,7 @@ async function _GetCompanyInfo(id:string){
 
 useEffect(() => {
   //check url and setActive
+  
   loggedInUser._id&& _GetCompanyInfo(loggedInUser?._id);
 
    
@@ -80,7 +83,18 @@ useEffect(() => {
 
 
   async function updateProfile(){
+    let _id = toast.loading("Updating profile..", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
 
+  
     const payload = {
       
     } as IDeveloperProfile
@@ -92,13 +106,19 @@ useEffect(() => {
       const res = await CreateDeveloperProfile(payload);
     }
     
-
+    toast.update(_id, {
+      render: "Profile updated successfully",
+      type: "success",
+      isLoading: false,
+      autoClose: 2000,
+    });
   }
 
   
   
     return (
     <main id="content" role="main" className="bg-light">
+      <ToastContainer />
   {/* Breadcrumb */}
   <div className="navbar-dark" style={{backgroundColor: '#FD2DC3'}}>
     <div className="container content-space-1 content-space-b-lg-3" >
