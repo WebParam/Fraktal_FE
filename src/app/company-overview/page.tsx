@@ -60,9 +60,9 @@ async function _GetCompanyInfo(id:string){
   setCurrentProfile(res.data);
 
   // setInformation(res?.data?.personalInformation?.about);
-  setFirstName(res?.data?.user.firstName);
-  setSurname(res?.data?.user.surname);
-  setPhone(res?.data?.user.mobileNumber);
+  setFirstName(res?.data?.user?.firstName);
+  setSurname(res?.data?.user?.surname);
+  setPhone(res?.data?.user?.mobileNumber);
   setUser(res?.data?.user); // change
 
   setExistingUser(true);

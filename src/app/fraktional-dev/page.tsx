@@ -16,10 +16,13 @@ import { registerOrganisation } from '@/app/endpoints/api';
 import { ICompanyRegister } from '@/app/interfaces/organisation';
 import dynamic from 'next/dynamic';
 import Footer from '../components/Footer/Footer';
+import Modal from 'react-responsive-modal';
+import { VerifyOtp } from '../auth/company-register/verify-otp';
+import { useRouter } from 'next/router';
 
 
 function Fraktional() {
-  const router = useRouter();
+  //const router = useRouter();
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [formData, setFormData] = useState<ICompanyRegister>({
@@ -54,7 +57,7 @@ function Fraktional() {
   const [skills, setSkills] = useState<any>("")
 
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+ 
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
@@ -63,10 +66,11 @@ function Fraktional() {
       [name]: value,
     });
   };
-  const handleSkillsChange = (selectedOptions:any) => {
-    const selectedValuesString = scaffold(selectedOptions);
-    setSkills(selectedValuesString);
-  };
+
+  const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -86,10 +90,7 @@ function Fraktional() {
   // Example: Validate email format
   if (!formData.userEmail.trim()) {
     errors.userEmail = 'Please enter your email address';
-  } else if (!isValidEmail(formData.userEmail)) {
-    errors.userEmail = 'Please enter a valid email address';
-  }
-
+  } 
   // Example: Validate that the company number is not empty
   if (!formData.companyNumber.trim()) {
     errors.companyNumber = 'Please enter your mobile number';
@@ -108,10 +109,7 @@ function Fraktional() {
   // Example: Validate email format for company email
   if (!formData.email.trim()) {
     errors.companyEmail = 'Please enter Company Email';
-  } else if (!isValidEmail(formData.email)) {
-    errors.companyEmail = 'Please enter a valid Company Email address';
   }
-
   // Example: Validate that the position is not empty
   if (!formData.position.trim()) {
     errors.position = 'Please enter Your Position In This Company';
@@ -123,7 +121,7 @@ function Fraktional() {
   }
 
 
- setFormErrors(errors);
+
 
  if (Object.keys(errors).length === 0) {
   try {
@@ -142,13 +140,21 @@ function Fraktional() {
  
     console.log(formData);
   };
-  
 
-  const removeMenu = () => {
-    setMenuToggler(prev => false);
+  function saveAndCloseEditModal(){
+
+    setEditModalOpen(false)
+
+  
   }
 
-
+  
+const customModalStyles = {
+  modal: {
+    maxWidth: '40%', 
+    width: '50%',
+  },
+};
   return (
     <div>           
       <Header 

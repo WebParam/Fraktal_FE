@@ -12,6 +12,8 @@ import { registerUser} from "@/app/endpoints/api";
 import { IUser } from "@/app/interfaces/user";
 import Select from 'react-select';
 import { StylesConfig } from 'react-select';
+import { VerifyOtp } from "./verify-otp";
+import Modal from "react-responsive-modal";
 // import { useRouter } from 'next/router';
 
 
@@ -39,6 +41,8 @@ function Register() {
   const [regError, setRegErrro] = useState<boolean>(false);
   const [skillsError, setSkillsError] = useState<boolean>(false);
   const [skills, setSkills] = useState<any>("")
+  const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+
 
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -159,16 +163,12 @@ function Register() {
            const registrationResult = await registerUser(formData) ;
             
            if(registrationResult){
-            toast.update(_id, {
-              render: "user registered successfully",
-              type: "success",
-              isLoading: false,
-            });
+         
             setTimeout(() => {
              // setDisable(false)
               toast.dismiss(_id);
-            }, 2000);
-           window.location.href ='/developer-overview';
+            });
+            setEditModalOpen(true)
            }else{
             toast.update(_id, {
               render: "error registering user",
@@ -291,12 +291,25 @@ function Register() {
     { value: 'architecture', label: 'Software Architecture' }
   ];
 
+  const customModalStyles = {
+    modal: {
+      maxWidth: '40%', 
+      width: '50%',
+    },
+  };
 
+  function saveAndCloseEditModal(){
 
+    setEditModalOpen(false)
+
+  
+  }
   return (
     <section className="register">
       <ToastContainer />
-
+      <Modal styles={customModalStyles}  open={editModalOpen} onClose={() => setEditModalOpen(false)} center>
+        <VerifyOtp email = {formData.email!} onClose={saveAndCloseEditModal} />
+      </Modal>
       <div className="top">
       <Link href= "/"> <Image style={{   cursor: "pointer"}} src={logo} alt="logo" /></Link> 
         <Link href="/">
