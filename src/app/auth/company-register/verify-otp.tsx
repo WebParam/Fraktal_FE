@@ -27,6 +27,7 @@ export const VerifyOtp: React.FC<verifyOtpModalProps> = ({
 email
 }) => { 
 
+  const [invalidOTP , setInvalidOTP] = useState<boolean>(false)
   const [optSent , setOtpSent] = useState<boolean>(false)
 
   const [otpValues, setOtpValues] = useState(['', '', '', '', '']);
@@ -70,7 +71,8 @@ email
 
   const handleFormSubmitOTP = async(e: any) => {
     e.preventDefault();
-  
+    setOtpSent(false)
+    setInvalidOTP(false)
     const otp = Number(otpValues.join(''));
 
     if(otp.toString().length == 5){
@@ -79,13 +81,14 @@ email
         window.location.href="/auth/login"
        
       }else{
-        alert("invalid otp");
+        setInvalidOTP(true)
       }
     }
   };
   
 
   const ResendOtp = async (e:any) => {
+    setInvalidOTP(false)
     setOtpSent(false)
     e.preventDefault()
     try {
@@ -119,7 +122,8 @@ email
           <div>
             <label>
               <span></span>
-            {optSent &&   <span style={{color :"green", fontWeight: "600" , fontSize:"small"}}>Otp sent successfully</span>}
+              {invalidOTP &&   <span style={{color :"tomato", fontWeight: "600" , fontSize:"small"}}>Invalid OTP</span>}
+            {optSent &&   <span style={{color :"green", fontWeight: "600" , fontSize:"small"}}>OTP sent successfully</span>}
               <span className='cta' onClick={ResendOtp}><Link href="#" >resend otp</Link></span>
             </label>
             <div className='otpInputs'>
