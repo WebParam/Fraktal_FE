@@ -12,9 +12,11 @@ import { registerUser} from "@/app/endpoints/api";
 import { IUser } from "@/app/interfaces/user";
 import Select from 'react-select';
 import { StylesConfig } from 'react-select';
+// import { useRouter } from 'next/router';
 
 
 function Register() {
+  // const router = useRouter();
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [formData, setFormData] = useState<IUser>({
     title: "mr",
@@ -166,6 +168,7 @@ function Register() {
              // setDisable(false)
               toast.dismiss(_id);
             }, 2000);
+           window.location.href ='/developer-overview';
            }else{
             toast.update(_id, {
               render: "error registering user",

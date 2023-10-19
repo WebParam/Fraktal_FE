@@ -4,8 +4,8 @@ import { IContactForm, IDeveloperProfile, IUser, IUserLogin, IUserResetPassword,
 import {ICompanyRegister } from '../interfaces/organisation';
 import { IJobApplication } from '../interfaces/IJobApplication';
 
-const url = "http://localhost:8080";
-const renderUrl = "http://localhost:8080";
+const url = "https://viconet-vercel.vercel.app";
+const renderUrl = "https://viconet-vercel.vercel.app";
 
 export async function registerUser(payload:IUser) {
   try {
