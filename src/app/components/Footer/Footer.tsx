@@ -15,8 +15,8 @@ const Footer = (): ReactElement => {
                     <h2>FRAKTIONAL.DEV</h2>
                 </div>
                 <p><i className="bi bi-geo-alt-fill" style={{color: "white"}}></i> 70 7th Ave Rosebank</p>
-                <p><i className="bi bi-telephone-inbound-fill" style={{color: "white"}}></i> 075 173 9986</p>
-                <p><i className="bi bi-envelope-fill" style={{color: "white"}}></i> support@fraktional.dev</p>
+                <p><i className="bi bi-telephone-inbound-fill" style={{color: "white"}}></i> (010) 346 5261</p>
+                <p><i className="bi bi-envelope-fill" style={{color: "white"}}></i> accounts@fraktional.dev</p>
             </div>
 
                 <div>

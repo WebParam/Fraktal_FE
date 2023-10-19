@@ -59,7 +59,7 @@ function HomePage() {
                   <p className="lead">We connect developers and organizations with each other for short to medium term projects.</p>
                 </div>
                 <div className="d-grid d-sm-flex gap-3">
-                  <a className="btn btn-primary btn-transition px-6 getStarted" href="auth/register">Get started</a>
+                  <a className="btn btn-primary btn-transition px-6 getStarted" href="/fraktional-dev">Get started</a>
                   <a className="btn btn-link learnmore" href="/about">Learn more <i className="bi-chevron-right small ms-1" /></a>
                 </div>
               </div>

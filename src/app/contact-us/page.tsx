@@ -2,11 +2,52 @@
 import React, { useState } from 'react'
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer/Footer';
+import { PostContact } from '../endpoints/api';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const contactus = () => {
 
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
+
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [details, setDetails] = useState<string>("");
+
+
+  async function Post(){
+    let _id = toast.loading("Sending contact request..", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
   
+
+    const payload = {
+      firstName,
+      lastName,
+      email,
+      phone,
+      details
+    }
+debugger;
+    const res = await PostContact(payload);
+    toast.update(_id, {
+      render: "Request sent successfully",
+      type: "success",
+      isLoading: false,
+      autoClose: 2000,
+    });
+    
+  }
   return (
     <div>
         <>
@@ -19,6 +60,7 @@ const contactus = () => {
   {/* ========== END HEADER ========== */}
   {/* ========== MAIN CONTENT ========== */}
   <main id="content" role="main">
+  <ToastContainer />
     {/* Contact Form */}
     <div className="container content-space-t-3 content-space-t-lg-5 content-space-b-2">
       <div className="row">
@@ -38,7 +80,7 @@ const contactus = () => {
                             loading="lazy"
                             allowFullScreen
                             referrerPolicy="no-referrer-when-downgrade"
-                            src="https://www.google.com/maps/embed/v1/search?key=AIzaSyBvivpZTRxbl7MY6aAqhHaDKqK-bp1fnXM&q=24+Cradock+Ave+Rosebank+JHB+2196"
+                            src="https://www.google.com/maps/embed/v1/search?key=AIzaSyBvivpZTRxbl7MY6aAqhHaDKqK-bp1fnXM&q=The+Workshop+70+7th+Ave+Parktown+JHB+2196"
                         ></iframe>
           </div>
           {/* End Leaflet */}
@@ -50,12 +92,12 @@ const contactus = () => {
             {/* End Col */}
             <div className="col-sm-6">
               <h5 className="mb-1">Email us:</h5>
-              <p>info@webparam.org</p>
+              <p>accounts@fraktional.org</p>
             </div>
             {/* End Col */}
             <div className="col-sm-6">
               <h5 className="mb-1">Address:</h5>
-              <p>Cnr Tyrwhitt & 24 Cradock Ave, Rosebank, JHB, 2196</p>
+              <p>70 7th Ave Parktown, JHB, 2196</p>
             </div>
             {/* End Col */}
           </div>
@@ -83,6 +125,7 @@ const contactus = () => {
                           First name
                         </label>
                         <input
+                        onChange={(e=>setFirstName(e.target.value))}
                           type="text"
                           className="form-control form-control-lg"
                           name="hireUsFormNameFirstName"
@@ -104,6 +147,7 @@ const contactus = () => {
                           Last name
                         </label>
                         <input
+                        onChange={(e=>setLastName(e.target.value))}
                           type="text"
                           className="form-control form-control-lg"
                           name="hireUsFormNameLastName"
@@ -128,6 +172,7 @@ const contactus = () => {
                           Email address
                         </label>
                         <input
+                        onChange={(e=>setEmail(e.target.value))}
                           type="email"
                           className="form-control form-control-lg"
                           name="hireUsFormNameWorkEmail"
@@ -149,6 +194,7 @@ const contactus = () => {
                           </span>
                         </label>
                         <input
+                        onChange={(e=>setPhone(e.target.value))}
                           type="text"
                           className="form-control form-control-lg"
                           name="hireUsFormNamePhone"
@@ -168,6 +214,7 @@ const contactus = () => {
                       Details
                     </label>
                     <textarea
+                    onChange={(e=>setDetails(e.target.value))}
                       className="form-control form-control-lg"
                       name="hireUsFormNameDetails"
                       id="hireUsFormDetails"
@@ -179,7 +226,7 @@ const contactus = () => {
                   </div>
                   {/* End Form */}
                   <div className="d-grid">
-                    <button type="submit" className="btn btn-primary btn-lg hirenow" style={{border:"none"}}>
+                    <button type="submit" onClick={(e)=>{e.preventDefault(); Post()}} className="btn btn-primary btn-lg hirenow" style={{border:"none"}}>
                       Send enquiry
                     </button>
                   </div>
