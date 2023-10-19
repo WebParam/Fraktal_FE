@@ -16,9 +16,11 @@ import { registerOrganisation } from '@/app/endpoints/api';
 import { ICompanyRegister } from '@/app/interfaces/organisation';
 import dynamic from 'next/dynamic';
 import Footer from '../components/Footer/Footer';
+import { useRouter } from 'next/router';
 
 
 function Fraktional() {
+  const router = useRouter();
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
   const [formData, setFormData] = useState<ICompanyRegister>({
     userName: '',
@@ -133,7 +135,8 @@ function Fraktional() {
     const Addorganisation = await registerOrganisation( formData as ICompanyRegister); // Rename the constant
     if(Addorganisation){
             console.log('Registration successful');
-      window.location.href = "/auth/login";
+      
+      router.push('/company-overview')
           
     }else{
         console.error('Registration failed');
