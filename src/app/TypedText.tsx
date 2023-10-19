@@ -6,7 +6,7 @@ const TypedText: React.FC = () => {
 
   useEffect(() => {
     const options = {
-      strings: ["Developer", "Gig."],
+      strings: ["Developer.", "Gig."],
       typeSpeed: 90,
       loop: true,
       backSpeed: 90,
