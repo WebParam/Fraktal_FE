@@ -129,7 +129,7 @@ const MobileMenu = ({ menuToggler }: MobileMenuProps): ReactElement => {
           </div>
         </li>
         <li className="hirenow">
-          <Link href="/auth/register">Hire Now</Link>
+          <Link href="/fraktional-dev">Hire Now</Link>
         </li>
       </ul>
     </div>
