@@ -134,14 +134,13 @@ function SignIn() {
 
       <div className="signinMain">
         <div className="login-image">
-          <h2>MailChimp</h2>
+          <h2>Login</h2>
           <p className="desc">
-            “ It has many landing page variations to choose from, which one is
-            always a big advantage. ”
+            “ Quick and easy access to a large variety of highly sought talent. ”
           </p>
           <Image src={loginImage} alt="" />
-          <h3>Lida Reidy</h3>
-          <p>Project Manager | Mailchimp</p>
+          <h3>Victoria</h3>
+          <p>Project Manager | Float</p>
         </div>
 
         <div className="signinForm">
