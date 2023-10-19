@@ -7,12 +7,6 @@ type MobileMenuProps = {
 };
 
 const MobileMenu = ({ menuToggler }: MobileMenuProps): ReactElement => {
-  const [home, setHome] = useState(true);
-  const [company, setCompany] = useState(false);
-  const [account, setAccount] = useState(false);
-  const [pages, setPages] = useState(false);
-  const [blog, setBlog] = useState(false);
-  const [portfolio, setPortfolio] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string | null>('home');
 
   const selectItemHandler = (item: string) => {
@@ -33,52 +27,31 @@ const MobileMenu = ({ menuToggler }: MobileMenuProps): ReactElement => {
         </li>
         <li
           className='dropdown-li liOne'
-          style={{color: `${selectedItem === 'company' ? 'lightpink' : ''}`}}
+          style={{color: `${selectedItem === 'getDev' ? 'lightpink' : ''}`}}
           onClick={() => {
-            if (selectedItem === 'company') {
-              selectItemHandler('');
-            } else {
-              selectItemHandler('company');
-
-            }
+              selectItemHandler('getDev');
           }}
         >
-          Company <i className="bi bi-chevron-down"></i>
-          <div className={`dropdown-Items_Mobile dropdownOne ${selectedItem === 'company' ? 'clicked' : ''}`}>
-          <Link href='/about'>About</Link>
-              <Link href='/services'>Services</Link>
-              <Link href='/'>Customer Stories</Link>
-              <Link href='/'>Customer Story</Link>
-              <Link href='/'>Careers</Link>
-              <Link href='/'>Careers Overview</Link>
-              <Link href='/'>Hire Us</Link>
-              <Link href='/pricing'>Pricing</Link>
-              <Link href='/'>Contacts: Agency</Link>
-              <Link href='/'>Contacts: Startup</Link>
+          Get a F / Dev <i className="bi bi-chevron-down"></i>
+          <div className={`dropdown-Items_Mobile dropdownOne ${selectedItem === 'getDev' ? 'clicked' : ''}`}>
+            <Link href='/fraktional-dev'>Start Hiring on Fraktional</Link>
+              {/* <Link href='/faq'>FAQ</Link> */}
           </div>
         </li>
         <li
           className='dropdown-li liTwo'
-          style={{color: `${selectedItem === 'account' ? 'lightpink' : ''}`}}
+          style={{color: `${selectedItem === 'getGig' ? 'lightpink' : ''}`}}
           onClick={() => {
-            selectItemHandler('account');
+            selectItemHandler('getGig');
           }}
         >
-          Account <i className="bi bi-chevron-down"></i>
-          <div className={`dropdown-Items_Mobile dropdownTwo ${selectedItem === 'account' ? 'clicked' : ''}`}>
-              <Link href='/auth/register'>Authentication</Link>
-              <Link href='/'>Personal Info</Link>
-              <Link href='/'>Security</Link>
-              <Link href='/'>Notifications</Link>
-              <Link href='/'>Preference</Link>
-              <Link href='/'>Orders</Link>
-              <Link href='/'>Wishlist</Link>
-              <Link href='/'>Payments</Link>
-              <Link href='/'>Address</Link>
-              <Link href='/'>Teams</Link>
+          Get a F / Gig <i className="bi bi-chevron-down"></i>
+          <div className={`dropdown-Items_Mobile dropdownTwo ${selectedItem === 'getGig' ? 'clicked' : ''}`}>
+          <Link href='/fraktional-gig'>Fraktional Gigs</Link>
+              {/* <Link href='/devfaq'>FAQ</Link> */}
           </div>
         </li>
-        <li
+        {/* <li
           className='dropdown-li liThree'
           style={{color: `${selectedItem === 'pages' ? 'lightpink' : ''}`}}
           onClick={() => {
@@ -127,6 +100,13 @@ const MobileMenu = ({ menuToggler }: MobileMenuProps): ReactElement => {
             <Link href='/'>Case Studies: Branding</Link>
             <Link href='/'>Case Studies: Product</Link>
           </div>
+        </li> */}
+       
+        <li>
+          <Link href="/about">About</Link>
+        </li>
+        <li>
+          <Link href="/contact-us">Contact Us</Link>
         </li>
         <li className="hirenow">
           <Link href="/auth/register">Hire Now</Link>
