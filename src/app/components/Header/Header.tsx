@@ -81,7 +81,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
           </li> */}
         
           <li className='hirenow'>
-              <Link href='/auth/register'>
+              <Link href='/fraktional-dev'>
                 Hire Now
               </Link>
             
