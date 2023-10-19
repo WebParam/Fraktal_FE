@@ -172,8 +172,8 @@ more efficient way to connect IT talent with projects</p>
             <div className="avatar avatar-lg avatar-circle mb-4">
               <Image className="avatar-img" src={team1} alt="Image Description" />
             </div>
-            <span className="card-subtitle">Founder / CEO</span>
-            <h4 className="card-title">John Kitenge</h4>
+            <span className="card-subtitle">John Kitenge</span>
+            <h4 className="card-title">Founder / CEO</h4>
             <p className="card-text">I am an ambitious workaholic, passionate about strategical growth in the African market.</p>
           </div>
           <div className="card-footer pt-0">
