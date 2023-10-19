@@ -159,7 +159,7 @@ function SignIn() {
                 style={inputEmailStyle}
                 type="email"
                 name="email"
-                placeholder="email@site.com"
+                placeholder="Enter your email address"
                
                 onChange={(e) => {
                  setEmail(e.target.value);
@@ -180,7 +180,7 @@ function SignIn() {
                 type="password"
                 name="password"
                 id="password"
-                placeholder="8+ characters required"
+                placeholder="Enter your password"
                
                 onChange={(e) => {
                   setPassword(e.target.value)
