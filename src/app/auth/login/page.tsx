@@ -72,12 +72,7 @@ function SignIn() {
         if(loginResult.status == 1){
 
           cookies.set('fraktional-user', JSON.stringify(loginResult), { path: '/' });
-          toast.update(_id, {
-            render: "Logged in successfully",
-            type: "success",
-            isLoading: false,
-          });
-  
+ 
           if(loginResult.type==0){
             window.location.href = "/developer-overview"
           }else{
