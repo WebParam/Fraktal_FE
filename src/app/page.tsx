@@ -6,10 +6,10 @@ import card1 from "../assets/additional/images/laptop.png";
 import card2 from "../assets/additional/images/pinkHat.png";
 import card3 from "../assets/additional/images/robot.png";
 import fraktionalOverview from "../assets/additional/images/fraktionalOverview.png";
-import fitbit from "../assets/svg/brands/fitbit-dark.svg";
-import forbes from "../assets/svg/brands/forbes-dark.svg";
-import mailchimp from "../assets/svg/brands/mailchimp-dark.svg";
-import layar from "../assets/svg/brands/layar-dark.svg";
+import fitbit from "../assets/svg/brands/stb.png";
+import forbes from "../assets/svg/brands/toyota.png";
+import mailchimp from "../assets/svg/brands/sanlam.png";
+import layar from "../assets/svg/brands/avis.png";
 import bigAvatar from '../assets/additional/testimonyImage.jpg';
 import mailchimplogo from "../assets/svg/brands/mailchimp-primary.svg";
 import smallAvatar from '../assets/additional/testimonyAvatar.jpg';
@@ -219,19 +219,19 @@ function HomePage() {
               <span className="d-block">Trusted by leading companies</span>
               <div className="row">
                 <div className="col py-3">
-                  <Image className="avatar avatar-4x3" src={fitbit} alt="Logo" />
+                  <Image style={{height:"40px", width:"40%"}} className="avatar avatar-4x3" src={fitbit} alt="Logo" />
                 </div>
                 {/* End Col */}
                 <div className="col py-3">
-                  <Image className="avatar avatar-4x3" src={forbes} alt="Logo" />
+                  <Image style={{height:"40px", width:"50%"}} className="avatar avatar-4x3" src={forbes} alt="Logo" />
                 </div>
                 {/* End Col */}
                 <div className="col py-3">
-                  <Image className="avatar avatar-4x3" src={mailchimp} alt="Logo" />
+                  <Image style={{height:"40px", width:"100%" }} className="avatar avatar-4x3" src={mailchimp} alt="Logo" />
                 </div>
                 {/* End Col */}
                 <div className="col py-3">
-                  <Image className="avatar avatar-4x3" src={layar} alt="Logo" />
+                  <Image style={{height:"50px",width:"100%" }} className="avatar avatar-4x3" src={layar} alt="Logo" />
                 </div>
                 {/* End Col */}
               </div>
