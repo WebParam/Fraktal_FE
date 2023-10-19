@@ -178,7 +178,7 @@ function Fraktional() {
                     }" />
                   </span>fraktional team
                 </h1>
-                <p className="lead">Whatever your goal - we will get your there.</p>
+                <p className="lead">Whatever your goal - we will get you there.</p>
               </div>
               {/* End Title & Description */}
               <div className="d-none d-lg-block">
@@ -362,7 +362,7 @@ function Fraktional() {
                     </div>
                     {/* End Check */}
                     <div className="d-grid mb-3">
-                      <button type="submit" className="btn btn-primary btn-lg" style={{backgroundImage: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.40) 124.34%)'}}>Claim your free trial</button>
+                      <button type="submit" className="btn btn-primary btn-lg" style={{border:"0px",backgroundImage: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.40) 124.34%)'}}>Claim your free trial</button>
                     </div>
                   </div>
                 </div>
@@ -379,8 +379,8 @@ function Fraktional() {
         <div id="aboutSection" className="container content-space-t-2 content-space-t-lg-3">
           {/* Heading */}
           <div className="w-lg-75 text-center mx-auto mb-5 mb-sm-9">
-            <h2 className="h1">What we do?</h2>
-            <p>A flexible theme for modern SaaS businesses</p>
+            <h2 className="h1">Where Capacity Meets Flexibility</h2>
+            <p>Unlock tailored tech opportunities, balance costs, and connect effortlessly through Fraktional. Flexible. Reliable. Efficient</p>
           </div>
           {/* End Heading */}
           <div className="row">
@@ -393,8 +393,8 @@ function Fraktional() {
                     <path opacity="0.3" d="M17.6 15.6L12.3 20.9C11.9 21.3 11.3 21.3 10.9 20.9L7.59998 17.6L13.6 11.6L17.6 15.6ZM10.9 2.3L5.59998 7.6L9.59998 11.6L15.6 5.6L12.3 2.3C11.9 1.9 11.3 1.9 10.9 2.3Z" fill="#035A4B" />
                   </svg>
                 </span>
-                <h3>Industry-leading designs</h3>
-                <p>Achieve virtually any design and layout from within the one template.</p>
+                <h3>Expert Matching</h3>
+                <p>Connect companies with top-tier developers tailored to project needs</p>
               </div>
               {/* End Icon Blocks */}
             </div>
@@ -408,8 +408,8 @@ function Fraktional() {
                     <path fillRule="evenodd" clipRule="evenodd" d="M6.85714 3H14.7364C15.0911 3 15.4343 3.12568 15.7051 3.35474L20.4687 7.38394C20.8057 7.66895 21 8.08788 21 8.5292V21.0833C21 22.8739 20.9796 23 19.1429 23H6.85714C5.02045 23 5 22.8739 5 21.0833V4.91667C5 3.12612 5.02045 3 6.85714 3ZM7 13C7 12.4477 7.44772 12 8 12H15C15.5523 12 16 12.4477 16 13C16 13.5523 15.5523 14 15 14H8C7.44772 14 7 13.5523 7 13ZM8 16C7.44772 16 7 16.4477 7 17C7 17.5523 7.44772 18 8 18H11C11.5523 18 12 17.5523 12 17C12 16.4477 11.5523 16 11 16H8Z" fill="#035A4B" />
                   </svg>
                 </span>
-                <h3>Learn from the docs</h3>
-                <p>Whether you're a startup or a global enterprise, learn how to integrate with Front.</p>
+                <h3>Streamlined Process</h3>
+                <p>Simplify tech resourcing through our efficient, user-friendly platform.</p>
               </div>
               {/* End Icon Blocks */}
             </div>
@@ -423,8 +423,8 @@ function Fraktional() {
                     <path opacity="0.3" fillRule="evenodd" clipRule="evenodd" d="M3 6.5C3 5.67157 3.67157 5 4.5 5H9.5C10.3284 5 11 5.67157 11 6.5C11 7.32843 10.3284 8 9.5 8H4.5C3.67157 8 3 7.32843 3 6.5ZM3 18.5C3 17.6716 3.67157 17 4.5 17H9.5C10.3284 17 11 17.6716 11 18.5C11 19.3284 10.3284 20 9.5 20H4.5C3.67157 20 3 19.3284 3 18.5ZM2.5 11C1.67157 11 1 11.6716 1 12.5C1 13.3284 1.67157 14 2.5 14H6.5C7.32843 14 8 13.3284 8 12.5C8 11.6716 7.32843 11 6.5 11H2.5Z" fill="#035A4B" />
                   </svg>
                 </span>
-                <h3>Accelerate your business</h3>
-                <p>We help power millions of businesses to built and run smoothly.</p>
+                <h3>Flexible Engagements</h3>
+                <p> Offer adaptable commitments, from fractional to full project involvement.</p>
               </div>
               {/* End Icon Blocks */}
             </div>
@@ -440,7 +440,7 @@ function Fraktional() {
           </div>
           {/* Heading */}
           <div className="w-md-60 w-lg-50 text-center mx-auto mb-7">
-            <p><span className="text-dark fw-semibold">It is fast and easy.</span> Create your first and ongoing website with Front.</p>
+            <p><span className="text-dark fw-semibold">It is fast and easy.</span> Create your first development team with Fraktional.</p>
           </div>
           {/* End Heading */}
           {/* Devices */}
@@ -488,7 +488,7 @@ function Fraktional() {
                           <path opacity="0.25" d="M60.2063 53.2901L61.7907 56.3598C61.7907 56.3598 61.7907 56.3598 61.9888 56.3598L65.4546 56.8549C65.6526 56.8549 65.6526 57.053 65.4546 57.152L62.979 59.6276C62.979 59.6276 62.979 59.6276 62.979 59.8257L63.6722 63.2915C63.6722 63.4895 63.4741 63.4895 63.4741 63.4895L60.4044 61.9052H60.2063L57.1366 63.4895C56.9386 63.4895 56.9386 63.4895 56.9386 63.2915L57.6317 59.8257V59.6276L55.1561 57.152C54.9581 56.954 55.1561 56.954 55.1561 56.8549L58.622 56.3598H58.82L60.4044 53.2901C59.8102 53.1911 60.0083 53.1911 60.2063 53.2901Z" fill="#F5CA99" />
                         </svg>
                       </span>
-                      <p className="mb-0"><span className="text-dark fw-semibold">4.80 out of 5 starts</span> from 81 reviews</p>
+                      <p className="mb-0"><span className="text-dark fw-semibold">98%</span> Client Satisfaction Rate</p>
                     </div>
                     {/* End Stats */}
                   </div>
@@ -534,7 +534,7 @@ function Fraktional() {
                           </defs>
                         </svg>
                       </span>
-                      <p className="mb-0">Over <span className="text-dark fw-semibold">1k+</span> support questions have been closed</p>
+                      <p className="mb-0">Over <span className="text-dark fw-semibold">40%</span> Reduced Hiring Time</p>
                     </div>
                     {/* End Stats */}
                   </div>
@@ -555,7 +555,8 @@ function Fraktional() {
                           <path opacity="0.2" d="M16.9331 55.7657V10.4128C16.9331 9.02652 15.8439 7.93726 14.4575 7.93726H13.9624C12.5761 7.93726 11.4868 9.02652 11.4868 10.4128V61.014C11.4868 62.4003 12.5761 63.4896 13.9624 63.4896H16.8341H51.1953C52.5817 63.4896 53.6709 62.4003 53.6709 61.014V60.5188C53.6709 59.1325 52.5817 58.0433 51.1953 58.0433H19.3097C17.9234 58.1423 16.9331 57.152 16.9331 55.7657Z" fill="#21325B" />
                         </svg>
                       </span>
-                      <p className="mb-0"><span className="text-dark fw-semibold">5k+</span> Front copies have been purchased</p>
+                      
+                      <p className="mb-0">Over <span className="text-dark fw-semibold">1,500</span> Vetted Engineers</p>
                     </div>
                     {/* End Stats */}
                   </div>
@@ -577,7 +578,7 @@ function Fraktional() {
               <div className="row justify-content-lg-between">
                 <div className="col-md-4 py-5 pb-md-10">
                   <div className="mb-5">
-                    <h2>Front makes you look at things from a different perspectives</h2>
+                    <h2>Fraktional takes care of your recruitment functions so that you can focus on project delivery.</h2>
                   </div>
                   <a className="btn btn-outline-primary" href="./page-login.html">Sign up today</a>
                 </div>
@@ -620,10 +621,10 @@ function Fraktional() {
           </div>
           {/* Blockquote */}
           <figure className="w-md-75 text-center mx-md-auto">
-            <blockquote className="blockquote">“ I just wanted to say that I'm very happy with my purchase of Front so far. The documentation is outstanding - clear and detailed. ”</blockquote>
+            <blockquote className="blockquote">“ I just wanted to say that I'm very happy with my developer team. They are reliable and extremely efficient. ”</blockquote>
             <figcaption className="blockquote-footer text-center">
-              Philip
-              <span className="blockquote-footer-source">Product Manager | Mailchimp</span>
+              Renate
+              <span className="blockquote-footer-source">Tech Lead | Toyota</span>
             </figcaption>
           </figure>
           {/* End Blockquote */}
