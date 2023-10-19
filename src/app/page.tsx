@@ -108,7 +108,7 @@ function HomePage() {
                 </ul>
                 {/* End List Pointer */}
               </div>
-              <a className="card-footer card-link border-top" href="#">Learn more <i className="bi-chevron-right small ms-1" /></a>
+              <a className="card-footer card-link border-top" href="/about">Learn more <i className="bi-chevron-right small ms-1" /></a>
             </div>
             {/* End Card */}
           </div>
@@ -130,7 +130,7 @@ function HomePage() {
                 </ul>
                 {/* End List Pointer */}
               </div>
-              <a className="card-footer card-link border-top" href="#">Learn more <i className="bi-chevron-right small ms-1" /></a>
+              <a className="card-footer card-link border-top" href="/about">Learn more <i className="bi-chevron-right small ms-1" /></a>
             </div>
             {/* End Card */}
           </div>
@@ -152,7 +152,7 @@ function HomePage() {
                 </ul>
                 {/* End List Pointer */}
               </div>
-              <a className="card-footer card-link border-top" href="#">Learn more <i className="bi-chevron-right small ms-1" /></a>
+              <a className="card-footer card-link border-top" href="/about">Learn more <i className="bi-chevron-right small ms-1" /></a>
             </div>
             {/* End Card */}
           </div>
@@ -214,7 +214,7 @@ function HomePage() {
                 <li className="list-checked-item">30 Days Onboarding</li>
               </ul>
               {/* End List Checked */}
-              <a className="btn btn-primary getStarted" href="/register">Get started</a>
+              <a className="btn btn-primary getStarted" style={{border:"0px"}} href="/fraktional-dev">Get started</a>
               <hr className="my-5" />
               <span className="d-block">Trusted by leading companies</span>
               <div className="row">
