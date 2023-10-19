@@ -35,7 +35,7 @@ function Register() {
     companyName: "",
     companyAdrress: "",
     position: "",
-    title: "",
+    title: "Mr",
     password: ""
   });
 
