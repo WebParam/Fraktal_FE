@@ -78,7 +78,7 @@ email
     if(otp.toString().length == 5){
       const verify = await verifyOtp({email,otp})
       if(verify){
-        window.location.href="/auth/login"
+        window.location.href="/company-overview"
        
       }else{
         setInvalidOTP(true)

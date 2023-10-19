@@ -16,141 +16,244 @@ import { registerOrganisation } from '@/app/endpoints/api';
 import { ICompanyRegister } from '@/app/interfaces/organisation';
 import dynamic from 'next/dynamic';
 import Footer from '../components/Footer/Footer';
-
+import { IUser } from '../interfaces/user';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { VerifyOtp } from '../auth/company-register/verify-otp';
+import Modal from 'react-responsive-modal';
 
 function Fraktional() {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [formData, setFormData] = useState<ICompanyRegister>({
-    userName: '',
-    userSurname: '',
-    userEmail: '',
-    companyNumber: '',
-    companyName: '',
-    companyAdrress: '',
-    email: '',
-    position: '',
-    password: '',
-    title: '',
-    companyReg:'',
-    userNumber:'',
-   
-  });
+    email:"",
+    password:"",
+    userName:"",
+    userSurname: "",
+    // mobileNumber: z.string(),  
+    userNumber: "",
+    companyNumber:"",
+    companyReg: "",
+    companyName:"",
+    companyAdrress: "",
+    position:"",
+    title:"",
+    userEmail:"",  
+    
+  }) ;
 
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstNameError, setFirstNameError] = useState<boolean>(false);
+  const [surnameError, setSurnameError] = useState<boolean>(false);
+  const [titleError, setTitleError] = useState<boolean>(false);
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const [mobileNumberError, setMobileNumberError] = useState<boolean>(false);
+  const [roleError, setRoleError] = useState<boolean>(false);
+  const [passwordError, setPasswordError] = useState<boolean>(false);
+  const [confirm_PasswordError, setConfirm_PasswordError] = useState<boolean>(false);
+  const [regError, setRegErrro] = useState<boolean>(false);
+  const [skillsError, setSkillsError] = useState<boolean>(false);
+  const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+  const [editModuleModalOpen, setEditModuleModalOpen] = useState<boolean>(false);
+  const [skills, setSkills] = useState<any>("")
 
-   // Initialize form errors state
-   const [formErrors, setFormErrors] = useState({
-    userName: '',
-    userSurname: '',
-    userEmail: '',
-    companyNumber: '',
-    companyName: '',
-    companyAdrress: '',
-    email: '',
-    position: '',
-    password: '',
-    title: '',
-    companyReg:'',
-    userNumber:''
-  });
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // Function to handle form input changes
-  const handleInputChange = (e:any) => {
-    debugger;
+  const handleInputChange = (e: any) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
-
-
-
-  // Function to validate email format
-  const isValidEmail = (email:string) => {
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return emailPattern.test(email);
+  const handleSkillsChange = (selectedOptions:any) => {
+    const selectedValuesString = scaffold(selectedOptions);
+    setSkills(selectedValuesString);
   };
-
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
-  // Validate the form fields here and set errors if any
-  const errors = {} as any;
-
-  // Example: Validate that the first name is not empty
-  if (!formData.userName.trim()) {
-    errors.userName = 'Please enter your first name';
-  }
-
-  // Example: Validate that the last name is not empty
-  if (!formData.userSurname.trim()) {
-    errors.userSurname = 'Please enter your last name';
-  }
-
-  // Example: Validate email format
-  if (!formData.userEmail.trim()) {
-    errors.userEmail = 'Please enter your email address';
-  } else if (!isValidEmail(formData.userEmail)) {
-    errors.userEmail = 'Please enter a valid email address';
-  }
-
-  // Example: Validate that the company number is not empty
-  if (!formData.companyNumber.trim()) {
-    errors.companyNumber = 'Please enter your mobile number';
-  }
-
-  // Example: Validate that the company name is not empty
-  if (!formData.companyName.trim()) {
-    errors.companyName = 'Please enter Company Name';
-  }
-
-  // Example: Validate that the company address is not empty
-  if (!formData.companyAdrress.trim()) {
-    errors.companyAddress = 'Please enter Company Address';
-  }
-
-  // Example: Validate email format for company email
-  if (!formData.email.trim()) {
-    errors.companyEmail = 'Please enter Company Email';
-  } else if (!isValidEmail(formData.email)) {
-    errors.companyEmail = 'Please enter a valid Company Email address';
-  }
-
-  // Example: Validate that the position is not empty
-  if (!formData.position.trim()) {
-    errors.position = 'Please enter Your Position In This Company';
-  }
-
-  // Example: Validate password length
-  if (formData.password.length < 8) {
-    errors.password = 'Your password must include 8+ characters';
-  }
-
-
- setFormErrors(errors);
-
- if (Object.keys(errors).length === 0) {
-  try {
-    const Addorganisation = await registerOrganisation( formData as ICompanyRegister); // Rename the constant
-    if(Addorganisation){
-            console.log('Registration successful');
-      window.location.href = "/auth/login";
-          
-    }else{
-        console.error('Registration failed');
-    }
-  } catch (error) {
-      console.error('Error:', error);
-  }
- }
- 
     console.log(formData);
+
+
+      let _id = toast.loading("Registering company..", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+    
+          try {
+
+            if (!emailRegex.test(formData.email!) || !emailRegex.test(formData.userEmail!) ) {
+              toast.update(_id, {
+                render: "Invalid email address",
+                type: "error",
+                isLoading: false,
+              });
+              setTimeout(() => {
+               // setDisable(false)
+                toast.dismiss(_id);
+              }, 2000);
+                 return;
+            }else if(!passwordRegex.test(formData.password!)){
+             toast.update(_id, {
+               render:
+                 "Password must contain at least 8 characters, including uppercase and lowercase letters, numbers, and special characters",
+               type: "error",
+               isLoading: false,
+             });
+             setTimeout(() => {
+            //  setDisable(false)
+              toast.dismiss(_id);
+            }, 2000);
+            return;
+            }
+
+           const registrationResult = await registerOrganisation(formData) ;
+            
+           if(registrationResult){
+            setTimeout(() => {
+               toast.dismiss(_id);
+             });
+            setEditModalOpen(true)
+         
+           }else{
+            toast.update(_id, {
+              render: "error registering user",
+              type: "error",
+              isLoading: false,
+            });
+            setTimeout(() => {
+             // setDisable(false)
+              toast.dismiss(_id);
+            }, 2000);
+           }
+          
+          } catch (error) {
+            // Handle errors
+            toast.update(_id, {
+              render: "error registering user",
+              type: "error",
+              isLoading: false,
+            });
+            setTimeout(() => {
+             // setDisable(false)
+              toast.dismiss(_id);
+            }, 2000);
+            console.error("Error:", error);
+          }
+     
+    };
+    
+  const inputNameStyle = {
+    ...(firstNameError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
   };
   
+  const inputSurnameStyle = {
+    ...(surnameError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
+  const inputTitleStyle = {
+    ...(titleError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
 
-  const removeMenu = () => {
-    setMenuToggler(prev => false);
+
+
+  const inputRoleStyle = {
+    ...(roleError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
+
+  const inputMobileNumberStyle = {
+    ...(mobileNumberError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
+
+  const inputSkillsStyle = {
+    ...(skillsError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
+
+
+  const inputPasswordStyle = {
+    ...(passwordError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
+  const inputEmailStyle = {
+    ...(emailError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
+
+  const inputConfirm_PasswordStyle = {
+    ...(confirm_PasswordError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
+
+  const scaffold = (options:any) => {
+    const values = options?.map((option:any) => option.value);
+    return values.join(',');
   }
 
+  const skillOptions = [
+    { value: 'software', label: 'Software Development' },
+    { value: 'project', label: 'Project Management' },
+    { value: 'testing', label: 'Software Testing' },
+    { value: 'analyst', label: 'Business Analysis' },
+    { value: 'devops', label: 'Devops' },
+    { value: 'architecture', label: 'Software Architecture' }
+  
+  ];
+
+  function saveAndCloseEditModal(){
+
+    setEditModalOpen(false)
+  
+  }
+  
+  
+  const customModalStyles = {
+    modal: {
+  
+      width: '40%',
+      scrollX:"none"
+   
+    },
+  };
+  
 
   return (
     <div>           
@@ -161,6 +264,9 @@ function Fraktional() {
 
       <MobileMenu  menuToggler={menuToggler} />
       <main id="content" role="main" className='companyRegister'>
+      <Modal styles={customModalStyles}  open={editModalOpen} onClose={() => setEditModalOpen(false)} center>
+        <VerifyOtp email = {formData.userEmail} onClose={saveAndCloseEditModal} />
+      </Modal>
         <div className="container position-relative content-space-t-3 content-space-t-md-4 content-space-t-lg-4">
           <div className="row justify-content-lg-between align-items-lg-center">
             <div className="col-md-10 col-lg-5">
@@ -252,7 +358,7 @@ function Fraktional() {
                         <input 
                           type="text" 
                           className="form-control form-control-sm" 
-                          name="Mobile number" 
+                          name="companyNumber" 
                           value={formData.companyNumber}
                             onChange={handleInputChange}
                           id="signupHeroFormCompanyNumber" 

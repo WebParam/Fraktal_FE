@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { IDeveloperProfile, IEducationInformation, IWorkExperience } from "../interfaces/user";
 import { CreateDeveloperProfile, GetDeveloperProfile, GetStaffInfo, UpdateDeveloperProfile } from "../endpoints/api";
 import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
+import dynamic from "next/dynamic";
 const cookies = new Cookies(); // Create an instance of Cookies
 
 
@@ -517,4 +518,6 @@ useEffect(() => {
     )
 }
 
-export default developerOverview;
+
+
+export default dynamic (() => Promise.resolve(developerOverview), {ssr: false})
