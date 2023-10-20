@@ -41,6 +41,12 @@
       text-align: center;
       transition: .5s all;
 
+      & > a {
+        &:hover {
+          color: #FD2DC3 !important;
+        }
+      }
+
       &:hover {
         color: #FD2DC3;
       }
