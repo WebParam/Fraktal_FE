@@ -1,6 +1,7 @@
 import { useState, ReactElement } from 'react';
 import './MobileMenu.scss';
 import Link from 'next/link';
+import Banner from '../../banner/Banner';
 
 type MobileMenuProps = {
   menuToggler: boolean;
@@ -14,6 +15,8 @@ const MobileMenu = ({ menuToggler }: MobileMenuProps): ReactElement => {
   };
 
   return (
+    <>
+    <Banner />
     <div className={`mobileMenu ${menuToggler ? 'open' : ''}`}>
       <ul className={`${menuToggler ? 'open' : ''}`}>
         <li
@@ -113,6 +116,7 @@ const MobileMenu = ({ menuToggler }: MobileMenuProps): ReactElement => {
         </li>
       </ul>
     </div>
+    </>
   );
 };
 
