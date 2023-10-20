@@ -15,6 +15,7 @@ import 'react-responsive-modal/styles.css';
 import { IDeveloperProfile, IEducationInformation, IWorkExperience } from "../interfaces/user";
 import { CreateDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile, uploadCV, uploadProfilePic } from "../endpoints/api";
 import Cookies from 'universal-cookie';
+import dynamic from "next/dynamic";
 const cookies = new Cookies();
 
 
@@ -903,4 +904,4 @@ useEffect(() => {
     )
 }
 
-export default developerOverview;
+export default dynamic (() => Promise.resolve(developerOverview), {ssr: false})
