@@ -5,9 +5,10 @@ import Footer from '../components/Footer/Footer';
 import { PostContact } from '../endpoints/api';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import MobileMenu from '../components/MobileMenu/MobileMenu';
+import './contactus.scss';
 
 const contactus = () => {
-
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
 
   const [firstName, setFirstName] = useState<string>("");
@@ -56,8 +57,7 @@ debugger;
         menuTogglerFunction={setMenuToggler} 
         menuTogglerValue={menuToggler}  
       />
-
-  {/* ========== END HEADER ========== */}
+  <MobileMenu menuToggler={menuToggler} />
   {/* ========== MAIN CONTENT ========== */}
   <main id="content" role="main">
   <ToastContainer />
@@ -72,11 +72,10 @@ debugger;
           </div>
           {/* End Heading */}
           {/* Leaflet */}
-                            <div className="overflow-hidden">
+                            <div className="overflow-hidden" style={{ border: '0'}}>
                             <iframe
                             width={600}
                             height={450}
-                            style={{ border: 0 }}
                             loading="lazy"
                             allowFullScreen
                             referrerPolicy="no-referrer-when-downgrade"
@@ -226,7 +225,7 @@ debugger;
                   </div>
                   {/* End Form */}
                   <div className="d-grid">
-                    <button type="submit" onClick={(e)=>{e.preventDefault(); Post()}} className="btn btn-primary btn-lg hirenow" style={{border:"none"}}>
+                    <button type="submit" onClick={(e)=>{e.preventDefault(); Post()}} className="btn" style={{border:"none", backgroundColor: '#FD2DC3', color: '#fff'}}>
                       Send enquiry
                     </button>
                   </div>
@@ -242,13 +241,11 @@ debugger;
             {/* End Card */}
           </div>
         </div>
-        {/* End Col */}
       </div>
-      {/* End Row */}
     </div>
     {/* End Contact Form */}
   </main>
-  {/* ========== END MAIN CONTENT ========== */}
+
   {/* ========== FOOTER ========== */}
     <Footer/>
   {/* ========== END FOOTER ========== */}

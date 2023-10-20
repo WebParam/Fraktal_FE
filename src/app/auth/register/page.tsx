@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import "./Register.scss";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "../../../assets/additional/logo.png";
-import loginImage from "../../../assets/additional/loginImage.jpg";
+import logo from "../../../assets/additional/logo.webp";
+import loginImage from "../../../assets/additional/brad.jpg";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -312,7 +312,7 @@ function Register() {
         <VerifyOtp email = {formData.email!} onClose={saveAndCloseEditModal} />
       </Modal>
       <div className="top">
-      <Link href= "/"> <Image style={{   cursor: "pointer"}} src={logo} alt="logo" /></Link> 
+      <Link href= "/"> <Image style={{ cursor: "pointer"}} src={logo} alt="logo" /></Link> 
         <Link href="/">
           <i className="bi bi-chevron-left"></i>Go to main
         </Link>
@@ -325,7 +325,7 @@ function Register() {
             “So simple and easy to find well paying jobs ”
           </p>
           <Image src={loginImage} alt="" />
-          <h3>Atlegang Kola</h3>
+          <h3>Bradley Matjie</h3>
           <p>Developer | Param Solutions</p>
         </div>
 

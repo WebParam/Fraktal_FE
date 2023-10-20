@@ -3,6 +3,7 @@ import './Header.scss';
 import logo from '../../../assets/additional/logo.webp';
 import Image from 'next/image';
 import Link from 'next/link';
+import Banner from '@/app/banner/Banner';
 
 type HeaderProps = {
   menuTogglerFunction: (state: boolean) => void;
@@ -12,6 +13,8 @@ type HeaderProps = {
 const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: HeaderProps): ReactElement => {
 
   return (
+    <>
+    <Banner />
     <header className='header'>
       <Link href="/">
         <Image src={logo} alt="logo" />
@@ -101,6 +104,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
         <span></span>
       </div>
     </header>
+    </>
   );
 };
 
