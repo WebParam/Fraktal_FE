@@ -4,7 +4,6 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { IJobApplication } from '../interfaces/IJobApplication';
 import { CreateJob, GetApplicantProfile } from '../endpoints/api';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './company.scss';
 
@@ -31,6 +30,7 @@ import london from "../../assets/img/480x320/img28.jpg";
 import img29 from "../../assets/img/480x320/img29.jpg";
 import img11 from "../../assets/img/480x320/img11.jpg";
 import img10 from "../../assets/img/480x320/img10.jpg";
+import Banner from '../banner/Banner';
 
 function companyProfile() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
@@ -63,7 +63,6 @@ function companyProfile() {
       <>
       {/* ========== MAIN CONTENT ========== */}
       <main id="content" role="main" style={{marginTop: '80px'}}>
-   
         {/* Page Header */}
         <div className="container pt-4">
           <div className="page-header">

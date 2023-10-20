@@ -1,44 +1,6 @@
 .top {
-    height: 100px;
+    height: 50px;
     z-index: 10;
-
-    & .demo {
-        background-color: lightpink;
-        height: 40px;
-        overflow: hidden;
-
-        & ul {
-            margin: 0;
-            display: flex;
-            gap: 20px;
-            flex-wrap: nowrap;
-            list-style: disc;
-            align-items: center;
-            height: 100%;
-
-            & li {
-                font-size: 16px;
-                width: 120%;
-                animation: moveRight 10s linear infinite;
-            }
-        }
-    }
-
-    & img {
-        height: 50px;
-        width: fit-content;
-        transform: scale(1.8);
-    }
-}
-
-@keyframes moveRight {
-    0% {
-        transform: translateX(-50%);
-    }
-
-    100% {
-        transform: translateX(150%); /* Move 100% to the right */
-    }
 }
 
 

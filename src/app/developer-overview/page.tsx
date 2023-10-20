@@ -16,6 +16,7 @@ import 'react-responsive-modal/styles.css';
 import { IDeveloperProfile, IEducationInformation, IWorkExperience } from "../interfaces/user";
 import { CreateDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile, uploadCV, uploadProfilePic } from "../endpoints/api";
 import Cookies from 'universal-cookie';
+import Banner from "../banner/Banner";
 const cookies = new Cookies();
 
 
@@ -233,16 +234,9 @@ useEffect(() => {
   
     return (
       <>
-         <div className="top">
-      <div className="demo">
-        <ul>
-          <li>Demo version. Complete platform Coming Soon!!</li>
-        </ul>
+      <div className="top">
+        <Banner />
       </div>
-      <Link href='/'>
-      <Image src={logo} alt='logo'/>
-      </Link>
-    </div>
     <main id="content" role="main" className="bg-light">
   {/* Breadcrumb */}
   <div className="navbar-dark" style={{backgroundColor: '#FD2DC3'}}>
