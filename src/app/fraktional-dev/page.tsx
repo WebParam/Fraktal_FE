@@ -127,8 +127,8 @@ function Fraktional() {
   try {
     const Addorganisation = await registerOrganisation( formData as ICompanyRegister); // Rename the constant
     if(Addorganisation){
-      window.location.href="/company-overview"
-    //  setEditModalOpen(true)
+      //window.location.href="/company-overview"
+     setEditModalOpen(true)
     }else{
         console.error('Registration failed');
     }
