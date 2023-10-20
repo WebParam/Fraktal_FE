@@ -32,8 +32,6 @@ import img29 from "../../assets/img/480x320/img29.jpg";
 import img11 from "../../assets/img/480x320/img11.jpg";
 import img10 from "../../assets/img/480x320/img10.jpg";
 
-import { useRouter } from 'next/router'
-
 function companyProfile() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const [activeStep, setActiveStep] = useState(0);
@@ -65,6 +63,7 @@ function companyProfile() {
       <>
       {/* ========== MAIN CONTENT ========== */}
       <main id="content" role="main" style={{marginTop: '80px'}}>
+   
         {/* Page Header */}
         <div className="container pt-4">
           <div className="page-header">

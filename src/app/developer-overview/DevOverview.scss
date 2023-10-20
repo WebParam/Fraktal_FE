@@ -1,3 +1,47 @@
+.top {
+    height: 100px;
+    z-index: 10;
+
+    & .demo {
+        background-color: lightpink;
+        height: 40px;
+        overflow: hidden;
+
+        & ul {
+            margin: 0;
+            display: flex;
+            gap: 20px;
+            flex-wrap: nowrap;
+            list-style: disc;
+            align-items: center;
+            height: 100%;
+
+            & li {
+                font-size: 16px;
+                width: 120%; 
+                animation: moveRight 10s linear infinite;
+            }
+        }
+    }
+
+    & img {
+        height: 50px;
+        width: fit-content;
+        transform: scale(1.8);
+    }
+}
+
+@keyframes moveRight {
+    0% {
+        transform: translateX(-50%);
+    }
+
+    100% {
+        transform: translateX(100%); /* Move 100% to the right */
+    }
+}
+
+
 #textarea {
     border: .0625rem solid rgba(33,50,91,.1);
 }
@@ -68,6 +112,7 @@
     align-items: center;
     gap: 10px;
 }
+
 
 .nav-link.active {
     color: #FD2DC3 !important;

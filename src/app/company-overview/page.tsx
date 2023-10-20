@@ -19,6 +19,7 @@ import { CreateDeveloperProfile, GetDeveloperProfile, GetStaffInfo, UpdateDevelo
 import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
 import dynamic from "next/dynamic";
 const cookies = new Cookies(); // Create an instance of Cookies
+import logo from '../../assets/additional/logo.webp';
 
 
 
@@ -118,6 +119,17 @@ useEffect(() => {
   
   
     return (
+      <>
+      <div className="top">
+      <div className="demo">
+        <ul>
+          <li>Demo version. Complete platform Coming Soon!!</li>
+        </ul>
+      </div>
+      <Link href='/'>
+      <Image src={logo} alt='logo'/>
+      </Link>
+    </div>
     <main id="content" role="main" className="bg-light">
       <ToastContainer />
   {/* Breadcrumb */}
@@ -515,6 +527,7 @@ useEffect(() => {
     {/* End Row */}
   </div>
 </main>
+</>
     )
 }
 

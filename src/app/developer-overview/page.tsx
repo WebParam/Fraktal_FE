@@ -3,6 +3,7 @@ import Image from "next/image";
 import img9 from "../../assets/img/160x160/img9.jpg";
 import topVendor from "../../assets/svg/illustrations/top-vendor.svg";
 import './DevOverview.scss';
+import logo from '../../assets/additional/logo.webp';
 
 import dropboxicon from "../../assets/svg/brands/dropbox-icon.svg";
 import mailchimpicon from "../../assets/svg/brands/mailchimp-icon.svg";
@@ -16,6 +17,7 @@ import { IDeveloperProfile, IEducationInformation, IWorkExperience } from "../in
 import { CreateDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile, uploadCV, uploadProfilePic } from "../endpoints/api";
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
+
 
 
 
@@ -230,6 +232,17 @@ useEffect(() => {
   
   
     return (
+      <>
+         <div className="top">
+      <div className="demo">
+        <ul>
+          <li>Demo version. Complete platform Coming Soon!!</li>
+        </ul>
+      </div>
+      <Link href='/'>
+      <Image src={logo} alt='logo'/>
+      </Link>
+    </div>
     <main id="content" role="main" className="bg-light">
   {/* Breadcrumb */}
   <div className="navbar-dark" style={{backgroundColor: '#FD2DC3'}}>
@@ -243,7 +256,7 @@ useEffect(() => {
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb breadcrumb-light mb-0">
               <li className="breadcrumb-item">Account</li>
-              <li className="breadcrumb-item active" aria-current="page">Personal Info</li>
+              <li className="breadcrumb-item" aria-current="page">Personal Info</li>
             </ol>
           </nav>
           {/* End Breadcrumb */}
@@ -900,6 +913,7 @@ useEffect(() => {
     {/* End Row */}
   </div>
 </main>
+</>
     )
 }
 
