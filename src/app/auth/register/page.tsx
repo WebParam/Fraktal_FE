@@ -168,7 +168,8 @@ function Register() {
              // setDisable(false)
               toast.dismiss(_id);
             });
-            setEditModalOpen(true)
+            window.location.href="/developer-overview"
+          //  setEditModalOpen(true)
            }else{
             toast.update(_id, {
               render: "error registering user",

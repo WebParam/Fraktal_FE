@@ -17,6 +17,7 @@ import { IDeveloperProfile, IEducationInformation, IWorkExperience } from "../in
 import { CreateDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile, uploadCV, uploadProfilePic } from "../endpoints/api";
 import Cookies from 'universal-cookie';
 import Banner from "../banner/Banner";
+import dynamic from "next/dynamic";
 const cookies = new Cookies();
 
 
@@ -911,4 +912,4 @@ useEffect(() => {
     )
 }
 
-export default developerOverview;
+export default dynamic (() => Promise.resolve(developerOverview), {ssr: false})

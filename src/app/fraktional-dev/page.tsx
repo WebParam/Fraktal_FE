@@ -127,9 +127,8 @@ function Fraktional() {
   try {
     const Addorganisation = await registerOrganisation( formData as ICompanyRegister); // Rename the constant
     if(Addorganisation){
-            console.log('Registration successful');
-      window.location.href = "/auth/login";
-          
+      window.location.href="/company-overview"
+    //  setEditModalOpen(true)
     }else{
         console.error('Registration failed');
     }
@@ -153,6 +152,8 @@ const customModalStyles = {
   modal: {
     maxWidth: '40%', 
     width: '50%',
+    borderRadius: "10px",
+    backgroundColor: "lightpink"
   },
 };
   return (

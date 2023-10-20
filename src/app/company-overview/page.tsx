@@ -15,7 +15,7 @@ import 'react-responsive-modal/styles.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IDeveloperProfile, IEducationInformation, IWorkExperience } from "../interfaces/user";
-import { CreateDeveloperProfile, GetDeveloperProfile, GetStaffInfo, UpdateDeveloperProfile } from "../endpoints/api";
+import { CreateDeveloperProfile, GetDeveloperProfile, GetStaffInfo, UpdateDeveloperProfile, uploadProfilePic } from "../endpoints/api";
 import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
 import dynamic from "next/dynamic";
 const cookies = new Cookies(); // Create an instance of Cookies
@@ -35,7 +35,7 @@ function developerOverview() {
   const [_user, setUser] = useState("");
   const [phone, setPhone] = useState("");
   const [currentProfile, setCurrentProfile] = useState<IDeveloperProfile>();
-
+  const [currentProfilePic, setCurrentProfilePic] = useState("");
 
 //company info
 const [companyName, setCompanyName] = useState("");
@@ -117,7 +117,25 @@ useEffect(() => {
     });
   }
 
-  
+  const saveProfilePic = async (e: any) => {
+    const pp = e.target.files[0];
+    // updateProfilePic();
+    const profilePicUpload = new FormData();
+debugger;
+    if(pp){
+      profilePicUpload.append("profilePic", pp as Blob);
+      const profilePicDoc = await uploadProfilePic(profilePicUpload,loggedInUser._id??"");
+      
+      console.log("profres", profilePicDoc);
+      const newImage = profilePicDoc.data.data.Location
+      const newUser = {...loggedInUser, profilePicture:newImage};
+      cookies.remove("fraktional-user", { path: '/' });
+
+      setCurrentProfilePic(newImage);
+      
+       cookies.set("fraktional-user", newUser as any, { path: "/" });
+    }
+  };
   
     return (
       <>
@@ -163,8 +181,8 @@ useEffect(() => {
               <div className="card-body">
                 {/* Avatar */}
                 <div className="d-none d-lg-block text-center mb-5">
-                  <div className="avatar avatar-xxl avatar-circle mb-3">
-                    <Image className="avatar-img" src={img9} alt="Image Description" />
+                <div className="avatar avatar-xxl avatar-circle mb-3">
+                    <Image className="avatar-img" fill={true}  src={currentProfilePic!=""? currentProfilePic: cookies.get("fraktional-user")?.profilePicture??""} alt="Image Description" />
                     <Image className="avatar-status avatar-lg-status" src={topVendor} alt="Image Description" data-bs-toggle="tooltip" data-bs-placement="top" title="Verified user" />
                   </div>
 
@@ -225,11 +243,11 @@ useEffect(() => {
                     <div className="d-flex align-items-center">
                       {/* Avatar */}
                       <label className="avatar avatar-xl avatar-circle" htmlFor="avatarUploader">
-                        <Image id="avatarImg" className="avatar-img" src={img9} alt="Image Description" />
+                      <Image className="avatar-img" fill={true}  src={currentProfilePic!=""? currentProfilePic: cookies.get("fraktional-user")?.profilePicture??""} alt="Image Description" />
                       </label>
                       <div className="d-grid d-sm-flex gap-2 ms-4">
                         <div className="form-attachment-btn btn btn-sm" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Upload photo
-                          <input type="file" className="js-file-attach form-attachment-btn-label" id="avatarUploader" data-hs-file-attach-options="{
+                          <input onChange={saveProfilePic} type="file" className="js-file-attach form-attachment-btn-label" id="avatarUploader" data-hs-file-attach-options="{
                                 &quot;textTarget&quot;: &quot;#avatarImg&quot;,
                                 &quot;mode&quot;: &quot;image&quot;,
                                 &quot;targetAttr&quot;: &quot;src&quot;,
@@ -361,7 +379,7 @@ useEffect(() => {
                       </label>
                       <div className="d-grid d-sm-flex gap-2 ms-4">
                         <div className="form-attachment-btn btn btn-sm" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Upload photo
-                          <input type="file" className="js-file-attach form-attachment-btn-label" id="avatarUploader" data-hs-file-attach-options="{
+                          <input  type="file" className="js-file-attach form-attachment-btn-label" id="avatarUploader" data-hs-file-attach-options="{
                                 &quot;textTarget&quot;: &quot;#avatarImg&quot;,
                                 &quot;mode&quot;: &quot;image&quot;,
                                 &quot;targetAttr&quot;: &quot;src&quot;,
