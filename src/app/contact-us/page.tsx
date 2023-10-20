@@ -241,13 +241,11 @@ debugger;
             {/* End Card */}
           </div>
         </div>
-        {/* End Col */}
       </div>
-      {/* End Row */}
     </div>
     {/* End Contact Form */}
   </main>
-  {/* ========== END MAIN CONTENT ========== */}
+
   {/* ========== FOOTER ========== */}
     <Footer/>
   {/* ========== END FOOTER ========== */}
