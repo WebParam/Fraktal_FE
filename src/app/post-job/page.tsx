@@ -122,7 +122,7 @@ function pricing() {
       
 
   
-      // const res = await CreateJob(payload);
+      const res = await CreateJob(payload);
 
       console.log(payload)
 
@@ -2299,21 +2299,6 @@ function pricing() {
                           <h5>Job Title</h5>
                           <span className="d-block">{jobTitle}</span>
                         </div>
-                        {/* End Col */}
-                        <div className="col-sm-4">
-                          <div className="d-sm-flex justify-content-sm-end">
-                            <button
-                              type="button"
-                              className="btn btn-sm btn-outline-primary"
-                              data-hs-step-form-prev-options='{
-                          "targetSelector": "#postJobStepBasic"
-                        }'
-                            >
-                              <i className="bi-pencil-fill small me-1" /> Edit
-                            </button>
-                          </div>
-                        </div>
-                        {/* End Col */}
                       </div>
                       {/* End Row */}
                     </li>
@@ -2329,6 +2314,7 @@ function pricing() {
                           <div className="d-sm-flex justify-content-sm-end">
                             <button
                               type="button"
+                              onClick={()=>{setStepActive(0)}}
                               className="btn btn-sm btn-outline-primary"
                               data-hs-step-form-prev-options='{
                           "targetSelector": "#postJobStepBasic"
@@ -2354,7 +2340,7 @@ function pricing() {
                         {/* End Col */}
                         <div className="col-sm-4">
                           <div className="d-sm-flex justify-content-sm-end">
-                            <button
+                            {/* <button
                               type="button"
                               className="btn btn-sm btn-outline-primary"
                               data-hs-step-form-prev-options='{
@@ -2362,7 +2348,7 @@ function pricing() {
                         }'
                             >
                               <i className="bi-pencil-fill small me-1" /> Edit
-                            </button>
+                            </button> */}
                           </div>
                         </div>
                         {/* End Col */}
@@ -2382,6 +2368,7 @@ function pricing() {
                           <div className="d-sm-flex justify-content-sm-end">
                             <button
                               type="button"
+                              onClick={()=>{setStepActive(1)}}
                               className="btn btn-sm btn-outline-primary"
                               data-hs-step-form-prev-options='{
                           "targetSelector": "#postJobStepAddress"
@@ -2412,6 +2399,7 @@ function pricing() {
                           <div className="d-sm-flex justify-content-sm-end">
                             <button
                               type="button"
+                              onClick={()=>{setStepActive(3)}}
                               className="btn btn-sm btn-outline-primary"
                               data-hs-step-form-prev-options='{
                           "targetSelector": "#postJobStepPayment"
@@ -2436,6 +2424,7 @@ function pricing() {
                           <div className="d-sm-flex justify-content-sm-end">
                             <button
                               type="button"
+                              onClick={()=>{setStepActive(0)}}
                               className="btn btn-sm btn-outline-primary"
                               data-hs-step-form-prev-options='{
                           "targetSelector": "#postJobStepJobDetails"
@@ -2572,6 +2561,7 @@ function pricing() {
                           <div className="d-sm-flex justify-content-sm-end">
                             <button
                               type="button"
+                              onClick={()=>{setStepActive(0)}}
                               className="btn btn-sm btn-outline-primary"
                               data-hs-step-form-prev-options='{
                           "targetSelector": "#postJobStepBasic"
@@ -2585,13 +2575,13 @@ function pricing() {
                       </div>
                       {/* End Row */}
                     </li>
-                    <li className="border-bottom">
+                    {/* <li className="border-bottom">
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Expected Hiring Date</h5>
                           <span className="d-block">{urgency}</span>
                         </div>
-                        {/* End Col */}
+         
                         <div className="col-sm-4">
                           <div className="d-sm-flex justify-content-sm-end">
                             <button
@@ -2605,10 +2595,10 @@ function pricing() {
                             </button>
                           </div>
                         </div>
-                        {/* End Col */}
+                    
                       </div>
-                      {/* End Row */}
-                    </li>
+            
+                    </li> */}
                     <li className="border-bottom">
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
@@ -2620,6 +2610,7 @@ function pricing() {
                           <div className="d-sm-flex justify-content-sm-end">
                             <button
                               type="button"
+                              onClick={()=>{setStepActive(2)}}
                               className="btn btn-sm btn-outline-primary"
                               data-hs-step-form-prev-options='{
                           "targetSelector": "#postJobStepJobDetails"
@@ -2644,6 +2635,7 @@ function pricing() {
                           <div className="d-sm-flex justify-content-sm-end">
                             <button
                               type="button"
+                              onClick={()=>{setStepActive(4)}}
                               className="btn btn-sm btn-outline-primary"
                               data-hs-step-form-prev-options='{
                           "targetSelector": "#postJobStepAdditionalJobDetails"
@@ -2681,6 +2673,7 @@ function pricing() {
                           <div className="d-sm-flex justify-content-sm-end">
                             <button
                               type="button"
+                              onClick={()=>{setStepActive(6)}}
                               className="btn btn-sm btn-outline-primary"
                               data-hs-step-form-prev-options='{
                           "targetSelector": "#postJobStepAdditionalJobDetails"
