@@ -1033,11 +1033,11 @@ function PostJob() {
                           name="jobSalaryPeriodSelect"
                           onChange={((e)=>setPeriod(e.target.value))}
                         >
-                          <option value="jobSalaryPeriod1">per hour</option>
-                          <option value="jobSalaryPeriod2">per day</option>
-                          <option value="jobSalaryPeriod3">per week</option>
-                          <option value="jobSalaryPeriod4">per month</option>
-                          <option value="jobSalaryPeriod5" selected={true}>
+                          <option value="Hourly">per hour</option>
+                          <option value="Daily">per day</option>
+                          <option value="Weekly">per week</option>
+                          <option value="Monthly">per month</option>
+                          <option value="Annually" selected={true}>
                             per year
                           </option>
                         </select>
