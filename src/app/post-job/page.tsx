@@ -85,7 +85,7 @@ function PostJob() {
         hires: hires,
         urgency: urgency,
         pay: pay,
-        currency: currency,
+        currency: "Rand",
         fromDate: fromDate,
         toDate: toDate,
         period: period,
@@ -113,7 +113,7 @@ function PostJob() {
         noBenefits: noBenefits,
         jobSchedule: jobSchedule,
         website: website,
-        responsibilities: responsibilities,
+        responsibilities: 'None',
         methodToRecieveApplications: methodToRecieveApplications,
         submitResume: submitResume,
         dailyUpdateEmailAddress: dailyUpdateEmailAddress,
@@ -125,7 +125,6 @@ function PostJob() {
         description: description
       };
       
-
   
       const res = await CreateJob(payload);
 
@@ -928,13 +927,13 @@ function PostJob() {
                           name="jobSalaryTypeSelect"
                           // onChange={((e)=>setPay(e.target.value))}
                         >
-                          <option value="jobSalaryType1" selected={true}>
+                          <option value="Range" selected={true}>
                             Range
                           </option>
-                          <option value="jobSalaryType2">Starting at</option>
-                          <option value="jobSalaryType3">Up to</option>
-                          <option value="jobSalaryType4">Exact rate</option>
-                          <option value="jobSalaryType5">
+                          <option value="Starting at">Starting at</option>
+                          <option value="Up to">Up to</option>
+                          <option value="Exact rate">Exact rate</option>
+                          <option value="Salary based on experience">
                             Salary based on experience
                           </option>
                         </select>
@@ -991,7 +990,7 @@ function PostJob() {
                           className="form-control"
                           name="salaryFromName"
                           id="salaryFromLabel"
-                          placeholder={""}
+                          placeholder={"10-10-2023"}
                           onChange={((e)=>setFromDate(e.target.value))}
                           // aria-label={0}
                         />
@@ -1010,7 +1009,7 @@ function PostJob() {
                           className="form-control"
                           name="salaryToName"
                           id="salaryToLabel"
-                          placeholder={""}
+                          placeholder={"10-10-2024"}
                           onChange={((e)=>setToDate(e.target.value))}
                           // aria-label={0}
                         />
@@ -1049,6 +1048,21 @@ function PostJob() {
                     {/* End Col */}
                   </div>
                   {/* End Row */}
+                  <div className="mb-4">
+                        <label htmlFor="salaryFromLabel" className="form-label">
+                          Amount
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="salaryFromName"
+                          id="salaryFromLabel"
+                          placeholder={"R10 000"}
+                          style={{ width: '200px' }}
+                          onChange={((e)=>setPay(parseInt(e.target.value)))}
+                          // aria-label={0}
+                        />
+                      </div>
                   {/* Form */}
                   <div className="mb-4">
                     <label className="form-label">
@@ -2510,6 +2524,7 @@ function PostJob() {
                           <div className="d-sm-flex justify-content-sm-end">
                             <button
                               type="button"
+                              onClick={()=>{setStepActive(5)}}
                               className="btn btn-sm btn-outline-primary"
                               data-hs-step-form-prev-options='{
                           "targetSelector": "#postJobStepJobDescription"
