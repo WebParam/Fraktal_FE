@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
+import './postJob.scss';
 import React, { useState, useEffect } from 'react';
 import { IJobApplication } from '../interfaces/IJobApplication';
 import { CreateJob } from '../endpoints/api';
@@ -122,7 +123,7 @@ function PostJob() {
       
 
   
-      const res = await CreateJob(payload);
+      // const res = await CreateJob(payload);
 
       console.log(payload)
 

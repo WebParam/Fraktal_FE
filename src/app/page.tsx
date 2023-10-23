@@ -71,7 +71,8 @@ function HomePage() {
           <div className="col-lg-7 col-xl-6 d-none d-lg-block position-absolute top-0 end-0 pe-0 koalaContainer" style={{marginTop: '6.75rem'}}>
             <Image 
               src={koala} 
-              priority={true} 
+              priority={true}
+              placeholder='blur'
               alt='koala' 
               className='koalaHero' 
             />
