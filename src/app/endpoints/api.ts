@@ -170,10 +170,10 @@ export async function CreateJob(payload: IJobApplication) {
     const response = await axios.post(`${url}/api/jobApplications`, payload);
 
     if (response.status === 200 || response.status === 201) {
-      console.log("login successful");
+      console.log("JOB POSTED");
       return true;
     } else {
-      console.error("login failed");
+      console.error("failed to post");
       return false;
     }
   } catch (error) {
