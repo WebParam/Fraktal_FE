@@ -72,7 +72,7 @@ function HomePage() {
             <Image 
               src={koala} 
               priority={true}
-              placeholder='data:image/...'
+              placeholder='blur'
               alt='koala' 
               className='koalaHero' 
             />
