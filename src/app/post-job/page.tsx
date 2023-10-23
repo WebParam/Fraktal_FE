@@ -65,6 +65,7 @@ function pricing() {
     const [individualUpDateEmailAddress, setIndividualUpDateEmailAddress] = useState('');
     const [dailyUpdateEmail, setDailyUpdateEmail] = useState(0 !== 0);
     const [individualUpDateEmail, setIndividualUpDateEmail] = useState(0 !== 0);
+    const [description, setDescription] = useState('');
 
 
     async function createJobPost(){
@@ -73,51 +74,54 @@ function pricing() {
         country: country,
         language: language,
         companyName: companyName,
-        jobTitle:jobTitle,
-        streetAddress:streetAddress,
-        city:city,
-        state:state,
-        zipCode:zipCode,
-        remote:remote,
-        jobtype:jobtype,
-        hires:hires,
-        urgency:urgency,
-        pay:pay,
-        currency:currency,
-        fromDate:fromDate,
-        toDate:toDate,
-        period:period,
-        signingBonus:signingBonus,
-        commisionPay:commisionPay,
-        bonusPay:bonusPay,
-        tips:tips,
-        otherPay:otherPay,
-        healthInsurance:healthInsurance,
-        paidTimeOff:paidTimeOff,
-        dentalInsurance:dentalInsurance,
-        retirememntFund:retirememntFund,
-        flexibleSchedule:flexibleSchedule,
-        tuition:tuition,
-        lifeInsurance:lifeInsurance,    
-        retirememntFundMatch:retirememntFundMatch,
-        disabilityInsurance:disabilityInsurance,
-        retirementPlan:retirementPlan,
-        referalProgram:referalProgram,
-        employeeDiscount:employeeDiscount,
-        spendingAccount:spendingAccount,
-        relocation:relocation,
-        parentalLeave:parentalLeave,
-        otherBenefits:otherBenefits,
-        noBenefits:noBenefits,
-        jobSchedule:jobSchedule,
-        website:website,
-        responsibilities:responsibilities,
-        methodToRecieveApplications:methodToRecieveApplications,
-        submitResume:submitResume,
-        dailyUpdateEmailAddress:dailyUpdateEmailAddress,
-        individualUpDateEmailAddress:individualUpDateEmailAddress,
-        dailyUpdateEmail:dailyUpdateEmail,
-        individualUpDateEmail:individualUpDateEmail
+        jobTitle: jobTitle,
+        streetAddress: streetAddress,
+        city: city,
+        state: state,
+        zipCode: zipCode,
+        remote: remote,
+        jobtype: jobtype,
+        hires: hires,
+        urgency: urgency,
+        pay: pay,
+        currency: currency,
+        fromDate: fromDate,
+        toDate: toDate,
+        period: period,
+        signingBonus: signingBonus,
+        commisionPay: commisionPay,
+        bonusPay: bonusPay,
+        tips: tips,
+        otherPay: otherPay,
+        healthInsurance: healthInsurance,
+        paidTimeOff: paidTimeOff,
+        dentalInsurance: dentalInsurance,
+        retirememntFund: retirememntFund,
+        flexibleSchedule: flexibleSchedule,
+        tuition: tuition,
+        lifeInsurance: lifeInsurance,
+        retirememntFundMatch: retirememntFundMatch,
+        disabilityInsurance: disabilityInsurance,
+        retirementPlan: retirementPlan,
+        referalProgram: referalProgram,
+        employeeDiscount: employeeDiscount,
+        spendingAccount: spendingAccount,
+        relocation: relocation,
+        parentalLeave: parentalLeave,
+        otherBenefits: otherBenefits,
+        noBenefits: noBenefits,
+        jobSchedule: jobSchedule,
+        website: website,
+        responsibilities: responsibilities,
+        methodToRecieveApplications: methodToRecieveApplications,
+        submitResume: submitResume,
+        dailyUpdateEmailAddress: dailyUpdateEmailAddress,
+        individualUpDateEmailAddress: individualUpDateEmailAddress,
+        dailyUpdateEmail: dailyUpdateEmail,
+        individualUpDateEmail: individualUpDateEmail,
+        companyId: '65368966798cf5e73d32c5177',
+        creatingUser: '65368966798cf5e73d32c510',
+        description: description
       };
       
 
@@ -373,16 +377,16 @@ function pricing() {
                       onChange={((e)=>setLanguage(parseInt(e.target.value)))}
                     >
                       <option label="empty" />
-                      <option value={0}>English (US)</option>
+                      <option value={0} selected={language==0}>English (US)</option>
                       <option value={1} selected={language==1}>
                         English (UK)
                       </option>
-                      <option value="language3">Deutsch</option>
-                      <option value="language4">Dansk</option>
-                      <option value="language5">Español</option>
-                      <option value="language6">Nederlands</option>
-                      <option value="language7">Italiano</option>
-                      <option value="language8">中文 (繁體)</option>
+                      <option value={2} selected={language==2}>Deutsch</option>
+                      <option value={3} selected={language==3}>Dansk</option>
+                      <option value={4} selected={language==4}>Español</option>
+                      <option value={5} selected={language==5}>Nederlands</option>
+                      <option value={6} selected={language==6}>Italiano</option>
+                      <option value={7} selected={language==7}>中文 (繁體)</option>
                     </select>
                     {/* End Select */}
                   </div>
@@ -833,11 +837,11 @@ function pricing() {
                       name="deadlineSelect"
                       onChange={((e)=>setUrgency(e.target.value))}
                     >
-                      <option value="deadline1">1 to 3 days</option>
-                      <option value="deadline2">3 to 7 days</option>
-                      <option value="deadline3">1 to 2 weeks</option>
-                      <option value="deadline4">2 to 4 weeks</option>
-                      <option value="deadline5" selected={true}>
+                      <option value="1 to 3 days">1 to 3 days</option>
+                      <option value="3 to 7 days">3 to 7 days</option>
+                      <option value="1 to 2 weeks">1 to 2 weeks</option>
+                      <option value="2 to 4 weeks">2 to 4 weeks</option>
+                      <option value=" More than 4 weeks" selected={true}>
                         More than 4 weeks
                       </option>
                     </select>
@@ -957,11 +961,14 @@ function pricing() {
                           <option value="Rand" selected={true}>
                             ZAR (South African Rand)
                           </option>
-                          <option value="currency2">
+                          <option value="GBP">
                             GBP (United Kingdom Pound)
                           </option>
-                          <option value="currency3">
+                          <option value="EURO">
                             Euro (Euro Member Countries)
+                          </option>
+                          <option value="Dollar">
+                            Dollar (American Dollar)
                           </option>
                         </select>
                         {/* End Select */}
@@ -1991,6 +1998,7 @@ function pricing() {
                       placeholder="Ex: All customers are required to wear a mask, curbside pickup available, common surfaces are sanitized regularly, etc."
                       aria-label="Ex: All customers are required to wear a mask, curbside pickup available, common surfaces are sanitized regularly, etc."
                       rows={4}
+                      onChange={((e)=>setDescription(e.target.value))}
                       maxLength={250}
                       data-hs-count-characters-options='{
                           "output": "#additionalCovid19PrecautionsCountCharacters"
@@ -2360,7 +2368,7 @@ function pricing() {
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Street Address</h5>
                           <span className="d-block">
-                            Arch 294 Jewell Street, SE5 0BU, London
+                           {streetAddress}
                           </span>
                         </div>
                         {/* End Col */}
@@ -2390,8 +2398,7 @@ function pricing() {
                             {pay}
                           </span>
                           <span className="d-block">
-                            Benefits: Health insurance, Flexible schedule,
-                            Employee discount, Relocation assistance
+                          {dentalInsurance}
                           </span>
                         </div>
                         {/* End Col */}
@@ -2441,43 +2448,8 @@ function pricing() {
                     <li className="border-bottom">
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
-                          {/* <h5>Job Description</h5>
-                          <h5>Who we are:</h5>
-                          <p>
-                            We are reinventing personal communication for the
-                            digital era.
-                          </p>
-                          <p>
-                            TouchNote is a creative platform that lets people
-                            send custom-made cards, straight from their phone to
-                            those they love anywhere in the world. Our easy to
-                            use app has helped people nurture their most
-                            meaningful relationships over 15 million times and
-                            was awarded the Good Web Guide's App of the Year
-                            2018.
-                          </p>
-                          <p>
-                            We are a team of passionate and creative individuals
-                            trying to make a difference. We're proud to offer a
-                            highly collaborative, solution-focused environment
-                            that celebrates diversity and has been listed in
-                            Deloitte's Technology Fast 50 and The Financial
-                            Times Future 100 UK.
-                          </p>
-                          <h5>The role:</h5>
-                          <p>
-                            We are looking for a talented mid-level Product
-                            Designer to help shape the future of our product
-                            experience here at TouchNote.
-                          </p>
-                          <p>
-                            Sitting in the product team and reporting directly
-                            to the Head of Design, you'll work extensively with
-                            product, growth and our engineering team to
-                            understand our user base, and work to improve
-                            business needs, related requirements and technical
-                            constraints.
-                          </p> */}
+                          <h5>Job Description</h5>
+                          <p>{description}</p>
                           {/* <h5>About you:</h5>
                           <ul className="mb-3">
                             <li>
