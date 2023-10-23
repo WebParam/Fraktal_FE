@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
+import './postJob.scss';
 import React, { useState, useEffect } from 'react';
 import { IJobApplication } from '../interfaces/IJobApplication';
 import { CreateJob } from '../endpoints/api';
@@ -9,7 +10,7 @@ import Footer from '../components/Footer/Footer';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-function pricing() {
+function PostJob() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const [activeStep, setActiveStep] = useState(0);
 
@@ -2691,7 +2692,7 @@ function pricing() {
                           type="button"
                           className="btn btn-primary"
                           style={{ backgroundColor: '#FD2DC3 !important', color: 'white' }}
-                          onClick={ createJobPost}
+                          onClick={createJobPost}
                         >
                           Confirm
                         </button>
@@ -2756,4 +2757,4 @@ function pricing() {
     );
 }
 
-export default pricing;
+export default PostJob;

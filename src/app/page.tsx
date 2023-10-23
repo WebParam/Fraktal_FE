@@ -69,7 +69,13 @@ function HomePage() {
           </div>
           {/* End Title & Description */}
           <div className="col-lg-7 col-xl-6 d-none d-lg-block position-absolute top-0 end-0 pe-0 koalaContainer" style={{marginTop: '6.75rem'}}>
-            <Image src={koala} alt='koala' className='koalaHero' loading='lazy' />
+            <Image 
+              src={koala} 
+              priority={true}
+              placeholder='blur'
+              alt='koala' 
+              className='koalaHero' 
+            />
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ import { ICompanyRegister } from "../interfaces/organisation";
 import { IJobApplication } from "../interfaces/IJobApplication";
 
 const url = "https://viconet-vercel.vercel.app"
-const renderUrl = "https://viconet-vercel-git-main-viconet.vercel.app";
+
 
 export async function registerUser(payload: IUser) {
   try {
@@ -170,10 +170,10 @@ export async function CreateJob(payload: IJobApplication) {
     const response = await axios.post(`${url}/api/jobApplications`, payload);
 
     if (response.status === 200 || response.status === 201) {
-      console.log("Job Created");
+      console.log("JOB POSTED");
       return true;
     } else {
-      console.error("Job Creation failed");
+      console.error("failed to post");
       return false;
     }
   } catch (error) {
@@ -218,7 +218,7 @@ export async function GetApplicantProfile(id: string) {
 export async function resetPassword(payload: IUserResetPassword) {
   try {
     const response = await axios.post(
-      `${renderUrl}/api/user/resetPassword`,
+      `${url}/api/user/resetPassword`,
       payload
     );
 
@@ -238,7 +238,7 @@ export async function resetPassword(payload: IUserResetPassword) {
 
 export async function sendOTP(payload: IUserSendOTP) {
   try {
-    const response = await axios.post(`${renderUrl}/api/user/sendOTP`, payload);
+    const response = await axios.post(`${url}/api/user/sendOTP`, payload);
 
     if (response.status === 200 || response.status === 201) {
       console.log("otp sent successful");
