@@ -2134,7 +2134,6 @@ function PostJob() {
                   </div>
                 </div>
                 {/* End Header */}
-                {/* Body */}
                 <div className="card-body">
                   {/* Form */}
                   <div className="mb-4">
