@@ -7,12 +7,12 @@ import { IJobApplication } from '../interfaces/IJobApplication';
 import { CreateJob } from '../endpoints/api';
 import AutoComplete from "react-google-autocomplete";
 import Footer from '../components/Footer/Footer';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function PostJob() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const [activeStep, setActiveStep] = useState(0);
+    const [errorstyle, setErrorStyle] = useState('');
 
     //formInputs
     const [country, setCountry] = useState(0);
@@ -151,9 +151,24 @@ function PostJob() {
     setJobType(newType);
   };
 
-  // const handleInputChange = (e : any) => {
-  //   setCompanyName(e.target.value);
-  // };
+  const handleInputChange = (e : any) => {
+    setCompanyName(e.target.value);
+  };
+
+  const goToAnotherSlide = (num: number) => {
+
+    if (num = 0) {
+      if (companyName.length  > 3 && jobTitle.length > 10) {
+        setActiveStep(state => num)
+        return;
+      }
+    }
+
+    console.log(companyName, jobTitle, language);
+
+    alert('some inputs need to be valided');
+  }
+
     return (
 
 
@@ -373,17 +388,16 @@ function PostJob() {
                       name="languageSelect"
                       onChange={((e)=>setLanguage(parseInt(e.target.value)))}
                     >
-                      <option label="empty" />
                       <option value={0}>English (US)</option>
                       <option value={1} selected={language==1}>
                         English (UK)
                       </option>
-                      <option value="language3">Deutsch</option>
-                      <option value="language4">Dansk</option>
-                      <option value="language5">Español</option>
-                      <option value="language6">Nederlands</option>
-                      <option value="language7">Italiano</option>
-                      <option value="language8">中文 (繁體)</option>
+                      <option value={2}>Deutsch</option>
+                      <option value={3}>Dansk</option>
+                      <option value={4}>Español</option>
+                      <option value={5}>Nederlands</option>
+                      <option value={6}>Italiano</option>
+                      <option value={7}>中文 (繁體)</option>
                     </select>
                     {/* End Select */}
                   </div>
@@ -395,12 +409,13 @@ function PostJob() {
                     </label>
                     <input
                       type="text"
-                      className="form-control"
+                      className={`form-control ${errorstyle == 'companyName' ? 'error': ''}`}
                       name="companyName"
                       id="companyNameLabel"
                       placeholder="Htmlstream"
                       aria-label="Htmlstream"
                       onChange={(e) => setCompanyName(String(e.target.value))}
+                      required
                     />
                   </div>
                   {/* End Form */}
@@ -411,12 +426,13 @@ function PostJob() {
                     </label>
                     <input
                       type="text"
-                      className="form-control"
+                      className={`form-control ${errorstyle === 'jobtitle' ? '':''}`}
                       name="jobTitleName"
                       id="jobTitleLabel"
                       placeholder="UI/UX Designer"
                       aria-label="UI/UX Designer"
                       onChange={((e)=>setJobTitle(e.target.value))}
+                      required
                     />
                   </div>
                   {/* End Form */}
@@ -426,7 +442,7 @@ function PostJob() {
                 <div className="card-footer pt-0">
                   <div className="d-flex justify-content-end align-items-center">
                     <button
-                    onClick={()=>{setStepActive(1)}}
+                    onClick={()=>{goToAnotherSlide(1)}}
                       type="button"
                       className="btn btn-primary"
                       style={{ 
