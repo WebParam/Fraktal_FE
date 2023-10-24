@@ -124,7 +124,7 @@ email
               <span></span>
               {invalidOTP &&   <span style={{color :"tomato", fontWeight: "600" , fontSize:"small"}}>Invalid OTP</span>}
             {optSent &&   <span style={{color :"green", fontWeight: "600" , fontSize:"small"}}>OTP sent successfully</span>}
-              <span className='cta' onClick={ResendOtp} style ={{color : "var(--bs-heading-color)"}}>resend OTP</span>
+              <span className='cta' onClick={ResendOtp} style ={{color : "var(--bs-heading-color)", cursor:"pointer"}}>resend OTP</span>
             </label>
             <div className='otpInputs'>
   {inputRefs.map((ref, index) => (

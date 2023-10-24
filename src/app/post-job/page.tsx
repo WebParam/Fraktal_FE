@@ -66,6 +66,7 @@ function PostJob() {
     const [individualUpDateEmailAddress, setIndividualUpDateEmailAddress] = useState('');
     const [dailyUpdateEmail, setDailyUpdateEmail] = useState(0 !== 0);
     const [individualUpDateEmail, setIndividualUpDateEmail] = useState(0 !== 0);
+    const [description, setDescription] = useState('');
 
 
     async function createJobPost(){
@@ -74,54 +75,56 @@ function PostJob() {
         country: country,
         language: language,
         companyName: companyName,
-        jobTitle:jobTitle,
-        streetAddress:streetAddress,
-        city:city,
-        state:state,
-        zipCode:zipCode,
-        remote:remote,
-        jobtype:jobtype,
-        hires:hires,
-        urgency:urgency,
-        pay:pay,
-        currency:currency,
-        fromDate:fromDate,
-        toDate:toDate,
-        period:period,
-        signingBonus:signingBonus,
-        commisionPay:commisionPay,
-        bonusPay:bonusPay,
-        tips:tips,
-        otherPay:otherPay,
-        healthInsurance:healthInsurance,
-        paidTimeOff:paidTimeOff,
-        dentalInsurance:dentalInsurance,
-        retirememntFund:retirememntFund,
-        flexibleSchedule:flexibleSchedule,
-        tuition:tuition,
-        lifeInsurance:lifeInsurance,    
-        retirememntFundMatch:retirememntFundMatch,
-        disabilityInsurance:disabilityInsurance,
-        retirementPlan:retirementPlan,
-        referalProgram:referalProgram,
-        employeeDiscount:employeeDiscount,
-        spendingAccount:spendingAccount,
-        relocation:relocation,
-        parentalLeave:parentalLeave,
-        otherBenefits:otherBenefits,
-        noBenefits:noBenefits,
-        jobSchedule:jobSchedule,
-        website:website,
-        responsibilities:responsibilities,
-        methodToRecieveApplications:methodToRecieveApplications,
-        submitResume:submitResume,
-        dailyUpdateEmailAddress:dailyUpdateEmailAddress,
-        individualUpDateEmailAddress:individualUpDateEmailAddress,
-        dailyUpdateEmail:dailyUpdateEmail,
-        individualUpDateEmail:individualUpDateEmail
+        jobTitle: jobTitle,
+        streetAddress: streetAddress,
+        city: city,
+        state: state,
+        zipCode: zipCode,
+        remote: remote,
+        jobtype: jobtype,
+        hires: hires,
+        urgency: urgency,
+        pay: pay,
+        currency: "Rand",
+        fromDate: fromDate,
+        toDate: toDate,
+        period: period,
+        signingBonus: signingBonus,
+        commisionPay: commisionPay,
+        bonusPay: bonusPay,
+        tips: tips,
+        otherPay: otherPay,
+        healthInsurance: healthInsurance,
+        paidTimeOff: paidTimeOff,
+        dentalInsurance: dentalInsurance,
+        retirememntFund: retirememntFund,
+        flexibleSchedule: flexibleSchedule,
+        tuition: tuition,
+        lifeInsurance: lifeInsurance,
+        retirememntFundMatch: retirememntFundMatch,
+        disabilityInsurance: disabilityInsurance,
+        retirementPlan: retirementPlan,
+        referalProgram: referalProgram,
+        employeeDiscount: employeeDiscount,
+        spendingAccount: spendingAccount,
+        relocation: relocation,
+        parentalLeave: parentalLeave,
+        otherBenefits: otherBenefits,
+        noBenefits: noBenefits,
+        jobSchedule: jobSchedule,
+        website: website,
+        responsibilities: 'None',
+        methodToRecieveApplications: methodToRecieveApplications,
+        submitResume: submitResume,
+        dailyUpdateEmailAddress: dailyUpdateEmailAddress,
+        individualUpDateEmailAddress: individualUpDateEmailAddress,
+        dailyUpdateEmail: dailyUpdateEmail,
+        individualUpDateEmail: individualUpDateEmail,
+        companyId: '65368966798cf5e73d32c5177',
+        creatingUser: '65368966798cf5e73d32c510',
+        description: description
       };
       
-
   
       const res = await CreateJob(payload);
 
@@ -389,15 +392,16 @@ function PostJob() {
                       onChange={((e)=>setLanguage(parseInt(e.target.value)))}
                     >
                       <option value={0}>English (US)</option>
+                      <option value={0} selected={language==0}>English (US)</option>
                       <option value={1} selected={language==1}>
                         English (UK)
                       </option>
-                      <option value={2}>Deutsch</option>
-                      <option value={3}>Dansk</option>
-                      <option value={4}>Español</option>
-                      <option value={5}>Nederlands</option>
-                      <option value={6}>Italiano</option>
-                      <option value={7}>中文 (繁體)</option>
+                      <option value={2} selected={language==2}>Deutsch</option>
+                      <option value={3} selected={language==3}>Dansk</option>
+                      <option value={4} selected={language==4}>Español</option>
+                      <option value={5} selected={language==5}>Nederlands</option>
+                      <option value={6} selected={language==6}>Italiano</option>
+                      <option value={7} selected={language==7}>中文 (繁體)</option>
                     </select>
                     {/* End Select */}
                   </div>
@@ -850,11 +854,11 @@ function PostJob() {
                       name="deadlineSelect"
                       onChange={((e)=>setUrgency(e.target.value))}
                     >
-                      <option value="deadline1">1 to 3 days</option>
-                      <option value="deadline2">3 to 7 days</option>
-                      <option value="deadline3">1 to 2 weeks</option>
-                      <option value="deadline4">2 to 4 weeks</option>
-                      <option value="deadline5" selected={true}>
+                      <option value="1 to 3 days">1 to 3 days</option>
+                      <option value="3 to 7 days">3 to 7 days</option>
+                      <option value="1 to 2 weeks">1 to 2 weeks</option>
+                      <option value="2 to 4 weeks">2 to 4 weeks</option>
+                      <option value=" More than 4 weeks" selected={true}>
                         More than 4 weeks
                       </option>
                     </select>
@@ -940,13 +944,13 @@ function PostJob() {
                           name="jobSalaryTypeSelect"
                           // onChange={((e)=>setPay(e.target.value))}
                         >
-                          <option value="jobSalaryType1" selected={true}>
+                          <option value="Range" selected={true}>
                             Range
                           </option>
-                          <option value="jobSalaryType2">Starting at</option>
-                          <option value="jobSalaryType3">Up to</option>
-                          <option value="jobSalaryType4">Exact rate</option>
-                          <option value="jobSalaryType5">
+                          <option value="Starting at">Starting at</option>
+                          <option value="Up to">Up to</option>
+                          <option value="Exact rate">Exact rate</option>
+                          <option value="Salary based on experience">
                             Salary based on experience
                           </option>
                         </select>
@@ -974,11 +978,14 @@ function PostJob() {
                           <option value="Rand" selected={true}>
                             ZAR (South African Rand)
                           </option>
-                          <option value="currency2">
+                          <option value="GBP">
                             GBP (United Kingdom Pound)
                           </option>
-                          <option value="currency3">
+                          <option value="EURO">
                             Euro (Euro Member Countries)
+                          </option>
+                          <option value="Dollar">
+                            Dollar (American Dollar)
                           </option>
                         </select>
                         {/* End Select */}
@@ -1000,7 +1007,7 @@ function PostJob() {
                           className="form-control"
                           name="salaryFromName"
                           id="salaryFromLabel"
-                          placeholder={""}
+                          placeholder={"10-10-2023"}
                           onChange={((e)=>setFromDate(e.target.value))}
                           // aria-label={0}
                         />
@@ -1019,7 +1026,7 @@ function PostJob() {
                           className="form-control"
                           name="salaryToName"
                           id="salaryToLabel"
-                          placeholder={""}
+                          placeholder={"10-10-2024"}
                           onChange={((e)=>setToDate(e.target.value))}
                           // aria-label={0}
                         />
@@ -1043,11 +1050,11 @@ function PostJob() {
                           name="jobSalaryPeriodSelect"
                           onChange={((e)=>setPeriod(e.target.value))}
                         >
-                          <option value="jobSalaryPeriod1">per hour</option>
-                          <option value="jobSalaryPeriod2">per day</option>
-                          <option value="jobSalaryPeriod3">per week</option>
-                          <option value="jobSalaryPeriod4">per month</option>
-                          <option value="jobSalaryPeriod5" selected={true}>
+                          <option value="Hourly">per hour</option>
+                          <option value="Daily">per day</option>
+                          <option value="Weekly">per week</option>
+                          <option value="Monthly">per month</option>
+                          <option value="Annually" selected={true}>
                             per year
                           </option>
                         </select>
@@ -1058,6 +1065,21 @@ function PostJob() {
                     {/* End Col */}
                   </div>
                   {/* End Row */}
+                  <div className="mb-4">
+                        <label htmlFor="salaryFromLabel" className="form-label">
+                          Amount
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="salaryFromName"
+                          id="salaryFromLabel"
+                          placeholder={"R10 000"}
+                          style={{ width: '200px' }}
+                          onChange={((e)=>setPay(parseInt(e.target.value)))}
+                          // aria-label={0}
+                        />
+                      </div>
                   {/* Form */}
                   <div className="mb-4">
                     <label className="form-label">
@@ -2008,6 +2030,7 @@ function PostJob() {
                       placeholder="Ex: All customers are required to wear a mask, curbside pickup available, common surfaces are sanitized regularly, etc."
                       aria-label="Ex: All customers are required to wear a mask, curbside pickup available, common surfaces are sanitized regularly, etc."
                       rows={4}
+                      onChange={((e)=>setDescription(e.target.value))}
                       maxLength={250}
                       data-hs-count-characters-options='{
                           "output": "#additionalCovid19PrecautionsCountCharacters"
@@ -2377,7 +2400,7 @@ function PostJob() {
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Street Address</h5>
                           <span className="d-block">
-                            Arch 294 Jewell Street, SE5 0BU, London
+                           {streetAddress}
                           </span>
                         </div>
                         {/* End Col */}
@@ -2407,8 +2430,7 @@ function PostJob() {
                             {pay}
                           </span>
                           <span className="d-block">
-                            Benefits: Health insurance, Flexible schedule,
-                            Employee discount, Relocation assistance
+                          {dentalInsurance}
                           </span>
                         </div>
                         {/* End Col */}
@@ -2458,43 +2480,8 @@ function PostJob() {
                     <li className="border-bottom">
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
-                          {/* <h5>Job Description</h5>
-                          <h5>Who we are:</h5>
-                          <p>
-                            We are reinventing personal communication for the
-                            digital era.
-                          </p>
-                          <p>
-                            TouchNote is a creative platform that lets people
-                            send custom-made cards, straight from their phone to
-                            those they love anywhere in the world. Our easy to
-                            use app has helped people nurture their most
-                            meaningful relationships over 15 million times and
-                            was awarded the Good Web Guide's App of the Year
-                            2018.
-                          </p>
-                          <p>
-                            We are a team of passionate and creative individuals
-                            trying to make a difference. We're proud to offer a
-                            highly collaborative, solution-focused environment
-                            that celebrates diversity and has been listed in
-                            Deloitte's Technology Fast 50 and The Financial
-                            Times Future 100 UK.
-                          </p>
-                          <h5>The role:</h5>
-                          <p>
-                            We are looking for a talented mid-level Product
-                            Designer to help shape the future of our product
-                            experience here at TouchNote.
-                          </p>
-                          <p>
-                            Sitting in the product team and reporting directly
-                            to the Head of Design, you'll work extensively with
-                            product, growth and our engineering team to
-                            understand our user base, and work to improve
-                            business needs, related requirements and technical
-                            constraints.
-                          </p> */}
+                          <h5>Job Description</h5>
+                          <p>{description}</p>
                           {/* <h5>About you:</h5>
                           <ul className="mb-3">
                             <li>
@@ -2554,6 +2541,7 @@ function PostJob() {
                           <div className="d-sm-flex justify-content-sm-end">
                             <button
                               type="button"
+                              onClick={()=>{setStepActive(5)}}
                               className="btn btn-sm btn-outline-primary"
                               data-hs-step-form-prev-options='{
                           "targetSelector": "#postJobStepJobDescription"
