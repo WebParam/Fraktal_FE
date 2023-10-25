@@ -144,7 +144,28 @@ function PostJob() {
     color: 'white',
   };
   
+  const jobTypeOptions = [
+    "Full Time",
+    "Part Time",
+    "Temporary",
+    "Contract",
+    "Internship",
+    "Commission Only"
+  ]
 
+  const languageOptions = [
+    "English(US)",
+    "English(UK)",
+    "Deutsch",
+    "Dansk",
+    "Español",
+    "Nederlands",
+    "Italiano",
+    "中文 (繁體)"
+  ]
+function mapValueToText(value:number, options:any){
+  return options[value]
+}
   const handleRemoteChange = (e : any) => {
     const newValue = parseFloat(e.target.value);
     setRemote(newValue);
@@ -2439,7 +2460,7 @@ function PostJob() {
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Job Type</h5>
-                          <span className="d-block">{jobtype}</span>
+                          <span className="d-block">{mapValueToText(jobtype,jobTypeOptions)}</span>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2542,7 +2563,7 @@ function PostJob() {
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Language</h5>
-                          <span className="d-block">{language}</span>
+                          <span className="d-block">{mapValueToText(language,languageOptions)}</span>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
