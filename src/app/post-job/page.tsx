@@ -2440,8 +2440,8 @@ const submitOptions = [
                 <div className="card-body">
                   <p>
                     By pressing confirm, you agree that this job will be posted
-                    and applications will be processed in accordance with Front
-                    Job's <a href="#">Cookie Policy</a>,{" "}
+                    and applications will be processed in accordance with Fraktional
+                   <a href="#">Cookie Policy</a>,{" "}
                     <a href="#">Privacy Policy</a> and{" "}
                     <a href="#">Terms of Service</a>. You consent to Front Job
                     informing a user that you have opened, viewed or made a
