@@ -18,6 +18,7 @@ function viewGig({ params }: { params: { id: string }}) {
     const [summary, setSummary] = useState('');
     const [resume, setResume] = useState(null)
     const [workStatus, setWorkStatus] = useState('yes');
+    const [currentJob, setCurrentJob] = useState('');
     const [notice, setnotice] = useState('');
     const [portfolio, setPortfolio] = useState([]);
     const [expectedSalary, setExpectedSalary] = useState('');
@@ -30,6 +31,10 @@ function viewGig({ params }: { params: { id: string }}) {
     
     const handleLastName = (e: any) => {
         setLastName(e.target.value);
+    }
+
+    const handleJob = (e: any) => {
+        setCurrentJob(e.target.value);
     }
 
     
@@ -268,10 +273,10 @@ function viewGig({ params }: { params: { id: string }}) {
                     {/* End Select */}
                 </div>
                 {/* Container For Input Field */}
-                <div id="addPhoneFieldContainer" />
+                {/* <div id="addPhoneFieldContainer" />
                 <a href="javascript:;" className="js-create-field form-link">
                     <i className="bi-plus-circle me-1" /> Add phone
-                </a>
+                </a> */}
                 </div>
                 {/* End Form */}
                 {/* Add Phone Input Field */}
@@ -328,10 +333,11 @@ function viewGig({ params }: { params: { id: string }}) {
                 <h3>Details</h3>
                 </div>
                 <div className="mb-1">
-                <label className="input-label">Do you have the right to work in the UK?</label>
+                <label className="input-label">Are you currently working?</label>
                 </div>
                 {/* Radio Button Group */}
-                <div className="btn-group btn-group-segment mb-4" role="group" aria-label="Work status radio button group">
+                <div className="btn-group col-md-12 btn-group-segment mb-4" role="group" aria-label="Work status radio button group">
+                
                 <input 
                     type="radio" 
                     className="btn-check" 
@@ -339,7 +345,7 @@ function viewGig({ params }: { params: { id: string }}) {
                     id="applyForJobWorkStatusYesBtnRadio" 
                     autoComplete="off" 
                     checked={workStatus === 'yes'} 
-                    onChange={() => handleWorkStatusChange('no')} 
+                    onChange={() => handleWorkStatusChange('yes')} 
                 />
                 <label className="btn btn-sm" htmlFor="applyForJobWorkStatusYesBtnRadio"><i className="bi-hand-thumbs-up me-1" /> Yes</label>
                 <input 
@@ -352,6 +358,21 @@ function viewGig({ params }: { params: { id: string }}) {
                     onChange={() => handleWorkStatusChange('no')} 
                 />
                 <label className="btn btn-sm" htmlFor="applyForJobWorkStatusNoBtnRadio"><i className="bi-hand-thumbs-down me-1" /> No</label>
+                
+                {workStatus =="yes" && <div className="">
+                <label className="form-label" htmlFor="applyForJobNoticePeriod">Please provide some more details about your current job roles and responsibilities</label>
+                <textarea 
+                    cols={6}
+                    className="form-control" 
+                    name="applyForCurrentJob" 
+                    id="applyForCurrentJob" 
+                    placeholder="Please enter current job details" 
+                    aria-label="Please enter current job details"
+                    value={currentJob}
+                    onChange={handleJob}
+                />
+                </div>
+                }
                 </div>
                 {/* End Radio Button Group */}
                 {/* Form */}
@@ -398,7 +419,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 <label className="input-label">Do you have experience designing for mobile?</label>
                 </div>
                 {/* Radio Button Group */}
-                <div className="btn-group btn-group-segment mb-4" role="group" aria-label="Mobile experience radio button group">
+                {/* <div className="btn-group btn-group-segment mb-4" role="group" aria-label="Mobile experience radio button group">
                     <input
                     type="radio"
                     className="btn-check"
@@ -420,7 +441,7 @@ function viewGig({ params }: { params: { id: string }}) {
                     onChange={() => handleMobileExp('no')} // Handle 'No' selection
                     />
                     <label className="btn btn-sm" htmlFor="applyForJobWorkExperienceNoBtnRadio"><i className="bi-hand-thumbs-down me-1" /> No</label>
-                </div>
+                </div> */}
                 {/* End Radio Button Group */}
                 <div className="d-grid mt-5">
                 <button type="submit" className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Send application</button>
