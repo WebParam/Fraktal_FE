@@ -145,11 +145,11 @@ function PostJob() {
 
   }
 
-  const buttonStyle = {
-    backgroundColor: '#FD2DC3',
-    color: 'white',
-  };
-  
+  // const buttonStyle = {
+  //   backgroundColor: '#FD2DC3',
+  //   color: 'white',
+  // };
+
   const jobTypeOptions = [
     "Full Time",
     "Part Time",
