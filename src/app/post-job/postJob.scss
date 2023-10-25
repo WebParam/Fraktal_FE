@@ -5,3 +5,7 @@
 .step .active .step-icon, .step .active.is-valid .step-icon {
     background-color: #FD2DC3 !important;
 }
+
+.form-control.error {
+    border: 2px solid #FD2DC3 !important;
+}

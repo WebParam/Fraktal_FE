@@ -1,25 +1,20 @@
 "use client"
-
 import Image from 'next/image';
 import { useState } from 'react';
 import './jobs.scss';
 import Header from '../components/Header/Header';
 import MobileMenu from '../components/MobileMenu/MobileMenu';
-
+import { gigs } from '../gigs';
 import img23 from "../../assets/img/900x900/img23.jpg";
-import google from "../../assets/svg/brands/google.svg";
-import mailchimp from "../../assets/svg/brands/frontapp-icon.svg";
 import topVendor from "../../assets/svg/illustrations/top-vendor.svg";
 import capsule from "../../assets/svg/brands/capsule-icon.svg";
-import dropbox from "../../assets/svg/brands/dropbox-icon.svg";
-import prosperus from "../../assets/svg/brands/prosperops-icon.svg";
-import airbnb from "../../assets/svg/brands/flow-xo-gray.svg";
-import guideline from "../../assets/svg/brands/guideline-icon.svg";
 import img24 from "../../assets/img/900x900/img24.jpg";
 import Footer from '../components/Footer/Footer';
+import Link from 'next/link';
 
 function jobs() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
+
 
     return (
     <>
@@ -99,7 +94,8 @@ function jobs() {
                 </div>
                 {/* End Heading */}
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mb-5">
-                <div className="col mb-5">
+                {gigs.map(gig => (
+                <div className="col mb-5" key={gig.id}>
                     {/* Card */}
                     <div className="card card-bordered h-100">
                     {/* Card Body */}
@@ -109,11 +105,11 @@ function jobs() {
                             {/* Media */}
                             <div className="d-flex align-items-center">
                             <div className="flex-shrink-0">
-                                <Image className="avatar avatar-sm avatar-4x3" src={mailchimp} alt="Image Description" />
+                                <Image className="avatar avatar-sm avatar-4x3" src={gig.img} alt="Image Description" />
                             </div>
                             <div className="flex-grow-1 ms-3">
                                 <h6 className="card-title">
-                                <a className="text-dark" href="#">J-T Consulting</a>
+                                <a className="text-dark" href="#">{gig.companyname}</a>
                                 <Image className="avatar avatar-xss ms-1" src={topVendor} alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
                                 </h6>
                             </div>
@@ -124,243 +120,32 @@ function jobs() {
                         </div>
                         {/* End Row */}
                         <h3 className="card-title">
-                        <a className="text-dark" href="#">Senior Devops Engineer</a>
+                        <Link className="text-dark" href={`/fraktional-gig/${gig.id}`}>
+                            {gig.position}
+                        </Link>
                         </h3>
-                        <span className="d-block small text-body mb-1">R125k-R135k month</span>
+                        <span className="d-block small text-body mb-1">{gig.salary}</span>
                         <span className="badge me-2" style={{backgroundColor: 'lightpink', color: '#fff'}}>
-                        <span className="legend-indicator bg-info" />Remote
+                        <span className="legend-indicator bg-info" />{gig.remote}
                         </span>
                     </div>
                     {/* End Card Body */}
                     {/* Card Footer */}
                     <div className="card-footer pt-0">
                         <ul className="list-inline list-separator small text-body">
-                        <li className="list-inline-item">Posted today</li>
-                        <li className="list-inline-item">Johannesburg</li>
-                        <li className="list-inline-item">Full time</li>
+                        <li className="list-inline-item">Posted {gig.posted}</li>
+                        <li className="list-inline-item">{gig.location}</li>
+                        <li className="list-inline-item">{gig.jobType}</li>
                         </ul>
                     </div>
                     {/* End Card Footer */}
                     </div>
                     {/* End Card */}
                 </div>
+                ))}
+                
                 {/* End Col */}
-                <div className="col mb-5">
-                    {/* Card */}
-                    <div className="card card-bordered h-100">
-                    {/* Card Body */}
-                    <div className="card-body">
-                        <div className="row mb-3">
-                        <div className="col">
-                            {/* Media */}
-                            <div className="d-flex align-items-center">
-                            <div className="flex-shrink-0">
-                                <Image className="avatar avatar-sm avatar-4x3" src={capsule} alt="Image Description" />
-                            </div>
-                            <div className="flex-grow-1 ms-3">
-                                <h6 className="card-title">
-                                <a className="text-dark" href="../demo-jobs/employer.html">Tuto</a>
-                                </h6>
-                            </div>
-                            </div>
-                            {/* End Media */}
-                        </div>
-                        {/* End Col */}
-                        </div>
-                        {/* End Row */}
-                        <h3 className="card-title">
-                        <a className="text-dark" href="../demo-jobs/employer.html">Intermediate JS Front End Developer</a>
-                        </h3>
-                        <span className="d-block small text-body mb-1">R500 hourly</span>
-                    </div>
-                    {/* End Card Body */}
-                    {/* Card Footer */}
-                    <div className="card-footer pt-0">
-                        <ul className="list-inline list-separator small text-body">
-                        <li className="list-inline-item">Posted today</li>
-                        <li className="list-inline-item">Pretoria</li>
-                        <li className="list-inline-item">Part time</li>
-                        </ul>
-                    </div>
-                    {/* End Card Footer */}
-                    </div>
-                    {/* End Card */}
-                </div>
-                {/* End Col */}
-                <div className="col mb-5">
-                    {/* Card */}
-                    <div className="card card-bordered h-100">
-                    {/* Card Body */}
-                    <div className="card-body">
-                        <div className="row mb-3">
-                        <div className="col">
-                            {/* Media */}
-                            <div className="d-flex align-items-center">
-                            <div className="flex-shrink-0">
-                                <Image className="avatar avatar-sm avatar-4x3" src={capsule} alt="Image Description" />
-                            </div>
-                            <div className="flex-grow-1 ms-3">
-                                <h6 className="card-title">
-                                <a className="text-dark" href="../demo-jobs/employer.html">Tuto</a>
-                                </h6>
-                            </div>
-                            </div>
-                            {/* End Media */}
-                        </div>
-                        {/* End Col */}
-                        </div>
-                        {/* End Row */}
-                        <h3 className="card-title">
-                        <a className="text-dark" href="../demo-jobs/employer.html">Senior full-stack developer</a>
-                        </h3>
-                        <span className="d-block small text-body mb-1">R900 hourly</span>
-                    </div>
-                    {/* End Card Body */}
-                    {/* Card Footer */}
-                    <div className="card-footer pt-0">
-                        <ul className="list-inline list-separator small text-body">
-                        <li className="list-inline-item">Posted 1 day ago</li>
-                        <li className="list-inline-item">Pretoria</li>
-                        <li className="list-inline-item">Part time</li>
-                        </ul>
-                    </div>
-                    {/* End Card Footer */}
-                    </div>
-                    {/* End Card */}
-                </div>
-                {/* End Col */}
-                <div className="col mb-5">
-                    {/* Card */}
-                    <div className="card card-bordered h-100">
-                    {/* Card Body */}
-                    <div className="card-body">
-                        <div className="row mb-3">
-                        <div className="col">
-                            {/* Media */}
-                            <div className="d-flex align-items-center">
-                            <div className="flex-shrink-0">
-                                <Image className="avatar avatar-sm avatar-4x3" src={prosperus} alt="Image Description" />
-                            </div>
-                            <div className="flex-grow-1 ms-3">
-                                <h6 className="card-title">
-                                <a className="text-dark" href="../demo-jobs/employer.html">Prosperops</a>
-                                </h6>
-                            </div>
-                            </div>
-                            {/* End Media */}
-                        </div>
-                        {/* End Col */}
-                        </div>
-                        {/* End Row */}
-                        <h3 className="card-title">
-                        <a className="text-dark" href="../demo-jobs/employer.html">Senior Project Manager</a>
-                        </h3>
-                        <span className="d-block small text-body mb-1">R750 hourly</span>
-                        <span className="badge me-2"  style={{backgroundColor: 'lightpink', color: '#fff'}}>
-                        <span className="legend-indicator bg-info" />Remote
-                        </span>
-                    </div>
-                    {/* End Card Body */}
-                    {/* Card Footer */}
-                    <div className="card-footer pt-0">
-                        <ul className="list-inline list-separator small text-body">
-                        <li className="list-inline-item">Posted 1 day ago</li>
-                        <li className="list-inline-item">Cape town</li>
-                        <li className="list-inline-item">Full time</li>
-                        </ul> 
-                    </div>
-                    {/* End Card Footer */}
-                    </div>
-                    {/* End Card */}
-                </div>
-                {/* End Col */}
-                <div className="col mb-5">
-                    {/* Card */}
-                    <div className="card card-bordered h-100">
-                    {/* Card Body */}
-                    <div className="card-body">
-                        <div className="row mb-3">
-                        <div className="col">
-                            {/* Media */}
-                            <div className="d-flex align-items-center">
-                            <div className="flex-shrink-0">
-                                <Image className="avatar avatar-sm avatar-4x3" src={airbnb} alt="Image Description" />
-                            </div>
-                            <div className="flex-grow-1 ms-3">
-                                <h6 className="card-title">
-                                <a className="text-dark" href="../demo-jobs/employer.html">The App Lab</a>
-                                <Image className="avatar avatar-xss ms-1" src={topVendor} alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
-                                </h6>
-                            </div>
-                            </div>
-                            {/* End Media */}
-                        </div>
-                        {/* End Col */}
-                        </div>
-                        {/* End Row */}
-                        <h3 className="card-title">
-                        <a className="text-dark" href="../demo-jobs/employer.html">Senior product manager</a>
-                        </h3>
-                        <span className="d-block small text-body mb-1">R75K per month</span>
-                    </div>
-                    {/* End Card Body */}
-                    {/* Card Footer */}
-                    <div className="card-footer pt-0">
-                        <ul className="list-inline list-separator small text-body">
-                        <li className="list-inline-item">Posted 1 day ago</li>
-                        <li className="list-inline-item">Johannesburg</li>
-                        <li className="list-inline-item">Full time</li>
-                        </ul>
-                    </div>
-                    {/* End Card Footer */}
-                    </div>
-                    {/* End Card */}
-                </div>
-                {/* End Col */}
-                <div className="col mb-5">
-                    {/* Card */}
-                    <div className="card card-bordered h-100">
-                    {/* Card Body */}
-                    <div className="card-body">
-                        <div className="row mb-3">
-                        <div className="col">
-                            {/* Media */}
-                            <div className="d-flex align-items-center">
-                            <div className="flex-shrink-0">
-                                <Image className="avatar avatar-sm avatar-4x3" src={guideline} alt="Image Description" />
-                            </div>
-                            <div className="flex-grow-1 ms-3">
-                                <h6 className="card-title">
-                                <a className="text-dark" href="../demo-jobs/employer.html">Guideline</a>
-                                </h6>
-                            </div>
-                            </div>
-                            {/* End Media */}
-                        </div>
-                        {/* End Col */}
-                        </div>
-                        {/* End Row */}
-                        <h3 className="card-title">
-                        <a className="text-dark" href="../demo-jobs/employer.html">iOS Engineer</a>
-                        </h3>
-                        <span className="d-block small text-body mb-1">R800 hourly</span>
-                        <span className="badge me-2"  style={{backgroundColor: 'lightpink', color: '#fff'}}>
-                        <span className="legend-indicator bg-info" />Remote
-                        </span>
-                    </div>
-                    {/* End Card Body */}
-                    {/* Card Footer */}
-                    <div className="card-footer pt-0">
-                        <ul className="list-inline list-separator small text-body">
-                        <li className="list-inline-item">Posted 1 day ago</li>
-                        <li className="list-inline-item">Johannesburg</li>
-                        <li className="list-inline-item">Part time</li>
-                        </ul>
-                    </div>
-                    {/* End Card Footer */}
-                    </div>
-                    {/* End Card */}
-                </div>
+               
                 {/* End Col */}
                 </div>
                 {/* End Row */}

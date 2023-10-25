@@ -6,7 +6,7 @@ export interface IJobApplication{
     companyName:string,
     description:string; 
     jobTitle: string,
-    streetAddress:string,
+    streetAddress?:string,
     city:string,
     state:string,
     zipCode:string,

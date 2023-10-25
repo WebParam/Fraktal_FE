@@ -5,16 +5,21 @@ import './postJob.scss';
 import React, { useState, useEffect } from 'react';
 import { IJobApplication } from '../interfaces/IJobApplication';
 import { CreateJob } from '../endpoints/api';
-import AutoComplete from "react-google-autocomplete";
+// import AutoComplete from "react-google-autocomplete";
 import Footer from '../components/Footer/Footer';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from '../components/Header/Header';
+import MobileMenu from '../components/MobileMenu/MobileMenu';
 
 
 function PostJob() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const [activeStep, setActiveStep] = useState(0);
-
-    //formInputs
+    const [errorstyle1, setErrorStyle1] = useState(false);
+    const [errorstyle2, setErrorStyle2] = useState(false);
+    const [errorstyle4, setErrorStyle4] = useState(false);
+    const [errorstyle6, setErrorStyle6] = useState(false); 
+    const [errorstyle7, setErrorStyle7] = useState(false); 
+    //formInput4
     const [country, setCountry] = useState(0);
     const [language, setLanguage] = useState(0);
     const [companyName, setCompanyName] = useState('');
@@ -28,13 +33,13 @@ function PostJob() {
     const [zipCode, setZipCode] = useState('');
     const [remote, setRemote] = useState(0);
     const [jobtype, setJobType] = useState(0);
-    const [hires, setHires] = useState('');
-    const [urgency, setUrgency] = useState('');
+    const [hires, setHires] = useState('1');
+    const [urgency, setUrgency] = useState('More than 4 weeks');
     const [pay, setPay] = useState(0);
     const [currency, setCurrency] = useState('');
     const [fromDate, setFromDate] = useState('');
     const [toDate, setToDate] = useState('');
-    const [period, setPeriod] = useState('');
+    const [period, setPeriod] = useState('Annually');
     const [signingBonus, setSigningBonus] = useState(0);
     const [commisionPay, setCommisionPay] = useState(0);
     const [bonusPay, setBonusPay] = useState(0);
@@ -67,6 +72,7 @@ function PostJob() {
     const [dailyUpdateEmail, setDailyUpdateEmail] = useState(0 !== 0);
     const [individualUpDateEmail, setIndividualUpDateEmail] = useState(0 !== 0);
     const [description, setDescription] = useState('');
+  
 
 
     async function createJobPost(){
@@ -178,16 +184,63 @@ function mapValueToText(value:number, options:any){
   // const handleInputChange = (e : any) => {
   //   setCompanyName(e.target.value);
   // };
+
+  const goToSecondSlide = () => {
+      if (companyName.length > 1 && jobTitle.length > 1) {
+        setErrorStyle1(false);
+        setActiveStep(state => 1)
+      }
+
+        setErrorStyle1(true);
+  }
+
+  const goToThirdSlide = () => {
+    if (city.length > 1 && state.length > 1 && zipCode.length > 3) {
+      setErrorStyle2(false);
+      setActiveStep(state => 2)
+    }
+
+      setErrorStyle2(true);
+  }
+
+  const goToFifththSlide = () => {
+    if (pay > 0 && fromDate.length === 10 && toDate.length === 10) {
+      setErrorStyle4(false);
+      setActiveStep(state => 4)
+    }
+
+      setErrorStyle4(true);
+  }
+
+  const goToSixthSlide = () => {
+    if (website.length > 5) {
+      setErrorStyle6(false);
+      setActiveStep(state => 5)
+    }
+
+      setErrorStyle6(true);
+  }
+
+  const goToSeventhSlide = () => {
+    if (description.length > 80) {
+      setErrorStyle7(false);
+      setActiveStep(state => 6)
+    }
+
+      setErrorStyle7(true);
+  }
+
     return (
-
-
-<>
   <>
-
+    <Header 
+        menuTogglerFunction={setMenuToggler} 
+        menuTogglerValue={menuToggler}  
+      />
+  <MobileMenu menuToggler={menuToggler} />
   {/* ========== MAIN CONTENT ========== */}
   <main id="content" role="main">
     {/* Content */}
-    <div className="container content-space-2">
+    <div className="container content-space-2" style={{position: 'relative', top: '80px'}}>
       {/* Step Form */}
       <form
         className="js-step-form"
@@ -221,7 +274,7 @@ function mapValueToText(value:number, options:any){
                   <li className={`step-item ${activeStep==0? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                      onClick={()=>{setStepActive(0)}}
+                      // onClick={()=>{setStepActive(0)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepBasic"
                 }'
@@ -238,7 +291,7 @@ function mapValueToText(value:number, options:any){
                   <li className={`step-item ${activeStep==1? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                      onClick={()=>{setStepActive(1)}}
+                      // onClick={()=>{setStepActive(1)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepAddress"
                 }'
@@ -255,7 +308,7 @@ function mapValueToText(value:number, options:any){
                   <li className={`step-item ${activeStep==2? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                     onClick={()=>{setStepActive(2)}}
+                    //  onClick={()=>{setStepActive(2)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepJobDetails"
                 }'
@@ -272,7 +325,7 @@ function mapValueToText(value:number, options:any){
                   <li className={`step-item ${activeStep==3? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                      onClick={()=>{setStepActive(3)}}
+                      // onClick={()=>{setStepActive(3)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepPayment"
                 }'
@@ -289,7 +342,7 @@ function mapValueToText(value:number, options:any){
                   <li className={`step-item ${activeStep==4? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                      onClick={()=>{setStepActive(4)}}
+                      // onClick={()=>{setStepActive(4)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepAdditionalJobDetails"
                 }'
@@ -308,7 +361,7 @@ function mapValueToText(value:number, options:any){
                   <li className={`step-item ${activeStep==5? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                      onClick={()=>{setStepActive(5)}}
+                      // onClick={()=>{setStepActive(5)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepJobDescription"
                 }'
@@ -325,7 +378,7 @@ function mapValueToText(value:number, options:any){
                   <li className={`step-item ${activeStep==6? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                      onClick={()=>{setStepActive(6)}}
+                      // onClick={()=>{setStepActive(6)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepJobApplicationSettings"
                 }'
@@ -397,7 +450,7 @@ function mapValueToText(value:number, options:any){
                       name="languageSelect"
                       onChange={((e)=>setLanguage(parseInt(e.target.value)))}
                     >
-                      <option label="empty" />
+                      <option value={0}>English (US)</option>
                       <option value={0} selected={language==0}>English (US)</option>
                       <option value={1} selected={language==1}>
                         English (UK)
@@ -425,6 +478,7 @@ function mapValueToText(value:number, options:any){
                       placeholder="Htmlstream"
                       aria-label="Htmlstream"
                       onChange={(e) => setCompanyName(String(e.target.value))}
+                      required
                     />
                   </div>
                   {/* End Form */}
@@ -441,6 +495,7 @@ function mapValueToText(value:number, options:any){
                       placeholder="UI/UX Designer"
                       aria-label="UI/UX Designer"
                       onChange={((e)=>setJobTitle(e.target.value))}
+                      required
                     />
                   </div>
                   {/* End Form */}
@@ -448,9 +503,10 @@ function mapValueToText(value:number, options:any){
                 {/* End Body */}
                 {/* Footer */}
                 <div className="card-footer pt-0">
+                  {errorstyle1 && <span style={{color: 'red'}}>please fill all fields</span>}
                   <div className="d-flex justify-content-end align-items-center">
                     <button
-                    onClick={()=>{setStepActive(1)}}
+                    onClick={()=>{goToSecondSlide()}}
                       type="button"
                       className="btn btn-primary"
                       style={{ 
@@ -504,7 +560,7 @@ function mapValueToText(value:number, options:any){
                       We won't share your street address. We use your location
                       to find candidates in your area.
                     </p>
-                    <AutoComplete
+                    {/* <AutoComplete
                         apiKey={"AIzaSyDsGw9PT-FBFk7DvGK46BpvEURMxcfJX5k"}
                         onPlaceSelected={(place) => {
                           console.log(place);
@@ -520,7 +576,13 @@ function mapValueToText(value:number, options:any){
                           componentRestrictions: { country: "za" },
                         }}
                       />
-                       
+                        */}
+                        <input 
+                          type='text'
+                          placeholder='street address'
+                          value={streetAddress}
+                          onChange={(e) => setStreetAddress(e.target.value)}
+                          />
 
                   </div>
                   {/* End Form */}
@@ -536,9 +598,10 @@ function mapValueToText(value:number, options:any){
                           className="form-control"
                           name="cityName"
                           id="cityLabel"
-                          placeholder="London"
-                          aria-label="London"
+                          placeholder="Johannesburg"
+                          aria-label="Johannesburg"
                           onChange={((e)=>setCity(e.target.value))}
+                          
                         />
                       </div>
                       {/* End Form */}
@@ -607,6 +670,7 @@ function mapValueToText(value:number, options:any){
                             id="remoteOccasionRadio1"
                             defaultChecked={true}
                             onChange={handleRemoteChange}
+                            checked
                           />
                           <span className="form-check-label">No</span>
                         </span>
@@ -651,12 +715,14 @@ function mapValueToText(value:number, options:any){
                       {/* Custom Radio */}
                     
                     </div>
+                    {errorstyle2 && <span style={{color: 'red'}}>please fill all fields</span>}
                   </div>
                   {/* End Form */}
                 </div>
                 {/* End Body */}
                 {/* Footer */}
                 <div className="card-footer pt-0">
+                 
                   <div className="d-flex align-items-center">
                     <button
                     onClick={()=>{setStepActive(0)}}
@@ -670,7 +736,7 @@ function mapValueToText(value:number, options:any){
                     </button>
                     <div className="ms-auto">
                       <button
-                      onClick={()=>{setStepActive(2)}}
+                      onClick={()=>{goToThirdSlide()}}
                         type="button"
                         className="btn btn-primary"
                         style={{ 
@@ -727,7 +793,7 @@ function mapValueToText(value:number, options:any){
                             id="jobTypeRadio1"
                             defaultChecked={true}
                             onChange={handleJobTypeChange}
-                            
+                            checked
                           />
                           <span className="form-check-label">Full time</span>
                         </span>
@@ -823,19 +889,19 @@ function mapValueToText(value:number, options:any){
                       name="numberOfHiresSelect"
                       onChange={((e)=>setHires(e.target.value))}
                     >
-                      <option value="numberOfHires1" selected={true}>
+                      <option value="1" selected>
                         1
                       </option>
-                      <option value="numberOfHires2">2</option>
-                      <option value="numberOfHires3">3</option>
-                      <option value="numberOfHires4">4</option>
-                      <option value="numberOfHires5">5</option>
-                      <option value="numberOfHires6">6</option>
-                      <option value="numberOfHires7">7</option>
-                      <option value="numberOfHires8">8</option>
-                      <option value="numberOfHires9">9</option>
-                      <option value="numberOfHires10">10</option>
-                      <option value="numberOfHires10+">10+ hires</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="10+">10+ hires</option>
                       <option value="numberOfHiresOngoingNeed">
                         I have an ongoing need to fill this role
                       </option>
@@ -862,7 +928,7 @@ function mapValueToText(value:number, options:any){
                       <option value="3 to 7 days">3 to 7 days</option>
                       <option value="1 to 2 weeks">1 to 2 weeks</option>
                       <option value="2 to 4 weeks">2 to 4 weeks</option>
-                      <option value=" More than 4 weeks" selected={true}>
+                      <option value="More than 4 weeks" selected>
                         More than 4 weeks
                       </option>
                     </select>
@@ -1012,8 +1078,15 @@ function mapValueToText(value:number, options:any){
                           name="salaryFromName"
                           id="salaryFromLabel"
                           placeholder={"10-10-2023"}
-                          onChange={((e)=>setFromDate(e.target.value))}
-                          // aria-label={0}
+                          onChange={(e) => {
+                            const inputText = e.target.value;
+                            // Use a regular expression to check if the input matches the desired format
+                            const isValidFormat = /^\d{2}-\d{2}-\d{4}$/.test(inputText);
+                        
+                            if (isValidFormat) {
+                              setFromDate(inputText);
+                            }
+                          }}
                         />
                       </div>
                       {/* End Form */}
@@ -1031,7 +1104,15 @@ function mapValueToText(value:number, options:any){
                           name="salaryToName"
                           id="salaryToLabel"
                           placeholder={"10-10-2024"}
-                          onChange={((e)=>setToDate(e.target.value))}
+                          onChange={(e) => {
+                            const inputTextto = e.target.value;
+                            // Use a regular expression to check if the input matches the desired format
+                            const isValidFormat = /^\d{2}-\d{2}-\d{4}$/.test(inputTextto);
+                        
+                            if (isValidFormat) {
+                              setToDate(inputTextto);
+                            }
+                          }}
                           // aria-label={0}
                         />
                       </div>
@@ -1066,6 +1147,7 @@ function mapValueToText(value:number, options:any){
                       </div>
                       {/* End Form */}
                     </div>
+                  
                     {/* End Col */}
                   </div>
                   {/* End Row */}
@@ -1517,6 +1599,7 @@ function mapValueToText(value:number, options:any){
                       {/* End Col */}
                     </div>
                     {/* End Row */}
+                      {errorstyle4 && <span style={{color: 'red'}}>Please check date format, and Amount must not be empty</span>}
                   </div>
                   {/* End Form */}
                 </div>
@@ -1536,7 +1619,7 @@ function mapValueToText(value:number, options:any){
                     </button>
                     <div className="ms-auto">
                       <button
-                      onClick={()=>{setStepActive(4)}}
+                      onClick={()=>{goToFifththSlide()}}
                         type="button"
                         className="btn btn-primary"
                         style={{ 
@@ -1594,6 +1677,7 @@ function mapValueToText(value:number, options:any){
                             className="form-check-input"
                             name="officeHoursCheckboxName"
                             id="officeHoursCheckbox1"
+                            checked
                           />
                           <span className="form-check-label">8 hour shift</span>
                         </span>
@@ -1778,10 +1862,11 @@ function mapValueToText(value:number, options:any){
                       className="form-control"
                       name="companyWebsite"
                       id="companyWebsiteLabel"
-                      placeholder="http://site.com/"
-                      aria-label="http://site.com/"
+                      placeholder="http://site.com"
+                      aria-label="http://site.com"
                       onChange={((e)=>setWebsite(e.target.value))}
                     />
+                      {errorstyle6 && <span style={{color: 'red'}}>Website is required</span>}
                   </div>
                   {/* End Form */}
                 </div>
@@ -1801,7 +1886,7 @@ function mapValueToText(value:number, options:any){
                     </button>
                     <div className="ms-auto">
                       <button
-                      onClick={()=>{setStepActive(5)}}
+                      onClick={()=>{goToSixthSlide()}}
                         type="button"
                         className="btn btn-primary"
                         style={{ 
@@ -1847,41 +1932,11 @@ function mapValueToText(value:number, options:any){
                       Describe the responsibilities of this job, required work
                       experience, skills, or education.
                     </label>
-                    {/* <div className="mb-3">
-                      <a
-                        href="javascript:;"
-                        data-bs-toggle="modal"
-                        data-bs-target="#realEstateUploadFiles"
-                      >
-                        Upload a .pdf or .docx
-                      </a>
-                    </div> */}
-                    {/* Quill */}
-                    <div className="quill-custom">
-                      {/* <div
-                        className="js-quill"
-                        style={{ height: "15rem" }}
-                        data-hs-quill-options='{
-                     "placeholder": "Type your message...",
-                      "modules": {
-                        "toolbar": [
-                          ["bold", "italic", "underline", "strike", "link", "image", "blockquote", "code", {"list": "bullet"}]
-                        ]
-                      }
-                     }'
-                      ></div> */}
-                    </div>
-                    {/* End Quill */}
                   </div>
                   {/* End Form */}
                   {/* Form */}
                   <div className="mb-4">
-                    {/* <label className="form-label">
-                      Include COVID-19 precautions{" "}
-                      <span className="badge bg-soft-dark text-dark ms-1">
-                        Important to job seekers
-                      </span>
-                    </label> */}
+
                     <p className="small mt-n2">
                       We'll save this information to make posting faster in the
                       future.
@@ -2041,6 +2096,7 @@ function mapValueToText(value:number, options:any){
                         }'
                       defaultValue={""}
                     />
+                      {errorstyle7 && <span style={{color: 'red'}}>Please provide a description of more than 80 characters</span>}
                   </div>
                   {/* End Form */}
                 </div>
@@ -2066,7 +2122,7 @@ function mapValueToText(value:number, options:any){
                           background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
                           color: 'white'
                         }}
-                        onClick={()=>{setStepActive(6)}}
+                        onClick={()=>{goToSeventhSlide()}}
                         data-hs-step-form-next-options='{
                           "targetSelector": "#postJobStepJobApplicationSettings"
                         }'
@@ -2099,7 +2155,6 @@ function mapValueToText(value:number, options:any){
                   </div>
                 </div>
                 {/* End Header */}
-                {/* Body */}
                 <div className="card-body">
                   {/* Form */}
                   <div className="mb-4">
@@ -2384,15 +2439,7 @@ function mapValueToText(value:number, options:any){
                         {/* End Col */}
                         <div className="col-sm-4">
                           <div className="d-sm-flex justify-content-sm-end">
-                            {/* <button
-                              type="button"
-                              className="btn btn-sm btn-outline-primary"
-                              data-hs-step-form-prev-options='{
-                          "targetSelector": "#postJobStepAddress"
-                        }'
-                            >
-                              <i className="bi-pencil-fill small me-1" /> Edit
-                            </button> */}
+
                           </div>
                         </div>
                         {/* End Col */}
@@ -2786,11 +2833,10 @@ function mapValueToText(value:number, options:any){
     {/* End Content */}
   </main>
   {/* ========== END MAIN CONTENT ========== */}
-</>
-<Footer/>
-</>
+  <Footer/>
+  </>
    
-    );
+  );
 }
 
 export default PostJob;
