@@ -11,6 +11,69 @@ import { useState } from 'react';
 function viewGig({ params }: { params: { id: string }}) {
     const gig = gigs.find(item => item.id === parseInt(params.id));
 
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [summary, setSummary] = useState('');
+    const [resume, setResume] = useState(null)
+    const [workStatus, setWorkStatus] = useState('yes');
+    const [notice, setnotice] = useState('');
+    const [portfolio, setPortfolio] = useState([]);
+    const [expectedSalary, setExpectedSalary] = useState('');
+    const [mobileExp, setMobileExp] = useState('');
+
+    const handleFirstName = (e: any) => {
+        setFirstName(e.target.value);
+    }
+
+    
+    const handleLastName = (e: any) => {
+        setLastName(e.target.value);
+    }
+
+    
+    const handleEmail = (e: any) => {
+        setEmail(e.target.value);
+    }
+
+    
+    const handlePhone= (e: any) => {
+        setPhone(e.target.value);
+    }
+
+    
+    const handleSummary = (e: any) => {
+        setSummary(e.target.value);
+    }
+
+    const handleWorkStatusChange = (value: any) => {
+        setWorkStatus(value);
+      };
+
+    const handleNotice = (e: any) => {
+        setnotice(e.target.value);
+    }
+    
+    const handleSalary = (e: any) => {
+        setExpectedSalary(e.target.value);
+    }
+
+    const handleMobileExp = (value: any) => {
+        setMobileExp(value);
+      };
+
+
+    const handleResume = (e: any) => {
+        const file = e.target.files[0];
+        setResume(file);
+      };
+
+      const handlePortfolio = (e: any) => {
+        const file = e.target.files[0];
+        setPortfolio(file);
+      };
+
 
     return (
     <main id="content" role="main">
@@ -126,7 +189,16 @@ function viewGig({ params }: { params: { id: string }}) {
                     {/* Form */}
                     <div className="mb-4">
                     <label className="form-label" htmlFor="applyForJobFirstName">First name</label>
-                    <input type="text" className="form-control" name="applyForJobNameFirstName" id="applyForJobFirstName" placeholder="First name" aria-label="First name" />
+                    <input 
+                        type="text" 
+                        className="form-control" 
+                        name="applyForJobNameFirstName" 
+                        id="applyForJobFirstName" 
+                        placeholder="First name" 
+                        aria-label="First name" 
+                        value={firstName}
+                        onChange={handleFirstName}
+                    />
                     </div>
                     {/* End Form */}
                 </div>
@@ -134,7 +206,16 @@ function viewGig({ params }: { params: { id: string }}) {
                     {/* Form */}
                     <div className="mb-4">
                     <label className="form-label" htmlFor="applyForJobLasttName">Last name</label>
-                    <input type="text" className="form-control" name="applyForJobNameLastName" id="applyForJobLasttName" placeholder="Last name" aria-label="Last name" />
+                    <input 
+                        type="text" 
+                        className="form-control" 
+                        name="applyForJobNameLastName" 
+                        id="applyForJobLasttName" 
+                        placeholder="Last name" 
+                        aria-label="Last name" 
+                        value={lastName}
+                        onChange={handleLastName}
+                    />
                     </div>
                     {/* End Form */}
                 </div>
@@ -143,7 +224,16 @@ function viewGig({ params }: { params: { id: string }}) {
                 {/* Form */}
                 <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobEmail">Email address</label>
-                <input type="email" className="form-control" name="applyForJobNameEmail" id="applyForJobEmail" placeholder="email@site.com" aria-label="email@site.com" />
+                <input 
+                    type="email" 
+                    className="form-control" 
+                    name="applyForJobNameEmail" 
+                    id="applyForJobEmail" 
+                    placeholder="email@site.com" 
+                    aria-label="email@site.com"
+                    value={email}
+                    onChange={handleEmail}
+                />
                 </div>
                 {/* End Form */}
                 {/* Form */}
@@ -154,9 +244,19 @@ function viewGig({ params }: { params: { id: string }}) {
                 }">
                 <label className="form-label" htmlFor="applyForJobPhone">Phone <span className="form-label-secondary">(Optional)</span></label>
                 <div className="input-group">
-                    <input type="text" className="js-input-mask form-control" name="applyForJobNamePhone" id="applyForJobPhone" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" data-hs-mask-options="{
-                        &quot;mask&quot;: &quot;+{0}(000)000-00-00&quot;
-                        }" />
+                    <input 
+                        type="text" 
+                        className="js-input-mask form-control" 
+                        name="applyForJobNamePhone" 
+                        id="applyForJobPhone" 
+                        placeholder="+x(xxx)xxx-xx-xx" 
+                        aria-label="+x(xxx)xxx-xx-xx" 
+                        value={phone}
+                        onChange={handlePhone}
+                        data-hs-mask-options="{
+                            &quot;mask&quot;: &quot;+{0}(000)000-00-00&quot;
+                            }" 
+                    />
                     {/* Select */}
                     <select className="form-select" name="applyForJobPhoneSelect" style={{maxWidth: '8rem'}}>
                     <option value="Mobile" selected>Mobile</option>
@@ -202,7 +302,15 @@ function viewGig({ params }: { params: { id: string }}) {
                 {/* Form */}
                 <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobSummary">Summary</label>
-                <textarea className="form-control" name="applyForJobSummaryName" id="applyForJobSummary" placeholder="In a few words, tell us about yourself" aria-label="In a few words, tell us about yourself" rows={6} defaultValue={""} />
+                <textarea 
+                className="form-control" 
+                name="applyForJobSummaryName" 
+                id="applyForJobSummary" 
+                placeholder="In a few words, tell us about yourself" 
+                aria-label="In a few words, tell us about yourself" 
+                rows={6} 
+                value={summary}
+                onChange={handleSummary} />
                 </div>
                 {/* End Form */}
                 {/* Form */}
@@ -210,8 +318,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 <label className="form-label">Resume/CV and Cover Letter <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Maximum file size 10 MB." data-bs-original-title="Maximum file size 10 MB." /></label>
                 <div id="resumeAttach" className="js-dropzone dz-dropzone dz-dropzone-card dz-clickable">
                     <div className="dz-message">
-                    <span className="d-block mb-1">Browse your files</span>
-                    <span className="d-block text-muted small">or drag' n' drop here</span>
+                    <input type="file" name="resume" id="resume" onChange={handleResume} />
                     </div>
                 </div>
                 </div>
@@ -225,16 +332,41 @@ function viewGig({ params }: { params: { id: string }}) {
                 </div>
                 {/* Radio Button Group */}
                 <div className="btn-group btn-group-segment mb-4" role="group" aria-label="Work status radio button group">
-                <input type="radio" className="btn-check" name="applyForJobWorkStatusBtnRadio" id="applyForJobWorkStatusYesBtnRadio" autoComplete="off" />
+                <input 
+                    type="radio" 
+                    className="btn-check" 
+                    name="applyForJobWorkStatusBtnRadio" 
+                    id="applyForJobWorkStatusYesBtnRadio" 
+                    autoComplete="off" 
+                    checked={workStatus === 'yes'} 
+                    onChange={() => handleWorkStatusChange('no')} 
+                />
                 <label className="btn btn-sm" htmlFor="applyForJobWorkStatusYesBtnRadio"><i className="bi-hand-thumbs-up me-1" /> Yes</label>
-                <input type="radio" className="btn-check" name="applyForJobWorkStatusBtnRadio" id="applyForJobWorkStatusNoBtnRadio" autoComplete="off" />
+                <input 
+                    type="radio" 
+                    className="btn-check" 
+                    name="applyForJobWorkStatusBtnRadio" 
+                    id="applyForJobWorkStatusNoBtnRadio" 
+                    autoComplete="off" 
+                    checked={workStatus === 'no'} 
+                    onChange={() => handleWorkStatusChange('no')} 
+                />
                 <label className="btn btn-sm" htmlFor="applyForJobWorkStatusNoBtnRadio"><i className="bi-hand-thumbs-down me-1" /> No</label>
                 </div>
                 {/* End Radio Button Group */}
                 {/* Form */}
                 <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobNoticePeriod">Notice period</label>
-                <input type="text" className="form-control" name="applyForJobNameNoticePeriod" id="applyForJobNoticePeriod" placeholder="2 months" aria-label="2 months" />
+                <input 
+                    type="text" 
+                    className="form-control" 
+                    name="applyForJobNameNoticePeriod" 
+                    id="applyForJobNoticePeriod" 
+                    placeholder="2 months" 
+                    aria-label="2 months"
+                    value={notice}
+                    onChange={handleNotice}
+                />
                 </div>
                 {/* End Form */}
                 {/* Form */}
@@ -242,8 +374,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 <label className="form-label">Upload your portfolio <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Maximum file size 10 MB." data-bs-original-title="Maximum file size 10 MB." /></label>
                 <div id="portfolioAttach" className="js-dropzone dz-dropzone dz-dropzone-card dz-clickable">
                     <div className="dz-message">
-                    <span className="d-block mb-1">Browse your files</span>
-                    <span className="d-block text-muted small">or drag' n' drop here</span>
+                    <input type="file" name="portfolio" id="porfolio" onChange={handlePortfolio} />
                     </div>
                 </div>
                 </div>
@@ -251,22 +382,48 @@ function viewGig({ params }: { params: { id: string }}) {
                 {/* Form */}
                 <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobExpectedSalary">Expected salary</label>
-                <input type="text" className="form-control" name="applyForJobNameExpectedSalary" id="applyForJobExpectedSalary" placeholder="$5k-$7k" aria-label="$5k-$7k" />
+                <input 
+                    type="text" 
+                    className="form-control" 
+                    name="applyForJobNameExpectedSalary" 
+                    id="applyForJobExpectedSalary" 
+                    placeholder="$5k-$7k" 
+                    aria-label="$5k-$7k"
+                    value={expectedSalary}
+                    onChange={handleSalary} 
+                />
                 </div>
                 {/* End Form */}
                 <div className="mb-1">
                 <label className="input-label">Do you have experience designing for mobile?</label>
                 </div>
                 {/* Radio Button Group */}
-                <div className="btn-group btn-group-segment mb-4" role="group" aria-label="Work status radio button group">
-                <input type="radio" className="btn-check" name="applyForJobWorkExperienceBtnRadio" id="applyForJobWorkExperienceYesBtnRadio" autoComplete="off" />
-                <label className="btn btn-sm" htmlFor="applyForJobWorkExperienceYesBtnRadio"><i className="bi-hand-thumbs-up me-1" /> Yes</label>
-                <input type="radio" className="btn-check" name="applyForJobWorkExperienceBtnRadio" id="applyForJobWorkExperienceNoBtnRadio" autoComplete="off" />
-                <label className="btn btn-sm" htmlFor="applyForJobWorkExperienceNoBtnRadio"><i className="bi-hand-thumbs-down me-1" /> No</label>
+                <div className="btn-group btn-group-segment mb-4" role="group" aria-label="Mobile experience radio button group">
+                    <input
+                    type="radio"
+                    className="btn-check"
+                    name="applyForJobWorkExperienceBtnRadio"
+                    id="applyForJobWorkExperienceYesBtnRadio"
+                    autoComplete="off"
+                    checked={mobileExp === 'yes'} // Check if 'Yes' is selected
+                    onChange={() => handleMobileExp('yes')} // Handle 'Yes' selection
+                    />
+                    <label className="btn btn-sm" htmlFor="applyForJobWorkExperienceYesBtnRadio"><i className="bi-hand-thumbs-up me-1" /> Yes</label>
+
+                    <input
+                    type="radio"
+                    className="btn-check"
+                    name="applyForJobWorkExperienceBtnRadio"
+                    id="applyForJobWorkExperienceNoBtnRadio"
+                    autoComplete="off"
+                    checked={mobileExp === 'no'} // Check if 'No' is selected
+                    onChange={() => handleMobileExp('no')} // Handle 'No' selection
+                    />
+                    <label className="btn btn-sm" htmlFor="applyForJobWorkExperienceNoBtnRadio"><i className="bi-hand-thumbs-down me-1" /> No</label>
                 </div>
                 {/* End Radio Button Group */}
                 <div className="d-grid mt-5">
-                <button type="submit" className="btn btn-primary btn-lg">Send application</button>
+                <button type="submit" className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Send application</button>
                 </div>
             </form>
             {/* End Form */}
