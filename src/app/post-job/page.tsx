@@ -119,7 +119,7 @@ function PostJob() {
         noBenefits: noBenefits,
         jobSchedule: jobSchedule,
         website: website,
-        responsibilities: 'None',
+        responsibilities: responsibilities,
         methodToRecieveApplications: methodToRecieveApplications,
         submitResume: submitResume,
         dailyUpdateEmailAddress: dailyUpdateEmailAddress,
