@@ -158,6 +158,19 @@ function PostJob() {
     "Internship",
     "Commission Only"
   ]
+  const scheduleOptions = [
+    "8 Hour Shift",
+    "10 Hour Shift",
+    "12 Hour Shift",
+    "Weekends",
+    "Monday to Friday",
+    "On Call",
+    "Holidays",
+    "Night Shift",
+    "Overtime",
+    "Day Shift",
+    "Other"
+  ]
 
   const languageOptions = [
     "English(US)",
@@ -172,6 +185,22 @@ function PostJob() {
 function mapValueToText(value:number, options:any){
   return options[value]
 }
+
+const submitOptions = [
+  "Yes",
+  "No",
+  "Optional"
+]
+  const methodOptions = [
+    "Email",
+    "Phone",
+    "In-person"
+
+  ]
+
+
+
+
   const handleRemoteChange = (e : any) => {
     const newValue = parseFloat(e.target.value);
     setRemote(newValue);
@@ -2099,6 +2128,34 @@ function mapValueToText(value:number, options:any){
                       {errorstyle7 && <span style={{color: 'red'}}>Please provide a description of more than 80 characters</span>}
                   </div>
                   {/* End Form */}
+                     {/* Form */}
+                     <div className="mb-4">
+                    <div className="row mb-2">
+                      <div className="col-auto align-self-end">
+                        <h5>Please enter the responsibilities</h5>
+                        <span
+                          id="additionalCovid19PrecautionsCountCharacters"
+                          className="text-muted"
+                        />
+                      </div>
+                    </div>
+                    {/* End Row */}
+                    <textarea
+                      id="additionalCovid19PrecautionsLabel"
+                      className="js-count-characters form-control"
+                      placeholder="Ex: Applicant must be able to code in React and angular and know a bit of PHP"
+                      aria-label="Ex: All customers are required to wear a mask, curbside pickup available, common surfaces are sanitized regularly, etc."
+                      rows={4}
+                      onChange={((e)=>setResponsibilities(e.target.value))}
+                      maxLength={250}
+                      data-hs-count-characters-options='{
+                          "output": "#additionalCovid19PrecautionsCountCharacters"
+                        }'
+                      defaultValue={""}
+                    />
+                      {errorstyle7 && <span style={{color: 'red'}}>Please provide a description of more than 80 characters</span>}
+                  </div>
+                  {/* End Form */}
                 </div>
                 {/* End Body */}
                 {/* Footer */}
@@ -2609,6 +2666,84 @@ function mapValueToText(value:number, options:any){
                     <li className="border-bottom">
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
+                          <h5>Job Responsibilities</h5>
+                          <p>{responsibilities}</p>
+                          {/* <h5>About you:</h5>
+                          <ul className="mb-3">
+                            <li>
+                              You're always on top of the latest design trends,
+                              ambassador of Apple Humans guidelines and Google
+                              Material design and a good understanding of
+                              transitions and haptic feedback.
+                            </li>
+                            <li>
+                              You're a quick learner, always open-minded and
+                              curious, and eager to learn new skills.
+                            </li>
+                            <li>
+                              You have a keen interest and knowledge of
+                              gamification and the user onboarding process.
+                            </li>
+                            <li>
+                              You've got a can-do attitude, have a proactive
+                              approach to your work, are autonomous and take
+                              ownership of your work; a perfectionist and are
+                              used to working in a fast-paced environment.
+                            </li>
+                          </ul> */}
+                          {/* <h5>Requirements:</h5>
+                          <ul className="mb-3">
+                            <li>
+                              You're a driven designer and have a minimum of 2-3
+                              years of experience in delivering both UX &amp; UI
+                              design, including experience in mobile and native
+                              applications.
+                            </li>
+                            <li>
+                              You've got proven mobile design and proven UI
+                              experience on mobile app design and web: working
+                              with sketches, prototypes, wireframes, user flows
+                              and UI interactions.
+                            </li>
+                            <li>
+                              Your portfolio is full of beautiful, well thought
+                              out interface work that showcases your flair and
+                              attention-to-detail. It includes examples of
+                              mobile and app products you have worked on (iOS
+                              and Android)
+                            </li>
+                            <li>
+                              You've used Figma and are an Adobe Creative Cloud
+                              expert (Photoshop, Illustrator, After Effects).
+                            </li>
+                          </ul> */}
+                          {/* <h5>COVID-19 precautions</h5>
+                          <span className="d-block">
+                            Remote interview process
+                          </span> */}
+                        </div>
+                        {/* End Col */}
+                        <div className="col-sm-4">
+                          <div className="d-sm-flex justify-content-sm-end">
+                            <button
+                              type="button"
+                              onClick={()=>{setStepActive(5)}}
+                              className="btn btn-sm btn-outline-primary"
+                              data-hs-step-form-prev-options='{
+                          "targetSelector": "#postJobStepJobDescription"
+                        }'
+                            >
+                              <i className="bi-pencil-fill small me-1" /> Edit
+                            </button>
+                          </div>
+                        </div>
+                        {/* End Col */}
+                      </div>
+                      {/* End Row */}
+                    </li>
+                    <li className="border-bottom">
+                      <div className="row">
+                        <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Language</h5>
                           <span className="d-block">{mapValueToText(language,languageOptions)}</span>
                         </div>
@@ -2684,7 +2819,7 @@ function mapValueToText(value:number, options:any){
                       <div className="row">
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Schedule</h5>
-                          <span className="d-block">{jobSchedule}</span>
+                          <span className="d-block">{mapValueToText(jobSchedule,scheduleOptions)}</span>
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2711,7 +2846,7 @@ function mapValueToText(value:number, options:any){
                           <h5>Application Settings</h5>
                           <span className="d-block">
                             Apply method:{" "}
-                            <span className="fw-semibold text-dark">{methodToRecieveApplications}</span>
+                            <span className="fw-semibold text-dark">{mapValueToText(methodToRecieveApplications,methodOptions)}</span>
                           </span>
                           <span className="d-block mb-2">
                             Send updates to:{" "}
@@ -2721,7 +2856,7 @@ function mapValueToText(value:number, options:any){
                           </span>
                           <span className="d-block">
                             Do you want applicants to submit a resume?{" "}
-                            <span className="fw-semibold text-dark">{submitResume}</span>
+                            <span className="fw-semibold text-dark">{mapValueToText(submitResume,submitOptions)}</span>
                           </span>
                         </div>
                         {/* End Col */}
@@ -2748,7 +2883,7 @@ function mapValueToText(value:number, options:any){
                     By clicking "Confirm", you agree to candidates appearing in
                     your dashboard based on the preferences you've selected
                     above. You also agree to our{" "}
-                    <a href="#">Front Jobs Terms of Service</a>.
+                    <a href="#">Fraktional Terms of Service</a>.
                   </p>
                 </div>
                 {/* End Body */}
@@ -2840,3 +2975,5 @@ function mapValueToText(value:number, options:any){
 }
 
 export default PostJob;
+
+
