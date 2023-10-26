@@ -168,7 +168,7 @@ function Register() {
              // setDisable(false)
               toast.dismiss(_id);
             });
-            window.location.href="/developer-overview"
+            window.location.href="../../auth/login"
           //  setEditModalOpen(true)
            }else{
             toast.update(_id, {

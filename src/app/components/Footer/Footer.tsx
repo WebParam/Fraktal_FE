@@ -25,7 +25,7 @@ const Footer = (): ReactElement => {
                     <p><a href="/fraktional-gig">Gigs</a></p>
                     <p><a href="/fraktional-dev">Devs</a></p>
                     <p>Customers</p>
-                    <p>Hire Us</p>
+                    <p><a href='/fraktional-dev'>Hire Us</a></p>
                 </div>
 
                 <div>
@@ -34,7 +34,7 @@ const Footer = (): ReactElement => {
                     <p>Release Notes</p>
                     <p>Integrations</p>
                     <p>Customers</p>
-                    <p>Pricing</p>
+                    <p><a href='/pricing'>Pricing</a></p>
                 </div>
 
                 <div>
@@ -49,7 +49,7 @@ const Footer = (): ReactElement => {
                 <div>
                     <h2>Resources</h2>
                     <p><i className="bi bi-question-circle-fill"></i>Help</p>
-                    <p><i className="bi bi-person-circle"></i>Your Account</p>
+                    <p><i className="bi bi-person-circle"></i><a href='/applicant-profile'>Your Account</a></p>
                 </div>
         </footer>
     );

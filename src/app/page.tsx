@@ -84,7 +84,7 @@ function HomePage() {
       {/* Card Grid */}
       <div data-aos="fade-up" className="container content-space-2 content-space-t-xl-3 content-space-b-lg-3">
         {/* Heading */}
-        <div data-aos="fade-up" className="w-md-75 w-lg-50 text-center mx-md-auto mb-5">
+        <div className="w-md-75 w-lg-50 text-center mx-md-auto mb-5">
           <h2>Expertise Across Domains: Transforming Tech, Data, and Intelligence</h2>
         </div>
         {/* End Heading */}
