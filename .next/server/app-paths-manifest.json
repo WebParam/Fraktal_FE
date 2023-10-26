@@ -1,0 +1,5 @@
+{
+  "/page": "app/page.js",
+  "/fraktional-gig/page": "app/fraktional-gig/page.js",
+  "/fraktional-gig/[id]/page": "app/fraktional-gig/[id]/page.js"
+}
