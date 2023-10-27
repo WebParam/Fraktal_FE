@@ -920,7 +920,7 @@ useEffect(() => {
             </div>
             {/* Body */}
             <div className="card-body">
-              <p className="card-text">When you delete your account, you lose access to Front account services, and we permanently delete your personal data. You can cancel the deletion for 14 days.</p>
+              <p className="card-text">When you delete your account, you lose access to Fraktional account services, and we permanently delete your personal data. You can cancel the deletion for 14 days.</p>
               <div className="mb-4">
                 {/* Check */}
                 <div className="form-check">
