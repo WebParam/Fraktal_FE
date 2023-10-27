@@ -124,7 +124,7 @@ function HomePage() {
             {/* End Card */}
           </div>
           {/* End Col */}
-          <div data-aos="zoom-in" className="col-sm-6 col-lg-4 mb-4 mb-lg-0">
+          <div className="col-sm-6 col-lg-4 mb-4 mb-lg-0">
             {/* Card */}
             <div className="card card-sm h-100">
               <div className="p-2">
