@@ -9,6 +9,7 @@ import dropbox from "../../../assets/svg/brands/dropbox-icon.svg";
 import googleDrive from "../../../assets/svg/brands/google-drive-icon.svg";
 import { useState } from 'react';
 import { escape } from 'querystring';
+import Link from 'next/link';
 
 function viewGig({ params }: { params: { id: string }}) {
     const gig = gigs.find(item => item.id === parseInt(params.id));
@@ -20,10 +21,26 @@ function viewGig({ params }: { params: { id: string }}) {
     const [summary, setSummary] = useState('');
     const [resume, setResume] = useState(null)
     const [workStatus, setWorkStatus] = useState('yes');
+    const [yearsOfExperience, setYearsOfExperience] = useState('');
     const [notice, setnotice] = useState('');
     const [portfolio, setPortfolio] = useState([]);
     const [expectedSalary, setExpectedSalary] = useState('');
     const [mobileExp, setMobileExp] = useState('');
+
+    const userInformation = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phone: phone,
+        summary: summary,
+        resume: resume,
+        workStatus: workStatus,
+        notice: notice,
+        portfolio: portfolio,
+        expectedSalary: expectedSalary,
+        mobileExp: mobileExp,
+        // jobid: params.id
+      };
 
     const [firstNameError, setFirstNameError] = useState(false);
     const [lastNameError, setLastNameError] = useState(false);
@@ -31,11 +48,12 @@ function viewGig({ params }: { params: { id: string }}) {
     const [phoneError, setPhoneError] = useState(false);
     const [summaryError, setSummaryError] = useState(false);
     const [resumeError, setResumeError] = useState(false)
-    const [workStatusError, setWorkStatusError] = useState(false);
+    // const [workStatusError, setWorkStatusError] = useState(false);
+    const [yearsOfExperienceError, setyearsOfExperienceError] = useState(false);
     const [noticeError, setnoticeError] = useState(false);
     const [portfolioError, setPortfolioError] = useState(false);
     const [expectedSalaryEroor, setExpectedSalaryError] = useState(false);
-    const [mobileExpError, setMobileExpError] = useState(false);
+    // const [mobileExpError, setMobileExpError] = useState(false);
     const [showerror, setShowErrorMessage] = useState(false);
 
     const handleFirstName = (e: any) => {
@@ -65,6 +83,10 @@ function viewGig({ params }: { params: { id: string }}) {
     const handleWorkStatusChange = (value: any) => {
         setWorkStatus(value);
       };
+
+    const handleYearsOfExperience = (e: any) => {
+        setYearsOfExperience(e.target.value);
+    }
 
     const handleNotice = (e: any) => {
         setnotice(e.target.value);
@@ -117,7 +139,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 setShowErrorMessage(false);
             }
         
-            if (!/^\d+$/.test(phone)) {
+            if (!phone || !/^\d+$/.test(phone)) {
                setPhoneError(true)
                setShowErrorMessage(true);
             } else {
@@ -125,7 +147,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 setShowErrorMessage(false);
             }
 
-            if (summary.length < 80) {
+            if (summary.length < 20) {
                 setSummaryError(true);
                 setShowErrorMessage(true);
             } else {
@@ -140,6 +162,13 @@ function viewGig({ params }: { params: { id: string }}) {
                 setResumeError(false);
                 setShowErrorMessage(false);
             }
+            if (!yearsOfExperienceError || !/^\d+$/.test(yearsOfExperience)) {
+                setyearsOfExperienceError(true)
+                setShowErrorMessage(true);
+             } else {
+                setyearsOfExperienceError(false);
+                 setShowErrorMessage(false);
+             }
 
             if (!notice.trim()) {
                 setnoticeError(true);
@@ -169,6 +198,9 @@ function viewGig({ params }: { params: { id: string }}) {
 
     return (
     <main id="content" role="main">
+        <Link className="back" style={{margin: '40px', display: 'block', color: '#4B4C4E'}} href='/fraktional-gig'>
+        <i className="bi bi-chevron-left"></i> back
+        </Link>
         {/* Page Header */}
         <div className="container content-space-t-2">
             <div className="w-lg-75 mx-lg-auto">
@@ -403,7 +435,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 rows={6} 
                 value={summary}
                 onChange={handleSummary} />
-                {summaryError ? <p style={{color: 'red'}}>Please provide more than 80 characters</p>: ''}
+                {summaryError ? <p style={{color: 'red'}}>Please provide more than 20 characters</p>: ''}
                 </div>
                 {/* End Form */}
                 {/* Form */}
@@ -450,6 +482,19 @@ function viewGig({ params }: { params: { id: string }}) {
                 </div>
                 {/* End Radio Button Group */}
                 {/* Form */}
+                <div className="mb-4">
+                <label className="form-label" htmlFor="applyForJobNoticePeriod">Years Of Experience</label>
+                <input 
+                    type="text" 
+                    className={`form-control ${yearsOfExperienceError ? 'error':''}`} 
+                    name="applyForJobNameNoticePeriod" 
+                    id="applyForJobNoticePeriod" 
+                    placeholder="0" 
+                    aria-label="0"
+                    value={yearsOfExperience}
+                    onChange={handleYearsOfExperience}
+                />
+                </div>
                 <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobNoticePeriod">Notice period</label>
                 <input 

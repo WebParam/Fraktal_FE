@@ -1,3 +1,11 @@
 .error {
     border: 2px solid red;
 }
+
+.back {
+    transition: .5s ease-in-out;
+
+    &:hover {
+        color: #FD2DC3 !important;
+    }
+}
