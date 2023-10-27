@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import "./Register.scss";
+import Cookies from 'universal-cookie';
 import Link from "next/link";
 import Image from "next/image";
 import logo from "../../../assets/additional/logo.webp";
@@ -14,6 +15,7 @@ import Select from 'react-select';
 import { StylesConfig } from 'react-select';
 import { VerifyOtp } from "./verify-otp";
 import Modal from "react-responsive-modal";
+import OptModal from "@/app/components/Modal/OtpModal";
 // import { useRouter } from 'next/router';
 
 
@@ -42,6 +44,11 @@ function Register() {
   const [skillsError, setSkillsError] = useState<boolean>(false);
   const [skills, setSkills] = useState<any>("")
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+  const cookies = new Cookies();
+
+
+  const [showOptModal, setShowOptModal] = useState(false);
+
 
 
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
@@ -168,8 +175,13 @@ function Register() {
              // setDisable(false)
               toast.dismiss(_id);
             });
-            window.location.href="../../auth/login"
-          //  setEditModalOpen(true)
+            // window.location.href="../../auth/login"
+           setEditModalOpen(true)
+           cookies.set('myCookie', formData.email);
+
+
+
+          
            }else{
             toast.update(_id, {
               render: "error registering user",
@@ -194,11 +206,7 @@ function Register() {
               toast.dismiss(_id);
             }, 2000);
             console.error("Error:", error);
-          }
-        
-
-
-      
+          } 
      
     };
     
@@ -426,6 +434,7 @@ function Register() {
             </div>
 
             <button type="submit">Register</button>
+            
           </form>
 
           <p>
