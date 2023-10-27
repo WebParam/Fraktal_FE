@@ -199,8 +199,18 @@ function SignIn() {
               <Link href="/auth/register">Sign up here</Link>
             </span>
           </p>
+
+          
+
+          <div className="group-1">
+          <div className="line-1-login"></div>
+            <div> Sign up as a <a href="../../fraktional-dev" className="link-login-1">Company</a></div>
+            <div>Sign up as a <a href="../../auth/register" className="link-login-1">Developer</a></div>
+          </div>
         </div>
       </div>
+
+      
     </section>
   );
 }
