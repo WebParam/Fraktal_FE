@@ -1,28 +1,16 @@
 {
   "pages": {
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/page.css",
-      "static/chunks/app/page.js"
-    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/fraktional-gig/page": [
+    "/developer-overview/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/fraktional-gig/page.css",
-      "static/chunks/app/fraktional-gig/page.js"
-    ],
-    "/fraktional-gig/[id]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/fraktional-gig/[id]/page.css",
-      "static/chunks/app/fraktional-gig/[id]/page.js"
+      "static/css/app/developer-overview/page.css",
+      "static/chunks/app/developer-overview/page.js"
     ]
   }
 }
