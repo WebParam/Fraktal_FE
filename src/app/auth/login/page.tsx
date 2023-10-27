@@ -94,7 +94,10 @@ function SignIn() {
             toast.dismiss(_id);
           });
           setUserVerifyError(true)
-          
+          setTimeout(() => {
+            // setDisable(false)
+            setEditModalOpen(true)
+          }, 2000);
         }
   
       } else {
@@ -178,7 +181,7 @@ function SignIn() {
             <div>
             <div className = "label-loginError" style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
             <label htmlFor="email">Your Email</label>
-            {userVerifyError && <span style={{ color: "tomato", fontSize : "13px", fontWeight:"600", marginRight: "150px"}}>Email address not verified</span>}
+            {userVerifyError && <span style={{ color: "tomato", fontSize : "13px", fontWeight:"600", marginRight: "100px"}}>Email address not verified</span>}
 
               {invaliLoginError && <span style={{ color: "tomato", fontSize : "13px", fontWeight:"600", marginRight: "150px"}}>Invalid email or password</span>}
             </div>
@@ -227,14 +230,14 @@ function SignIn() {
             </span>
           </p>
 
-        {userVerifyError ? (
+        {/* {userVerifyError ? (
           <p>
            {" "}
             <span onClick={() => setEditModalOpen(true)} className="cta">
               <Link className="link-login-1" href={'#'}>Verify your email</Link>
             </span>
           </p>
-        ) : null}
+        ) : null} */}
 
           
 
