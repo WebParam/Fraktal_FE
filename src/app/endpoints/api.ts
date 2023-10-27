@@ -11,6 +11,7 @@ import {
 } from "../interfaces/user";
 import { ICompanyRegister } from "../interfaces/organisation";
 import { IJobApplication } from "../interfaces/IJobApplication";
+import { IApplyForJobRegistration } from "../interfaces/job-registration";
 
 const url = "https://viconet-vercel.vercel.app"
 
@@ -181,6 +182,7 @@ export async function CreateJob(payload: IJobApplication) {
     return false;
   }
 }
+
 export async function UpdateJob(payload: IJobApplication) {
   try {
     const response = await axios.post(`${url}/api/jobApplications`, payload);
@@ -284,6 +286,25 @@ export async function verifyOtp(payload: IVerifyOtp) {
         console.log("otp verified successful");
         return true;
       }
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+}
+
+
+export async function jobRegistration(payload: IApplyForJobRegistration) {
+  try {
+    const response = await axios.post(`${url}/api/apply`, payload);
+    if (response.status === 200 || response.status === 201) {
+      if (response.data._doc) {
+        return response.data._doc;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
     }
   } catch (error) {
     console.error("Error:", error);
