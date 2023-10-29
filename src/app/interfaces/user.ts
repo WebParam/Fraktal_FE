@@ -105,11 +105,16 @@ export interface IContactForm{
     lastName:string, 
     email:string, 
     phone:string, 
-// save these fields to personnel
+
+  // create new personnel with this info and save these fields
+
     summary:string, //personnel->personnal information -> bio
     resume:string, // personnel -> cvurl
-    workStatus:string, // personnel -> add new field (nullable)
-    notice:string, // personnel -> add new field (nullable)
-    portfolio:string, // personnel -> add new field (nullable)
+    workStatus:string, // personnel -> current job 
+    yearsOfExperience:string, // personnel -> years of experience (nullable)
     expectedSalary:string, // personnel -> add new field (nullable)
+    notice:string, // personnel -> add new field (nullable)
+
+  // dont save this for now we will use it to assign the dev to the project
+    jobId:string;
   }

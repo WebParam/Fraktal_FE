@@ -15,7 +15,6 @@ import Select from 'react-select';
 import { StylesConfig } from 'react-select';
 import { VerifyOtp } from "./verify-otp";
 import Modal from "react-responsive-modal";
-import OptModal from "@/app/components/Modal/OtpModal";
 // import { useRouter } from 'next/router';
 
 
