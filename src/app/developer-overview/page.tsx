@@ -52,9 +52,24 @@ function developerOverview() {
   const [wrk_responsibilities, setWrk_responsibilities] = useState("");
   const [wrk_location, setWrkLocation] = useState("");
 
+  const [wrk_employerError, setWrk_employeeError] = useState(false);
+  const [wrk_jobTitleError, setWrk_jobTitleError] = useState(false);
+  const [wrk_startDateError, setWrk_startDateError] = useState(false);
+  const [wrk_endDateError, setWrkendDateError] = useState(false);
+  const [wrk_responsibilitiesError, setWrk_responsibilitiesError] = useState(false);
+  const [wrk_locationError, setWrkLocationError] = useState(false);
+
+
   const [edu_InsituteName, setEduInstituteName] = useState("");
   const [edu_Qualification, setEduQualification] = useState("");
   const [edu_completionDate, setEduCompletionDate] = useState("");
+
+  
+  const [edu_InsituteNameError, setEduInstituteNameError] = useState(false);
+  const [edu_QualificationError, setEduQualificationError] = useState(false);
+  const [edu_completionDateError, setEduCompletionDateError] = useState(false);
+  const [currentProfilePicError, setCurrentProfilePicError] = useState(false);
+
   const [currentProfilePic, setCurrentProfilePic] = useState("");
   const loggedInUser = cookies.get("fraktional-user")??"{}";
   const [existingUser, setExistingUser] = useState(false);
@@ -119,7 +134,6 @@ async function _GetDeveloperProfile(id:string){
   setYearsOfExperience(res?.data?.yearsOfExperience);
   setEducation(res?.data?.education);
   setKeyCourses(res?.data?.keyCourses);
-  debugger;
   setCVUrl(res?.data?.cvUrl);
   setUser(res?.data?.user); // change
   setPreferedWorkMethod(res?.data?.preferedWorkMethod);
@@ -130,6 +144,46 @@ async function _GetDeveloperProfile(id:string){
 
 
 function addWorkExperience(){
+  if (!wrk_jobTitle.trim()) {
+    setWrk_jobTitleError(true);
+    return;
+  }
+
+  if (!wrk_employer.trim()) {
+    setWrk_employeeError(true);
+    return;
+  } else {
+    setWrk_employeeError(false);
+  }
+
+  if (!wrk_location.trim()) {
+    setWrkLocationError(true);
+    return;
+  } else {
+    setWrkLocationError(false);
+  }
+
+  if (!wrk_startDate.trim()) {
+    setWrk_startDateError(true);
+    return;
+  } else {
+    setWrk_startDateError(false);
+  }
+
+  
+  if (!wrk_endDate.trim()) {
+    setWrkendDateError(true);
+    return;
+  } else {
+    setWrkendDateError(false);
+  }
+
+  if (!wrk_responsibilities.trim()) {
+    setWrk_responsibilitiesError(true);
+    return;
+  } else {
+    setWrk_responsibilitiesError(false);
+  }
 
   const payload = {
 
@@ -160,6 +214,27 @@ function removeWorkExperience(index:number){
 }
 
 function addEducation(){
+
+  if (!edu_Qualification.trim()) {
+    setEduQualificationError(true);
+    return;
+  } else {
+    setEduQualificationError(false);
+  }
+
+  if (!edu_InsituteName.trim()) {
+    setEduInstituteNameError(true);
+    return;
+  } else {
+    setEduInstituteNameError(false);
+  }
+
+  if (!edu_completionDate.trim()) {
+    setEduCompletionDateError(true);
+    return;
+  } else {
+    setEduCompletionDateError(false);
+  }
 
   const payload = {
     instituteName: edu_InsituteName,
@@ -209,7 +284,6 @@ useEffect(() => {
       _user: loggedInUser._id,
       preferedWorkMethod: preferedWorkMethod
     } as IDeveloperProfile;
-    debugger;
 
     if (cv) {
       cvPayload.append("cv", cv as Blob);
@@ -532,9 +606,7 @@ useEffect(() => {
             
             {/* Body */}
             <div className="card-body">
-              <a onClick={workModal} href="javascript:;" className="js-create-field form-link" style={{color: '#FD2DC3'}}>
-                <i className="bi-plus-circle me-1" /> Add
-              </a>
+             
               <div className="mb-4">
                 <ul className="step step-icon-sm">
 
@@ -555,35 +627,12 @@ useEffect(() => {
                   </li>
                   })}
                 
-                  {/* <li className="step-item">
-                    <div className="step-content-wrapper">
-                      <div className="step-avatar step-avatar-sm">
-                        <Image className="step-avatar-img" src={mailchimpicon} alt="Image Description" />
-                      </div>
-                      <div className="step-content">
-                        <h5 className="step-title">Senior Software Engineer</h5>
-                        <span className="d-block text-dark">Mailchimp - London</span>
-                        <small className="d-block mb-4">November 2014 to December 2016</small>
-                        <p className="text-body mb-0">This is an excellent company and they reward their employees. It's becoming a big company but it's still private, so the culture is as good as it gets at 1,000+ employees if you ask me. Managers are still adapting to the growth I think, but everyone has to. Great place to work.</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="step-item">
-                    <div className="step-content-wrapper">
-                      <div className="step-avatar step-avatar-sm">
-                        <Image className="step-avatar-img" src={googleicon} alt="Image Description" />
-                      </div>
-                      <div className="step-content">
-                        <h5 className="step-title">Junior Software Engineer</h5>
-                        <span className="d-block text-dark">Google - London</span>
-                        <small className="d-block mb-4">January 2014 to November 2014</small>
-                        <p className="text-body mb-0">Work in Google is one of the beautiful experience I can do in my entire life. There are a lot of interesting thing to learn and manager respect your time and your personality.</p>
-                      </div>
-                    </div>
-                  </li> */}
+                  
                 </ul>
               </div>
-
+              <a onClick={workModal} href="javascript:;" className="js-create-field form-link" style={{color: '#FD2DC3'}}>
+                <i className="bi-plus-circle me-1" /> Add
+              </a>
               {/* <button className="add" onClick={workModal}>Add</button> */}
            
               {workModalOpen
@@ -610,14 +659,12 @@ useEffect(() => {
                               <label className="form-label" htmlFor="hireUsFormTitle">Title</label>
                               <input 
                                 type="text" 
-                                className="form-control form-control-lg" 
+                                className={`form-control form-control-lg ${wrk_jobTitleError ? 'err':''}`} 
                                 name="Title" 
                                 id="Title" 
                                 placeholder="Title" 
                                 aria-label="Title"
                                 onChange={(e)=>{setWrk_jobTitle(e.target.value)}}
-                                // value={workData.Title}
-                                // onChange={handleChange} 
                               />
                             </div>
                             {/* End Form */}
@@ -629,13 +676,11 @@ useEffect(() => {
                               <label className="form-label" htmlFor="CompanyName">Company Name</label>
                               <input 
                                 type="text" 
-                                className="form-control form-control-lg" 
+                                className={`form-control form-control-lg ${wrk_employerError ? 'err': ''}`}
                                 name="CompanyName" 
                                 placeholder="Company Name" 
                                 aria-label="Company Name" 
                                 onChange={(e)=>{setWrk_employee(e.target.value)}}
-                                // value={workData.CompanyName}
-                                // onChange={handleChange}
                                 />
                             </div>
                           </div>
@@ -648,13 +693,14 @@ useEffect(() => {
                               <label className="form-label" htmlFor="locationWork">Location</label>
                               <input 
                                 type="text" 
-                                className="form-control form-control-lg" 
+                                className={`form-control form-control-lg ${wrk_locationError ? 'err':''}`}
                                 name="LocationWork" 
                                 placeholder="eg. Johannesburg" 
                                 aria-label="Location"
                                 onChange={(e)=>{setWrkLocation(e.target.value)}}
                                 // value={workData.Location}
                                 // onChange={handleChange}
+                                required
                               />
                             </div>
                             {/* End Form */}
@@ -667,7 +713,7 @@ useEffect(() => {
                               <div className="dateInputs">
                                 <input 
                                   type="date" 
-                                  className="form-control form-control-lg" 
+                                  className={`form-control form-control-lg ${wrk_startDateError ? 'err':''}`} 
                                   name="DurationStartwork" 
                                   id="DurationStartwork" 
                                   aria-label="Duration" 
@@ -677,7 +723,7 @@ useEffect(() => {
                                 />to
                                 <input 
                                   type="date" 
-                                  className="form-control form-control-lg" 
+                                  className={`form-control form-control-lg ${wrk_endDateError ? 'err': ''}`}
                                   name="durationEndwork" 
                                   id="durationEndwork" 
                                   aria-label="Duration" 
@@ -696,12 +742,14 @@ useEffect(() => {
                         <div className="mb-3">
                           <label className="form-label" htmlFor="description">Details (responsibilities & key activities)</label>
                           <textarea 
-                            className="form-control form-control-lg" 
+                            className={`form-control form-control-lg ${wrk_responsibilitiesError ? 'err':''}`}
                             name="Description" 
                             id="Description" 
                             placeholder="Tell us about your ..." 
                             aria-label="description" 
-                            rows={4} 
+                            rows={4}
+                            value={wrk_responsibilities}
+                            onChange={(e) => setWrk_responsibilities(state => e.target.value)}
                             // value={workData.description}
                             // onChange={handleChange}
                             />
@@ -725,9 +773,7 @@ useEffect(() => {
             </div>
             {/* Body */}
             <div className="card-body">
-            <a onClick={educationModal} href="javascript:;" className="js-create-field form-link" style={{color: '#FD2DC3'}}>
-                      <i className="bi-plus-circle me-1" /> Add
-                    </a>
+              
               <div className="mb-4">
               <ul className="step step-icon-sm">
                 {education?.map((x,i)=>{
@@ -753,20 +799,10 @@ useEffect(() => {
                )
 
                 }
-                    
-                      {/* <li className="step-item">
-                        <div className="step-content-wrapper">
-                          <span className="step-icon step-icon-soft-dark">
-                            <i className="bi-award" />
-                          </span>
-                          <div className="step-content">
-                            <h5 className="step-title">Bachelor's degree in Computer Software Engineering</h5>
-                            <span className="d-block text-dark">University of Oxford - Oxford</span>
-                            <small className="d-block">October 2009 to May 2012</small>
-                          </div>
-                        </div>
-                      </li> */}
-                    </ul>
+              </ul>
+              <a onClick={educationModal} href="javascript:;" className="js-create-field form-link" style={{color: '#FD2DC3'}}>
+                <i className="bi-plus-circle me-1" /> Add
+              </a>
               </div>
               {EducationModalOpen
                &&  
@@ -792,7 +828,7 @@ useEffect(() => {
                               <label className="form-label" htmlFor="hireUsFormTitle">Certificate</label>
                               <input 
                                 type="text" 
-                                className="form-control form-control-lg" 
+                                className={`form-control form-control-lg ${edu_QualificationError ? 'err':''}`} 
                                 name="Certificate" 
                                 id="certifficate" 
                                 placeholder="eg. Master's degree in Computer Software Engineering" 
@@ -820,7 +856,7 @@ useEffect(() => {
                               <label className="form-label" htmlFor="hireUsFormCompanyName">Institute</label>
                               <input 
                                 type="text" 
-                                className="form-control form-control-lg" 
+                                className={`form-control form-control-lg ${edu_InsituteNameError ? 'err':''}`} 
                                 name="SchoolName" 
                                 id="schoolName" 
                                 placeholder="School Name" 
@@ -840,7 +876,7 @@ useEffect(() => {
                                 <input 
                                   type="date" 
                                   onChange={(e)=>{setEduCompletionDate(e.target.value)}}
-                                  className="form-control form-control-lg" 
+                                  className={`form-control form-control-lg ${edu_completionDateError ? 'err':''}`}
                                   name="durationStart" 
                                   id="durationStartEdu" 
                                   aria-label="durationEdu" 
@@ -884,7 +920,7 @@ useEffect(() => {
             </div>
             {/* Body */}
             <div className="card-body">
-              <p className="card-text">When you delete your account, you lose access to Front account services, and we permanently delete your personal data. You can cancel the deletion for 14 days.</p>
+              <p className="card-text">When you delete your account, you lose access to Fraktional account services, and we permanently delete your personal data. You can cancel the deletion for 14 days.</p>
               <div className="mb-4">
                 {/* Check */}
                 <div className="form-check">

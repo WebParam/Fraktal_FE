@@ -4,6 +4,7 @@ import logo from '../../../assets/additional/logo.webp';
 import Image from 'next/image';
 import Link from 'next/link';
 import Banner from '@/app/banner/Banner';
+import loginpage from '../../auth/login/page';
 
 type HeaderProps = {
   menuTogglerFunction: (state: boolean) => void;
@@ -84,8 +85,8 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
           </li> */}
         
           <li className='hirenow'>
-              <Link href='/fraktional-dev'>
-                Hire Now
+              <Link href={'../../auth/login'}>
+                Login
               </Link>
             
           </li>

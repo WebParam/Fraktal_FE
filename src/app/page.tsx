@@ -24,6 +24,7 @@ import TypedText from './TypedText';
 import React, { useEffect, useState } from 'react';
 import Header from './components/Header/Header'
 import MobileMenu from './components/MobileMenu/MobileMenu';
+import TransitionsModal from './components/Modal/TransitionsModal';
 
 
 function HomePage() {
@@ -41,10 +42,10 @@ function HomePage() {
     {/* ========== MAIN CONTENT ========== */}
     <main id="content" role="main">
       {/* Hero */}
-      <div className="d-lg-flex position-relative">
+      <div  className="d-lg-flex position-relative">
         <div className="container d-lg-flex align-items-lg-center content-space-t-3 content-space-lg-0 min-vh-lg-100">
           {/* Heading */}
-          <div className="w-100">
+          <div data-aos="fade-right" className="w-100">
             <div className="row">
               <div className="col-lg-5">
                 <div className="mb-5">
@@ -68,7 +69,7 @@ function HomePage() {
             {/* End Row */}
           </div>
           {/* End Title & Description */}
-          <div className="col-lg-7 col-xl-6 d-none d-lg-block position-absolute top-0 end-0 pe-0 koalaContainer" style={{marginTop: '6.75rem'}}>
+          <div data-aos="fade-left" className="col-lg-7 col-xl-6 d-none d-lg-block position-absolute top-0 end-0 pe-0 koalaContainer" style={{marginTop: '6.75rem'}}>
             <Image 
               src={koala} 
               priority={true}
@@ -81,7 +82,7 @@ function HomePage() {
       </div>
       {/* End Hero */}
       {/* Card Grid */}
-      <div className="container content-space-2 content-space-t-xl-3 content-space-b-lg-3">
+      <div data-aos="fade-up" className="container content-space-2 content-space-t-xl-3 content-space-b-lg-3">
         {/* Heading */}
         <div className="w-md-75 w-lg-50 text-center mx-md-auto mb-5">
           <h2>Expertise Across Domains: Transforming Tech, Data, and Intelligence</h2>
@@ -104,8 +105,8 @@ function HomePage() {
                 <Image className="card-img" src={card1} alt="Image Description" />
               </div>
               <div className="card-body">
-                <h4 className="card-title">Software Developers:</h4>
-                <p className="card-text">Building dynamic applications across platforms for optimal user experiences.</p>
+                <h4 className="card-title">Softwear engineers:</h4>
+                <p className="card-text">Get a software engineer for new/existing builds.</p>
                 {/* List Pointer */}
                 <ul className="list-pointer mb-0">
                   <li className="list-pointer-item">Full-Stack Developer</li>
@@ -114,8 +115,12 @@ function HomePage() {
                 </ul>
                 {/* End List Pointer */}
               </div>
-              <a className="card-footer card-link border-top" href="/about">Learn more <i className="bi-chevron-right small ms-1" /></a>
+              <div><TransitionsModal text='We offer a selection of qualified engineers, ranging from senior to intermediate levels, to
+                  effectively meet your project needs.'/></div>
+              {/* <a className="card-footer card-link border-top" >Learn more <i className="bi-chevron-right small ms-1" /></a> */}
             </div>
+
+            
             {/* End Card */}
           </div>
           {/* End Col */}
@@ -127,16 +132,17 @@ function HomePage() {
               </div>
               <div className="card-body">
                 <h4 className="card-title">Data Engineering:</h4>
-                <p className="card-text">Crafting robust data infrastructures to drive informed business decisions.</p>
+                <p className="card-text">Acquire expert data engineers for foundational and advanced architectures.</p>
                 {/* List Pointer */}
                 <ul className="list-pointer mb-0">
-                  <li className="list-pointer-item">Big Data Specialist</li>
-                  <li className="list-pointer-item">Cloud Specialist</li>
-                  <li className="list-pointer-item">Data Analyst</li>
+                  <li className="list-pointer-item">Machine Learning specialist</li>
+                  <li className="list-pointer-item">Natural Language Processing</li>
+                  <li className="list-pointer-item">Predictive Analytics</li>
                 </ul>
                 {/* End List Pointer */}
               </div>
-              <a className="card-footer card-link border-top" href="/about">Learn more <i className="bi-chevron-right small ms-1" /></a>
+              <div><TransitionsModal text='"Choose from our pool of experienced data engineers, spanning senior to intermediate
+                                expertise, for optimal data solutions."'/></div>
             </div>
             {/* End Card */}
           </div>
@@ -149,16 +155,16 @@ function HomePage() {
               </div>
               <div className="card-body">
                 <h4 className="card-title">AI/ML Engineers:</h4>
-                <p className="card-text">Designing intelligent systems that learn, adapt, and predict outcomes.</p>
+                <p className="card-text">Secure skilled ML engineers for innovative and ongoing projects.</p>
                 {/* List Pointer */}
                 <ul className="list-pointer mb-0">
-                  <li className="list-pointer-item">Machine Learning specialist</li>
-                  <li className="list-pointer-item">Natural Language Processing</li>
-                  <li className="list-pointer-item">Predictive Analytics</li>
+                  <li className="list-pointer-item">Big Data Specialist</li>
+                  <li className="list-pointer-item">Cloud Specialist</li>
+                  <li className="list-pointer-item">Data Analyst</li>
                 </ul>
                 {/* End List Pointer */}
               </div>
-              <a className="card-footer card-link border-top" href="/about">Learn more <i className="bi-chevron-right small ms-1" /></a>
+              <div><TransitionsModal text='We have proficient ML engineers, from senior to intermediate, for your data-driven initiatives.'/></div>
             </div>
             {/* End Card */}
           </div>
@@ -168,8 +174,9 @@ function HomePage() {
       </div>
       {/* End Card Grid */}
       {/* Features */}
-      <div className="position-relative bg-light rounded-2 mx-3 mx-lg-10">
-        <div className="container content-space-2 content-space-lg-3 fraktionalDev">
+      <div className="position-relative rounded-2 mx-3 mx-lg-10 fraktionalDev">
+
+        <div className="container content-space-2 content-space-lg-3 ">
           {/* Heading */}
           <div className="w-md-75 w-lg-50 text-center mx-md-auto mb-5">
             <h2>Fraktional.dev: Where Capacity Meets Flexibility</h2>
@@ -252,7 +259,7 @@ function HomePage() {
       {/* Testimonials */}
       <div className="container content-space-2 content-space-lg-3">
         <div className="row align-items-md-center">
-          <div className="col-md-5 d-none d-md-block">
+          <div data-aos="fade-right" className="col-md-5 d-none d-md-block">
             <Image className="img-fluid rounded-2" src={bigAvatar} alt="Image Description" />
           </div>
           {/* End Col */}
@@ -262,15 +269,15 @@ function HomePage() {
               <div className="mb-4">
                 {/* <Image className="avatar avatar-xl avatar-4x3" src={mailchimplogo} alt="Image Description" /> */}
               </div>
-              <blockquote className="blockquote blockquote-lg">" I'm absolutely floored by speed and quality of service that was provided and can guarantee that I will be a return customer. "</blockquote>
+              <blockquote data-aos="fade-left" className="blockquote blockquote-lg">" I'm absolutely floored by speed and quality of service that was provided and can guarantee that I will be a return customer. "</blockquote>
               <figcaption className="blockquote-footer">
                 <div className="d-flex align-items-center">
                   <div className="flex-shrink-0 d-md-none">
                     <Image className="avatar avatar-circle" src={smallAvatar} alt="Image Description" />
                   </div>
-                  <div className="flex-grow-1 ms-3 ms-md-0">
+                  <div data-aos="fade-left" className="flex-grow-1 ms-3 ms-md-0">
                     Kweku
-                    <span className="blockquote-footer-source">Founder: The App Lab</span>
+                    <span data-aos="fade-left" className="blockquote-footer-source">Founder: The App Lab</span>
                   </div>
                 </div>
               </figcaption>
@@ -283,7 +290,7 @@ function HomePage() {
       </div>
       {/* End Testimonials */}
       {/* Stats */}
-      <div className="stats rounded-2 mx-3 mx-lg-10">
+      <div data-aos="zoom-in-up" className="stats rounded-2 mx-3 mx-lg-10">
         <div className="container content-space-2">
           <div className="row justify-content-center">
             <div className="col-sm-6 col-md-4 mb-7 mb-md-0">
@@ -319,7 +326,7 @@ function HomePage() {
       </div>
       {/* End Stats */}
       {/* Card Grid */}
-      <div className="container content-space-2 content-space-lg-3">
+      <div data-aos="fade-up" className="container content-space-2 content-space-lg-3">
         {/* Heading */}
         <div className="w-md-75 w-lg-50 text-center mx-md-auto mb-5">
           <h2>Discover more</h2>
