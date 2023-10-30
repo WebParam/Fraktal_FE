@@ -1,0 +1,7 @@
+.btn-outline-primary {
+    --bs-btn-color: #FD2DC3;
+
+    &:hover {
+        background-color: lightpink !important;
+    }
+}

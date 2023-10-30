@@ -1,0 +1,38 @@
+/* Remove default checkbox styles */
+.switch input {
+    display: none;
+}
+
+/* Define the switch button appearance */
+.switch .slider {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: background-color 0.3s ease;
+}
+
+/* Define the appearance when the checkbox is checked */
+.switch input:checked + .slider {
+    background-color: #2196F3;
+}
+
+/* Slider handle (the circular part of the switch) */
+.switch .slider::before {
+    content: "";
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: white;
+    left: 4px;
+    top: 4px;
+    transition: transform 0.3s ease;
+}
+
+/* Move the slider handle when the checkbox is checked */
+.switch input:checked + .slider::before {
+    transform: translateX(26px);
+}

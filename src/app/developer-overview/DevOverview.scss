@@ -1,0 +1,99 @@
+.top {
+    height: 50px;
+    z-index: 10;
+}
+
+@keyframes moveRight {
+    0% {
+        transform: translateX(-50%);
+    }
+
+    100% {
+        transform: translateX(100%); /* Move 100% to the right */
+    }
+}
+
+
+#textarea {
+    border: .0625rem solid rgba(33,50,91,.1);
+}
+
+.Gotohome {
+    display: flex;
+    justify-content: flex-end;
+
+    & > a {
+        color: #fff;
+        transition: .5s all;
+
+        &:hover {
+            text-decoration: underline !important;
+        }
+    }
+}
+
+.form-check-downloadCV {
+    display: flex;
+    justify-content: center !important;
+
+    & > button {
+        width: 183px;
+        height: 55px;
+        flex-shrink: 0;
+        border-radius: 4px;
+        background: #FD2DC3;
+        color: #fff;    
+    }
+}
+
+.portfolioInput,
+.linkedinInput {
+    height: 90%;
+    border: 1px solid lightgrey;
+}
+
+.linksContainer {
+    width: 300px;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & > p {
+        display: block;
+        margin: 0;
+        height: 100%;
+        line-height: 50px;
+    }
+}
+
+.add {
+    padding: 10px 20px;
+    background-color: #FD2DC3;
+    color: #fff;
+    border-radius: 8px;
+    transition: .5s;
+
+    &:hover {
+        background-color: lightpink;
+    }
+}
+
+.dateInputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.nav-link.active {
+    color: #FD2DC3 !important;
+}
+
+.nav-vertical.nav-tabs .nav-link.active  {
+    border-color: #FD2DC3;
+}
+
+.err {
+    border: 2px solid red;
+}
