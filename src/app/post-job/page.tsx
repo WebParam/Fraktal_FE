@@ -91,7 +91,7 @@ function PostJob() {
         hires: hires,
         urgency: urgency,
         pay: pay,
-        currency: "Rand",
+        currency: "Rand", // to be updated
         fromDate: fromDate,
         toDate: toDate,
         period: period,
@@ -126,8 +126,8 @@ function PostJob() {
         individualUpDateEmailAddress: individualUpDateEmailAddress,
         dailyUpdateEmail: dailyUpdateEmail,
         individualUpDateEmail: individualUpDateEmail,
-        companyId: '65368966798cf5e73d32c5177',
-        creatingUser: '65368966798cf5e73d32c510',
+        companyId: '65368966798cf5e73d32c5177', // to be updated
+        creatingUser: '65368966798cf5e73d32c510', // to be updated
         description: description
       };
       
@@ -144,11 +144,6 @@ function PostJob() {
     setActiveStep(step);
 
   }
-
-  // const buttonStyle = {
-  //   backgroundColor: '#FD2DC3',
-  //   color: 'white',
-  // };
 
   const jobTypeOptions = [
     "Full Time",
@@ -209,10 +204,6 @@ const submitOptions = [
     const newType = parseFloat(e.target.value);
     setJobType(newType);
   };
-
-  // const handleInputChange = (e : any) => {
-  //   setCompanyName(e.target.value);
-  // };
 
   const goToSecondSlide = () => {
       if (companyName.length > 1 && jobTitle.length > 1) {
