@@ -43,6 +43,27 @@ function SignIn() {
   //   });
   // };
 
+  const userDetails = cookies.get('fraktional-user');
+
+  useEffect(() => {
+    console.log(userDetails);
+  
+    if (userDetails?._id) {
+      if (userDetails.status === 1) {
+        if (userDetails.type === 0) {
+          window.location.href = "/developer-overview";
+        } else {
+          
+          window.location.href = "/company-overview";
+        }
+      }
+    } else {
+      cookies.set('fraktional-user', JSON.stringify(false));
+      window.location.href = "/auth/login";
+    }
+  }, []);
+
+  
   const handleSubmit = async (e: any) => {
     setInvalidLoginError(false)
     e.preventDefault();
@@ -70,6 +91,9 @@ function SignIn() {
       progress: undefined,
       theme: "light",
     });
+
+
+
 
     try {
       const loginResult = await UserLogin({email, password}); // Rename the constant
@@ -159,11 +183,14 @@ function SignIn() {
         } else {
           window.location.href = "/company-overview";
         }
+
       }
-    } else {
-      window.location.href = "/auth/login";
-    }
-  }, [cookies]); // Include cookies in the dependency array if it's being updated
+      else {
+        cookies.set('fraktional-user', JSON.stringify(false), { path: '/' });
+  
+      }
+    }   
+  }, [0]); // Include cookies in the dependency array if it's being updated
   
   
 
