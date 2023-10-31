@@ -116,3 +116,8 @@ export interface IContactForm{
   // dont save this for now we will use it to assign the dev to the project
     jobId?:string;
   }
+
+  export interface IUserResponseModel {
+    success:boolean;
+    data?:IUser;
+  }

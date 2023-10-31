@@ -168,7 +168,7 @@ function Register() {
 
            const registrationResult = await registerUser(formData) ;
             
-           if(registrationResult){
+           if(registrationResult?.success){
          
             setTimeout(() => {
              // setDisable(false)
@@ -177,9 +177,6 @@ function Register() {
             // window.location.href="../../auth/login"
            setEditModalOpen(true)
            cookies.set('myCookie', formData.email);
-
-
-
           
            }else{
             toast.update(_id, {

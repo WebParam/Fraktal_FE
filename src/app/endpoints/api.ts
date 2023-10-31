@@ -6,12 +6,23 @@ import {
   IUser,
   IUserLogin,
   IUserResetPassword,
+  IUserResponseModel,
   IUserSendOTP,
   IVerifyOtp,
 } from "../interfaces/user";
 import { ICompanyRegister } from "../interfaces/organisation";
 import { IJobApplication } from "../interfaces/IJobApplication";
 import { IApplyForJobRegistration } from "../interfaces/job-registration";
+import {
+  instanceOfTypeIUser,
+  instanceOfTypeIOrganisation,
+  instanceOfTypeIJobApplication,
+  instanceOfTypeIJobRegistration,
+  instanceOfTypeCustomError,
+} from '../../app/interfaces/type-check';
+import { ICustomError } from "../interfaces/error";
+
+
 
 const url = "https://viconet-vercel.vercel.app"
 const localUrl= "http://localhost:8080"
@@ -22,26 +33,35 @@ export async function registerUser(payload: IUser) {
     const response = await axios.post(`${url}/api/users`, payload);
 
     if (response.status === 200 || response.status === 201) {
-
-      if (response.data._id && response.data.code !== 400) {
+      if (instanceOfTypeIUser(response.data)) {
         return {
-          bool: true,
-           message : response.data
-         } as any;
-      } else  if (response.data.code === 400) {
+          success: true,
+          data: response.data,
+        } as IUserResponseModel;
+      } else if (instanceOfTypeCustomError(response.data)) {
         return {
-         bool: false,
-          message : response.data.message
-        } as any;
+          success: false,
+          code: response.data.code,
+          message: response.data.message
+         
+        } as ICustomError;
+      }else {
+        return {
+          success: false,
+          code: response.data.code,
+          message: response.data.message
+        } as ICustomError;
       }
-    } else {
-      return false;
-    }
+    } 
   } catch (error) {
-    console.error("Error:", error);
-    return false;
+    console.error('Error:', error);
   }
 }
+
+
+
+
+
 
 export async function UserLogin(payload: IUserLogin) {
   try {

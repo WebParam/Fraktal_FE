@@ -1,6 +1,7 @@
 export interface ICustomError {
-    code: any;
-    message: string;
+    success: boolean,
+    code?: any;
+    message?: string;
     object?:any;
   }
   
