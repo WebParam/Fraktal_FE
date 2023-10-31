@@ -4,6 +4,7 @@ import logo from '../../../assets/additional/logo.webp';
 import Image from 'next/image';
 import Link from 'next/link';
 import Banner from '@/app/banner/Banner';
+import loginpage from '../../auth/login/page';
 
 type HeaderProps = {
   menuTogglerFunction: (state: boolean) => void;
@@ -47,6 +48,9 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
           <li >
           <Link style={{color: '#4B4C4E'}} href='/about'>About</Link>
           </li>
+          <li >
+          <Link style={{color: '#4B4C4E'}} href='/faq'>FAQ</Link>
+          </li>
           <li className="dropdown liTwoDesk">
           <Link style={{color: '#4B4C4E'}} href='/contact-us'>Contact us</Link>
           </li>
@@ -84,8 +88,8 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
           </li> */}
         
           <li className='hirenow'>
-              <Link href='/fraktional-dev'>
-                Hire Now
+              <Link href={'../../auth/login'}>
+                Login
               </Link>
             
           </li>

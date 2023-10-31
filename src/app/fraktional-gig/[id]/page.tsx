@@ -1,4 +1,5 @@
 'use client'
+import './id.scss';
 import Image from 'next/image';
 import { gigs } from '../../gigs';
 import star from "../../../assets/svg/illustrations/star.svg";
@@ -7,6 +8,12 @@ import laptop from "../../../assets/vendor/bootstrap-icons/icons/laptop.svg";
 import dropbox from "../../../assets/svg/brands/dropbox-icon.svg";
 import googleDrive from "../../../assets/svg/brands/google-drive-icon.svg";
 import { useState } from 'react';
+import { escape } from 'querystring';
+import Link from 'next/link';
+import { jobRegistration } from '@/app/endpoints/api';
+import { IApplyForJobRegistration } from '@/app/interfaces/user';
+import { VerifyOtp } from './verify-otp';
+import Modal from 'react-responsive-modal';
 
 function viewGig({ params }: { params: { id: string }}) {
     const gig = gigs.find(item => item.id === parseInt(params.id));
@@ -16,12 +23,44 @@ function viewGig({ params }: { params: { id: string }}) {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [summary, setSummary] = useState('');
-    const [resume, setResume] = useState(null)
+    const [resume, setResume] = useState("")
     const [workStatus, setWorkStatus] = useState('yes');
+    const [currentJob, setCurrentJob] = useState('');
+    const [yearsOfExperience, setYearsOfExperience] = useState('');
     const [notice, setnotice] = useState('');
     const [portfolio, setPortfolio] = useState([]);
     const [expectedSalary, setExpectedSalary] = useState('');
     const [mobileExp, setMobileExp] = useState('');
+    const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+    const userInformation = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phone: phone,
+        summary: summary,
+        resume: resume,
+        workStatus: workStatus,
+        notice: notice,
+        portfolio: portfolio,
+        expectedSalary: expectedSalary,
+        mobileExp: mobileExp,
+        // jobid: params.id
+      } ;
+
+    const [firstNameError, setFirstNameError] = useState(false);
+    const [lastNameError, setLastNameError] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const [phoneError, setPhoneError] = useState(false);
+    const [summaryError, setSummaryError] = useState(false);
+    const [resumeError, setResumeError] = useState(false)
+    // const [workStatusError, setWorkStatusError] = useState(false);
+    const [yearsOfExperienceError, setyearsOfExperienceError] = useState(false);
+    const [noticeError, setnoticeError] = useState(false);
+    const [portfolioError, setPortfolioError] = useState(false);
+    const [expectedSalaryEroor, setExpectedSalaryError] = useState(false);
+    // const [mobileExpError, setMobileExpError] = useState(false);
+    const [showerror, setShowErrorMessage] = useState(false);
+    const [emailExist, setEmailExist] = useState(false);
 
     const handleFirstName = (e: any) => {
         setFirstName(e.target.value);
@@ -30,6 +69,10 @@ function viewGig({ params }: { params: { id: string }}) {
     
     const handleLastName = (e: any) => {
         setLastName(e.target.value);
+    }
+
+    const handleJob = (e: any) => {
+        setCurrentJob(e.target.value);
     }
 
     
@@ -51,6 +94,10 @@ function viewGig({ params }: { params: { id: string }}) {
         setWorkStatus(value);
       };
 
+    const handleYearsOfExperience = (e: any) => {
+        setYearsOfExperience(e.target.value);
+    }
+
     const handleNotice = (e: any) => {
         setnotice(e.target.value);
     }
@@ -64,19 +111,167 @@ function viewGig({ params }: { params: { id: string }}) {
       };
 
 
-    const handleResume = (e: any) => {
+      const handleResume = (e: any) => {
         const file = e.target.files[0];
-        setResume(file);
+      
+        if (file) {
+          const fileName = file.name;
+          setResume(fileName);
+      
+      
+        }
       };
-
+      
       const handlePortfolio = (e: any) => {
         const file = e.target.files[0];
         setPortfolio(file);
       };
 
+      const handleSubmit = (e: any) => {
+            e.preventDefault();
 
+            if (!firstName.trim()) {
+                setFirstNameError(true);
+                setShowErrorMessage(true);
+                return;
+            } else {
+                setFirstNameError(false)
+                setShowErrorMessage(false);
+            }
+
+            if (!lastName.trim()) {
+                setLastNameError(true);
+                setShowErrorMessage(true);
+            } else {
+                setLastNameError(false);
+                setShowErrorMessage(false);
+            }
+            
+            if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+                setEmailError(true);
+                setShowErrorMessage(true);
+            } else {
+                setEmailError(false);
+                setShowErrorMessage(false);
+            }
+        
+            if (!phone || !/^\d+$/.test(phone)) {
+               setPhoneError(true)
+               setShowErrorMessage(true);
+            } else {
+                setPhoneError(false);
+                setShowErrorMessage(false);
+            }
+
+            if (summary.length < 20) {
+                setSummaryError(true);
+                setShowErrorMessage(true);
+            } else {
+                setSummaryError(false);
+                setShowErrorMessage(false); 
+            }
+
+            if (!resume) {
+                setResumeError(true);
+                setShowErrorMessage(true);
+            } else {
+                setResumeError(false);
+                setShowErrorMessage(false);
+            }
+            if (!yearsOfExperienceError || !/^\d+$/.test(yearsOfExperience)) {
+                setyearsOfExperienceError(true)
+                setShowErrorMessage(true);
+             } else {
+                setyearsOfExperienceError(false);
+                 setShowErrorMessage(false);
+             }
+
+            if (!notice.trim()) {
+                setnoticeError(true);
+                setShowErrorMessage(true);
+            } else {
+                setnoticeError(false);
+                setShowErrorMessage(false);
+            }
+            
+            if (!portfolio) {
+                setPortfolioError(true);
+                setShowErrorMessage(true);
+            } else {
+                setPortfolioError(false);
+                setShowErrorMessage(false);
+            }
+
+            if (!/^\d+$/.test(expectedSalary)) {
+                setExpectedSalaryError(true);
+                setShowErrorMessage(true);
+            } else {
+                setExpectedSalaryError(false);
+                setShowErrorMessage(false);
+            }
+        }   
+
+
+        const applyForJob = async (e: any) => {
+            e.preventDefault();
+            const payload = {
+   
+    firstName:firstName, 
+    lastName:lastName, 
+    email:email, 
+    phone:phone, 
+    summary:summary,
+    resume:resume,
+    workStatus:workStatus, 
+    yearsOfExperience:yearsOfExperience,
+    expectedSalary:expectedSalary, 
+    notice:notice, 
+
+  
+            } as IApplyForJobRegistration
+            const registrationResult = await jobRegistration(payload) ;
+            console.log(registrationResult)
+            if(registrationResult?.bool){
+                setEditModalOpen(true)
+            }else if(!registrationResult?.bool){
+                setEmailExist(true)
+                window.scrollTo({
+                    top: 10,
+                    behavior: 'smooth' // For smooth scrolling
+                });
+            }
+        }
+
+        function saveAndCloseEditModal(){
+
+            setEditModalOpen(false)
+        
+          
+          }
+        const customModalStyles = {
+            modal: {
+              maxWidth: '40%', 
+              width: '50%',
+              borderRadius: "10px",
+              backgroundColor: "lightpink"
+            },
+          };
+
+          const inputEmailStyle = {
+            ...(emailExist && {
+              outlineStyle: "solid",
+             color: "tomato",
+              borderWidth: "1px",
+            }),
+          };
     return (
     <main id="content" role="main">
+         <Modal styles={customModalStyles}  open={editModalOpen} onClose={() => setEditModalOpen(false)} center>
+        <VerifyOtp email = {email} onClose={saveAndCloseEditModal} />
+      </Modal>
+        <Link className="back" style={{margin: '40px', display: 'block', color: '#4B4C4E'}} href='/fraktional-gig'>
+        <i className="bi bi-chevron-left"></i> back
+        </Link>
         {/* Page Header */}
         <div className="container content-space-t-2">
             <div className="w-lg-75 mx-lg-auto">
@@ -180,7 +375,7 @@ function viewGig({ params }: { params: { id: string }}) {
             </div>
             {/* End Card */}
             {/* Form */}
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                 <h3>Personal information</h3>
                 </div>
@@ -191,7 +386,7 @@ function viewGig({ params }: { params: { id: string }}) {
                     <label className="form-label" htmlFor="applyForJobFirstName">First name</label>
                     <input 
                         type="text" 
-                        className="form-control" 
+                        className={`form-control ${firstNameError ? 'error':''}`} 
                         name="applyForJobNameFirstName" 
                         id="applyForJobFirstName" 
                         placeholder="First name" 
@@ -208,7 +403,7 @@ function viewGig({ params }: { params: { id: string }}) {
                     <label className="form-label" htmlFor="applyForJobLasttName">Last name</label>
                     <input 
                         type="text" 
-                        className="form-control" 
+                        className={`form-control ${lastNameError ? 'error':''}`}
                         name="applyForJobNameLastName" 
                         id="applyForJobLasttName" 
                         placeholder="Last name" 
@@ -223,16 +418,17 @@ function viewGig({ params }: { params: { id: string }}) {
                 {/* End Form */}
                 {/* Form */}
                 <div className="mb-4">
-                <label className="form-label" htmlFor="applyForJobEmail">Email address</label>
+                <label className="form-label" htmlFor="applyForJobEmail">Email address</label>{emailExist && <span style={{color : "red", fontSize:"small",fontWeight:"600", marginLeft:"15px"}}>Email address already exist</span>}
                 <input 
                     type="email" 
-                    className="form-control" 
+                    className={`form-control ${emailError ? 'error':''}`} 
                     name="applyForJobNameEmail" 
                     id="applyForJobEmail" 
                     placeholder="email@site.com" 
                     aria-label="email@site.com"
                     value={email}
                     onChange={handleEmail}
+                   
                 />
                 </div>
                 {/* End Form */}
@@ -242,11 +438,11 @@ function viewGig({ params }: { params: { id: string }}) {
                     &quot;container&quot;: &quot;#addPhoneFieldContainer&quot;,
                     &quot;defaultCreated&quot;: 0
                 }">
-                <label className="form-label" htmlFor="applyForJobPhone">Phone <span className="form-label-secondary">(Optional)</span></label>
+                <label className="form-label" htmlFor="applyForJobPhone">Phone</label>
                 <div className="input-group">
                     <input 
                         type="text" 
-                        className="js-input-mask form-control" 
+                        className={`js-input-mask form-control ${phoneError ? 'error':''}`} 
                         name="applyForJobNamePhone" 
                         id="applyForJobPhone" 
                         placeholder="+x(xxx)xxx-xx-xx" 
@@ -268,10 +464,10 @@ function viewGig({ params }: { params: { id: string }}) {
                     {/* End Select */}
                 </div>
                 {/* Container For Input Field */}
-                <div id="addPhoneFieldContainer" />
+                {/* <div id="addPhoneFieldContainer" />
                 <a href="javascript:;" className="js-create-field form-link">
                     <i className="bi-plus-circle me-1" /> Add phone
-                </a>
+                </a> */}
                 </div>
                 {/* End Form */}
                 {/* Add Phone Input Field */}
@@ -303,7 +499,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobSummary">Summary</label>
                 <textarea 
-                className="form-control" 
+                className={`form-control ${summaryError ? 'error':''}`} 
                 name="applyForJobSummaryName" 
                 id="applyForJobSummary" 
                 placeholder="In a few words, tell us about yourself" 
@@ -311,12 +507,15 @@ function viewGig({ params }: { params: { id: string }}) {
                 rows={6} 
                 value={summary}
                 onChange={handleSummary} />
+                {summaryError ? <p style={{color: 'red'}}>Please provide more than 20 characters</p>: ''}
                 </div>
                 {/* End Form */}
                 {/* Form */}
                 <div className="mb-4">
                 <label className="form-label">Resume/CV and Cover Letter <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Maximum file size 10 MB." data-bs-original-title="Maximum file size 10 MB." /></label>
-                <div id="resumeAttach" className="js-dropzone dz-dropzone dz-dropzone-card dz-clickable">
+                <div 
+                    id="resumeAttach" 
+                    className={`js-dropzone dz-dropzone dz-dropzone-card dz-clickable ${resumeError ? 'error':''}`}>
                     <div className="dz-message">
                     <input type="file" name="resume" id="resume" onChange={handleResume} />
                     </div>
@@ -328,18 +527,19 @@ function viewGig({ params }: { params: { id: string }}) {
                 <h3>Details</h3>
                 </div>
                 <div className="mb-1">
-                <label className="input-label">Do you have the right to work in the UK?</label>
+                <label className="input-label">Are you currently working?</label>
                 </div>
                 {/* Radio Button Group */}
-                <div className="btn-group btn-group-segment mb-4" role="group" aria-label="Work status radio button group">
+                <div className="btn-group col-md-12 btn-group-segment mb-4" role="group" aria-label="Work status radio button group">
+                
                 <input 
                     type="radio" 
                     className="btn-check" 
                     name="applyForJobWorkStatusBtnRadio" 
                     id="applyForJobWorkStatusYesBtnRadio" 
-                    autoComplete="off" 
-                    checked={workStatus === 'yes'} 
-                    onChange={() => handleWorkStatusChange('no')} 
+                    autoComplete="off"
+                    checked={workStatus === 'yes'}
+                    onChange={() => handleWorkStatusChange('yes')} 
                 />
                 <label className="btn btn-sm" htmlFor="applyForJobWorkStatusYesBtnRadio"><i className="bi-hand-thumbs-up me-1" /> Yes</label>
                 <input 
@@ -352,14 +552,42 @@ function viewGig({ params }: { params: { id: string }}) {
                     onChange={() => handleWorkStatusChange('no')} 
                 />
                 <label className="btn btn-sm" htmlFor="applyForJobWorkStatusNoBtnRadio"><i className="bi-hand-thumbs-down me-1" /> No</label>
+                
+                {workStatus =="yes" && <div className="">
+                <label className="form-label" htmlFor="applyForJobNoticePeriod">Please provide some more details about your current job roles and responsibilities</label>
+                <textarea 
+                    cols={6}
+                    className="form-control" 
+                    name="applyForCurrentJob" 
+                    id="applyForCurrentJob" 
+                    placeholder="Please enter current job details" 
+                    aria-label="Please enter current job details"
+                    value={currentJob}
+                    onChange={handleJob}
+                />
+                </div>
+                }
                 </div>
                 {/* End Radio Button Group */}
                 {/* Form */}
                 <div className="mb-4">
+                <label className="form-label" htmlFor="applyForJobNoticePeriod">Years Of Experience</label>
+                <input 
+                    type="text" 
+                    className={`form-control ${yearsOfExperienceError ? 'error':''}`} 
+                    name="applyForJobNameNoticePeriod" 
+                    id="applyForJobNoticePeriod" 
+                    placeholder="0" 
+                    aria-label="0"
+                    value={yearsOfExperience}
+                    onChange={handleYearsOfExperience}
+                />
+                </div>
+                <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobNoticePeriod">Notice period</label>
                 <input 
                     type="text" 
-                    className="form-control" 
+                    className={`form-control ${noticeError ? 'error':''}`} 
                     name="applyForJobNameNoticePeriod" 
                     id="applyForJobNoticePeriod" 
                     placeholder="2 months" 
@@ -372,7 +600,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 {/* Form */}
                 <div className="mb-4">
                 <label className="form-label">Upload your portfolio <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Maximum file size 10 MB." data-bs-original-title="Maximum file size 10 MB." /></label>
-                <div id="portfolioAttach" className="js-dropzone dz-dropzone dz-dropzone-card dz-clickable">
+                <div id="portfolioAttach" className={`js-dropzone dz-dropzone dz-dropzone-card dz-clickable ${portfolioError ? 'error':''}`}>
                     <div className="dz-message">
                     <input type="file" name="portfolio" id="porfolio" onChange={handlePortfolio} />
                     </div>
@@ -384,13 +612,13 @@ function viewGig({ params }: { params: { id: string }}) {
                 <label className="form-label" htmlFor="applyForJobExpectedSalary">Expected salary</label>
                 <input 
                     type="text" 
-                    className="form-control" 
+                    className={`form-control ${expectedSalaryEroor ? 'error':''}`} 
                     name="applyForJobNameExpectedSalary" 
                     id="applyForJobExpectedSalary" 
                     placeholder="$5k-$7k" 
                     aria-label="$5k-$7k"
                     value={expectedSalary}
-                    onChange={handleSalary} 
+                    onChange={handleSalary}
                 />
                 </div>
                 {/* End Form */}
@@ -398,7 +626,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 <label className="input-label">Do you have experience designing for mobile?</label>
                 </div>
                 {/* Radio Button Group */}
-                <div className="btn-group btn-group-segment mb-4" role="group" aria-label="Mobile experience radio button group">
+                {/* <div className="btn-group btn-group-segment mb-4" role="group" aria-label="Mobile experience radio button group">
                     <input
                     type="radio"
                     className="btn-check"
@@ -420,12 +648,13 @@ function viewGig({ params }: { params: { id: string }}) {
                     onChange={() => handleMobileExp('no')} // Handle 'No' selection
                     />
                     <label className="btn btn-sm" htmlFor="applyForJobWorkExperienceNoBtnRadio"><i className="bi-hand-thumbs-down me-1" /> No</label>
-                </div>
+                </div> */}
                 {/* End Radio Button Group */}
                 <div className="d-grid mt-5">
-                <button type="submit" className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Send application</button>
+                <button onClick={applyForJob} type="submit" className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Send application</button>
                 </div>
             </form>
+            {showerror && <h5 style={{ textAlign: 'center', color: 'red', marginTop: '20px'}}>PLEASE CHECK IF ALL FIELDS ARE FILLED</h5>}
             {/* End Form */}
             </div>
         </div>
