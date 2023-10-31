@@ -1,27 +1,16 @@
 'use client'
-import Image from "next/image";
-import img9 from "../../../assets/img/160x160/img9.jpg";
-import topVendor from "../../../assets/svg/illustrations/top-vendor.svg";
 import './DevOverview.scss';
 import './otpStyle.scss';
-import dropboxicon from "../../../assets/svg/brands/dropbox-icon.svg";
-import varsity from "../../../assets/svg/brands/the-university-of-manchester.svg";
 import Link from "next/link";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { Modal } from 'react-responsive-modal';
+import { ChangeEvent,  useRef, useState } from "react";
 import 'react-responsive-modal/styles.css';
-import { IDeveloperProfile, IEducationInformation, IUserSendOTP, IVerifyOtp, IWorkExperience } from "../../interfaces/user";
-import { CreateDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile, sendOTP, verifyOtp } from "../../endpoints/api";
-import Cookies from 'universal-cookie';
-const cookies = new Cookies();
+import { IUserSendOTP } from "../../interfaces/user";
+import {  sendOTP, verifyOtp } from "../../endpoints/api";
 
 interface verifyOtpModalProps {
   onClose: () => any;
   email: string;
-
 }
-
-
 
 export const VerifyOtp: React.FC<verifyOtpModalProps> = ({
 email

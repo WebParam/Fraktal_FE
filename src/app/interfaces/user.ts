@@ -118,6 +118,7 @@ export interface IContactForm{
   }
 
   export interface IUserResponseModel {
-    success:boolean;
+ 
     data?:IUser;
+   
   }

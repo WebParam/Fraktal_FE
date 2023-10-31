@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Link from "next/link";
 import "./Signin.scss";
@@ -134,9 +134,10 @@ function SignIn() {
     modal: {
       maxWidth: '40%', 
       width: '50%',
+      borderRadius: "10px",
+      backgroundColor: "lightpink"
     },
   };
-  
   function saveAndCloseEditModal(){
 
     setEditModalOpen(false)  
@@ -145,8 +146,26 @@ function SignIn() {
   const getCookie = () => {
     // Get a cookie
     
-   
+
   }
+
+  useEffect(() => {
+    const userDetails = cookies.get('fraktional-user');
+    console.log(userDetails);
+  
+    if (userDetails?._id) {
+      if (userDetails.status === 1) {
+        if (userDetails.type === 0) {
+          window.location.href = "/developer-overview";
+        } else {
+          window.location.href = "/company-overview";
+        }
+      }
+    } else {
+      window.location.href = "/auth/login";
+    }
+  }, [cookies]); // Include cookies in the dependency array if it's being updated
+  
   
 
   return (

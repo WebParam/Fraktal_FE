@@ -168,41 +168,52 @@ function Register() {
 
            const registrationResult = await registerUser(formData) ;
             
-           if(registrationResult?.success){
+           if(registrationResult){
          
             setTimeout(() => {
              // setDisable(false)
               toast.dismiss(_id);
             });
-            // window.location.href="../../auth/login"
+        
            setEditModalOpen(true)
            cookies.set('myCookie', formData.email);
           
-           }else{
-            toast.update(_id, {
-              render: "error registering user",
-              type: "error",
-              isLoading: false,
-            });
-            setTimeout(() => {
-             // setDisable(false)
-              toast.dismiss(_id);
-            }, 2000);
            }
           
-          } catch (error) {
-            // Handle errors
-            toast.update(_id, {
-              render: "error registering user",
-              type: "error",
-              isLoading: false,
-            });
+          } catch (error:any) {
+         
+            const statusCode = error.response ? error.response.status : null;
+          
+            if (statusCode === 400) {
+           
+              toast.update(_id, {
+                render: `Email addrress already exists`,
+                type: "error",
+                isLoading: false,
+              });
+            } else if (statusCode === 401) {
+         
+              toast.update(_id, {
+                render: `Unauthorized: ${error.message}`,
+                type: "error",
+                isLoading: false,
+              });
+            } else {
+          
+              toast.update(_id, {
+                render: `An error occurred: ${error.message}`,
+                type: "error",
+                isLoading: false,
+              });
+            }
+          
             setTimeout(() => {
-             // setDisable(false)
               toast.dismiss(_id);
             }, 2000);
+          
             console.error("Error:", error);
-          } 
+          }
+          
      
     };
     
@@ -300,9 +311,10 @@ function Register() {
     modal: {
       maxWidth: '40%', 
       width: '50%',
+      borderRadius: "10px",
+      backgroundColor: "lightpink"
     },
   };
-
   function saveAndCloseEditModal(){
 
     setEditModalOpen(false)

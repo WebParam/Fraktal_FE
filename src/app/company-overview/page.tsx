@@ -51,6 +51,8 @@ const [companyAbout, setCompanyAbout] = useState("");
     setWorkModalOpen(true);
   }
 
+
+  
   function educationModal(): void {
     setEducationModalOpen(true);
   }

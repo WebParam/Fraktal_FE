@@ -29,43 +29,32 @@ const localUrl= "http://localhost:8080"
 
 
 export async function registerUser(payload: IUser) {
+  const response = await axios.post(`${url}/api/users`, payload);
+
   try {
-    const response = await axios.post(`${url}/api/users`, payload);
 
     if (response.status === 200 || response.status === 201) {
+    
+    
       if (instanceOfTypeIUser(response.data)) {
-        return {
-          success: true,
-          data: response.data,
-        } as IUserResponseModel;
-      } else if (instanceOfTypeCustomError(response.data)) {
-        return {
-          success: false,
-          code: response.data.code,
-          message: response.data.message
-         
-        } as ICustomError;
-      }else {
-        return {
-          success: false,
-          code: response.data.code,
-          message: response.data.message
-        } as ICustomError;
+          return response.data as IUserResponseModel
+      } else if (response.data.code === 400) {
+       return false
       }
-    } 
-  } catch (error) {
-    console.error('Error:', error);
   }
+ } catch (error) {
+    console.error('Error:', response.data);
+  
 }
 
-
+}
 
 
 
 
 export async function UserLogin(payload: IUserLogin) {
   try {
-    const response = await axios.post(`${url}/api/login`, payload);
+    const response = await axios.post(`${localUrl}/api/login`, payload);
 
     if (response.status === 200 || response.status === 201) {
       console.log("login successful");

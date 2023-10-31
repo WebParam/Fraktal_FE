@@ -74,6 +74,8 @@ function developerOverview() {
   const loggedInUser = cookies.get("fraktional-user")??"{}";
   const [existingUser, setExistingUser] = useState(false);
 
+  console.log(loggedInUser)
+
   
   const [cv, setCV] = useState<Blob | undefined>();
   const [hasChanged, setHasChanged] = useState(false);
@@ -83,6 +85,8 @@ function developerOverview() {
     setCV(e.target.files[0]);
     setHasChanged(true);
   };
+
+  
 
 
   const saveProfilePic = async (e: any) => {
@@ -135,6 +139,7 @@ async function _GetDeveloperProfile(id:string){
   setEducation(res?.data?.education);
   setKeyCourses(res?.data?.keyCourses);
   setCVUrl(res?.data?.cvUrl);
+  console.log(res?.data?.cvUrl)
   setUser(res?.data?.user); // change
   setPreferedWorkMethod(res?.data?.preferedWorkMethod);
   setExistingUser(true);
@@ -586,12 +591,14 @@ useEffect(() => {
                       name="cv"
                       onChange={saveCV}
                     /> 
-                    {/* { cvUrl && cvUrl != "" && ( */}
-                      <a href={cvUrl} target="_blank">
+                   
+                     {
+                      cvUrl !== "" ? <a href={cvUrl} target="_blank">
                          
-                        <label className="l-18-n" style={{margin: "10px"}}>Download CV</label>
-                      </a>
-                       {/* )} */}
+                      <label className="l-18-n" style={{margin: "10px"}}>Download CV</label>
+                    </a> : null
+                     }
+                     
                 </div>
                 {/* End Check */}
               </div>
