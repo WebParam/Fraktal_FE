@@ -106,8 +106,6 @@ export interface IContactForm{
     email:string, 
     phone:string, 
 
-  // create new personnel with this info and save these fields
-
     summary:string, //personnel->personnal information -> bio
     resume:string, // personnel -> cvurl
     workStatus:string, // personnel -> current job 
@@ -116,5 +114,5 @@ export interface IContactForm{
     notice:string, // personnel -> add new field (nullable)
 
   // dont save this for now we will use it to assign the dev to the project
-    jobId:string;
+    jobId?:string;
   }

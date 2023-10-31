@@ -14,6 +14,7 @@ import { IJobApplication } from "../interfaces/IJobApplication";
 import { IApplyForJobRegistration } from "../interfaces/job-registration";
 
 const url = "https://viconet-vercel.vercel.app"
+const localUrl= "http://localhost:8080"
 
 
 export async function registerUser(payload: IUser) {
@@ -21,10 +22,19 @@ export async function registerUser(payload: IUser) {
     const response = await axios.post(`${url}/api/users`, payload);
 
     if (response.status === 200 || response.status === 201) {
-      console.log("Registration successful");
-      return true;
+
+      if (response.data._id && response.data.code !== 400) {
+        return {
+          bool: true,
+           message : response.data
+         } as any;
+      } else  if (response.data.code === 400) {
+        return {
+         bool: false,
+          message : response.data.message
+        } as any;
+      }
     } else {
-      console.error("Registration failed");
       return false;
     }
   } catch (error) {
@@ -296,12 +306,20 @@ export async function verifyOtp(payload: IVerifyOtp) {
 
 export async function jobRegistration(payload: IApplyForJobRegistration) {
   try {
-    const response = await axios.post(`${url}/api/apply`, payload);
+    const response = await axios.post(`${localUrl}/api/apply`, payload);
+
     if (response.status === 200 || response.status === 201) {
-      if (response.data._doc) {
-        return response.data._doc;
-      } else {
-        return false;
+
+      if (response.data._id && response.data.code !== 400) {
+        return {
+          bool: true,
+           message : response.data
+         } as any;
+      } else  if (response.data.code === 400) {
+        return {
+         bool: false,
+          message : response.data.message
+        } as any;
       }
     } else {
       return false;
@@ -311,3 +329,26 @@ export async function jobRegistration(payload: IApplyForJobRegistration) {
     return false;
   }
 }
+
+
+export async function ChangePasswordAndActivate(payload: IUserResetPassword) {
+  try {
+    const response = await axios.post(
+      `${url}/api/user/changePasswordAndActivate`,
+      payload
+    );
+
+    if (response.status === 200 || response.status === 201) {
+      // Registration successful, you can redirect the user or show a success message.
+      console.log("password reset successful");
+      return true;
+    } else {
+      console.error("password reset failed");
+      return false;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+}
+

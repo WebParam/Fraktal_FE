@@ -10,6 +10,10 @@ import googleDrive from "../../../assets/svg/brands/google-drive-icon.svg";
 import { useState } from 'react';
 import { escape } from 'querystring';
 import Link from 'next/link';
+import { jobRegistration } from '@/app/endpoints/api';
+import { IApplyForJobRegistration } from '@/app/interfaces/user';
+import { VerifyOtp } from './verify-otp';
+import Modal from 'react-responsive-modal';
 
 function viewGig({ params }: { params: { id: string }}) {
     const gig = gigs.find(item => item.id === parseInt(params.id));
@@ -19,7 +23,7 @@ function viewGig({ params }: { params: { id: string }}) {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [summary, setSummary] = useState('');
-    const [resume, setResume] = useState(null)
+    const [resume, setResume] = useState("")
     const [workStatus, setWorkStatus] = useState('yes');
     const [currentJob, setCurrentJob] = useState('');
     const [yearsOfExperience, setYearsOfExperience] = useState('');
@@ -27,7 +31,7 @@ function viewGig({ params }: { params: { id: string }}) {
     const [portfolio, setPortfolio] = useState([]);
     const [expectedSalary, setExpectedSalary] = useState('');
     const [mobileExp, setMobileExp] = useState('');
-
+    const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
     const userInformation = {
         firstName: firstName,
         lastName: lastName,
@@ -41,7 +45,7 @@ function viewGig({ params }: { params: { id: string }}) {
         expectedSalary: expectedSalary,
         mobileExp: mobileExp,
         // jobid: params.id
-      };
+      } ;
 
     const [firstNameError, setFirstNameError] = useState(false);
     const [lastNameError, setLastNameError] = useState(false);
@@ -56,6 +60,7 @@ function viewGig({ params }: { params: { id: string }}) {
     const [expectedSalaryEroor, setExpectedSalaryError] = useState(false);
     // const [mobileExpError, setMobileExpError] = useState(false);
     const [showerror, setShowErrorMessage] = useState(false);
+    const [emailExist, setEmailExist] = useState(false);
 
     const handleFirstName = (e: any) => {
         setFirstName(e.target.value);
@@ -106,11 +111,17 @@ function viewGig({ params }: { params: { id: string }}) {
       };
 
 
-    const handleResume = (e: any) => {
+      const handleResume = (e: any) => {
         const file = e.target.files[0];
-        setResume(file);
+      
+        if (file) {
+          const fileName = file.name;
+          setResume(fileName);
+      
+      
+        }
       };
-
+      
       const handlePortfolio = (e: any) => {
         const file = e.target.files[0];
         setPortfolio(file);
@@ -201,8 +212,63 @@ function viewGig({ params }: { params: { id: string }}) {
         }   
 
 
+        const applyForJob = async (e: any) => {
+            e.preventDefault();
+            const payload = {
+   
+    firstName:firstName, 
+    lastName:lastName, 
+    email:email, 
+    phone:phone, 
+    summary:summary,
+    resume:resume,
+    workStatus:workStatus, 
+    yearsOfExperience:yearsOfExperience,
+    expectedSalary:expectedSalary, 
+    notice:notice, 
+
+  
+            } as IApplyForJobRegistration
+            const registrationResult = await jobRegistration(payload) ;
+            console.log(registrationResult)
+            if(registrationResult?.bool){
+                setEditModalOpen(true)
+            }else if(!registrationResult?.bool){
+                setEmailExist(true)
+                window.scrollTo({
+                    top: 10,
+                    behavior: 'smooth' // For smooth scrolling
+                });
+            }
+        }
+
+        function saveAndCloseEditModal(){
+
+            setEditModalOpen(false)
+        
+          
+          }
+        const customModalStyles = {
+            modal: {
+              maxWidth: '40%', 
+              width: '50%',
+              borderRadius: "10px",
+              backgroundColor: "lightpink"
+            },
+          };
+
+          const inputEmailStyle = {
+            ...(emailExist && {
+              outlineStyle: "solid",
+             color: "tomato",
+              borderWidth: "1px",
+            }),
+          };
     return (
     <main id="content" role="main">
+         <Modal styles={customModalStyles}  open={editModalOpen} onClose={() => setEditModalOpen(false)} center>
+        <VerifyOtp email = {email} onClose={saveAndCloseEditModal} />
+      </Modal>
         <Link className="back" style={{margin: '40px', display: 'block', color: '#4B4C4E'}} href='/fraktional-gig'>
         <i className="bi bi-chevron-left"></i> back
         </Link>
@@ -352,7 +418,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 {/* End Form */}
                 {/* Form */}
                 <div className="mb-4">
-                <label className="form-label" htmlFor="applyForJobEmail">Email address</label>
+                <label className="form-label" htmlFor="applyForJobEmail">Email address</label>{emailExist && <span style={{color : "red", fontSize:"small",fontWeight:"600", marginLeft:"15px"}}>Email address already exist</span>}
                 <input 
                     type="email" 
                     className={`form-control ${emailError ? 'error':''}`} 
@@ -362,6 +428,7 @@ function viewGig({ params }: { params: { id: string }}) {
                     aria-label="email@site.com"
                     value={email}
                     onChange={handleEmail}
+                   
                 />
                 </div>
                 {/* End Form */}
@@ -584,7 +651,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 </div> */}
                 {/* End Radio Button Group */}
                 <div className="d-grid mt-5">
-                <button type="submit" className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Send application</button>
+                <button onClick={applyForJob} type="submit" className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Send application</button>
                 </div>
             </form>
             {showerror && <h5 style={{ textAlign: 'center', color: 'red', marginTop: '20px'}}>PLEASE CHECK IF ALL FIELDS ARE FILLED</h5>}

@@ -11,6 +11,7 @@ import capsule from "../../assets/svg/brands/capsule-icon.svg";
 import img24 from "../../assets/img/900x900/img24.jpg";
 import Footer from '../components/Footer/Footer';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 
 function jobs() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
@@ -424,4 +425,7 @@ function jobs() {
     )
 }
 
-export default jobs;
+
+
+export default dynamic (() => Promise.resolve(jobs), {ssr: false})
+
