@@ -18,6 +18,8 @@ import { CreateDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile, up
 import Cookies from 'universal-cookie';
 import Banner from "../banner/Banner";
 import dynamic from "next/dynamic";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 const cookies = new Cookies();
 
 
@@ -89,25 +91,49 @@ function developerOverview() {
   
 
 
+
   const saveProfilePic = async (e: any) => {
     const pp = e.target.files[0];
-    // updateProfilePic();
     const profilePicUpload = new FormData();
-debugger;
-    if(pp){
+  
+    if (pp) {
+      // Display a loading notification when uploading an image
+      const _zz = toast.loading("Uploading an image...", {
+        position: "top-center",
+        autoClose: false, // Keep it open until the upload is complete
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+  
       profilePicUpload.append("profilePic", pp as Blob);
-      const profilePicDoc = await uploadProfilePic(profilePicUpload,loggedInUser._id??"");
       
-      console.log("profres", profilePicDoc);
-      const newImage = profilePicDoc.data.data.Location
-      const newUser = {...loggedInUser, profilePicture:newImage};
-      cookies.remove("fraktional-user", { path: '/' });
-
-      setCurrentProfilePic(newImage);
-      
-       cookies.set("fraktional-user", newUser as any, { path: "/" });
+      try {
+        const profilePicDoc = await uploadProfilePic(profilePicUpload, loggedInUser._id ?? "");
+        console.log("profres", profilePicDoc);
+        
+        const newImage = profilePicDoc.data.data.Location;
+        const newUser = { ...loggedInUser, profilePicture: newImage };
+        cookies.remove("fraktional-user", { path: '/' });
+  
+        setCurrentProfilePic(newImage);
+        cookies.set("fraktional-user", newUser as any, { path: "/" });
+        
+        // Dismiss the loading notification when the image upload is complete
+        toast.dismiss(_zz);
+      } catch (error) {
+        // Handle the error, e.g., show an error notification
+        toast.error("Image upload failed. Please try again.");
+        
+        // Dismiss the loading notification on error
+        toast.dismiss(_zz);
+      }
     }
   };
+  
 
   
   function workModal(): void {
@@ -310,12 +336,35 @@ useEffect(() => {
 
   }
 
+
+  useEffect(() => {
+    const userDetails = cookies.get('fraktional-user');
+    console.log(userDetails);
   
+    if (!userDetails?._id) {
+      window.location.href = "/auth/login";
+    }
+}, [cookies]); // Include cookies in the dependency array if it's being updated
+  
+// let _id = toast.loading("Registering user..", {
+//   position: "top-center",
+//   autoClose: 1000,
+//   hideProgressBar: false,
+//   closeOnClick: true,
+//   pauseOnHover: false,
+//   draggable: true,
+//   progress: undefined,
+//   theme: "light",
+// });
+
   
     return (
       <>
       <div className="top">
+
         <Banner />
+        <ToastContainer />
+        
       </div>
     <main id="content" role="main" className="bg-light">
   {/* Breadcrumb */}
