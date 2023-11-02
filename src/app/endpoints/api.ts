@@ -25,7 +25,7 @@ import { ICustomError } from "../interfaces/error";
 
 
 const url = "https://viconet-vercel.vercel.app"
-const localUrl= "http://localhost:8080"
+const localUrl=  "https://viconet-vercel.vercel.app"
 
 
 export async function registerUser(payload: IUser) {

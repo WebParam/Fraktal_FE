@@ -43,25 +43,25 @@ function SignIn() {
   //   });
   // };
 
-  const userDetails = cookies.get('fraktional-user');
+  // const userDetails = cookies.get('fraktional-user');
 
-  useEffect(() => {
-    console.log(userDetails);
+  // useEffect(() => {
+  //   console.log(userDetails);
   
-    if (userDetails?._id) {
-      if (userDetails.status === 1) {
-        if (userDetails.type === 0) {
-          window.location.href = "/developer-overview";
-        } else {
+  //   if (userDetails?._id) {
+  //     if (userDetails.status === 1) {
+  //       if (userDetails.type === 0) {
+  //         window.location.href = "/developer-overview";
+  //       } else {
           
-          window.location.href = "/company-overview";
-        }
-      }
-    } else {
-      cookies.set('fraktional-user', JSON.stringify(false));
-      window.location.href = "/auth/login";
-    }
-  }, []);
+  //         window.location.href = "/company-overview";
+  //       }
+  //     }
+  //   } else {
+  //     cookies.set('fraktional-user', JSON.stringify(false));
+  //     window.location.href = "/auth/login";
+  //   }
+  // }, []);
 
   
   const handleSubmit = async (e: any) => {
@@ -184,13 +184,6 @@ function SignIn() {
         } else {
           window.location.href = "/company-overview";
         }
-<<<<<<< HEAD
-      }
-    } else {
-      window.location.href = "/auth/login";
-    }
-  }, [cookies]); // Include cookies in the dependency array if it's being updated
-=======
 
       }
       else {
@@ -199,7 +192,7 @@ function SignIn() {
       }
     }   
   }, [0]); // Include cookies in the dependency array if it's being updated
->>>>>>> c2ed07f0b3f80a706d04b6f86449f212d1473e02
+
   
   
 
