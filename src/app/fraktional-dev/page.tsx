@@ -78,7 +78,8 @@ function Fraktional() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setDisableSubmitBtn(true)
-
+    setWeakPassword(false)
+    setConfirm_PasswordError(false)
   // Validate the form fields here and set errors if any
   const errors = {} as any;
 
@@ -100,9 +101,9 @@ function Fraktional() {
  
   try {
    
- //   alert("Kwanele is awesome!");
-    setConfirm_PasswordError(false)
+
     if(!passwordRegex.test(formData.password!)){
+      
       setDisableSubmitBtn(false)
       setWeakPassword(true)
       toast.dismiss(_id);
