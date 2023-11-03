@@ -128,6 +128,8 @@ function Fraktional() {
            return;
         }
       }else{
+        toast.dismiss(_id);
+
         setConfirm_PasswordError(true)
     
       }
@@ -375,6 +377,9 @@ const customModalStyles = {
                       </div>
                         {weakPassword &&  <span style={{color : "tomato", fontSize:"small", fontWeight:"600"}}>Password must contain at least 8 characters, including uppercase and lowercase letters, numbers, and special characters</span>
 }
+{confirm_PasswordError &&  <span style={{color : "tomato", fontSize:"small", fontWeight:"600"}}>Passwords do not match</span>
+}
+     
                       </div>
                     {/* Check */}
                     <div className="form-check mb-4">
