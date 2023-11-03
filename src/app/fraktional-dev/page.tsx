@@ -106,31 +106,33 @@ function Fraktional() {
       setWeakPassword(true)
       toast.dismiss(_id);
       return false;
-    }
-    if(formData.password === confirmPassword){
-      const Addorganisation = await registerOrganisation( formData as ICompanyRegister); // Rename the constant
-      if(Addorganisation){
-        //window.location.href="/company-overview"
-        toast.dismiss(_id);
-       setEditModalOpen(true)
-      }else{
-        toast.update(_id, {
-          render:
-            "Email address already registered",
-          type: "error",
-          isLoading: false,
-        });    
-        setTimeout(() => {
-          // setDisable(false)
-           toast.dismiss(_id);
-           setDisableSubmitBtn(false)
-         }, 2000);
-         return;
-      }
     }else{
-      setConfirm_PasswordError(true)
-  
+      if(formData.password === confirmPassword){
+        const Addorganisation = await registerOrganisation( formData as ICompanyRegister); // Rename the constant
+        if(Addorganisation){
+          //window.location.href="/company-overview"
+          toast.dismiss(_id);
+         setEditModalOpen(true)
+        }else{
+          toast.update(_id, {
+            render:
+              "Email address already registered",
+            type: "error",
+            isLoading: false,
+          });    
+          setTimeout(() => {
+            // setDisable(false)
+             toast.dismiss(_id);
+             setDisableSubmitBtn(false)
+           }, 2000);
+           return;
+        }
+      }else{
+        setConfirm_PasswordError(true)
+    
+      }
     }
+ 
  
   } catch (error) {
     
