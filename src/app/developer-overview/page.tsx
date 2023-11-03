@@ -357,6 +357,10 @@ useEffect(() => {
 //   theme: "light",
 // });
 
+const signOut = () => {
+  cookies.remove("fraktional-user")
+  window.location.href="/"
+}
   
     return (
       <>
@@ -437,6 +441,12 @@ useEffect(() => {
                     <a className="nav-link " style={{pointerEvents: 'none', cursor:'none', opacity: '.5'}}>
                       <i className="bi-sliders nav-icon" /> Preferences
                     </a>
+                  </li>
+               
+                  <li className="nav-item">
+                    <a onClick={signOut}  className="nav-link " style={{ cursor:'pointer', opacity: '.5'}}>
+                    <i className="bi bi-box-arrow-right nav-icon"/> Sign Out
+                    </a>               
                   </li>
                 </ul>
               </div>
