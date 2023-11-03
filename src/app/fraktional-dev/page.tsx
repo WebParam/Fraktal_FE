@@ -373,7 +373,7 @@ const customModalStyles = {
                           required data-hs-validation-equal-field="#signupHeroFormSignupPassword" 
                         />
                       </div>
-                        {weakPassword &&  <span style={{color : "tomato", fontSize:"smalll", fontWeight:"600"}}>Password must contain at least 8 characters, including uppercase and lowercase letters, numbers, and special characters</span>
+                        {weakPassword &&  <span style={{color : "tomato", fontSize:"small", fontWeight:"600"}}>Password must contain at least 8 characters, including uppercase and lowercase letters, numbers, and special characters</span>
 }
                       </div>
                     {/* Check */}
