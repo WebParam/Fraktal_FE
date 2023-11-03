@@ -28,6 +28,7 @@ function Fraktional() {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [disableSubmitBtn , setDisableSubmitBtn] = useState<boolean>(false)
+  const [weakPassword, setWeakPassword] = useState<boolean>(false)
   const [formData, setFormData] = useState<ICompanyRegister>({
     email:"",
     password:"",
@@ -101,6 +102,11 @@ function Fraktional() {
    
  //   alert("Kwanele is awesome!");
     setConfirm_PasswordError(false)
+    if(!passwordRegex.test(formData.password!)){
+      setWeakPassword(true)
+      toast.dismiss(_id);
+      return false;
+    }
     if(formData.password === confirmPassword){
       const Addorganisation = await registerOrganisation( formData as ICompanyRegister); // Rename the constant
       if(Addorganisation){
@@ -119,6 +125,7 @@ function Fraktional() {
            toast.dismiss(_id);
            setDisableSubmitBtn(false)
          }, 2000);
+         return;
       }
     }else{
       setConfirm_PasswordError(true)
@@ -364,7 +371,8 @@ const customModalStyles = {
                           required data-hs-validation-equal-field="#signupHeroFormSignupPassword" 
                         />
                       </div>
-                    
+                        {weakPassword &&  <span style={{color : "tomato", fontSize:"smalll", fontWeight:"600"}}>Password must contain at least 8 characters, including uppercase and lowercase letters, numbers, and special characters</span>
+}
                       </div>
                     {/* Check */}
                     <div className="form-check mb-4">
