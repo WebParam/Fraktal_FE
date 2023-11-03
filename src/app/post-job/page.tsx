@@ -9,6 +9,7 @@ import { CreateJob } from '../endpoints/api';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import MobileMenu from '../components/MobileMenu/MobileMenu';
+import dynamic from 'next/dynamic';
 
 
 function PostJob() {
@@ -2965,6 +2966,6 @@ const submitOptions = [
   );
 }
 
-export default PostJob;
+export default dynamic (() => Promise.resolve(PostJob), {ssr: false})
 
 

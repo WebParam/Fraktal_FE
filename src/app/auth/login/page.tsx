@@ -154,6 +154,7 @@ function SignIn() {
     }),
   };
 
+  
   const customModalStyles = {
     modal: {
       maxWidth: '40%', 
@@ -162,21 +163,17 @@ function SignIn() {
       backgroundColor: "lightpink"
     },
   };
+
+  //for opening the modal
   function saveAndCloseEditModal(){
 
     setEditModalOpen(false)  
   }
 
-  const getCookie = () => {
-    // Get a cookie
-    
-
-  }
 
   useEffect(() => {
     const userDetails = cookies.get('fraktional-user');
     console.log(userDetails);
-  
     if (userDetails?._id) {
       if (userDetails.status === 1) {
         if (userDetails.type === 0) {
@@ -184,14 +181,12 @@ function SignIn() {
         } else {
           window.location.href = "/company-overview";
         }
-
       }
       else {
         cookies.set('fraktional-user', JSON.stringify(false), { path: '/' });
-  
       }
     }   
-  }, [0]); // Include cookies in the dependency array if it's being updated
+  }, [0]); 
 
   
   
