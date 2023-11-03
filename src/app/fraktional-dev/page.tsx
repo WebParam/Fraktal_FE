@@ -374,7 +374,7 @@ const customModalStyles = {
                     </div>
                     {/* End Check */}
                     <div className="d-grid mb-3">
-                      <button type="submit" className="btn btn-primary btn-lg" style={{border:"0px",backgroundImage: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.40) 124.34%)'}}>Claim your free trial</button>
+                      <button disabled={disableSubmitBtn} type="submit" className="btn btn-primary btn-lg" style={{border:"0px",backgroundImage: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.40) 124.34%)'}}>Claim your free trial</button>
                     </div>
                   </div>
                 </div>
@@ -835,7 +835,7 @@ const customModalStyles = {
                     {/* End Form */}
                   </div>
                   <div className="d-grid">
-                    <button disabled={disableSubmitBtn} type={`${disableSubmitBtn ? 'button':'submit'}`} className="btn btn-primary form-control-lg">Submit</button>
+                    <button disabled={disableSubmitBtn}  className="btn btn-primary form-control-lg">Submit</button>
                   </div>
                 </form>
               </div>
