@@ -103,6 +103,7 @@ function Fraktional() {
  //   alert("Kwanele is awesome!");
     setConfirm_PasswordError(false)
     if(!passwordRegex.test(formData.password!)){
+      setDisableSubmitBtn(false)
       setWeakPassword(true)
       toast.dismiss(_id);
       return false;
@@ -129,7 +130,7 @@ function Fraktional() {
         }
       }else{
         toast.dismiss(_id);
-
+        setDisableSubmitBtn(false)
         setConfirm_PasswordError(true)
     
       }
@@ -137,7 +138,7 @@ function Fraktional() {
  
  
   } catch (error) {
-    
+    console.log(error);
   }
  }
  
