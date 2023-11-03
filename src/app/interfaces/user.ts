@@ -33,6 +33,10 @@ export interface IUser {
     otp:string | Number;
   }
 
+  export interface IdeletUser {
+    id: string
+  }
+
   
   export interface IUserSendOTP {
     email:string;

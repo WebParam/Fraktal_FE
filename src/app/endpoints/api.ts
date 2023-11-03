@@ -9,6 +9,7 @@ import {
   IUserResponseModel,
   IUserSendOTP,
   IVerifyOtp,
+  IdeletUser,
 } from "../interfaces/user";
 import { ICompanyRegister } from "../interfaces/organisation";
 import { IJobApplication } from "../interfaces/IJobApplication";
@@ -21,6 +22,8 @@ import {
   instanceOfTypeCustomError,
 } from '../../app/interfaces/type-check';
 import { ICustomError } from "../interfaces/error";
+import { Cookie } from "next/font/google";
+import Cookies from "universal-cookie";
 
 
 
@@ -351,6 +354,25 @@ export async function ChangePasswordAndActivate(payload: IUserResetPassword) {
       return true;
     } else {
       console.error("password reset failed");
+      return false;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+}
+
+export async function deleteUser(payload: IdeletUser) {
+  try {
+    const response = await axios.post(`${url}/api/user/delete/deleteUser`, payload);
+
+    if (response.status === 200 || response.status === 201) {
+      // Registration successful, you can redirect the user or show a success message.
+      console.log("Acount successfully deleted");
+     
+      return true;
+    } else {
+      console.error("Something went wrong");
       return false;
     }
   } catch (error) {

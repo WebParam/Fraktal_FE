@@ -10,7 +10,8 @@ import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import MobileMenu from '../components/MobileMenu/MobileMenu';
 import dynamic from 'next/dynamic';
-
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function PostJob() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
@@ -78,6 +79,17 @@ function PostJob() {
 
     async function createJobPost(){
 
+      let _id = toast.loading("Posting A job..", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
       const payload: IJobApplication = {
         country: country,
         language: language,
@@ -132,11 +144,66 @@ function PostJob() {
         description: description
       };
       
-  
+    try {
       const res = await CreateJob(payload);
 
-      console.log(payload)
-
+      
+      if(res){
+        toast.update(_id, {
+               render:
+                 "Job succesfuly posted",
+               type: "success",
+               isLoading: false,
+             });
+             setTimeout(() => {
+            //  setDisable(false)
+              toast.dismiss(_id);
+            }, 2000);
+       } else {
+        toast.update(_id, {
+               render:
+                 "Error Posting a job",
+               type: "error",
+               isLoading: false,
+             });
+        setTimeout(() => {
+            //  setDisable(false)
+              toast.dismiss(_id);
+            }, 2000);
+        }
+        } catch (error: any) {
+        const statusCode = error.response ? error.response.status : null;
+          
+            if (statusCode === 400) {
+           
+              toast.update(_id, {
+                render: `Error Posting a job`,
+                type: "error",
+                isLoading: false,
+              });
+            } else if (statusCode === 401) {
+         
+              toast.update(_id, {
+                render: `Unauthorized: ${error.message}`,
+                type: "error",
+                isLoading: false,
+              });
+            } else {
+          
+              toast.update(_id, {
+                render: `An error occurred: ${error.message}`,
+                type: "error",
+                isLoading: false,
+              });
+            }
+          
+            setTimeout(() => {
+              toast.dismiss(_id);
+            }, 2000);
+          
+            console.error("Error:", error);
+          }
+          
     }
 
 
@@ -191,7 +258,6 @@ const submitOptions = [
     "Email",
     "Phone",
     "In-person"
-
   ]
 
 
@@ -260,6 +326,7 @@ const submitOptions = [
   <MobileMenu menuToggler={menuToggler} />
   {/* ========== MAIN CONTENT ========== */}
   <main id="content" role="main">
+  <ToastContainer />
     {/* Content */}
     <div className="container content-space-2" style={{position: 'relative', top: '80px'}}>
       {/* Step Form */}

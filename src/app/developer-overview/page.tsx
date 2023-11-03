@@ -13,13 +13,14 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
-import { IDeveloperProfile, IEducationInformation, IWorkExperience } from "../interfaces/user";
-import { CreateDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile, uploadCV, uploadProfilePic } from "../endpoints/api";
+import { IDeveloperProfile, IEducationInformation, IWorkExperience, IdeletUser } from "../interfaces/user";
+import { CreateDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile, deleteUser, uploadCV, uploadProfilePic } from "../endpoints/api";
 import Cookies from 'universal-cookie';
 import Banner from "../banner/Banner";
 import dynamic from "next/dynamic";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import { Console } from "console";
 const cookies = new Cookies();
 
 
@@ -339,6 +340,88 @@ useEffect(() => {
     }
     
 
+  }
+
+  async function deletUserFunc(e: any) {
+    e.preventDefault()
+     
+    
+    let _id = toast.loading("Deleting a user..", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
+
+    const userData: IdeletUser = {
+      id: loggedInUser.id
+    } 
+      try {
+        const del = await deleteUser(userData);
+
+        if (del) {
+          toast.update(_id, {
+            render:
+              "Account succesfully deleted",
+            type: "success",
+            isLoading: false,
+          });
+          setTimeout(() => {
+         //  setDisable(false)
+           toast.dismiss(_id);
+         }, 2000);
+         console.log(cookies);
+          cookies.remove('fraktional-user');
+          // window.location.href = '/'
+    } else {
+     toast.update(_id, {
+            render:
+              "something went wrong",
+            type: "error",
+            isLoading: false,
+          });
+     setTimeout(() => {
+         //  setDisable(false)
+           toast.dismiss(_id);
+         }, 2000);
+     }
+      } catch  (error: any) {
+        const statusCode = error.response ? error.response.status : null;
+          
+            if (statusCode === 400) {
+           
+              toast.update(_id, {
+                render: `Error Deeleting account`,
+                type: "error",
+                isLoading: false,
+              });
+            } else if (statusCode === 401) {
+         
+              toast.update(_id, {
+                render: `Unauthorized: ${error.message}`,
+                type: "error",
+                isLoading: false,
+              });
+            } else {
+          
+              toast.update(_id, {
+                render: `An error occurred: ${error.message}`,
+                type: "error",
+                isLoading: false,
+              });
+            }
+          
+            setTimeout(() => {
+              toast.dismiss(_id);
+            }, 2000);
+          
+            console.error("Error:", error);
+      }
   }
 
 
@@ -990,20 +1073,27 @@ const signOut = () => {
               <h4 className="card-header-title">Delete your account</h4>
             </div>
             {/* Body */}
-            <div className="card-body">
-              <p className="card-text">When you delete your account, you lose access to Fraktional account services, and we permanently delete your personal data. You can cancel the deletion for 14 days.</p>
-              <div className="mb-4">
-                {/* Check */}
-                <div className="form-check">
-                  <input type="checkbox" className="form-check-input" id="deleteAccountCheckbox" />
-                  <label className="form-check-label" htmlFor="deleteAccountCheckbox">Confirm that I want to delete my account.</label>
+            <form onSubmit={deletUserFunc}>
+              <div className="card-body">
+                <p className="card-text">When you delete your account, you lose access to Fraktional account services, and we permanently delete your personal data. You can cancel the deletion for 14 days.</p>
+                <div className="mb-4">
+                  {/* Check */}
+                  <div className="form-check">
+                    <input 
+                      type="checkbox" 
+                      className="form-check-input" 
+                      id="deleteAccountCheckbox"  
+                      required 
+                    />
+                    <label className="form-check-label" htmlFor="deleteAccountCheckbox">Confirm that I want to delete my account.</label>
+                  </div>
+                  {/* End Check */}
                 </div>
-                {/* End Check */}
+                <div className="d-flex justify-content-end">
+                  <button className="btn btn-danger">Delete</button>
+                </div>
               </div>
-              <div className="d-flex justify-content-end">
-                <button type="submit" className="btn btn-danger">Delete</button>
-              </div>
-            </div>
+            </form>
             {/* End Body */}
           </div>
           {/* End Card */}
