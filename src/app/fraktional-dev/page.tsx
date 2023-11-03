@@ -19,12 +19,15 @@ import Footer from '../components/Footer/Footer';
 import Modal from 'react-responsive-modal';
 import { VerifyOtp } from '../auth/company-register/verify-otp';
 import { useRouter } from 'next/router';
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 function Fraktional() {
   //const router = useRouter();
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [disableSubmitBtn , setDisableSubmitBtn] = useState<boolean>(false)
   const [formData, setFormData] = useState<ICompanyRegister>({
     email:"",
     password:"",
@@ -73,67 +76,57 @@ function Fraktional() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setDisableSubmitBtn(true)
 
   // Validate the form fields here and set errors if any
   const errors = {} as any;
 
-  // Example: Validate that the first name is not empty
-  if (!formData.userName.trim()) {
-    errors.userName = 'Please enter your first name';
-  }
-
-  // Example: Validate that the last name is not empty
-  if (!formData.userSurname.trim()) {
-    errors.userSurname = 'Please enter your last name';
-  }
-
-  // Example: Validate email format
-  if (!formData.userEmail.trim()) {
-    errors.userEmail = 'Please enter your email address';
-  } 
-  // Example: Validate that the company number is not empty
-  if (!formData.companyNumber.trim()) {
-    errors.companyNumber = 'Please enter your mobile number';
-  }
-
-  // Example: Validate that the company name is not empty
-  if (!formData.companyName.trim()) {
-    errors.companyName = 'Please enter Company Name';
-  }
-
-  // Example: Validate that the company address is not empty
-  if (!formData.companyAdrress.trim()) {
-    errors.companyAddress = 'Please enter Company Address';
-  }
-
-  // Example: Validate email format for company email
-  if (!formData.email.trim()) {
-    errors.companyEmail = 'Please enter Company Email';
-  }
-  // Example: Validate that the position is not empty
-  if (!formData.position.trim()) {
-    errors.position = 'Please enter Your Position In This Company';
-  }
-
-  // Example: Validate password length
-  if (formData.password.length < 8) {
-    errors.password = 'Your password must include 8+ characters';
-  }
 
 
-
+ let _id = toast.loading("Registering Organization..", {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
 
  if (Object.keys(errors).length === 0) {
+
+ 
   try {
-    const Addorganisation = await registerOrganisation( formData as ICompanyRegister); // Rename the constant
-    if(Addorganisation){
-      //window.location.href="/company-overview"
-     setEditModalOpen(true)
+   
+ //   alert("Kwanele is awesome!");
+    setConfirm_PasswordError(false)
+    if(formData.password === confirmPassword){
+      const Addorganisation = await registerOrganisation( formData as ICompanyRegister); // Rename the constant
+      if(Addorganisation){
+        //window.location.href="/company-overview"
+        toast.dismiss(_id);
+       setEditModalOpen(true)
+      }else{
+        toast.update(_id, {
+          render:
+            "Email address already registered",
+          type: "error",
+          isLoading: false,
+        });    
+        setTimeout(() => {
+          // setDisable(false)
+           toast.dismiss(_id);
+           setDisableSubmitBtn(false)
+         }, 2000);
+      }
     }else{
-        console.error('Registration failed');
+      setConfirm_PasswordError(true)
+  
     }
+ 
   } catch (error) {
-      console.error('Error:', error);
+    
   }
  }
  
@@ -147,6 +140,13 @@ function Fraktional() {
   
   }
 
+  const inputNameStyle = {
+    ...(confirm_PasswordError && {
+      outlineStyle: "solid",
+     color: "tomato",
+      borderWidth: "1px",
+    }),
+  };
   
 const customModalStyles = {
   modal: {
@@ -157,7 +157,8 @@ const customModalStyles = {
   },
 };
   return (
-    <div>           
+    <div>    
+            <ToastContainer />       
       <Header 
         menuTogglerFunction={setMenuToggler} 
         menuTogglerValue={menuToggler}  
@@ -338,8 +339,9 @@ const customModalStyles = {
 
                       <div className="mb-4 col-md-6" >
                         <label className="form-label" htmlFor="signupHeroFormSignupPassword">Password</label>
-                        <input   value={formData.password} 
-                         onChange={handleInputChange}
+                        <input   style={inputNameStyle}   value={formData.password} 
+                         onChange={handleInputChange
+                         }
                         type="password" className="form-control form-control-sm" name="password" id="signupHeroFormSignupPassword" placeholder="8+ characters required" aria-label="8+ characters required" required />
                         <span className="invalid-feedback">Your password must include 8+ characters</span>
                       </div>
@@ -347,17 +349,20 @@ const customModalStyles = {
                       <div className="mb-4 col-md-6" data-hs-validation-validate-class>
                         <label className="form-label" htmlFor="signupHeroFormSignupConfirmPassword">Confirm password</label>
                         <input 
+                        style={inputNameStyle}
                           type="password" 
                           className="form-control form-control-sm" 
                           name="confirmPassword" 
                           value={confirmPassword}
-                          onChange={(e)=>setConfirmPassword(e.target.value)}
+                          onChange={(e)=>
+                           { setConfirm_PasswordError(false)
+                            setConfirmPassword(e.target.value)
+                          }}
                           id="signupHeroFormSignupConfirmPassword" 
                           placeholder="8+ characters required" 
                           aria-label="8+ characters required" 
                           required data-hs-validation-equal-field="#signupHeroFormSignupPassword" 
                         />
-                        <span className="invalid-feedback">Password does not match the confirm password</span>
                       </div>
                     
                       </div>
@@ -830,7 +835,7 @@ const customModalStyles = {
                     {/* End Form */}
                   </div>
                   <div className="d-grid">
-                    <button type="submit" className="btn btn-primary form-control-lg">Submit</button>
+                    <button disabled={disableSubmitBtn} type={`${disableSubmitBtn ? 'button':'submit'}`} className="btn btn-primary form-control-lg">Submit</button>
                   </div>
                 </form>
               </div>

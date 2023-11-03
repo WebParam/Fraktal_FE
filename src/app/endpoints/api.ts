@@ -281,13 +281,11 @@ export async function registerOrganisation(payload: ICompanyRegister) {
   try {
     const response = await axios.post(`${url}/api/organisation`, payload);
 
-    if (response.status === 200 || response.status === 201) {
-      console.log("password reset successful");
-      return true;
-    } else {
-      console.error("password reset failed");
-      return false;
-    }
+    if (instanceOfTypeIOrganisation(response.data)) {
+      return true
+  } else if (response.data.code === 500) {
+   return false
+  }
   } catch (error) {
     console.error("Error:", error);
     return false;

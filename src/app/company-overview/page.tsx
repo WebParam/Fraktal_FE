@@ -82,7 +82,7 @@ useEffect(() => {
   
   loggedInUser._id&& _GetCompanyInfo(loggedInUser?._id);
 
-   
+  console.log(loggedInUser)
   }, []);
 
 
@@ -120,11 +120,23 @@ useEffect(() => {
   }
 
   const saveProfilePic = async (e: any) => {
+    const _zz = toast.loading("Uploading image...", {
+      position: "top-center",
+      autoClose: false, // Keep it open until the upload is complete
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
     const pp = e.target.files[0];
     // updateProfilePic();
     const profilePicUpload = new FormData();
-debugger;
+
     if(pp){
+
       profilePicUpload.append("profilePic", pp as Blob);
       const profilePicDoc = await uploadProfilePic(profilePicUpload,loggedInUser._id??"");
       
@@ -136,8 +148,28 @@ debugger;
       setCurrentProfilePic(newImage);
       
        cookies.set("fraktional-user", newUser as any, { path: "/" });
+       toast.dismiss(_zz);
+
+    }else{
+        // Handle the error, e.g., show an error notification
+        toast.update(_zz, {
+          render:"Error saving image",
+          type: "error",
+          isLoading: false,
+        });
+        
+        // Dismiss the loading notification on error
+        setTimeout(() => {
+          toast.dismiss(_zz);
+        }, 2000); 
     }
   };
+
+  const signOut = () => {
+    cookies.remove("fraktional-user")
+    window.location.href="/"
+  }
+    
   
     return (
       <>
@@ -216,6 +248,11 @@ debugger;
                     <a className="nav-link " style={{pointerEvents: 'none', cursor: 'none', opacity: '.5'}}>
                       <i className="bi-sliders nav-icon" /> Preferences
                     </a>
+                  </li>
+                  <li className="nav-item">
+                    <a onClick={signOut}  className="nav-link " style={{ cursor:'pointer', opacity: '.5'}}>
+                    <i className="bi bi-box-arrow-right nav-icon"/> Sign Out
+                    </a>               
                   </li>
                 </ul>
                 {/* End List */}

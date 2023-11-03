@@ -98,7 +98,7 @@ function developerOverview() {
   
     if (pp) {
       // Display a loading notification when uploading an image
-      const _zz = toast.loading("Uploading an image...", {
+      const _zz = toast.loading("Uploading image...", {
         position: "top-center",
         autoClose: false, // Keep it open until the upload is complete
         hideProgressBar: false,
@@ -126,11 +126,16 @@ function developerOverview() {
         toast.dismiss(_zz);
       } catch (error) {
         // Handle the error, e.g., show an error notification
-        toast.error("Image upload failed. Please try again.");
+        toast.update(_zz, {
+          render:"Error saving image",
+          type: "error",
+          isLoading: false,
+        });
         
         // Dismiss the loading notification on error
-        toast.dismiss(_zz);
-      }
+        setTimeout(() => {
+          toast.dismiss(_zz);
+        }, 2000);      }
     }
   };
   
