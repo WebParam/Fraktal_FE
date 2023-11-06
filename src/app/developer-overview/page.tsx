@@ -20,6 +20,7 @@ import Banner from "../banner/Banner";
 import dynamic from "next/dynamic";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import defaultProfilepic from '../../assets/additional/person-circle.svg'
 import { Console } from "console";
 const cookies = new Cookies();
 
@@ -73,7 +74,7 @@ function developerOverview() {
   const [edu_completionDateError, setEduCompletionDateError] = useState(false);
   const [currentProfilePicError, setCurrentProfilePicError] = useState(false);
 
-  const [currentProfilePic, setCurrentProfilePic] = useState("");
+  const [currentProfilePic, setCurrentProfilePic] = useState(defaultProfilepic);
   const loggedInUser = cookies.get("fraktional-user")??"{}";
   const [existingUser, setExistingUser] = useState(false);
 
@@ -497,7 +498,7 @@ const signOut = () => {
                 {/* Avatar */}
                 <div className="d-none d-lg-block text-center mb-5">
                   <div className="avatar avatar-xxl avatar-circle mb-3">
-                    <Image className="avatar-img" fill={true}  src={currentProfilePic!=""? currentProfilePic: cookies.get("fraktional-user")?.profilePicture??""} alt="Image Description" />
+                    <Image className="avatar-img" fill={true}  src={currentProfilePic != "" ? currentProfilePic: cookies.get("fraktional-user")?.profilePicture??""} alt="Image Description" />
                     <Image className="avatar-status avatar-lg-status" src={topVendor} alt="Image Description" data-bs-toggle="tooltip" data-bs-placement="top" title="Verified user" />
                   </div>
 

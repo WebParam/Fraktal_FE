@@ -275,9 +275,9 @@ function HomePage() {
                   <div className="flex-shrink-0 d-md-none">
                     <Image className="avatar avatar-circle" src={smallAvatar} alt="Image Description" />
                   </div>
-                  <div data-aos="fade-left" className="flex-grow-1 ms-3 ms-md-0">
+                  <div data-aos="fade" className="flex-grow-1 ms-3 ms-md-0">
                     Kweku
-                    <span data-aos="fade-left" className="blockquote-footer-source">Founder: The App Lab</span>
+                    <span data-aos="fade" className="blockquote-footer-source">Founder: The App Lab</span>
                   </div>
                 </div>
               </figcaption>
