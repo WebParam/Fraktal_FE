@@ -3,11 +3,9 @@ import Image from "next/image";
 import img9 from "../../assets/img/160x160/img9.jpg";
 import topVendor from "../../assets/svg/illustrations/top-vendor.svg";
 import './DevOverview.scss';
+import defaultProfilePic from '../../assets/additional/person-circle.svg'; 
+import defaultCompanyPic from '../../assets/additional/buildings-fill.svg'; 
 
-import dropboxicon from "../../assets/svg/brands/dropbox-icon.svg";
-import mailchimpicon from "../../assets/svg/brands/mailchimp-icon.svg";
-import googleicon from "../../assets/svg/brands/google-icon.svg";
-import varsity from "../../assets/svg/brands/the-university-of-manchester.svg";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Modal } from 'react-responsive-modal';
@@ -35,7 +33,7 @@ function developerOverview() {
   const [_user, setUser] = useState("");
   const [phone, setPhone] = useState("");
   const [currentProfile, setCurrentProfile] = useState<IDeveloperProfile>();
-  const [currentProfilePic, setCurrentProfilePic] = useState("");
+  const [currentProfilePic, setCurrentProfilePic] = useState(defaultProfilePic);
 
 //company info
 const [companyName, setCompanyName] = useState("");
@@ -216,7 +214,7 @@ useEffect(() => {
                 {/* Avatar */}
                 <div className="d-none d-lg-block text-center mb-5">
                 <div className="avatar avatar-xxl avatar-circle mb-3">
-                    <Image className="avatar-img" fill={true}  src={currentProfilePic!=""? currentProfilePic: cookies.get("fraktional-user")?.profilePicture??""} alt="Image Description" />
+                    <Image className="avatar-img" fill={true}  src={currentProfilePic != "" ? currentProfilePic: cookies.get("fraktional-user")?.profilePicture??""} alt="Image Description" />
                     <Image className="avatar-status avatar-lg-status" src={topVendor} alt="Image Description" data-bs-toggle="tooltip" data-bs-placement="top" title="Verified user" />
                   </div>
 
@@ -414,7 +412,7 @@ useEffect(() => {
                     <div className="d-flex align-items-center">
                       {/* Avatar */}
                       <label className="avatar avatar-xl avatar-circle" htmlFor="avatarUploader">
-                        <Image id="avatarImg" className="avatar-img" src={img9} alt="Image Description" />
+                        <Image id="avatarImg" className="avatar-img" src={defaultCompanyPic} alt="Image Description" />
                       </label>
                       <div className="d-grid d-sm-flex gap-2 ms-4">
                         <div className="form-attachment-btn btn btn-sm" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Upload photo
