@@ -5,6 +5,9 @@ import React, { useEffect, useState } from 'react';
 import { IJobApplication } from '../interfaces/IJobApplication';
 import { CreateJob } from '../endpoints/api';
 import { preventDefault } from '@/assets/vendor/tom-select/dist/types/utils';
+import SideNav from './Nav/sidenav';
+import AdminBanner from '../banner/Banner';
+import './admin.scss'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -115,64 +118,61 @@ function admin() {
 
 <>
   {/* ========== MAIN CONTENT ========== */}
+  
   <main id="content" role="main">
         {/* Page Header */}
+        <div className='navigation'>
+        <SideNav/>
+        </div>
+        <div className='banner-container'>
+        <div className='ban'>
+        <AdminBanner/>
+        </div>
+        </div>
         <div className="container content-space-t-2">
           <div className="w-lg-75 mx-lg-auto">
             <div className="page-header">
               {/* Media */}
               <div className="d-sm-flex mb-3">
                 <div className="flex-shrink-0 mb-2 mb-sm-0">
-                  <a href="../demo-jobs/employer.html">
-                    <img className="avatar avatar-lg mb-3" src="../assets/svg/brands/capsule-icon.svg" alt="Image Description" />
-                  </a>
+            
                 </div>
                 <div className="flex-grow-1 ms-sm-4">
                   <div className="row">
                     <div className="col">
-                      <h1 className="page-header-title h2">UX/UI Designer</h1>
+                      {/* <h1 className="page-header-title h2">UX/UI Designer</h1> */}
                     </div>
                     {/* End Col */}
                     <div className="col-auto">
-                      {/* Checkbbox Bookmark */}
-                      <div className="form-check form-check-bookmark">
-                        <input className="form-check-input" type="checkbox" id="jobsPageHeaderBookmarkCheck" />
-                        <label className="form-check-label" htmlFor="jobsPageHeaderBookmarkCheck">
-                          <span className="form-check-bookmark-default">
-                            <i className="bi-star me-1" /> Save this job
-                          </span>
-                          <span className="form-check-bookmark-active">
-                            <i className="bi-star-fill me-1" /> Saved
-                          </span>
-                        </label>
+                      <div className='statCards'>
+
                       </div>
-                      {/* End Checkbbox Bookmark */}
                     </div>
                     {/* End Col */}
                   </div>
                   {/* End Row */}
                   <ul className="list-inline list-separator d-flex align-items-center mb-2">
                     <li className="list-inline-item">
-                      <a className="link" href="../demo-jobs/employer.html">Capsule</a>
+                      {/* <a className="link" href="../demo-jobs/employer.html">Capsule</a> */}
                     </li>
                     <li className="list-inline-item">
                       {/* Rating */}
-                      <a className="d-flex gap-1" href="../demo-jobs/employer.html">
+                      {/* <a className="d-flex gap-1" href="../demo-jobs/employer.html">
                         <img src="../assets/svg/illustrations/star.svg" alt="Review rating" width={14} />
                         <img src="../assets/svg/illustrations/star.svg" alt="Review rating" width={14} />
                         <img src="../assets/svg/illustrations/star.svg" alt="Review rating" width={14} />
                         <img src="../assets/svg/illustrations/star.svg" alt="Review rating" width={14} />
                         <img src="../assets/svg/illustrations/star-half.svg" alt="Review rating" width={14} />
                         <span className="ms-1">2,391 reviews</span>
-                      </a>
+                      </a> */}
                       {/* End Rating */}
                     </li>
                   </ul>
-                  <ul className="list-inline list-separator small text-body mb-2">
+                  {/* <ul className="list-inline list-separator small text-body mb-2">
                     <li className="list-inline-item">Posted 7 hours ago</li>
                     <li className="list-inline-item">Oxford, England, United Kingdom</li>
                     <li className="list-inline-item">Full time</li>
-                  </ul>
+                  </ul> */}
                 </div>
               </div>
               {/* End Media */}
@@ -189,17 +189,17 @@ function admin() {
                 <div className="row align-items-sm-center">
                   <div className="col-sm mb-2 mb-sm-0">
                     <h5 className="card-title text-uppercase">
-                      <i className="bi-lightning-charge-fill me-1" /> Autofill application
+                      {/* <i className="bi-lightning-charge-fill me-1" /> Autofill application */}
                     </h5>
-                    <p className="card-text small">Save time by importing your resume.</p>
+                    {/* <p className="card-text small">Save time by importing your resume.</p> */}
                   </div>
                   {/* End Col */}
                   <div className="col-sm-auto">
                     {/* Dropdown */}
                     <div className="dropdown ">
-                      <a className={toggleApplicantDropdown==true ?"btn btn-primary show" : "btn btn-primary"} onClick={()=>{showHideApplicantDropdown()}}id="jobImportResumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation>
+                      {/* <a className={toggleApplicantDropdown==true ?"btn btn-primary show" : "btn btn-primary"} onClick={()=>{showHideApplicantDropdown()}}id="jobImportResumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation>
                         Import resume from <i className="bi-chevron-down small ms-1" />
-                      </a>
+                      </a> */}
                       <div className= {toggleApplicantDropdown==true ?"dropdown-menu show" :"dropdown-menu"}aria-labelledby="jobImportResumeDropdown" 
                           style={{
                             opacity:toggleApplicantDropdown==true ? 1:0, 
@@ -242,7 +242,7 @@ function admin() {
          {/* Card Grid */}
       <div className="container content-space-t-2">
         <div className="mb-4">
-          <h3>Browse jobs by category</h3>
+          {/* <h3>Browse jobs by category</h3> */}
         </div>
         <div className="row row-cols-1 row-cols-sm-2 1 row-cols-md-3 row-cols-lg-4 mb-5">
        {
@@ -279,7 +279,7 @@ function admin() {
          
         </div>
         {/* End Row */}
-        <a className="btn btn-outline-primary" href="../demo-jobs/job-list.html">View all available jobs <i className="bi-chevron-right small ms-1" /></a>
+        {/* <a className="btn btn-outline-primary" href="../demo-jobs/job-list.html">View all available jobs <i className="bi-chevron-right small ms-1" /></a> */}
       </div>
       {/* End Card Grid */}
       </main>
