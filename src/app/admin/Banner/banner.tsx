@@ -1,9 +1,9 @@
 import React from 'react'
-import './banner.scss'
+import './bannerNav.scss'
 
 const AdminBanner = () => {
   return (
-    <div className='navbanner'>Analytics</div>
+    <div className='navbanner'></div>
   )
 }
 

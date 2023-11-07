@@ -1,22 +1,31 @@
 .sidenav {
     width: 200px;
+    height: 40em;
     background-color: #fff;
-    color: #333; 
-    position: relative;
-    top: 0;
-    left: 0; 
-    padding-left: 2em;
+    color: #333;
+    position: fixed;
+    top: 2em;
+    left: 5em;
+    border: 1px solid #FF7BED;
+    z-index: 1; 
   }
   
   .sidenav a {
-    display: block; 
+    display: block;
     padding: 10px;
     text-decoration: none;
     color: #333;
   }
   
   .sidenav a:hover {
-    background-color: #555;
+    background-color: #FF7BED;
+    color: #fff;
   }
-  
- 
+  .center-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+.company p {
+    margin: 5px 0; 
+}

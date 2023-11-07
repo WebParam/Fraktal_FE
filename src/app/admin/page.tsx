@@ -6,7 +6,8 @@ import { IJobApplication } from '../interfaces/IJobApplication';
 import { CreateJob } from '../endpoints/api';
 import { preventDefault } from '@/assets/vendor/tom-select/dist/types/utils';
 import SideNav from './Nav/sidenav';
-import AdminBanner from '../banner/Banner';
+import AdminBanner from './Banner/banner';
+import FrakLogo from '../images/FraktionalLogo.png'
 import './admin.scss'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -121,6 +122,13 @@ function admin() {
   
   <main id="content" role="main">
         {/* Page Header */}
+        <div className='frakLogoDiv'>
+                <Image
+                    src={FrakLogo}
+                    alt="logo"
+                    className="fraklogo"
+                />
+            </div>
         <div className='navigation'>
         <SideNav/>
         </div>

@@ -15,6 +15,13 @@ function SideNav() {
                     className="logo"
                 />
             </div>
+            <div className='center-container'>
+                <div className='company'>
+                    <p>Company A</p>
+                    <p>CompanyA@gmail.com</p>
+                </div>
+            </div>
+            
             <a href="#">About</a>
             <a href="#">Services</a>
             <a href="#">Clients</a>
