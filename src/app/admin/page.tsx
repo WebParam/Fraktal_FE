@@ -8,6 +8,7 @@ import { preventDefault } from '@/assets/vendor/tom-select/dist/types/utils';
 import SideNav from './Nav/sidenav';
 import AdminBanner from './Banner/banner';
 import FrakLogo from '../images/FraktionalLogo.png'
+import LineChart from './Chart/chart';
 import './admin.scss'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -139,111 +140,34 @@ function admin() {
         </div>
         <div className="container content-space-t-2">
           <div className="w-lg-75 mx-lg-auto">
-            <div className="page-header">
-              {/* Media */}
-              <div className="d-sm-flex mb-3">
-                <div className="flex-shrink-0 mb-2 mb-sm-0">
-            
-                </div>
-                <div className="flex-grow-1 ms-sm-4">
-                  <div className="row">
-                    <div className="col">
-                      {/* <h1 className="page-header-title h2">UX/UI Designer</h1> */}
-                    </div>
-                    {/* End Col */}
-                    <div className="col-auto">
-                      <div className='statCards'>
-
-                      </div>
-                    </div>
-                    {/* End Col */}
-                  </div>
-                  {/* End Row */}
-                  <ul className="list-inline list-separator d-flex align-items-center mb-2">
-                    <li className="list-inline-item">
-                      {/* <a className="link" href="../demo-jobs/employer.html">Capsule</a> */}
-                    </li>
-                    <li className="list-inline-item">
-                      {/* Rating */}
-                      {/* <a className="d-flex gap-1" href="../demo-jobs/employer.html">
-                        <img src="../assets/svg/illustrations/star.svg" alt="Review rating" width={14} />
-                        <img src="../assets/svg/illustrations/star.svg" alt="Review rating" width={14} />
-                        <img src="../assets/svg/illustrations/star.svg" alt="Review rating" width={14} />
-                        <img src="../assets/svg/illustrations/star.svg" alt="Review rating" width={14} />
-                        <img src="../assets/svg/illustrations/star-half.svg" alt="Review rating" width={14} />
-                        <span className="ms-1">2,391 reviews</span>
-                      </a> */}
-                      {/* End Rating */}
-                    </li>
-                  </ul>
-                  {/* <ul className="list-inline list-separator small text-body mb-2">
-                    <li className="list-inline-item">Posted 7 hours ago</li>
-                    <li className="list-inline-item">Oxford, England, United Kingdom</li>
-                    <li className="list-inline-item">Full time</li>
-                  </ul> */}
-                </div>
-              </div>
-              {/* End Media */}
-            </div>
+        
           </div>
         </div>
         {/* End Page Header */}
         {/* Content */}
         <div className="container content-space-1 content-space-b-lg-3">
+        <div className="overhead">Overview</div>
           <div className="w-lg-75 mx-lg-auto">
             {/* Card */}
-            <div className="card card-bordered mb-10">
-              <div className="card-body">
-                <div className="row align-items-sm-center">
-                  <div className="col-sm mb-2 mb-sm-0">
-                    <h5 className="card-title text-uppercase">
-                      {/* <i className="bi-lightning-charge-fill me-1" /> Autofill application */}
-                    </h5>
-                    {/* <p className="card-text small">Save time by importing your resume.</p> */}
-                  </div>
-                  {/* End Col */}
-                  <div className="col-sm-auto">
-                    {/* Dropdown */}
-                    <div className="dropdown ">
-                      {/* <a className={toggleApplicantDropdown==true ?"btn btn-primary show" : "btn btn-primary"} onClick={()=>{showHideApplicantDropdown()}}id="jobImportResumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation>
-                        Import resume from <i className="bi-chevron-down small ms-1" />
-                      </a> */}
-                      <div className= {toggleApplicantDropdown==true ?"dropdown-menu show" :"dropdown-menu"}aria-labelledby="jobImportResumeDropdown" 
-                          style={{
-                            opacity:toggleApplicantDropdown==true ? 1:0, 
-                            position:toggleApplicantDropdown==true? "absolute":"relative",
-                            inset: "0px auto auto 0px",
-                            margin: "0px",
-                            transform: "translate3d(0px, 47.5px, 0px)",
-                            // translateY(10px) translateY(-10px),
-                            transition: "transform 300ms ease 0s",
-                            // opacity "300ms ease 0s"
-                            }}>
-                              {availableApplicants?.map(x=><>
-                                 <a onClick={()=>addApplicant(x)} className="dropdown-item" href="#">
-                                   {x.name} || {x.position} || {x.skills}
-                                  </a>
-                              </>)}
-                        {/* <a className="dropdown-item" href="#">
-                          <img className="avatar avatar-xss avatar-4x3 me-2" src="../assets/vendor/bootstrap-icons/icons/laptop.svg" alt="Image Description" /> My Computer
-                        </a>
-                        <a className="dropdown-item" href="#">
-                          <img className="avatar avatar-xss avatar-4x3 me-2" src="../assets/svg/brands/dropbox-icon.svg" alt="Image Description" /> Dropbox
-                        </a>
-                        <a className="dropdown-item" href="#">
-                          <img className="avatar avatar-xss avatar-4x3 me-2" src="../assets/svg/brands/google-drive-icon.svg" alt="Image Description" /> Google Drive
-                        </a> */}
-                      </div>
-                    </div>
-                    {/* End Dropdown */}
-                  </div>
-                  {/* End Col */}
-                </div>
-                {/* End Row */}
-              </div>
+            <div className='displayCards'>
+            <div className="card1">
+              <div className="card-body">Total Users</div>
+            </div>
+  
+                <div className="card2">
+              <div className="card-body">Developers</div>
+            
+            </div>
+            <div className="card2">
+              <div className="card-body">Companies</div>
+            
+            </div>
             </div>
             {/* End Card */}
-          
+            <div className="card3">
+              <div className="card-body">Users</div>
+              <LineChart/>
+            </div>
           </div>
         </div>
         {/* Content */}
