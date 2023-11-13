@@ -4,18 +4,18 @@ import Chart from "react-google-charts";
 const LineChart = () => {
   const data = [
     ["Year", "Developers", "Companies"],
-    ["January", 1000, 400],
-    ["February", 1170, 460],
-    ["March", 660, 1120],
-    ["April", 1030, 540],
+    ["Jan", 1000, 400],
+    ["Feb", 1170, 460],
+    ["Mar", 660, 1120],
+    ["Apr", 1030, 540],
     ["May", 1000, 400],
     ["June", 1170, 460],
     ["July", 660, 1120],
-    ["August", 1030, 540],
-    ["September", 1000, 400],
-    ["October", 1170, 460],
-    ["November", 660, 1120],
-    ["December", 1030, 540],
+    ["Aug", 1030, 540],
+    ["Sep", 1000, 400],
+    ["Oct", 1170, 460],
+    ["Nov", 660, 1120],
+    ["Dec", 1030, 540],
   ];
 
   const options = {
