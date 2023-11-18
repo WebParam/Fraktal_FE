@@ -60,6 +60,7 @@ export interface IContactForm{
   phone:string
 }
   export interface IDeveloperProfile{
+    _id?:string,
     information :string,
     currentJob:string,
     previousWorkExperience:IWorkExperience[],

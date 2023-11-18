@@ -4,7 +4,7 @@ import img9 from "../../assets/img/160x160/img9.jpg";
 import topVendor from "../../assets/svg/illustrations/top-vendor.svg";
 import './DevOverview.scss';
 import logo from '../../assets/additional/logo.webp';
-
+import Select from "react-select";
 import dropboxicon from "../../assets/svg/brands/dropbox-icon.svg";
 import mailchimpicon from "../../assets/svg/brands/mailchimp-icon.svg";
 import googleicon from "../../assets/svg/brands/google-icon.svg";
@@ -13,15 +13,16 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
-import { IDeveloperProfile, IEducationInformation, IWorkExperience, IdeletUser } from "../interfaces/user";
-import { CreateDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile, deleteUser, uploadCV, uploadProfilePic } from "../endpoints/api";
+import { IDeveloperProfile, IEducationInformation, IWorkExperience } from "../interfaces/user";
+import { CreateDeveloperProfile, DeleteDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile, uploadCV, uploadProfilePic } from "../endpoints/api";
 import Cookies from 'universal-cookie';
 import Banner from "../banner/Banner";
 import dynamic from "next/dynamic";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
-import defaultProfilepic from '../../assets/additional/person-circle.svg'
-import { Console } from "console";
+import { Logout } from "../lib/function";
+import InitialsAvatar from 'react-initials-avatar';
+import 'react-initials-avatar/lib/ReactInitialsAvatar.css';
+import { IOption, degrees, getLabelFromValue, getOptionFromValue, universities } from "../lib/data";
+
 const cookies = new Cookies();
 
 
@@ -30,7 +31,7 @@ const cookies = new Cookies();
 function developerOverview() {
   const [workModalOpen, setWorkModalOpen] = useState(false);
   const [EducationModalOpen, setEducationModalOpen] = useState(false);
-
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   //form
   const [information, setInformation] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -74,11 +75,9 @@ function developerOverview() {
   const [edu_completionDateError, setEduCompletionDateError] = useState(false);
   const [currentProfilePicError, setCurrentProfilePicError] = useState(false);
 
-  const [currentProfilePic, setCurrentProfilePic] = useState(defaultProfilepic);
+  const [currentProfilePic, setCurrentProfilePic] = useState("");
   const loggedInUser = cookies.get("fraktional-user")??"{}";
   const [existingUser, setExistingUser] = useState(false);
-
-  console.log(loggedInUser)
 
   
   const [cv, setCV] = useState<Blob | undefined>();
@@ -87,66 +86,40 @@ function developerOverview() {
   const hiddenCVInput = useRef<HTMLInputElement>(null);
   const saveCV = (e: any) => {
     setCV(e.target.files[0]);
+
     setHasChanged(true);
   };
 
-  
-
-
-
+  async function deleteProfile(){
+    const deleteRes = await DeleteDeveloperProfile(currentProfile?._id??"");
+    setDeleteModalOpen(false);
+  }
   const saveProfilePic = async (e: any) => {
     const pp = e.target.files[0];
+    // updateProfilePic();
     const profilePicUpload = new FormData();
-  
-    if (pp) {
-      // Display a loading notification when uploading an image
-      const _zz = toast.loading("Uploading image...", {
-        position: "top-center",
-        autoClose: false, // Keep it open until the upload is complete
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-  
+debugger;
+    if(pp){
       profilePicUpload.append("profilePic", pp as Blob);
+      const profilePicDoc = await uploadProfilePic(profilePicUpload,loggedInUser._id??"");
       
-      try {
-        const profilePicDoc = await uploadProfilePic(profilePicUpload, loggedInUser._id ?? "");
-        console.log("profres", profilePicDoc);
-        
-        const newImage = profilePicDoc.data.data.Location;
-        const newUser = { ...loggedInUser, profilePicture: newImage };
-        cookies.remove("fraktional-user", { path: '/' });
-  
-        setCurrentProfilePic(newImage);
-        cookies.set("fraktional-user", newUser as any, { path: "/" });
-        
-        // Dismiss the loading notification when the image upload is complete
-        toast.dismiss(_zz);
-      } catch (error) {
-        // Handle the error, e.g., show an error notification
-        toast.update(_zz, {
-          render:"Error saving image",
-          type: "error",
-          isLoading: false,
-        });
-        
-        // Dismiss the loading notification on error
-        setTimeout(() => {
-          toast.dismiss(_zz);
-        }, 2000);      }
+      console.log("profres", profilePicDoc);
+      const newImage = profilePicDoc.data.data.Location
+      const newUser = {...loggedInUser, profilePicture:newImage};
+      cookies.remove("fraktional-user", { path: '/' });
+
+      setCurrentProfilePic(newImage);
+      
+       cookies.set("fraktional-user", newUser as any, { path: "/" });
     }
   };
-  
 
   
   function workModal(): void {
     setWorkModalOpen(true);
   }
 
+  console.log("DSDS", cv);
   function educationModal(): void {
     setEducationModalOpen(true);
   }
@@ -172,7 +145,6 @@ async function _GetDeveloperProfile(id:string){
   setEducation(res?.data?.education);
   setKeyCourses(res?.data?.keyCourses);
   setCVUrl(res?.data?.cvUrl);
-  console.log(res?.data?.cvUrl)
   setUser(res?.data?.user); // change
   setPreferedWorkMethod(res?.data?.preferedWorkMethod);
   setExistingUser(true);
@@ -294,6 +266,18 @@ function removeEducation(index:number){
   setEducation(filtered);
 }
 
+function handleSelectQualification(data: any) {
+  const _data = data as IOption;
+  setEduQualification(_data.value);
+}
+
+function handleSelectInstitute(data: any) {
+  const _data = data as IOption;
+  setEduInstituteName(_data.value);
+}
+
+
+
 
 useEffect(() => {
   //check url and setActive
@@ -335,7 +319,8 @@ useEffect(() => {
 
     if(existingUser){
       debugger;
-      const res = await UpdateDeveloperProfile(payload, loggedInUser._id);
+      var t = currentProfile;
+      const res = await UpdateDeveloperProfile(payload, currentProfile?._id??"");
     }else{
       const res = await CreateDeveloperProfile(payload);
     }
@@ -343,121 +328,28 @@ useEffect(() => {
 
   }
 
-  async function deletUserFunc(e: any) {
-    e.preventDefault()
-     
-    
-    let _id = toast.loading("Deleting a user..", {
-      position: "top-center",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-
-
-    const userData: IdeletUser = {
-      id: loggedInUser.id
-    } 
-      try {
-        const del = await deleteUser(userData);
-
-        if (del) {
-          toast.update(_id, {
-            render:
-              "Account succesfully deleted",
-            type: "success",
-            isLoading: false,
-          });
-          setTimeout(() => {
-         //  setDisable(false)
-           toast.dismiss(_id);
-         }, 2000);
-         console.log(cookies);
-          cookies.remove('fraktional-user');
-          // window.location.href = '/'
-    } else {
-     toast.update(_id, {
-            render:
-              "something went wrong",
-            type: "error",
-            isLoading: false,
-          });
-     setTimeout(() => {
-         //  setDisable(false)
-           toast.dismiss(_id);
-         }, 2000);
-     }
-      } catch  (error: any) {
-        const statusCode = error.response ? error.response.status : null;
-          
-            if (statusCode === 400) {
-           
-              toast.update(_id, {
-                render: `Error Deeleting account`,
-                type: "error",
-                isLoading: false,
-              });
-            } else if (statusCode === 401) {
-         
-              toast.update(_id, {
-                render: `Unauthorized: ${error.message}`,
-                type: "error",
-                isLoading: false,
-              });
-            } else {
-          
-              toast.update(_id, {
-                render: `An error occurred: ${error.message}`,
-                type: "error",
-                isLoading: false,
-              });
-            }
-          
-            setTimeout(() => {
-              toast.dismiss(_id);
-            }, 2000);
-          
-            console.error("Error:", error);
-      }
+  function getURL(){
+    if(cv!=undefined){
+   var _cv =  window.URL.createObjectURL(cv) as string;
+   return  _cv;
   }
-
-
-  useEffect(() => {
-    const userDetails = cookies.get('fraktional-user');
-    console.log(userDetails);
-  
-    if (!userDetails?._id) {
-      window.location.href = "/auth/login";
-    }
-}, [cookies]); // Include cookies in the dependency array if it's being updated
-  
-// let _id = toast.loading("Registering user..", {
-//   position: "top-center",
-//   autoClose: 1000,
-//   hideProgressBar: false,
-//   closeOnClick: true,
-//   pauseOnHover: false,
-//   draggable: true,
-//   progress: undefined,
-//   theme: "light",
-// });
-
-const signOut = () => {
-  cookies.remove("fraktional-user")
-  window.location.href="/"
 }
-  
+const style = {
+  control: (base:any, state:any) => ({
+    ...base,
+    border: state.isFocused ? 0 : 0,
+    // This line disable the blue border
+    boxShadow: state.isFocused ? 0 : 0,
+    "&:hover": {
+      border: state.isFocused ? 0 : 0
+    }
+  })
+};
+
     return (
       <>
       <div className="top">
-
         <Banner />
-        <ToastContainer />
-        
       </div>
     <main id="content" role="main" className="bg-light">
   {/* Breadcrumb */}
@@ -498,7 +390,7 @@ const signOut = () => {
                 {/* Avatar */}
                 <div className="d-none d-lg-block text-center mb-5">
                   <div className="avatar avatar-xxl avatar-circle mb-3">
-                    <Image className="avatar-img" fill={true}  src={currentProfilePic != "" ? currentProfilePic: cookies.get("fraktional-user")?.profilePicture??""} alt="Image Description" />
+                    <Image className="avatar-img" fill={true}  src={currentProfilePic!=""? currentProfilePic: cookies.get("fraktional-user")?.profilePicture??""} alt="Image Description" />
                     <Image className="avatar-status avatar-lg-status" src={topVendor} alt="Image Description" data-bs-toggle="tooltip" data-bs-placement="top" title="Verified user" />
                   </div>
 
@@ -531,11 +423,10 @@ const signOut = () => {
                       <i className="bi-sliders nav-icon" /> Preferences
                     </a>
                   </li>
-               
                   <li className="nav-item">
-                    <a onClick={signOut}  className="nav-link " style={{ cursor:'pointer', opacity: '.5'}}>
-                    <i className="bi bi-box-arrow-right nav-icon"/> Sign Out
-                    </a>               
+                    <a className="nav-link " onClick={()=>Logout()}>
+                      <i className="bi-sliders nav-icon" /> Logout
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -739,18 +630,23 @@ const signOut = () => {
                       name="cv"
                       onChange={saveCV}
                     /> 
-                   
-                     {
-                      cvUrl !== "" ? <a href={cvUrl} target="_blank">
-                         
-                      <label className="l-18-n" style={{margin: "10px"}}>Download CV</label>
-                    </a> : null
-                     }
-                     
-                </div>
+                  
                 {/* End Check */}
               </div>
-             
+              { (cvUrl && cvUrl != "") && (
+                      <a style={{float:"right"}} href={cvUrl} target="_blank">
+                         
+                        <label className="l-18-n" style={{margin: "10px"}}>Download CV</label>
+                      </a>
+                       )}     
+                       
+                  { cv!=undefined && (
+                      <a style={{float:"right"}}  href={getURL()??""} target="_blank">
+                         
+                        <label className="l-18-n" style={{margin: "10px"}}>View CV</label>
+                      </a>
+                  )}
+                </div>
             </div>
             {/* End Body */}
           </div>
@@ -769,7 +665,8 @@ const signOut = () => {
                     return   <li className="step-item">
                     <div className="step-content-wrapper">
                       <div className="step-avatar step-avatar-sm">
-                        <Image className="step-avatar-img" src={dropboxicon} alt="Image Description" />
+                        {/* <Image className="step-avatar-img" src={dropboxicon} alt="Image Description" /> */}
+                        <InitialsAvatar name={x.employer??""} />
                       </div>
                       <div className="step-content">
                         <h5 className="step-title">{x.jobTitle}</h5>
@@ -938,11 +835,23 @@ const signOut = () => {
                       <li className="step-item">
                         <div className="step-content-wrapper">
                           <div className="step-avatar step-avatar-sm">
-                            <Image className="step-avatar-img" src={varsity} alt="Image Description" />
+                          <InitialsAvatar name={x.instituteName??""} />
+                            {/* <Image className="step-avatar-img" src={varsity} alt="Image Description" /> */}
                           </div>
                           <div className="step-content">
-                            <h5 className="step-title">{x.qualification}</h5>
-                            <span className="d-block text-dark">{x.instituteName}</span>
+                            <h5 className="step-title">{ getLabelFromValue(
+                              x.qualification,
+                                degrees
+                              ) ?? ""
+                            }</h5>
+                            <span className="d-block text-dark">
+                            { getLabelFromValue(
+                              x.instituteName,
+                                universities
+                              ) ?? ""
+                            }
+
+                            </span>
                             <small className="d-block">{x.dateCompleted}</small>
                           </div>
                           <span onClick={()=>{removeEducation(i)}}>Delete</span>
@@ -962,7 +871,7 @@ const signOut = () => {
               {EducationModalOpen
                &&  
                <Modal 
-               classNames={{modal:"card"}}
+               classNames={{modal:"card min-modal"}}
                 open={EducationModalOpen} 
                 closeOnOverlayClick={true} 
                 onClose={() => setEducationModalOpen(false)} 
@@ -981,7 +890,7 @@ const signOut = () => {
                             {/* Form */}
                             <div className="mb-3">
                               <label className="form-label" htmlFor="hireUsFormTitle">Certificate</label>
-                              <input 
+                              {/* <input 
                                 type="text" 
                                 className={`form-control form-control-lg ${edu_QualificationError ? 'err':''}`} 
                                 name="Certificate" 
@@ -991,7 +900,18 @@ const signOut = () => {
                                 onChange={(e)=>{setEduQualification(e.target.value)}}
                                 // value={educationData.certificate}
                                 // onChange={handleChangeEducation}
-                              />
+                              /> */}
+
+                              <Select
+                                className={`form-control form-control-lg ${edu_QualificationError ? 'err':''}`} 
+                                  options={degrees as any}
+                                  placeholder="Search Degree / Diploma"
+                                  styles={style}
+                                  onChange={handleSelectQualification}
+                                  isSearchable={true}
+                                  
+                                />
+
                             </div>
                             {/* End Form */}
                           </div>
@@ -1009,7 +929,7 @@ const signOut = () => {
                             {/* Form */}
                             <div className="mb-3">
                               <label className="form-label" htmlFor="hireUsFormCompanyName">Institute</label>
-                              <input 
+                              {/* <input 
                                 type="text" 
                                 className={`form-control form-control-lg ${edu_InsituteNameError ? 'err':''}`} 
                                 name="SchoolName" 
@@ -1019,7 +939,15 @@ const signOut = () => {
                                 onChange={(e)=>{setEduInstituteName(e.target.value)}}
                                 // value={educationData.schoolName}
                                 // onChange={handleChangeEducation}  
-                              />
+                              /> */}
+                                <Select
+                                className={`form-control form-control-lg ${edu_InsituteNameError ? 'err':''}`} 
+                                  options={universities as any}
+                                  placeholder="Search Institute"
+                                  styles={style}
+                                  onChange={handleSelectInstitute}
+                                  isSearchable={true}
+                                />
                             </div>
                             {/* End Form */}
                           </div>
@@ -1074,27 +1002,48 @@ const signOut = () => {
               <h4 className="card-header-title">Delete your account</h4>
             </div>
             {/* Body */}
-            <form onSubmit={deletUserFunc}>
-              <div className="card-body">
-                <p className="card-text">When you delete your account, you lose access to Fraktional account services, and we permanently delete your personal data. You can cancel the deletion for 14 days.</p>
-                <div className="mb-4">
-                  {/* Check */}
-                  <div className="form-check">
-                    <input 
-                      type="checkbox" 
-                      className="form-check-input" 
-                      id="deleteAccountCheckbox"  
-                      required 
-                    />
-                    <label className="form-check-label" htmlFor="deleteAccountCheckbox">Confirm that I want to delete my account.</label>
+            {deleteModalOpen==true
+               &&  
+               <Modal 
+               classNames={{modal:"card"}}
+                open={workModalOpen}
+                closeOnOverlayClick={true}
+                onClose={() => setDeleteModalOpen(false)} 
+                center
+                >
+                  <div>
+                    <div className="card-body">
+                      {/* Heading */}
+                      <div className="text-center mb-5 mb-md-9">
+                        <h2>Delete your profile</h2>
+                      </div>
+                      {/* Form */}
+                      <form >
+                      
+                        {/* End Form */}
+                        <div className="d-grid">
+                          <button type="submit"onClick={(e)=>{e.preventDefault(); deleteProfile()}} className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Confirm</button>
+                          <button type="submit"onClick={(e)=>{e.preventDefault(); setDeleteModalOpen(false)}} className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Cancel</button>
+                        </div>
+                      </form>
+                      {/* End Form */}
+                    </div>
                   </div>
-                  {/* End Check */}
+               </Modal>}
+            <div className="card-body">
+              <p className="card-text">When you delete your account, you lose access to Fraktional account services, and we permanently delete your personal data. You can cancel the deletion for 14 days.</p>
+              <div className="mb-4">
+                {/* Check */}
+                <div className="form-check">
+                  <input type="checkbox" className="form-check-input" id="deleteAccountCheckbox" />
+                  <label className="form-check-label" htmlFor="deleteAccountCheckbox">Confirm that I want to delete my account.</label>
                 </div>
-                <div className="d-flex justify-content-end">
-                  <button className="btn btn-danger">Delete</button>
-                </div>
+                {/* End Check */}
               </div>
-            </form>
+              <div className="d-flex justify-content-end">
+                <button onClick={()=> deleteProfile()} className="btn btn-danger">Delete</button>
+              </div>
+            </div>
             {/* End Body */}
           </div>
           {/* End Card */}
