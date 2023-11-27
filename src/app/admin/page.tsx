@@ -3,16 +3,26 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { IJobApplication } from '../interfaces/IJobApplication';
-import { CreateJob } from '../endpoints/api';
+import { GetDeveloperProfile } from '../endpoints/api';
 import { preventDefault } from '@/assets/vendor/tom-select/dist/types/utils';
 import SideNav from './Nav/sidenav';
 import AdminBanner from './Banner/banner';
 import FrakLogo from '../images/FraktionalLogo.png'
 import LineChart from './Chart/chart';
+import Tabs from './Tab/tab';
+import axios from 'axios';
 import './admin.scss'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
-
+async function fetchAllData(): Promise<void> {
+  try {
+    //const data = await  GetDeveloperProfile();
+   // console.log('Retrieved all staff data:', data);
+  } catch (error) {
+    console.error('Error fetching all staff data:', error);
+  }
+}
+fetchAllData();
 
 
 function admin() {
@@ -174,7 +184,10 @@ function admin() {
          {/* Card Grid */}
       <div className="container content-space-t-2">
         <div className="mb-4">
-          {/* <h3>Browse jobs by category</h3> */}
+          <div className='tabdiv'>
+            <Tabs/>
+          </div>
+          
         </div>
         <div className="row row-cols-1 row-cols-sm-2 1 row-cols-md-3 row-cols-lg-4 mb-5">
        {
