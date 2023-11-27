@@ -10,7 +10,7 @@ export default function Nav() {
   //check url and setActive
 
   const currentUrl = window.location.href;
-    debugger;
+    
       if(currentUrl.includes("post-job")){
         setActive(3);
       }

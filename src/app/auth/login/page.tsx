@@ -106,7 +106,7 @@ function SignIn() {
           if(loginResult.type==0){
             window.location.href = "/developer-overview"
           }else{
-            window.location.href = "/company-overview"
+            window.location.href = "/company/company-overview"
           }
           setTimeout(() => {
             // setDisable(false)
@@ -179,7 +179,7 @@ function SignIn() {
         if (userDetails.type === 0) {
           window.location.href = "/developer-overview";
         } else {
-          window.location.href = "/company-overview";
+          window.location.href = "/company/company-overview";
         }
       }
       else {

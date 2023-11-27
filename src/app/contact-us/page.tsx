@@ -39,7 +39,7 @@ const contactus = () => {
       phone,
       details
     }
-debugger;
+
     const res = await PostContact(payload);
     toast.update(_id, {
       render: "Request sent successfully",

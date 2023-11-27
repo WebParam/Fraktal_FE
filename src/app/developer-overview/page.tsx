@@ -22,6 +22,8 @@ import { Logout } from "../lib/function";
 import InitialsAvatar from 'react-initials-avatar';
 import 'react-initials-avatar/lib/ReactInitialsAvatar.css';
 import { IOption, degrees, getLabelFromValue, getOptionFromValue, universities } from "../lib/data";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const cookies = new Cookies();
 
@@ -79,7 +81,7 @@ function developerOverview() {
   const loggedInUser = cookies.get("fraktional-user")??"{}";
   const [existingUser, setExistingUser] = useState(false);
 
-  
+    const [deleteProfileAccept, setDeleteProfileAccept] = useState(false);
   const [cv, setCV] = useState<Blob | undefined>();
   const [hasChanged, setHasChanged] = useState(false);
   const cvPayload = new FormData();
@@ -91,14 +93,40 @@ function developerOverview() {
   };
 
   async function deleteProfile(){
+    let _id = toast.loading("Deleting your profile..", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
     const deleteRes = await DeleteDeveloperProfile(currentProfile?._id??"");
+    setTimeout(() => {
+      // setDisable(false)
+      toast.dismiss(_id);
+    }, 2000);
     setDeleteModalOpen(false);
   }
   const saveProfilePic = async (e: any) => {
+    let _id = toast.loading("Updating profile picture..", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
     const pp = e.target.files[0];
     // updateProfilePic();
     const profilePicUpload = new FormData();
-debugger;
+
     if(pp){
       profilePicUpload.append("profilePic", pp as Blob);
       const profilePicDoc = await uploadProfilePic(profilePicUpload,loggedInUser._id??"");
@@ -112,6 +140,10 @@ debugger;
       
        cookies.set("fraktional-user", newUser as any, { path: "/" });
     }
+    setTimeout(() => {
+      // setDisable(false)
+      toast.dismiss(_id);
+    }, 2000);
   };
 
   
@@ -132,6 +164,18 @@ debugger;
 
 async function _GetDeveloperProfile(id:string){
 
+  let _id = toast.loading("Loading your profile..", {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+
+  
   var res = await GetDeveloperProfile(id) as any;
   if(res.data){
   setCurrentProfile(res.data);
@@ -149,7 +193,10 @@ async function _GetDeveloperProfile(id:string){
   setPreferedWorkMethod(res?.data?.preferedWorkMethod);
   setExistingUser(true);
   }
-
+  setTimeout(() => {
+    // setDisable(false)
+    toast.dismiss(_id);
+  }, 2000);
 }
 
 
@@ -252,7 +299,7 @@ function addEducation(){
     dateCompleted:edu_completionDate
   } as IEducationInformation;
 
-  debugger;
+  
   setEducation([...education, payload]);
 
   setEduCompletionDate("");
@@ -318,7 +365,7 @@ useEffect(() => {
   
 
     if(existingUser){
-      debugger;
+      
       var t = currentProfile;
       const res = await UpdateDeveloperProfile(payload, currentProfile?._id??"");
     }else{
@@ -346,9 +393,11 @@ const style = {
   })
 };
 
+console.log("DDD", deleteProfileAccept);
     return (
       <>
       <div className="top">
+      <ToastContainer />
         <Banner />
       </div>
     <main id="content" role="main" className="bg-light">
@@ -1035,13 +1084,13 @@ const style = {
               <div className="mb-4">
                 {/* Check */}
                 <div className="form-check">
-                  <input type="checkbox" className="form-check-input" id="deleteAccountCheckbox" />
+                  <input type="checkbox"  onChange={()=>setDeleteProfileAccept(!deleteProfileAccept)}  className="form-check-input" id="deleteAccountCheckbox" />
                   <label className="form-check-label" htmlFor="deleteAccountCheckbox">Confirm that I want to delete my account.</label>
                 </div>
                 {/* End Check */}
               </div>
               <div className="d-flex justify-content-end">
-                <button onClick={()=> deleteProfile()} className="btn btn-danger">Delete</button>
+                <button onClick={()=> deleteProfile()} disabled={deleteProfileAccept!=true} className="btn btn-danger">Delete</button>
               </div>
             </div>
             {/* End Body */}

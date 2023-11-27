@@ -153,6 +153,82 @@
 
 
 
+  export const projectTeams =[
+    {"value": "projteam0", "label": "I want to develop a brand new system/application"},
+    {"value": "projteam1", "label": "I want to add new features to a current system/application."},
+    {"value": "projteam2", "label": "I want to scale up an existing development team to speed up development"},
+    {"value": "projteam3", "label": "I want to replace my current development team"},
+    {"value": "projteam4", "label": "I want to audit a current system/application"},
+    {"value": "projteam5", "label": "I want to change the hosting for an existing system/application"}
+  ];
+
+  export interface IOption{
+    value:string,
+    label:string
+}
+
+
+  export const techStack=[
+    { "value": "s1", "label": "C#" },
+    { "value": "s2", "label": "C++" },
+    { "value": "s3", "label": "Java" },
+    { "value": "s4", "label": "JavaScript" },
+    { "value": "s5", "label": "Python" },
+    { "value": "s6", "label": "SQL" },
+    { "value": "s7", "label": "React.js" },
+    { "value": "s8", "label": "Angular" },
+    { "value": "s9", "label": "SAP" },
+    { "value": "s10", "label": "Salesforce" },
+    { "value": "s11", "label": "Vue.js" },
+    { "value": "s12", "label": "Angular.js" },
+    { "value": "s13", "label": "Git" },
+    { "value": "s14", "label": "DevOps" },
+    { "value": "s15", "label": "Azure" },
+    { "value": "s16", "label": "AWS" },
+    { "value": "s17", "label": "HTML" },
+    { "value": "s18", "label": "CSS" },
+    { "value": "s19", "label": "PHP" },
+    { "value": "s20", "label": "Ruby" },
+    { "value": "s21", "label": "Swift" },
+    { "value": "s22", "label": "Objective-C" },
+    { "value": "s23", "label": "Kotlin" },
+    { "value": "s24", "label": "R" },
+    { "value": "s25", "label": "Perl" },
+    { "value": "s26", "label": "Shell scripting" },
+    { "value": "s27", "label": "Go" },
+    { "value": "s28", "label": "TypeScript" },
+    { "value": "s29", "label": "Scala" },
+    { "value": "s30", "label": "Haskell" },
+    { "value": "s31", "label": "Lua" },
+    { "value": "s32", "label": "MATLAB" },
+    { "value": "s33", "label": "PowerShell" },
+    { "value": "s34", "label": "MongoDB" },
+    { "value": "s35", "label": "Docker" },
+    { "value": "s36", "label": "Kubernetes" }
+  ]
+
+  export const typeOfProject =[
+    {"value": "projtype0", "label": "Fin-Tech platform"},
+    {"value": "projtype1", "label": "E-commerce platform"},
+    {"value": "projtype2", "label": "Marketting website"},
+    {"value": "projtype3", "label": "Big Data, ML or AI"},
+    {"value": "projtype4", "label": "Technical upgrade of an existing system"},
+    {"value": "projtype5", "label": "Healthcare Information System"},
+    {"value": "projtype6", "label": "Education Management System"},
+    {"value": "projtype7", "label": "Customer Relationship Management (CRM) Software"},
+    {"value": "projtype8", "label": "Supply Chain Management System"},
+    {"value": "projtype9", "label": "Social Media Platform"},
+    {"value": "projtype10", "label": "Mobile App Development (iOS/Android)"},
+    {"value": "projtype11", "label": "Gaming Software"},
+    {"value": "projtype12", "label": "Internet of Things (IoT) Applications"},
+    {"value": "projtype13", "label": "Content Management System (CMS)"},
+    {"value": "projtype14", "label": "Virtual Reality (VR) or Augmented Reality (AR) Applications"},
+    {"value": "projtype15", "label": "Project Management Software"},
+    {"value": "projtype16", "label": "Benchmark Testing & Advisory"},
+  ]
+  
+
+
 export const universities =[
     { "value": "u0", "label": "University Of Cape Town", logo:"" },
     { "value": "u1", "label": "University of Johannesburg", logo:"" },
@@ -362,8 +438,10 @@ export function getOptionFromValue(value:string[], options:IOption[]):IOption[]{
     return res;
   }
 
+
   
 export function getLabelFromValue(value:string, options:IOption[]):string{
+  debugger;
     const res = options.filter(x=>x.value==value)[0];
     return res?.label??"";
   }

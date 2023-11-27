@@ -38,7 +38,7 @@ function admin() {
       const filteredApplicants = applicants.filter((x,i)=>{
         return index!=i;
       })
-      debugger;
+      
       setApplicants(filteredApplicants);
 
     }

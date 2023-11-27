@@ -3,6 +3,7 @@ import axios from "axios";
 import {
   IContactForm,
   IDeveloperProfile,
+  IUpdateStaffAndOrganisation,
   IUser,
   IUserLogin,
   IUserResetPassword,
@@ -15,6 +16,7 @@ import { IApplyForJobRegistration } from "../interfaces/job-registration";
 
 // const url = "https://viconet-vercel.vercel.app"
 const url = "http://localhost:8080"
+const azureUrl = "https://localhost:7257"
 
 
 export async function registerUser(payload: IUser) {
@@ -67,10 +69,27 @@ export async function uploadProfilePic(profilePic: FormData, userId: string) {
   return resp;
 }
 
+export async function uploadOrgPic(profilePic: FormData, userId: string) {
+  const config = {
+    headers: {
+      "content-type": "multipart/form-data",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const resp = await axios.post(
+    `${url}/api/upload_orgpicture/${userId}`,
+    profilePic,
+    config
+  );
+  console.log("profilePicRes", resp);
+  return resp;
+}
+
+
 export async function GetDeveloperProfile(id: string) {
   try {
     const response = await axios.get(`${url}/api/personnelByUserId/${id}`);
-    debugger;
+    
     if (response.status === 200 || response.status === 201) {
       console.log("retrieved successful");
       return response;
@@ -85,15 +104,108 @@ export async function GetDeveloperProfile(id: string) {
 }
 
 
-export async function DeleteDeveloperProfile(id: string) {
+export async function GetOrganisation(id: string) {
   try {
-    const response = await axios.get(`${url}/api/personnelByUserId/${id}`);
-    debugger;
+    const response = await axios.get(`${url}/api/organisation/${id}`);
+    
     if (response.status === 200 || response.status === 201) {
       console.log("retrieved successful");
       return response;
     } else {
       console.error("retrieve failed");
+      return response;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return error;
+  }
+}
+
+
+export async function GetProjectsByOrgId(id: string) {
+  try {
+    const response = await axios.get(`${azureUrl}/projects/org/${id}`);
+    
+    if (response.status === 200 || response.status === 201) {
+      console.log("retrieved successful");
+      return response;
+    } else {
+      console.error("retrieve failed");
+      return response;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return error;
+  }
+}
+
+
+export async function GetProjectById(id: string) {
+  try {
+    const response = await axios.get(`${azureUrl}/projects/${id}`);
+    
+    if (response.status === 200 || response.status === 201) {
+      console.log("retrieved successful");
+      return response;
+    } else {
+      console.error("retrieve failed");
+      return response;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return error;
+  }
+}
+
+
+export async function GetAllProjects() {
+  try {
+    const response = await axios.get(`${azureUrl}/projects/`);
+    
+    if (response.status === 200 || response.status === 201) {
+      console.log("retrieved successful");
+      return response;
+    } else {
+      console.error("retrieve failed");
+      return response;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return error;
+  }
+}
+
+
+
+
+export async function DeleteDeveloperProfile(id: string) {
+  try {
+
+    const response = await axios.get(`${url}/api/delete/${id}`);
+    
+    if (response.status === 200 || response.status === 201) {
+      console.log("delete successful");
+      return response;
+    } else {
+      console.error("delete failed");
+      return response;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return error;
+  }
+}
+
+export async function DeleteCompanyProfile(id: string) {
+  try {
+
+    const response = await axios.get(`${url}/api/delete/${id}`);
+    
+    if (response.status === 200 || response.status === 201) {
+      console.log("delete successful");
+      return response;
+    } else {
+      console.error("delete failed");
       return response;
     }
   } catch (error) {
@@ -106,7 +218,7 @@ export async function DeleteDeveloperProfile(id: string) {
 export async function GetStaffInfo(id: string) {
   try {
     const response = await axios.get(`${url}/api/staffuser/${id}`);
-    debugger;
+    
     if (response.status === 200 || response.status === 201) {
       console.log("retrieved successful");
       return response;
@@ -156,6 +268,28 @@ export async function UpdateDeveloperProfile(
     return false;
   }
 }
+
+export async function UpdateStaffAndOrganisation(
+  payload: IUpdateStaffAndOrganisation,
+  id: string
+) {
+  try {
+    const response = await axios.post(`${url}/api/staff/${id}`, payload);
+
+    if (response.status === 200 || response.status === 201) {
+      console.log("update successful");
+      return true;
+    } else {
+      console.error("update failed");
+      return false;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+}
+
+
 export async function PostContact(payload: IContactForm) {
   try {
     const response = await axios.post(
@@ -188,7 +322,7 @@ export async function uploadCV(formData: FormData) {
 
 export async function CreateJob(payload: IJobApplication) {
   try {
-    const response = await axios.post(`${url}/api/jobApplications`, payload);
+    const response = await axios.post(`${azureUrl}/Project`, payload);
 
     if (response.status === 200 || response.status === 201) {
       console.log("JOB POSTED");
@@ -205,7 +339,7 @@ export async function CreateJob(payload: IJobApplication) {
 
 export async function UpdateJob(payload: IJobApplication) {
   try {
-    const response = await axios.post(`${url}/api/jobApplications`, payload);
+    const response = await axios.post(`${azureUrl}/api/jobApplications`, payload);
 
     if (response.status === 200 || response.status === 201) {
       console.log("Job Updated");
