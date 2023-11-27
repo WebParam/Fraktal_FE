@@ -22,7 +22,7 @@ async function fetchAllData(): Promise<void> {
     console.error('Error fetching all staff data:', error);
   }
 }
-fetchAllData();
+
 
 
 function admin() {
@@ -117,7 +117,7 @@ function admin() {
   
       //check url and setActive
      GetAllApplicants()
-      
+     fetchAllData();
       }, []);
 
 
