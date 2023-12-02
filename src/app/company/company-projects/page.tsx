@@ -97,6 +97,52 @@ window?.location?.assign(`/company/post-job/${project?.id}`)
                   <i className="bi-chevron-right" />
                 </a>
               </span>
+              <div className="row align-items-center mb-5">
+                <div className="col-sm mb-3 mb-sm-0">
+                  <h3 className="mb-0">
+                    90 jobs for <span className="fw-normal">UK</span>
+                  </h3>
+                </div>
+                <div className="col-sm-auto">
+                  <div className="d-sm-flex justify-content-sm-end align-items-center">
+                    {/* Select */}
+                    <div className="mb-2 mb-sm-0 me-sm-2">
+                      <select className="form-select form-select-sm">
+                        <option value="Relevance" >
+                          Relevance
+                        </option>
+                        <option value="mostRecent">Most recent</option>
+                      </select>
+                    </div>
+                    {/* End Select */}
+                    {/* Select */}
+                    <div className="mb-2 mb-sm-0 me-sm-2">
+                      <select className="form-select form-select-sm">
+                        <option value="alphabeticalOrderSelect1">
+                          A-to-Z
+                        </option>
+                        <option value="alphabeticalOrderSelect2">Z-to-A</option>
+                      </select>
+                    </div>
+                    {/* End Select */}
+                    {/* Nav */}
+                    <ul className="nav nav-segment">
+                      <li className="nav-item">
+                        <a className="nav-link" href="../demo-jobs/job-grid.html">
+                          <i className="bi-grid-fill" />
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a className="nav-link active" href="../demo-jobs/job-list.html">
+                          <i className="bi-list" />
+                        </a>
+                      </li>
+                    </ul>
+                    {/* End Nav */}
+                  </div>
+                </div>
+              </div>
+
               {/* Nav */}
               <ul className="nav nav-segment nav-fill mb-7" id="featuresTab" role="tablist">
                 <li className="nav-item" role="presentation">
@@ -117,79 +163,130 @@ window?.location?.assign(`/company/post-job/${project?.id}`)
               <div className="tab-pane fade show active" id="accountOrdersOne" role="tabpanel" aria-labelledby="accountOrdersOne-tab">
                 {/* Select Group */}
                
-                <div className="row row-cols-1 row-cols-sm-2 mb-5">
+                {/* <div className="row row-cols-1 row-cols-sm-2 mb-5"> */}
+                <div className="d-grid gap-5 mb-10">
+
 
                     {
                       projects?.map((project:any) => {
                         
                         return (
                           <>
-                          <div className="col mb-5">
-                             {/* Card */}
-                            <div className="card card-bordered h-100">
-                              {/* Card Body */}
+                           <div className="card card-bordered">
                               <div className="card-body">
-                                <div className="row mb-3">
-                                  <div className="col">
-                                    {/* Media */}
-                                    <div className="d-flex align-items-center">
-                                      <div className="flex-shrink-0">
-                                        {/* <img className="avatar avatar-sm avatar-4x3" src="../assets/svg/brands/capsule-icon.svg" alt="Image Description" /> */}
-                                        <InitialsAvatar name={project?.data.projectName? project?.data.projectName:""} />
-                                      </div>
-                                      <div className="flex-grow-1 ms-3">
-                                        <h6 className="card-title">
-                                          <a className="text-dark" href="../demo-jobs/employer.html">{project?.data.projectName}</a>
-                                        </h6>
-                                      </div>
+                                {/* Media */}
+                                <div className="d-sm-flex">
+                                  {/* Media */}
+                                  <div className="d-flex align-items-center align-items-sm-start mb-3">
+                                    <div className="flex-shrink-0">
+                                    <InitialsAvatar name={project?.data.projectName? project?.data.projectName:""} />
                                     </div>
-                                    {/* End Media */}
+                                    <div className="d-sm-none flex-grow-1 ms-3">
+                                      <h6 className="card-title">
+                                      <a className="text-dark" href="../demo-jobs/employer.html">{project?.data.projectName}</a>
+                                        <img
+                                          className="avatar avatar-xss ms-1"
+                                          src="../assets/svg/illustrations/top-vendor.svg"
+                                          alt="Review rating"
+                                          data-toggle="tooltip"
+                                          data-placement="top"
+                                          title="Claimed profile"
+                                        />
+                                      </h6>
+                                    </div>
                                   </div>
-                                  {/* End Col */}
-                                  <div className="col-auto">
-                                    {/* Checkbbox Bookmark */}
-                                    <div className="form-check form-check-bookmark">
-                                      <input className="form-check-input" type="checkbox" id="jobsCardBookmarkCheck2" />
-                                      <label className="form-check-label" htmlFor="jobsCardBookmarkCheck2">
-                                        <span onClick={()=>editProject(project.data)} className="form-check-bookmark-default" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Edit job" data-bs-original-title="Edit this job">
+                                  {/* End Media */}
+                                  <div className="flex-grow-1 ms-sm-3">
+                                    <div className="row">
+                                      <div className="col col-md-8">
+                                        <h3 className="card-title">
+                                          <a className="text-dark" href="../demo-jobs/employer.html">
+                                          {project?.data.projectName}
+                                          </a>
+                                        </h3>
+                                        <div className="d-none d-sm-inline-block">
+                                          <h6 className="card-title">
+                                            <a className="text-dark" href="../demo-jobs/employer.html">
+                                              Mailchimp
+                                            </a>
+                                            <img
+                                              className="avatar avatar-xss ms-1"
+                                              src="../assets/svg/illustrations/top-vendor.svg"
+                                              alt="Review rating"
+                                              data-toggle="tooltip"
+                                              data-placement="top"
+                                              title="Claimed profile"
+                                            />
+                                          </h6>
+                                        </div>
+                                      </div>
+                                      {/* End Col */}
+                                      <div className="col-auto order-md-3">
+                                        {/* Checkbbox Bookmark */}
+                                        <div className="form-check form-check-bookmark">
+                                          <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            defaultValue=""
+                                            id="jobsCardBookmarkCheck1"
+                                          />
+                                          <label
+                                            className="form-check-label"
+                                            htmlFor="jobsCardBookmarkCheck1"
+                                          >
+                                           <span onClick={()=>editProject(project.data)} className="form-check-bookmark-default" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Edit job" data-bs-original-title="Edit this job">
                                           <i className="bi-pencil-square" />
                                         </span>
-                                        {/* <span className="form-check-bookmark-active" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Saved" data-bs-original-title="Saved">
-                                          <i className="bi-star-fill" />
-                                        </span> */}
-                                      </label>
+                                            <span
+                                              className="form-check-bookmark-active"
+                                              data-bs-toggle="tooltip"
+                                              data-bs-placement="top"
+                                              aria-label="Saved"
+                                              data-bs-original-title="Saved"
+                                            >
+                                                <i className="bi-pencil-square" />
+                                            </span>
+                                          </label>
+                                        </div>
+                                        {/* End Checkbbox Bookmark */}
+                                      </div>
+                                      {/* End Col */}
+                                      <div className="col-12 col-md mt-3 mt-md-0">
+                                        <span className="d-block small text-body mb-1">
+                                        R {project.data.pay},00
+                                        </span>
+                                        {project?.data.remote==1&& 
+                                         <span className="badge bg-soft-info text-info me-2">
+                                          <span className="legend-indicator bg-info" />
+                                          Remote
+                                        </span>}
+                                       
+                                      </div>
+                                      {/* End Col */}
                                     </div>
-                                    {/* End Checkbbox Bookmark */}
+                                    {/* End Row */}
                                   </div>
-                                  {/* End Col */}
                                 </div>
-                                {/* End Row */}
-                                <h3 className="card-title">
-                                  <a className="text-dark" href="../demo-jobs/employer.html">{project?.data.projectName}</a>
-                                </h3>
-                                <span className="d-block small text-body mb-1">{project.data.pay} hourly</span>
+                                {/* End Media */}
                               </div>
-                              {/* End Card Body */}
-                              {/* Card Footer */}
                               <div className="card-footer pt-0">
                                 <ul className="list-inline list-separator small text-body">
-                                  <li className="list-inline-item">Posted 21 hours ago</li>
-                                  <li className="list-inline-item">{project?.data.remote==0? "In-Office": project?.data.remote==1?"Remote":"Hybrid"}</li>
-                                  <li className="list-inline-item">{project?.data.city}</li>
+                                  <li className="list-inline-item">Posted 7 hours ago</li>
+                                  <li className="list-inline-item">Oxford</li>
+                                  <li className="list-inline-item">Full time</li>
                                 </ul>
                               </div>
-                              {/* End Card Footer */}
                             </div>
-                            {/* End Card */}
-                          </div>
                           </>
                         )
                       })
 
                     }
            
+                </div>
+
     
-                   </div>
+                   {/* </div>YY */}
               </div>
             </div>
             {/* End Tab Content */}
