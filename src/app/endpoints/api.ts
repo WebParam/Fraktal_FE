@@ -15,8 +15,8 @@ import { IJobApplication } from "../interfaces/IJobApplication";
 import { IApplyForJobRegistration } from "../interfaces/job-registration";
 
 // const url = "https://viconet-vercel.vercel.app"
-const url = "http://localhost:8080"
-const azureUrl = "https://localhost:7257"
+const url = "https://viconet-vercel.vercel.app"
+const azureUrl = "https://fraktional-be.azurewebsites.net"
 
 
 export async function registerUser(payload: IUser) {
@@ -120,6 +120,7 @@ export async function GetOrganisation(id: string) {
     return error;
   }
 }
+
 
 
 export async function GetProjectsByOrgId(id: string) {
