@@ -19,6 +19,8 @@ import dynamic from "next/dynamic";
 const cookies = new Cookies(); // Create an instance of Cookies
 import logo from '../../../assets/additional/logo.webp';
 import Banner from "../../banner/Banner";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 
 
@@ -45,6 +47,9 @@ const [companyAddress, setCompanyAddress] = useState("");
 const [staff, setStaff] = useState<any>();
 const [companyCity, setCompanyCity] = useState("");
 const [companyCountry, setCompanyCountry] = useState("");
+
+
+const [companyLoading, setCompanyLoading] = useState(true);
 
 const [position, setPosition] = useState("");
 
@@ -92,6 +97,7 @@ async function _GetCompanyInfo(id:string){
   }
 
   }
+  setCompanyLoading(false);
 }
 
 
@@ -269,6 +275,8 @@ useEffect(() => {
       toast.dismiss(_id);
     }, 2000);
   }
+
+  
   
     return (
       <>
@@ -415,13 +423,38 @@ useEffect(() => {
             {/* End Footer */}
           </div>
           {/* End Card */}
+          
+           
+           
           <div className="card">
             <div className="card-header border-bottom">
               <h4 className="card-header-title">Company info</h4>
             </div>
             {/* Body */}
             <div className="card-body">
-              <form>
+             
+                  <form>
+                  {
+                 companyLoading?
+                 <>
+                 <div className="row">
+                    <div className="col-md-3">
+                 <Skeleton
+                    circle
+                    height={50}
+                    width={50}                   
+                     containerClassName="avatar-skeleton"
+                />
+                  <Skeleton width={50} />
+                 </div>
+                 <div className="col-md-9">
+                  <Skeleton /> 
+                  <Skeleton count={3} />
+                  </div>
+                 </div>
+              
+                 </>:
+                 <>
                 {/* Form */}
                 <div className="row mb-4">
                   <label className="col-sm-3 col-form-label form-label">Company logo</label>
@@ -463,13 +496,7 @@ useEffect(() => {
                   </div>
                 </div>
                 {/* End Form */}
-                {/* Form */}
-                {/* <div className="row mb-4">
-                  <label htmlFor="emailLabel"  className="col-sm-3 col-form-label form-label">Company Email</label>
-                  <div className="col-sm-9">
-                    <input type="email" readOnly className="form-control" name="email" id="emailLabel" onChange={(e)=>{setCompanyName(e.target.value)}} placeholder="Enter company email" aria-label="clarice@example.com" defaultValue={companyName} value={companyName} />
-                  </div>
-                </div> */}
+            
                 {/* End Form */}
                 {/* Form */}
                 <div className="js-add-field row mb-4" data-hs-add-field-options="{
@@ -571,8 +598,6 @@ useEffect(() => {
              </div>
                   </div>
                 </div>
-  
-
                 <div className="row mb-4">
                   <label htmlFor="firstNameLabel" className="col-sm-3 col-form-label form-label">Company city <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Displayed on public forums, such as Front." /></label>
                   <div className="col-sm-5">
@@ -590,10 +615,6 @@ useEffect(() => {
                     </div>
                   </div>
                 </div>
-
-
-
-
                 <div className="row mb-4">
                   <label className="col-sm-3 col-form-label form-label">About company</label>
                   <div className="col-sm-9">
@@ -606,22 +627,13 @@ useEffect(() => {
                     {/* End Quill */}
                   </div>
                 </div>
-                {/* End Form */}
-                {/* Form */}
-                {/* <div className="row mb-4">
-                  <label className="col-sm-3 col-form-label form-label">About the company</label>
-                  <div className="col-sm-9">
-                  
-                    <div className="quill-custom">
-                      <div className="js-quill" style={{height: '15rem'}}>
-                        <textarea onChange={(e)=>setCompanyAbout(e.target.value)} name="summary" defaultValue={companyAbout} id="textarea" placeholder="Enter information about the company" style={{height: '100%', width: '100%', padding: '10px'}}></textarea>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                */}
-                {/* End Form */}
+             
+                </>
+                }
               </form>
+               
+              
+             
             </div>
             {/* End Body */}
             {/* Footer */}
@@ -634,6 +646,9 @@ useEffect(() => {
                   <a className="btn" onClick={()=>updateProfile()} style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Save changes</a>
                 </div>
               </div>
+          
+          
+        
           
           {/* Card */}
           <div className="card">
