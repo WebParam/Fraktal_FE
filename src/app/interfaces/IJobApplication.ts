@@ -63,7 +63,7 @@ export interface IJobApplication{
 }
 
 export interface IJobApplicationViewModel{
-    data:IJobApplicationViewModel;
-    // org:IOrganisation
+    data:IJobApplication;
+    org:any
 
 }

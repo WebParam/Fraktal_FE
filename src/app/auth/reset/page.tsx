@@ -49,12 +49,16 @@ function OTP() {
       newOtpValues[index] = value;
       setOtpValues(newOtpValues);
   
-      if (index < 4 && inputRefs[index + 1].current) {
-        inputRefs[index + 1].current?.focus();
+      if (index <= 4) {
+        inputRefs[index + 1]?.current && inputRefs[index + 1].current?.focus();
+        const otp = Number(newOtpValues.join(''));
+        setOtp(otp);
       }
   
       // Remove the "incorrect" class when a valid input is entered
       e.target.classList.remove('incorrect');
+     
+    
     } else {
       // Clear the input if the value is not a number
       const newOtpValues = [...otpValues];
@@ -95,6 +99,7 @@ function OTP() {
      }
 
      try {
+      debugger;
       const changePassword = await resetPassword({email:email, password:password, otp:otp} as IUserResetPassword); // Rename the constant
       if(changePassword){
               console.log('reset password successful');
@@ -110,20 +115,20 @@ function OTP() {
   };
 
   //confirming OTP
-  const handleFormSubmitOTP = (e: FormEvent) => {
-    e.preventDefault();
+  // const handleFormSubmitOTP = (e: FormEvent) => {
+  //   e.preventDefault();
   
-    const otp = Number(otpValues.join(''));
-    if(userDetails.otp == otp){
-      setOtpSent(true);
-      setEmailSent(false);
-      setOtp(otp);
-      console.log('OTP:', otp);
-    }else{
-      alert("invalid otp");
-    }
+  //   const otp = Number(otpValues.join(''));
+  //   if(userDetails.otp == otp){
+  //     setOtpSent(true);
+  //     setEmailSent(false);
+  //     setOtp(otp);
+  //     console.log('OTP:', otp);
+  //   }else{
+  //     alert("invalid otp");
+  //   }
   
-  };
+  // };
   
   useEffect(() => {
  if(email){
@@ -187,80 +192,64 @@ function OTP() {
     };
   if (emailsent) {
     return (
-      <section className="otp">
 
-<div className="top">
-      <Link href= "/"> <Image style={{   cursor: "pointer"}} src={logo} alt="logo" /></Link> 
-        <Link href="/">
-          <i className="bi bi-chevron-left"></i>Go to main
-        </Link>
-      </div>
-
-
-    <div className="otpMain">
-      <div className="otp-image">
-        <h2>MailChimp</h2>
-        <p className='desc'>“ It has many landing page variations to choose from, which one is always a big advantage. ”</p>
-        <Image src={loginImage} alt="" />
-        <h3>Lida Reidy</h3>
-        <p>Project Manager | Mailchimp</p>
-      </div>
-
-      <div className="otpForm">
-        <h2>Enter the OTP</h2>
-        <p>Enter the OTP sent to the email you provided</p>
-
-        <form onSubmit={handleFormSubmitOTP}>
-          <div>
-            <label>
-              <span></span>
-              <span className='cta'><Link href='/auth/reset'><i className="bi bi-chevron-left"></i>Back to reset password</Link></span>
-            </label>
-            <div className='otpInputs'>
-  {inputRefs.map((ref, index) => (
-    <input
-      key={index}
-      type="text"
-      id={`input${index + 1}`}
-      maxLength={1}
-      ref={ref}
-      value={otpValues[index]}
-      onChange={(e) => handleInputChange(e, index)}
-      className={`otpInput ${otpValues[index] !== '' ? 'incorrect' : ''}`}
-      required
-    />
-  ))}
-</div>
-
-          </div>
-          <button>Submit</button>
-        </form>
-
-      </div>
-    </div>
-      </section>
-    )
-  } else if(otpsent) {
-    return (
+      <>  
+    
+    
       <section className="newpassword">
       <div className="top">
       <Image src={logo} alt='logo'/>
         <Link href='/'><i className="bi bi-chevron-left"></i>Go to main</Link>
       </div>
 
+    
       <div className="newpasswordMain">
         <div className="newpassword-image">
-          <h2>MailChimp</h2>
-          <p className='desc'>“ It has many landing page variations to choose from, which one is always a big advantage. ”</p>
+          <h2>Param Solutions</h2>
+          <p className='desc'>“ Great service for rectruitment companies placing candidates onto contracts. Really a time-saver ”</p>
           <Image src={loginImage} alt="" />
-          <h3>Lida Reidy</h3>
-          <p>Project Manager | Mailchimp</p>
+          <h3>Nobuhle</h3>
+          <p>Project Manager | Param Solutions </p>
         </div>
 
         <div className="newpasswordForm">
+          
+
+            <div className="otpForm" style={{textAlign:"center"}}>
+              <h2>Enter the OTP</h2>
+              <p>Enter the OTP sent to the email you provided</p>
+
+              <form >
+                <div>
+                
+                  <div className='otpInputs' style={{flexDirection:"row"}}>
+                  {inputRefs.map((ref, index) => (
+                    <input
+                      key={index}
+                      type="text"
+                      id={`input${index + 1}`}
+                      maxLength={1}
+                      ref={ref}
+                      style={{width:"20%", float:"left"}}
+                      value={otpValues[index]}
+                      onChange={(e) => handleInputChange(e, index)}
+                      className={`otpInput ${otpValues[index] !== '' ? 'incorrect' : ''}`}
+                      required
+                    />
+                  ))}
+                </div>
+
+                </div>
+                {/* <button>Submit</button> */}
+              </form>
+
+            </div>
+          {/* </div> */}
+          
           <h2>Change your password</h2>
           <p>it will be used to access your account.</p>
 
+          {/* <div className="otpMain"> */}
           <form onSubmit={handleSubmitNewPass}>
             <div>
               <label htmlFor="password">New Password{passwordError && <span style={{marginRight: "12em", color: "tomato", fontWeight: 600, fontSize: "small"}}>* passwords do not match</span>}
@@ -293,60 +282,66 @@ function OTP() {
             <button type="submit">Change Password</button>
           </form>
 
+          <label>
+                    <span></span>
+                    <span className='cta'><Link href='/auth/reset'><i className="bi bi-chevron-left"></i>Back to reset password</Link></span>
+                  </label>
         </div>
       </div>
       </section>
+      </>
+    
     )
-  } else {
+  }else {
     return (  
-      <section className="reset">
-      <div className="top">
-        <Image src={logo} alt='logo' onClick={() => router.push('/')} />
-        <button onClick={() => router.push('/')}><i className="bi bi-chevron-left"></i>Go to main</button>
-      </div>
-
-      <div className="resetMain">
-        <div className="reset-image">
-          <h2>MailChimp</h2>
-          <p className='desc'>“ It has many landing page variations to choose from, which one is always a big advantage. ”</p>
-          <Image src={loginImage} alt="" />
-          <h3>Lida Reidy</h3>
-          <p>Project Manager | Mailchimp</p>
+        <section className="reset">
+        <div className="top">
+          <Image src={logo} alt='logo' onClick={() => router.push('/')} />
+          <button onClick={() => router.push('/')}><i className="bi bi-chevron-left"></i>Go to main</button>
         </div>
 
-        <div className="resetForm">
-          <h2>Forgot password?</h2>
-          <p>Enter your email address below and we'll get you back on track.</p>
+        <div className="resetMain">
+          <div className="reset-image">
+            <h2>MailChimp</h2>
+            <p className='desc'>“ It has many landing page variations to choose from, which one is always a big advantage. ”</p>
+            <Image src={loginImage} alt="" />
+            <h3>Lida Reidy</h3>
+            <p>Project Manager | Mailchimp</p>
+          </div>
 
-          <form>
-            <div>
-              <label htmlFor="email">
-                <span>Your email {emailError &&  <span style = {{color : "tomato", fontWeight: 600, fontSize: "small"  }}>* Invalid email address</span>}
-                {regEmailError &&  <span style = {{color : "tomato", fontWeight: 600, fontSize: "small"  }}>* Email address not registered</span>}
-                </span>
-                <span className='cta'><Link href='/auth/login'><i className="bi bi-chevron-left"></i>Back to Log in</Link></span>
-              </label>
-              <input
-                style={inputEmailStyle}
-                type="email"
-                name="email"
-                placeholder="email@site.com"
-                value={email}
-                onChange={(e: any) => {
-                  setEmail(e.target.value);
-                  setEmailError(false);
+          <div className="resetForm">
+            <h2>Forgot password?</h2>
+            <p>Enter your email address below and we'll get you back on track.</p>
 
-        setRegEmailError(false);
-                }} 
-              />
-            </div>
-            <button onClick={handleSubmitReset}>Submit</button>
-          </form>
+            <form>
+              <div>
+                <label htmlFor="email">
+                  <span>Your email {emailError &&  <span style = {{color : "tomato", fontWeight: 600, fontSize: "small"  }}>* Invalid email address</span>}
+                  {regEmailError &&  <span style = {{color : "tomato", fontWeight: 600, fontSize: "small"  }}>* Email address not registered</span>}
+                  </span>
+                  <span className='cta'><Link href='/auth/login'><i className="bi bi-chevron-left"></i>Back to Log in</Link></span>
+                </label>
+                <input
+                  style={inputEmailStyle}
+                  type="email"
+                  name="email"
+                  placeholder="email@site.com"
+                  value={email}
+                  onChange={(e: any) => {
+                    setEmail(e.target.value);
+                    setEmailError(false);
 
-          <p>Don't have an account yet? <span className='cta'><Link href="/auth/register">Sign up here</Link></span></p>
+          setRegEmailError(false);
+                  }} 
+                />
+              </div>
+              <button onClick={handleSubmitReset}>Submit</button>
+            </form>
+
+            <p>Don't have an account yet? <span className='cta'><Link href="/auth/register">Sign up here</Link></span></p>
+          </div>
         </div>
-      </div>
-      </section>
+        </section>
     )
   }
 }
