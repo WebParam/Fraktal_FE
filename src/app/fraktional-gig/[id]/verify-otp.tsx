@@ -8,7 +8,7 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 import { IDeveloperProfile, IEducationInformation, IUserResetPassword, IUserSendOTP, IVerifyOtp, IWorkExperience } from "../../interfaces/user";
-import { ChangePasswordAndActivate, CreateDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile, resetPassword, sendOTP, verifyOtp } from "../../endpoints/api";
+import { CreateDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile, resetPassword, sendOTP, verifyOtp } from "../../endpoints/api";
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
@@ -143,14 +143,15 @@ email
      }
 
      try {
-      const changePassword = await ChangePasswordAndActivate({email:email, password:password, otp:""} as IUserResetPassword); // Rename the constant
-      if(changePassword){
-              console.log('reset password successful');
-       window.location.href="/auth/login"
+      //NK check if used
+      // const changePassword = await ChangePasswordAndActivate({email:email, password:password, otp:""} as IUserResetPassword); // Rename the constant
+      // if(changePassword){
+      //         console.log('reset password successful');
+      //  window.location.href="/auth/login"
             
-      }else{
-          console.error('reset password failed');
-      }
+      // }else{
+      //     console.error('reset password failed');
+      // }
     } catch (error) {
         console.error('Error:', error);
     }

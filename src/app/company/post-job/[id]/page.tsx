@@ -102,13 +102,13 @@ function PostJob() {
 
       const payload: IJobApplication = {
         //new
-        projectType:projectType,
-
+        projectType:projectType.toString(),
+        projectSector:"",
         //
         country: country,
-        language: language,
+        language: language.toString(),
         projectName: projectName,
-        projectTeam: projectTeam,
+        projectTeam: projectTeam.toString(),
         streetAddress: streetAddress,
         city: city,
         state: state,
@@ -343,9 +343,9 @@ const submitOptions = [
   debugger;
   setProjectName(_project?.projectName??"");
   setCountry(_project?.country??0);
-  setLanguage(_project?.language??0);
-  setProjectType(_project?.projectType??0);
-  setProjectTeam(_project?.projectTeam??0);
+  setLanguage(parseInt(_project?.language??0));
+  setProjectType(parseInt(_project?.projectType??0));
+  setProjectTeam(parseInt(_project?.projectTeam??0));
   setStreetAddress(_project?.streetAddress??"");
   setCity(_project?.city??"");
   setState(_project?.state??"");
