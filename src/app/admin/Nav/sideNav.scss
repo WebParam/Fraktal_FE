@@ -29,3 +29,12 @@
 .company p {
     margin: 5px 0; 
 }
+.navHeader {
+  display: flex;
+  gap: 0; 
+}
+
+.navHeader h6 {
+  margin: 0;
+  left: 1em;
+}

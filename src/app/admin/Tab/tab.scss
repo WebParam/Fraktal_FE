@@ -1,5 +1,5 @@
 .tabs {
-    border: 1px solid #ccc;
+    // border: 1px solid #ccc;
     border-radius: 4px;
     overflow: hidden;
   }
@@ -10,7 +10,7 @@
   
   .tab-buttons button {
     background-color: #f0f0f0;
-    color: #333;
+    // color: #333;
     border: none;
     padding: 10px 15px;
     cursor: pointer;
@@ -19,7 +19,7 @@
   }
   
   .tab-buttons button.active {
-    border-bottom: 2px solid blue; /* Change color as desired for active tab */
+    border-bottom: 4px #FF7BED; 
   }
   
   .tab-content {

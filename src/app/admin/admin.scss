@@ -12,15 +12,15 @@
     width: 80px;
   }
    .card1 {
-    width: 15em;
-    height: 10em;
+    width: 332px;
+    height: 139px;
     border: 2px solid #000; 
     border-radius: 10px;  
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   }
   .card2 {
-    width: 15em;
-    height: 10em;
+    width: 220px;
+    height: 139px;
     border: 2px solid #000; 
     border-radius: 10px;  
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
@@ -32,8 +32,20 @@
     border-radius: 10px;  
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   }
+  .mid-display{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+  }
   .card-body{
     color: #FF7BED;
+    width: 597px;
+    height: 63px;
+    top: 497px;
+    left: 380px;
+    border-radius: 10px;
+
   }
 
   .displayCards{
@@ -44,4 +56,17 @@
   .tabdiv{
     position: relative;
     left: 8em;
+  }
+  .overhead{
+    position: relative;
+    left: 5em;
+  }
+  .assigned-div {
+    display: flex;
+    justify-content: flex-start; /* or flex-end */
+    align-items: center;
+    margin-top: 8em;
+    padding-left: 20em;
+    background-color: #FF7BED14;
+    
   }

@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './jobs.scss';
 import Header from '../components/Header/Header';
 import MobileMenu from '../components/MobileMenu/MobileMenu';
@@ -12,10 +12,25 @@ import img24 from "../../assets/img/900x900/img24.jpg";
 import Footer from '../components/Footer/Footer';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import { GetAllProjects, GetProjectById } from '../endpoints/api';
+import { IJobApplication } from '../interfaces/IJobApplication';
 
 function jobs() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
+    const [projects, setProjects] = useState<IJobApplication[]>([]);
 
+    const loadAllProjects = async()=>{
+        const res = await GetAllProjects() as any ;
+        debugger;
+        const resData = res.data.map((x:any)=>x.data) as IJobApplication[];
+        setProjects(resData);    
+      }
+
+    
+  useEffect(() => {
+    
+     loadAllProjects();
+   },[]);
 
     return (
     <>
@@ -95,6 +110,57 @@ function jobs() {
                 </div>
                 {/* End Heading */}
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mb-5">
+               
+                {projects.map(gig => (
+                <div className="col mb-5" key={gig.id}>
+                    {/* Card */}
+                    <div className="card card-bordered h-100">
+                    {/* Card Body */}
+                    <div className="card-body">
+                        <div className="row mb-3">
+                        <div className="col">
+                            {/* Media */}
+                            <div className="d-flex align-items-center">
+                            <div className="flex-shrink-0">
+                                <Image className="avatar avatar-sm avatar-4x3" src={gig.img} alt="Image Description" />
+                            </div>
+                            <div className="flex-grow-1 ms-3">
+                                <h6 className="card-title">
+                                <a className="text-dark" href="#">{gig.projectName}</a>
+                                <Image className="avatar avatar-xss ms-1" src={topVendor} alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
+                                </h6>
+                            </div>
+                            </div>
+                            {/* End Media */}
+                        </div>
+                        {/* End Col */}
+                        </div>
+                        {/* End Row */}
+                        <h3 className="card-title">
+                        <Link className="text-dark" href={`/fraktional-gig/${gig.id}`}>
+                            {gig.projectSector}
+                        </Link>
+                        </h3>
+                        <span className="d-block small text-body mb-1">{gig.pay}</span>
+                        <span className="badge me-2" style={{backgroundColor: 'lightpink', color: '#fff'}}>
+                        <span className="legend-indicator bg-info" />{gig.remote}
+                        </span>
+                    </div>
+                    {/* End Card Body */}
+                    {/* Card Footer */}
+                    <div className="card-footer pt-0">
+                        <ul className="list-inline list-separator small text-body">
+                        <li className="list-inline-item">Posted {gig.fromDate}</li>
+                        <li className="list-inline-item">{gig.city}</li>
+                        <li className="list-inline-item">{gig.hires}</li>
+                        </ul>
+                    </div>
+                    {/* End Card Footer */}
+                    </div>
+                    {/* End Card */}
+                </div>
+                ))}
+               
                 {gigs.map(gig => (
                 <div className="col mb-5" key={gig.id}>
                     {/* Card */}

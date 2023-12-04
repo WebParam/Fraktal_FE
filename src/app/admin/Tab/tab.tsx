@@ -27,31 +27,31 @@ const Tabs = () => {
       <div className="tab-content">
         {activeTab === 0 && <div>
           <div className='displayCards'>
-            <div className="card1">
-              <div className="card-body">Total Users</div>
+            <div className="card2">
+              <div className="card-body">Recent Signups</div>
             </div>
   
                 <div className="card2">
-              <div className="card-body">Developers</div>
+              <div className="card-body">Active Users</div>
             
             </div>
             <div className="card2">
-              <div className="card-body">Companies</div>
+              <div className="card-body">Inactive Accounts</div>
             
             </div>
             </div></div>}
         {activeTab === 1 && <div>
           <div className='displayCards'>
-            <div className="card1">
-              <div className="card-body">Total Users</div>
+            <div className="card2">
+              <div className="card-body">Recent Sign Ups</div>
             </div>
   
                 <div className="card2">
-              <div className="card-body">Developers</div>
+              <div className="card-body">Active Accounts</div>
             
             </div>
             <div className="card2">
-              <div className="card-body">Companies</div>
+              <div className="card-body">Inactive Accounts</div>
             
             </div>
             </div></div>}

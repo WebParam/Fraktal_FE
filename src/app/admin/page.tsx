@@ -11,6 +11,7 @@ import FrakLogo from '../images/FraktionalLogo.png'
 import LineChart from './Chart/chart';
 import Tabs from './Tab/tab';
 import axios from 'axios';
+import Assigned from './Assigned/assigned';
 import './admin.scss'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -48,7 +49,7 @@ function admin() {
       const filteredApplicants = applicants.filter((x,i)=>{
         return index!=i;
       })
-      debugger;
+      
       setApplicants(filteredApplicants);
 
     }
@@ -132,6 +133,7 @@ function admin() {
   {/* ========== MAIN CONTENT ========== */}
   
   <main id="content" role="main">
+ 
         {/* Page Header */}
         <div className='frakLogoDiv'>
                 <Image
@@ -148,17 +150,17 @@ function admin() {
         <AdminBanner/>
         </div>
         </div>
-        <div className="container content-space-t-2">
+        <div className='assigned-div'>
+        <Assigned/>
+    </div>
+        {/* <div className="container content-space-t-2">
           <div className="w-lg-75 mx-lg-auto">
         
           </div>
-        </div>
-        {/* End Page Header */}
-        {/* Content */}
-        <div className="container content-space-1 content-space-b-lg-3">
-        <div className="overhead">Overview</div>
+        </div> */}
+        {/* <div className="container content-space-1 content-space-b-lg-3">
+        <div className="overhead"  style={{ fontWeight: 'bold' }}>Overview</div>
           <div className="w-lg-75 mx-lg-auto">
-            {/* Card */}
             <div className='displayCards'>
             <div className="card1">
               <div className="card-body">Total Users</div>
@@ -173,16 +175,19 @@ function admin() {
             
             </div>
             </div>
-            {/* End Card */}
+            <div className='mid-display'>
             <div className="card3">
               <div className="card-body">Users</div>
               <LineChart/>
             </div>
+            <div className="card2">
+              <div className="card-body">Active Users</div>
+            
+            </div>
+            </div>
           </div>
-        </div>
-        {/* Content */}
-         {/* Card Grid */}
-      <div className="container content-space-t-2">
+        </div> */}
+      {/* <div className="container content-space-t-2">
         <div className="mb-4">
           <div className='tabdiv'>
             <Tabs/>
@@ -195,7 +200,7 @@ function admin() {
           
           <>
            <div className="col mb-3 mb-sm-4">
-            {/* Card */}
+            
             <a className="card card-sm card-bordered card-transition h-100" onClick={(e)=>{e.preventDefault()}}>
               <div className="card-body">
                 <div className="row align-items-center">
@@ -204,31 +209,29 @@ function admin() {
                     <p>{x.position} ||{x.skills}</p>
                     <p className="card-text text-body small" onClick={()=>removeApplicant(i)}>Remove applicant</p>
                   </div>
-                  {/* End Col */}
+                
                   <div className="col-auto">
                     <span className="text-muted">
                       <i className="bi-chevron-right small" />
                     </span>
                   </div>
-                  {/* End Col */}
+             
                 </div>
-                {/* End Row */}
+             
               </div>
             </a>
-            {/* End Card */}
+        
           </div>
-          {/* End Col */}
+       
           </>
         )
        }
          
         </div>
-        {/* End Row */}
-        {/* <a className="btn btn-outline-primary" href="../demo-jobs/job-list.html">View all available jobs <i className="bi-chevron-right small ms-1" /></a> */}
-      </div>
-      {/* End Card Grid */}
+
+      </div> */}
+   
       </main>
-      {/* ========== END MAIN CONTENT ========== */}
 </>
    
     );

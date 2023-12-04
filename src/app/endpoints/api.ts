@@ -3,61 +3,42 @@ import axios from "axios";
 import {
   IContactForm,
   IDeveloperProfile,
+  IUpdateStaffAndOrganisation,
   IUser,
   IUserLogin,
   IUserResetPassword,
-  IUserResponseModel,
   IUserSendOTP,
   IVerifyOtp,
-  IdeletUser,
 } from "../interfaces/user";
 import { ICompanyRegister } from "../interfaces/organisation";
 import { IJobApplication } from "../interfaces/IJobApplication";
 import { IApplyForJobRegistration } from "../interfaces/job-registration";
-import {
-  instanceOfTypeIUser,
-  instanceOfTypeIOrganisation,
-  instanceOfTypeIJobApplication,
-  instanceOfTypeIJobRegistration,
-  instanceOfTypeCustomError,
-} from '../../app/interfaces/type-check';
-import { ICustomError } from "../interfaces/error";
-import { Cookie } from "next/font/google";
-import Cookies from "universal-cookie";
 
-
-
-const url = "https://viconet-vercel.vercel.app"
-const localUrl=  "https://viconet-vercel.vercel.app"
+// const url = "https://viconet-vercel.vercel.app"
+const url = "http://localhost:8080"
+const azureUrl = "https://localhost:7257"
 
 
 export async function registerUser(payload: IUser) {
-  const response = await axios.post(`${url}/api/users`, payload);
-
   try {
+    const response = await axios.post(`${url}/api/users`, payload);
 
     if (response.status === 200 || response.status === 201) {
-    
-    
-      if (instanceOfTypeIUser(response.data)) {
-          return response.data as IUserResponseModel
-      } else if (response.data.code === 400) {
-       return false
-      }
+      console.log("Registration successful");
+      return true;
+    } else {
+      console.error("Registration failed");
+      return false;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
   }
- } catch (error) {
-    console.error('Error:', response.data);
-  
 }
-
-}
-
-
-
 
 export async function UserLogin(payload: IUserLogin) {
   try {
-    const response = await axios.post(`${localUrl}/api/login`, payload);
+    const response = await axios.post(`${url}/api/login`, payload);
 
     if (response.status === 200 || response.status === 201) {
       console.log("login successful");
@@ -88,10 +69,27 @@ export async function uploadProfilePic(profilePic: FormData, userId: string) {
   return resp;
 }
 
+export async function uploadOrgPic(profilePic: FormData, userId: string) {
+  const config = {
+    headers: {
+      "content-type": "multipart/form-data",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const resp = await axios.post(
+    `${url}/api/upload_orgpicture/${userId}`,
+    profilePic,
+    config
+  );
+  console.log("profilePicRes", resp);
+  return resp;
+}
+
+
 export async function GetDeveloperProfile(id: string) {
   try {
     const response = await axios.get(`${url}/api/personnelByUserId/${id}`);
-    debugger;
+    
     if (response.status === 200 || response.status === 201) {
       console.log("retrieved successful");
       return response;
@@ -105,10 +103,122 @@ export async function GetDeveloperProfile(id: string) {
   }
 }
 
+
+export async function GetOrganisation(id: string) {
+  try {
+    const response = await axios.get(`${url}/api/organisation/${id}`);
+    
+    if (response.status === 200 || response.status === 201) {
+      console.log("retrieved successful");
+      return response;
+    } else {
+      console.error("retrieve failed");
+      return response;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return error;
+  }
+}
+
+
+export async function GetProjectsByOrgId(id: string) {
+  try {
+    const response = await axios.get(`${azureUrl}/projects/org/${id}`);
+    
+    if (response.status === 200 || response.status === 201) {
+      console.log("retrieved successful");
+      return response;
+    } else {
+      console.error("retrieve failed");
+      return response;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return error;
+  }
+}
+
+
+export async function GetProjectById(id: string) {
+  try {
+    const response = await axios.get(`${azureUrl}/projects/${id}`);
+    
+    if (response.status === 200 || response.status === 201) {
+      console.log("retrieved successful");
+      return response;
+    } else {
+      console.error("retrieve failed");
+      return response;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return error;
+  }
+}
+
+
+export async function GetAllProjects() {
+  try {
+    const response = await axios.get(`${azureUrl}/projects/`);
+    
+    if (response.status === 200 || response.status === 201) {
+      console.log("retrieved successful");
+      return response;
+    } else {
+      console.error("retrieve failed");
+      return response;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return error;
+  }
+}
+
+
+
+
+export async function DeleteDeveloperProfile(id: string) {
+  try {
+
+    const response = await axios.get(`${url}/api/delete/${id}`);
+    
+    if (response.status === 200 || response.status === 201) {
+      console.log("delete successful");
+      return response;
+    } else {
+      console.error("delete failed");
+      return response;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return error;
+  }
+}
+
+export async function DeleteCompanyProfile(id: string) {
+  try {
+
+    const response = await axios.get(`${url}/api/delete/${id}`);
+    
+    if (response.status === 200 || response.status === 201) {
+      console.log("delete successful");
+      return response;
+    } else {
+      console.error("delete failed");
+      return response;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return error;
+  }
+}
+
+
 export async function GetStaffInfo(id: string) {
   try {
     const response = await axios.get(`${url}/api/staffuser/${id}`);
-    debugger;
+    
     if (response.status === 200 || response.status === 201) {
       console.log("retrieved successful");
       return response;
@@ -158,6 +268,28 @@ export async function UpdateDeveloperProfile(
     return false;
   }
 }
+
+export async function UpdateStaffAndOrganisation(
+  payload: IUpdateStaffAndOrganisation,
+  id: string
+) {
+  try {
+    const response = await axios.post(`${url}/api/staff/${id}`, payload);
+
+    if (response.status === 200 || response.status === 201) {
+      console.log("update successful");
+      return true;
+    } else {
+      console.error("update failed");
+      return false;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+}
+
+
 export async function PostContact(payload: IContactForm) {
   try {
     const response = await axios.post(
@@ -190,7 +322,7 @@ export async function uploadCV(formData: FormData) {
 
 export async function CreateJob(payload: IJobApplication) {
   try {
-    const response = await axios.post(`${url}/api/jobApplications`, payload);
+    const response = await axios.post(`${azureUrl}/Project`, payload);
 
     if (response.status === 200 || response.status === 201) {
       console.log("JOB POSTED");
@@ -207,7 +339,7 @@ export async function CreateJob(payload: IJobApplication) {
 
 export async function UpdateJob(payload: IJobApplication) {
   try {
-    const response = await axios.post(`${url}/api/jobApplications`, payload);
+    const response = await axios.post(`${azureUrl}/api/jobApplications`, payload);
 
     if (response.status === 200 || response.status === 201) {
       console.log("Job Updated");
@@ -284,11 +416,13 @@ export async function registerOrganisation(payload: ICompanyRegister) {
   try {
     const response = await axios.post(`${url}/api/organisation`, payload);
 
-    if (instanceOfTypeIOrganisation(response.data)) {
-      return true
-  } else if (response.data.code === 500) {
-   return false
-  }
+    if (response.status === 200 || response.status === 201) {
+      console.log("password reset successful");
+      return true;
+    } else {
+      console.error("password reset failed");
+      return false;
+    }
   } catch (error) {
     console.error("Error:", error);
     return false;
@@ -316,20 +450,12 @@ export async function verifyOtp(payload: IVerifyOtp) {
 
 export async function jobRegistration(payload: IApplyForJobRegistration) {
   try {
-    const response = await axios.post(`${localUrl}/api/apply`, payload);
-
+    const response = await axios.post(`${url}/api/apply`, payload);
     if (response.status === 200 || response.status === 201) {
-
-      if (response.data._id && response.data.code !== 400) {
-        return {
-          bool: true,
-           message : response.data
-         } as any;
-      } else  if (response.data.code === 400) {
-        return {
-         bool: false,
-          message : response.data.message
-        } as any;
+      if (response.data._doc) {
+        return response.data._doc;
+      } else {
+        return false;
       }
     } else {
       return false;
@@ -339,45 +465,3 @@ export async function jobRegistration(payload: IApplyForJobRegistration) {
     return false;
   }
 }
-
-
-export async function ChangePasswordAndActivate(payload: IUserResetPassword) {
-  try {
-    const response = await axios.post(
-      `${url}/api/user/changePasswordAndActivate`,
-      payload
-    );
-
-    if (response.status === 200 || response.status === 201) {
-      // Registration successful, you can redirect the user or show a success message.
-      console.log("password reset successful");
-      return true;
-    } else {
-      console.error("password reset failed");
-      return false;
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    return false;
-  }
-}
-
-export async function deleteUser(payload: IdeletUser) {
-  try {
-    const response = await axios.post(`${url}/api/user/delete/deleteUser`, payload);
-
-    if (response.status === 200 || response.status === 201) {
-      // Registration successful, you can redirect the user or show a success message.
-      console.log("Acount successfully deleted");
-     
-      return true;
-    } else {
-      console.error("Something went wrong");
-      return false;
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    return false;
-  }
-}
-

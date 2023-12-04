@@ -3,19 +3,6 @@
     z-index: 10;
 }
 
-@keyframes moveRight {
-    0% {
-        transform: translateX(-50%);
-    }
-
-    100% {
-        transform: translateX(100%); /* Move 100% to the right */
-    }
-}
-
-.min-modal{
-    min-width: 600px;
-}
 
 #textarea {
     border: .0625rem solid rgba(33,50,91,.1);
@@ -97,6 +84,3 @@
     border-color: #FD2DC3;
 }
 
-.err {
-    border: 2px solid red;
-}

@@ -21,11 +21,15 @@ function SideNav() {
                     <p>CompanyA@gmail.com</p>
                 </div>
             </div>
-            
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>
+            <div className='navHeader'>
+            <h6>Fraktional</h6><h6 style={{ color: '#FF7BED' }}>.Dev</h6>
+            </div>
+           
+            <a href="#">Developers</a>
+            <a href="#">Job Posts</a>
+            <a href="#">Analytics</a>
+            <a href="#">Notifications</a>
+            <a href="#">Settings</a>
         </div>
 
 

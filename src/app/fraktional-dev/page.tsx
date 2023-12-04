@@ -10,6 +10,7 @@ import appDeskImage from '../../assets/additional/appImage.jpg';
 import signupimage from '../../assets/img/1618x1010/img5.jpg';
 import signupimage1 from '../../assets/img/1618x1010/img4.jpg';
 import illustration1 from '../../assets/svg/illustrations/oc-person-3.svg';
+import AutoComplete from "react-google-autocomplete";
 import logo from '../../assets/additional/logo.webp'
 import Image from 'next/image';
 import { registerOrganisation } from '@/app/endpoints/api';
@@ -28,6 +29,7 @@ function Fraktional() {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [disableSubmitBtn , setDisableSubmitBtn] = useState<boolean>(false)
+  const [achknowledge , setAcklowledged] = useState<boolean>(false)
   const [weakPassword, setWeakPassword] = useState<boolean>(false)
   const [formData, setFormData] = useState<ICompanyRegister>({
     email:"",
@@ -39,7 +41,7 @@ function Fraktional() {
     companyNumber:"",
     companyReg: "",
     companyName:"",
-    companyAdrress: "",
+    companyAddress: "",
     position:"",
     title:"",
     userEmail:"",  
@@ -59,7 +61,9 @@ function Fraktional() {
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [editModuleModalOpen, setEditModuleModalOpen] = useState<boolean>(false);
   const [skills, setSkills] = useState<any>("")
-
+  const [companyCity, setCompanyCity] = useState("");
+  const [companyCountry, setCompanyCountry] = useState("");
+  const [companyAddress, setCompanyAddress] = useState("");
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
  
 
@@ -110,7 +114,16 @@ function Fraktional() {
       return false;
     }else{
       if(formData.password === confirmPassword){
-        const Addorganisation = await registerOrganisation( formData as ICompanyRegister); // Rename the constant
+
+        const payload = {
+          ...formData,
+          companyCity:companyCity,
+          companyCountry:companyCountry,
+          companyAddress:companyAddress
+        };
+
+        
+        const Addorganisation = await registerOrganisation( payload as ICompanyRegister); // Rename the constant
         if(Addorganisation){
           //window.location.href="/company-overview"
           toast.dismiss(_id);
@@ -316,9 +329,9 @@ const customModalStyles = {
                       </div>
 
                       
-                      <div className="mb-4">
+                      <div className="mb-4 col-md-12" >
                         <label className="form-label" htmlFor="signupHeroFormCompanyAddress">Company Address</label>
-                        <input 
+                        {/* <input 
                           type="text" 
                           className="form-control form-control-sm" 
                           name="companyAdrress" 
@@ -328,10 +341,60 @@ const customModalStyles = {
                           placeholder="Company Address" 
                           aria-label="Company Address" 
                           required 
-                        />
+                        /> */}
+                                    <AutoComplete
+                     className="form-control" 
+                        apiKey={"AIzaSyDsGw9PT-FBFk7DvGK46BpvEURMxcfJX5k"}
+                        onPlaceSelected={(place) => {
+                          console.log(place);
+                          
+                          setCompanyAddress(place?.formatted_address);
+                          setCompanyCity(place.address_components.filter((y:any)=>y.types.includes("locality"))[0].long_name);
+                          setCompanyCountry(place.address_components.filter((y:any)=>y.types.includes("country"))[0].long_name);
+                          // setGpsLatitude(`${place?.geometry?.location?.lat() || ''}`);
+                          // setGpsLongitude(`${place?.geometry?.location?.lng() || ''}`);
+                          // console.log(gpsLatitude)
+                        }}
+                        options={{
+                          types: ["geocode", "establishment"],//Must add street addresses not just cities
+                          componentRestrictions: { country: "za" },
+                        }}
+                      />
                         <span className="invalid-feedback">Please enter Company Address</span>
                       </div>
                   
+                      <div className="mb-4 col-md-6" >
+                        <label className="form-label" htmlFor="signupHeroFormPosition">City</label>
+                        <input 
+                          type="text" 
+                          className="form-control form-control-sm" 
+                          name="companyCity" 
+                          value={companyCity}
+                          readOnly={true}
+                          id="signupHeroFormPosition" 
+                          placeholder="Position At Company" 
+                          aria-label="Position" 
+                          required 
+                        />
+                        {/* <span className="invalid-feedback">Please enter Your Position In This Company</span> */}
+                      </div>
+
+                      <div className="mb-4 col-md-6" >
+                        <label className="form-label" htmlFor="signupHeroFormPosition">Country</label>
+                        <input 
+                          type="text" 
+                          className="form-control form-control-sm" 
+                          name="companyCountry" 
+                          value={companyCountry}
+                          readOnly={true}
+                          id="signupHeroFormPosition" 
+                          placeholder="Position At Company" 
+                          aria-label="Position" 
+                          required 
+                        />
+                        {/* <span className="invalid-feedback">Please enter Your Position In This Company</span> */}
+                      </div>
+
                   
             
                       <div className="mb-4">
@@ -385,13 +448,13 @@ const customModalStyles = {
                       </div>
                     {/* Check */}
                     <div className="form-check mb-4">
-                      <input type="checkbox" className="form-check-input" id="signupHeroFormPrivacyCheck" name="signupFormPrivacyCheck" required />
+                      <input type="checkbox" className="form-check-input" onChange={()=>{setAcklowledged(!achknowledge)}} id="signupHeroFormPrivacyCheck" name="signupFormPrivacyCheck" required />
                       <label className="form-check-label small" htmlFor="signupHeroFormPrivacyCheck"> By submitting this form I have read and acknowledged the <a href="./page-privacy.html">Privacy Policy</a></label>
                       <span className="invalid-feedback">Please accept our Privacy Policy.</span>
                     </div>
                     {/* End Check */}
                     <div className="d-grid mb-3">
-                      <button disabled={disableSubmitBtn} type="submit" className="btn btn-primary btn-lg" style={{border:"0px",backgroundImage: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.40) 124.34%)'}}>Claim your free trial</button>
+                      <button disabled={disableSubmitBtn || !achknowledge} type="submit" className="btn btn-primary btn-lg" style={{border:"0px",backgroundImage: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.40) 124.34%)'}}>Claim your free trial</button>
                     </div>
                   </div>
                 </div>
