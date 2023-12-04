@@ -209,7 +209,22 @@ const signOut = () => {
                         <span className="text-cap">Account</span>
                         {/* List */}
                         <ul className="nav nav-sm nav-tabs nav-vertical mb-4">
-                   
+                        <li className="nav-item">
+                            {/* <a href="/company/company-overview" className={ window?.location?.href?.includes("company-overview") ?"nav-link active" :"nav-link"} style={{cursor: 'pointer'}}>
+                            <i className="bi-person-badge nav-icon" /> Company info
+                            </a> */}
+                            <a href="/company/company-overview" className={"nav-link"} style={{cursor: 'pointer'}}>
+                            <i className="bi-person-badge nav-icon" /> Company info
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            {/* <a className={ window?.location?.href?.includes("company-projects") || window?.location?.href?.includes("post-job") ?"nav-link active" :"nav-link"} href="/company/company-projects">
+                            <i className=" bi-code-slash nav-icon" /> Projects
+                            </a> */}
+                            <a className={"nav-link"} href="/company/company-projects">
+                            <i className=" bi-code-slash nav-icon" /> Projects
+                            </a>
+                        </li>
                         <li className="nav-item">
                             <a className="nav-link " style={{pointerEvents: 'none', cursor: 'none', opacity: '.5'}}>
                             <i className="bi-bell nav-icon" /> Notifications

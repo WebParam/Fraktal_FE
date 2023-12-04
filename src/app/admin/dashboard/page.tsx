@@ -64,7 +64,7 @@ useEffect(() => {
 
 function editProject(project:any){
 debugger;
-window?.location?.assign(`/company/post-job/${project?.id}`)
+// window?.location?.assign(`/company/post-job/${project?.id}`)
 
 }
 
@@ -293,7 +293,7 @@ window?.location?.assign(`/company/post-job/${project?.id}`)
 
                             <Modal styles={customModalStyles}  open={detailModalOpen} onClose={() => setDetailModalOpen(false)} center>
 
-                              
+
                               </Modal>
                             
                           </>

@@ -21,6 +21,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import AvatarGroup from 'react-avatar-group';
 import { getOptionFromValue, skills } from "@/app/lib/data";
 import Modal from "react-responsive-modal";
+import { redirect } from 'next/navigation';
 const moment = require("moment");
 
 function developerOverview() {
@@ -63,11 +64,6 @@ useEffect(() => {
   }, []);
 
 
-function editProject(project:any){
-debugger;
-window?.location?.assign(`/company/post-job/${project?.id}`)
-
-}
 
 
     return (
