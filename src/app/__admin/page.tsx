@@ -9,9 +9,9 @@ import SideNav from './Nav/sidenav';
 import AdminBanner from './Banner/banner';
 import FrakLogo from '../images/FraktionalLogo.png'
 import LineChart from './Chart/chart';
-import Tabs from './Tab/tab';
+// import Tabs from './Tab/tab';
 import axios from 'axios';
-import Assigned from './Assigned/assigned';
+// import Assigned from './Assigned/assigned';
 import './admin.scss'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -151,7 +151,7 @@ function admin() {
         </div>
         </div>
         <div className='assigned-div'>
-        <Assigned/>
+        {/* <Assigned/> */}
     </div>
         {/* <div className="container content-space-t-2">
           <div className="w-lg-75 mx-lg-auto">
