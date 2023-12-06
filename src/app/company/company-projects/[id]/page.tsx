@@ -138,30 +138,7 @@ window?.location?.assign(`/company/post-job/${project?.id}`)
             {/* Nav Scroller */}
             <div className="assigned">
          
-       <table>
-        <thead>
-          <tr>
-            {Object.keys(data[0]).map(headerText => (
-              <th key={headerText}>{headerText}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item, index) => (
-            <tr key={index}>
-              {Object.entries(item).map(([key, value], idx) => (
-                <td key={idx}>
-                  {key === 'specs' ? (
-                    <span className="specs-text">{value}</span>
-                  ) : (
-                    value
-                  )}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+  
     </div>
             {/* End Tab Content */}
           </div>
