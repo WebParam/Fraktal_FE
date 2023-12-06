@@ -30,6 +30,53 @@ const [projectLoading, setProjectLoading] = useState(true);
   const loggedInUser = cookies.get("fraktional-user")??"{}";
   const [projects, setProjects] = useState<IJobApplication[]>([]);
 
+  interface TableData {
+    name: string;
+    specs: string;
+    assigned : string;
+  }
+  
+  const data: TableData[] = [  
+      {
+        name:"Cristiano Ronaldo",
+        specs:"React JS",
+        assigned: "project"
+      },
+      {
+  
+        name:"Erling Haaland",
+        specs:"Anuglar JS",
+        assigned: "project"
+      },
+      {
+     
+        name:"Jude Berlingham",
+        specs:"SQL, C#",
+        assigned: "project"
+      },
+      {
+          name:"Sadio Mane",
+          specs:"React JS",
+          assigned: "project"
+        },
+        {
+    
+          name:"Kevin De Bruyne",
+          specs:"Anuglar JS",
+          assigned: "project"
+        },
+        {
+       
+          name:"Phil Foden",
+          specs:"SQL, C#",
+          assigned: "project"
+        }
+      
+    
+    ]
+  
+  
+
 
 async function _GetProjects(id:string){
 
@@ -44,7 +91,7 @@ async function _GetProjects(id:string){
 
 useEffect(() => {
   //check url and setActive
-  
+
   loggedInUser._id&& _GetProjects("655a3ed54b837045859ab384");
 
   }, []);
@@ -89,7 +136,33 @@ window?.location?.assign(`/company/post-job/${project?.id}`)
           {/* Body */}
           <div className="card-body">
             {/* Nav Scroller */}
-              coNTENT HERE
+            <div className="assigned">
+         
+       <table>
+        <thead>
+          <tr>
+            {Object.keys(data[0]).map(headerText => (
+              <th key={headerText}>{headerText}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr key={index}>
+              {Object.entries(item).map(([key, value], idx) => (
+                <td key={idx}>
+                  {key === 'specs' ? (
+                    <span className="specs-text">{value}</span>
+                  ) : (
+                    value
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
             {/* End Tab Content */}
           </div>
           {/* End Body */}
