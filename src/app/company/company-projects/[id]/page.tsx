@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import 'react-responsive-modal/styles.css';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { GetProjectsByOrgId } from "../../../endpoints/api";
+import { GetDeveloperProfile } from "../../../endpoints/api";
 import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
 import dynamic from "next/dynamic";
 const cookies = new Cookies(); // Create an instance of Cookies
@@ -21,7 +21,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import AvatarGroup from 'react-avatar-group';
 const moment = require("moment");
 
-function developerOverview() {
+function assignedDeveloperOverview() {
  
 
 const [position, setPosition] = useState("");
@@ -30,57 +30,11 @@ const [projectLoading, setProjectLoading] = useState(true);
   const loggedInUser = cookies.get("fraktional-user")??"{}";
   const [projects, setProjects] = useState<IJobApplication[]>([]);
 
-  interface TableData {
-    name: string;
-    specs: string;
-    assigned : string;
-  }
-  
-  const data: TableData[] = [  
-      {
-        name:"Cristiano Ronaldo",
-        specs:"React JS",
-        assigned: "project"
-      },
-      {
-  
-        name:"Erling Haaland",
-        specs:"Anuglar JS",
-        assigned: "project"
-      },
-      {
-     
-        name:"Jude Berlingham",
-        specs:"SQL, C#",
-        assigned: "project"
-      },
-      {
-          name:"Sadio Mane",
-          specs:"React JS",
-          assigned: "project"
-        },
-        {
-    
-          name:"Kevin De Bruyne",
-          specs:"Anuglar JS",
-          assigned: "project"
-        },
-        {
-       
-          name:"Phil Foden",
-          specs:"SQL, C#",
-          assigned: "project"
-        }
-      
-    
-    ]
-  
   
 
+async function _GetAssignedUser(id:string){
 
-async function _GetProjects(id:string){
-
-  await GetProjectsByOrgId(id).then((res:any) => {
+  await GetDeveloperProfile(id).then((res:any) => {
     setProjectLoading(false);
       setProjects(res.data);
   })
@@ -92,23 +46,20 @@ async function _GetProjects(id:string){
 useEffect(() => {
   //check url and setActive
 
-  loggedInUser._id&& _GetProjects("655a3ed54b837045859ab384");
+  loggedInUser._id&& _GetAssignedUser("655a3ed54b837045859ab384");
 
   }, []);
 
 
-function editProject(project:any){
-debugger;
-window?.location?.assign(`/company/post-job/${project?.id}`)
+// function editProject(project:any){
+// debugger;
+// window?.location?.assign(`/company/post-job/${project?.id}`)
 
-}
+// }
 
 
     return (
-      <>
-    
-
-  
+      <>  
       {/* End Col */}
      
       {/* <div className="col-lg-9"> */}
@@ -127,7 +78,7 @@ window?.location?.assign(`/company/post-job/${project?.id}`)
             </div>
             <div className="col-md-6">
               <div className="d-flex justify-content-md-end align-items-md-center">
-              <a href="/company/post-job"className="js-file-attach-reset-img btn btn-white btn-sm">Create new project</a>
+              <a href="/company/post-job"className="js-file-attach-reset-img btn btn-white btn-sm">Assigned Developers</a>
               </div>
            </div>
             </div>
@@ -137,9 +88,19 @@ window?.location?.assign(`/company/post-job/${project?.id}`)
           <div className="card-body">
             {/* Nav Scroller */}
             <div className="assigned">
-         
+              <p>Name:</p>
+              <p>Tech Stack:</p>
+              <p>Contact:</p>
+              <p>Bio:</p>
+              <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+              ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+              laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+              voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+              non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
   
-    </div>
+            </div>
             {/* End Tab Content */}
           </div>
           {/* End Body */}
@@ -154,4 +115,4 @@ window?.location?.assign(`/company/post-job/${project?.id}`)
 
 
 
-export default dynamic (() => Promise.resolve(developerOverview), {ssr: false})
+export default dynamic (() => Promise.resolve(assignedDeveloperOverview), {ssr: false})
