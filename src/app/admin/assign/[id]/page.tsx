@@ -35,7 +35,7 @@ const [projectLoading, setProjectLoading] = useState(true);
   const loggedInUser = cookies.get("fraktional-user")??"{}";
   const [project, setProject] = useState<IJobApplicationViewModel>();
 
-//IDeveloperProfile
+
 async function _GetProject(){
   debugger;
   await GetProjectById("6564f67b143ff8d2d5e7ddff").then((res:any) => {

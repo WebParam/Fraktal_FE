@@ -13,6 +13,7 @@ import dynamic from "next/dynamic";
 const cookies = new Cookies(); // Create an instance of Cookies
 import Banner from "../../../banner/Banner";
 import { IJobApplication } from "../../../interfaces/IJobApplication";
+import { IDeveloperProfile } from "@/app/interfaces/user";
 import companyMenu from "../../company-menu";
 import InitialsAvatar from 'react-initials-avatar';
 import 'react-initials-avatar/lib/ReactInitialsAvatar.css';
@@ -29,19 +30,24 @@ const [position, setPosition] = useState("");
 const [projectLoading, setProjectLoading] = useState(true);
   const loggedInUser = cookies.get("fraktional-user")??"{}";
   const [projects, setProjects] = useState<IJobApplication[]>([]);
+  const [devProfile, SetDevProfile] = useState<IDeveloperProfile[]>([]);
 
   
-
+//IDeveloperProfile
 async function _GetAssignedUser(id:string){
 
   await GetDeveloperProfile(id).then((res:any) => {
     setProjectLoading(false);
-      setProjects(res.data);
+      SetDevProfile(res.data);
+      const data = res.data;
+
+      console.log("here",data)
   })
+ 
 }
 
 
-
+console.log("here",devProfile)
 
 useEffect(() => {
   //check url and setActive
@@ -49,6 +55,7 @@ useEffect(() => {
   loggedInUser._id&& _GetAssignedUser("655a3ed54b837045859ab384");
 
   }, []);
+  
 
 
 // function editProject(project:any){
@@ -86,20 +93,20 @@ useEffect(() => {
           {/* End Header */}
           {/* Body */}
           <div className="card-body">
+          <div className="avatar avatar-xxl avatar-circle mb-3">
+
+                        </div>
             {/* Nav Scroller */}
             <div className="assigned">
-              <p>Name:</p>
-              <p>Tech Stack:</p>
-              <p>Contact:</p>
-              <p>Bio:</p>
-              <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-              ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-              laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-              voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-              non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-  
+              <p>Information:</p>
+              <p>Current Job:</p>
+              <p>Previous work experience:</p>
+              <p>Years of experience:</p>
+              <p>Education:</p>
+              <p>Key Skills:</p>
+              <p>CV:</p>
+              <p>Personal Info:</p>
+              <p>Prefered Work Method:</p>
             </div>
             {/* End Tab Content */}
           </div>
