@@ -127,9 +127,9 @@ const data: TableData[] = [
           {/* End Header */}
           {/* Body */}
           <div className="card-body">
-          <div className="avatar avatar-xxl avatar-circle mb-3">
+          {/* <div className="avatar avatar-xxl avatar-circle mb-3">
 
-                        </div>
+                        </div> */}
             {/* Nav Scroller */}
             <div className="assigned">
               <h3 style={{ color: '#FF7BED' }}>Project Information</h3>
@@ -141,38 +141,38 @@ const data: TableData[] = [
           </div>
           
           <div className="card-body">
-          <h3 style={{ color: '#FF7BED' }}>Assigned Developers</h3>
-          <div className="avatar avatar-xxl avatar-circle mb-3">
-        
-          <div className="assigned">
-              <table>
-                <thead>
-                  <tr>
-                    {Object.keys(data[0]).map((headerText, index) => (
-                      <th key={index}>{headerText}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map((item, rowIndex) => (
-                    <tr key={rowIndex}>
-                      {Object.entries(item).map(([key, value], colIndex) => (
-                        <td key={colIndex}>
-                          {colIndex === Object.keys(item).length - 1 ? (
-                            <span className="eye-icon">👁️</span>
-                          ) : key === 'specs' ? (
-                            <span className="specs-text">{value}</span>
-                          ) : (
-                            value
-                          )}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-                        </div>
+                  <h3 style={{ color: '#FF7BED' }}>Assigned Developers</h3>
+                  <div className="avatar avatar-xxl avatar-circle mb-3">
+                
+                  <div className="assigned">
+                      <table>
+                        <thead>
+                          <tr>
+                            {Object.keys(data[0]).map((headerText, index) => (
+                              <th key={index}>{headerText}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {data.map((item, rowIndex) => (
+                            <tr key={rowIndex}>
+                              {Object.entries(item).map(([key, value], colIndex) => (
+                                <td key={colIndex}>
+                                  {colIndex === Object.keys(item).length - 1 ? (
+                                    <span className="eye-icon">👁️</span>
+                                  ) : key === 'specs' ? (
+                                    <span className="specs-text">{value}</span>
+                                  ) : (
+                                    value
+                                  )}
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
             {/* Nav Scroller */}
             <div className="assigned">
          
