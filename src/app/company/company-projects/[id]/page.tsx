@@ -46,6 +46,7 @@ async function _GetAssignedUser(id:string){
   })
  
 }
+//IJobApplicationViewModel
 async function _GetProject(id:string){
 
   await GetProjectsByOrgId(id).then((res:any) => {
@@ -60,13 +61,13 @@ async function _GetProject(id:string){
 
 
 
-// console.log("here",devProfile)
+
 
 useEffect(() => {
   //check url and setActive
 
-  loggedInUser._id&& _GetAssignedUser("653b8074526a329483800797");
-  loggedInUser._id&& _GetProject("653b8074526a329483800797");
+  // loggedInUser._id&& _GetAssignedUser("653b8074526a329483800797");
+  _GetProject("65607f2d8b8b98274d4ce397");
 
   }, []);
   
