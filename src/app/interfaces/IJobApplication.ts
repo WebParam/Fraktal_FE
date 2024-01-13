@@ -1,24 +1,28 @@
 export interface IJobApplication{
+    //new
+    id?:string,
+    projectType:string,
+    projectSector:string,
     country: number,
-    language:number,
+    language:string,
     companyId:string // New
     creatingUser: String // New
-    companyName:string,
+    projectName:string,
     description:string; 
-    jobTitle: string,
+    projectTeam: string,
     streetAddress?:string,
     city:string,
     state:string,
-    zipCode:string,
+    zipCode?:string,
     remote:number,
     jobtype:number,
-    hires:string,
-    urgency:string,
+    hires:number,
+    urgency:number,
     pay:number,
-    currency:string,
+    currency:number,
     fromDate:string,
     toDate:string,
-    period:string,
+    period:number,
     signingBonus?:number //default  to 0 in the backend if not provided
     commisionPay?:number //default  to 0 in the backend if not provided
     bonusPay?:number //default  to 0 in the backend if not provided
@@ -55,5 +59,11 @@ export interface IJobApplication{
     dailyUpdateEmail?:boolean, //false if not provided
     individualUpDateEmail?:boolean //false if not provided
 
+
+}
+
+export interface IJobApplicationViewModel{
+    data:IJobApplication;
+    org:any
 
 }

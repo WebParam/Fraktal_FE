@@ -21,6 +21,25 @@ export interface IUser {
     profilePicture?:string
   }
 
+  export interface IUpdateStaffAndOrganisation{
+    firstName?: string;
+    surname?:string;
+    email?:string;
+    position?:string;
+    mobileNumber?:string;
+    companyName?:string;
+    companyAddress?:string;
+    companyPhone:string;
+    companyAbout?:string;
+    companyCity?:string;
+    companyEmail?:string;
+    companyCountry?:string;
+    staffPosition?:string;
+    staffId?:string;
+    userId?:string;
+  }
+  
+
   export interface IUserLogin extends IUser {
     email:string;
     password:string;
@@ -31,6 +50,10 @@ export interface IUser {
     email:string;
     password:string;
     otp:string | Number;
+  }
+
+  export interface IdeletUser {
+    id: string
   }
 
   
@@ -56,6 +79,7 @@ export interface IContactForm{
   phone:string
 }
   export interface IDeveloperProfile{
+    _id?:string,
     information :string,
     currentJob:string,
     previousWorkExperience:IWorkExperience[],
@@ -122,3 +146,23 @@ export interface IContactForm{
     data?:IUser;
    
   }
+
+  export interface IUpdateStaffAndOrganisation{
+    firstName?: string;
+    surname?:string;
+    email?:string;
+    position?:string;
+    mobileNumber?:string;
+    companyName?:string;
+    companyAddress?:string;
+    companyPhone:string;
+    companyAbout?:string;
+    companyCity?:string;
+    companyEmail?:string;
+    companyCountry?:string;
+    staffPosition?:string;
+    staffId?:string;
+    userId?:string;
+  }
+
+  
