@@ -55,7 +55,7 @@ export async function UserLogin(payload: IUserLogin) {
 
 export async function GetBlog() {
   try {
-    const response = await axios.get('https://public-api.wordpress.com/wp/v2/sites/paramsolutionsblog.wordpress.com/posts?_envelope=1');
+    const response = await axios.get('https://public-api.wordpress.com/wp/v2/sites/fraktionaldevblog.wordpress.com/posts?_envelope=1');
 
     if (response.status === 200 || response.status === 201) {
       console.log("Fetched blogs successfully");
