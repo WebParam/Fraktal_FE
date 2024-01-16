@@ -2,6 +2,7 @@ import React from "react";
 import { IOption, getLabelFromValue, getOptionFromValue, projectTeams, techStack, typeOfProject } from '@/app/lib/data';
 import { Select } from "@mui/material";
 import "./assigned.scss";
+import dynamic from "next/dynamic";
 
 
 interface TableData {
@@ -99,4 +100,7 @@ function Assigned() {
   );
 }
 
-export default Assigned;
+// export default Assigned;
+
+
+export default dynamic (() => Promise.resolve(Assigned), {ssr: false})
