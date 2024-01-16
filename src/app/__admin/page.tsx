@@ -152,7 +152,7 @@ function admin() {
         </div>
         </div>
         <div className='assigned-div'>
-        <Assigned/>
+        {/* <Assigned/> */}
     </div>
         {/* <div className="container content-space-t-2">
           <div className="w-lg-75 mx-lg-auto">
