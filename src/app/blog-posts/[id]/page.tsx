@@ -9,7 +9,7 @@ import Cookies from "universal-cookie";
 
 export default function BlogPost() {
     const [blogs, setBlogs] = useState<any[]>([]);
-    const [blog, setBlog] = useState();
+    const [blog, setBlog] = useState<any>({});
     const { id } = useParams();
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     console.log('id is alive', id)
