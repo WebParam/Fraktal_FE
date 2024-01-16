@@ -9,10 +9,11 @@ import SideNav from './Nav/sidenav';
 import AdminBanner from './Banner/banner';
 import FrakLogo from '../images/FraktionalLogo.png'
 import LineChart from './Chart/chart';
-import Tabs from './Tab/tab';
+// import Tabs from './Tab/tab';
 import axios from 'axios';
-import Assigned from './Assigned/assigned';
+// import Assigned from './Assigned/assigned';
 import './admin.scss'
+import Assigned from '../admin/assigned/page';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 async function fetchAllData(): Promise<void> {

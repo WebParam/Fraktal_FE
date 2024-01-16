@@ -98,7 +98,7 @@ useEffect(() => {
 
   const signOut = () => {
     cookies.remove("fraktional-user")
-    window.location.href="/"
+    // window.location.href="/"
   }
     
 

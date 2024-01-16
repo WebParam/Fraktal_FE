@@ -89,6 +89,7 @@ export interface IContactForm{
     keyCourses :string, 
     cvUrl:string, 
     personalInformation:IPersonalInformation, 
+    user:any;
     _user:string,
     preferedWorkMethod:string
   }

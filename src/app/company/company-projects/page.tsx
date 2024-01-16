@@ -52,7 +52,7 @@ useEffect(() => {
 
 function editProject(project:any){
 debugger;
-window?.location?.assign(`/company/post-job/${project?.id}`)
+window!==undefined && typeof(window)!=='undefined' && window?.location?.assign(`/company/post-job/${project?.id}`)
 
 }
 

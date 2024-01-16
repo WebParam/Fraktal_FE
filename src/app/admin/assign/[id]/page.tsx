@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import 'react-responsive-modal/styles.css';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { GetAllProjects, GetProjectById, GetProjectsByOrgId } from "../../../endpoints/api";
+import { GetAllDeveloperProfiles, GetAllProjects, GetProjectById, GetProjectsByOrgId } from "../../../endpoints/api";
 import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
 import dynamic from "next/dynamic";
 const cookies = new Cookies(); // Create an instance of Cookies
@@ -21,6 +21,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import AvatarGroup from 'react-avatar-group';
 import { getOptionFromValue, skills } from "@/app/lib/data";
 import Modal from "react-responsive-modal";
+import { IDeveloperProfile } from "@/app/interfaces/user";
 const moment = require("moment");
 
 function developerOverview() {
@@ -34,6 +35,8 @@ const [detailModalOpen, setDetailModalOpen] = useState(false);
 const [projectLoading, setProjectLoading] = useState(true);
   const loggedInUser = cookies.get("fraktional-user")??"{}";
   const [project, setProject] = useState<IJobApplicationViewModel>();
+  const [personnel, setPersonnel] = useState<IDeveloperProfile[]>();
+
 
 
 async function _GetProject(){
@@ -45,6 +48,12 @@ async function _GetProject(){
   })
 }
 
+async function getDevelopers(){
+  await GetAllDeveloperProfiles().then((res:any) => {
+    debugger;
+    setPersonnel(res?.data.filter((x:any)=>x.user !=null));
+  })
+}
 
 const customModalStyles = {
   modal: {
@@ -59,7 +68,7 @@ useEffect(() => {
   //check url and setActive
   
   _GetProject();
-
+getDevelopers();
   }, []);
 
 
@@ -68,6 +77,7 @@ debugger;
 window?.location?.assign(`/company/post-job/${project?.id}`)
 
 }
+
 
 
     return (
@@ -672,20 +682,27 @@ window?.location?.assign(`/company/post-job/${project?.id}`)
             {/* End Row */}
             {/* Card List */}
             <div className="d-grid gap-5 mb-10">
-              {/* Card */}
-              <div className="card card-bordered">
+             
+              
+              {
+                personnel&& personnel.map(x=>{
+                  debugger;
+                  return(
+                   
+                    <>
+                     <div className="card card-bordered">
                 <div className="card-body">
                   {/* Media */}
                   <div className="d-sm-flex">
                     {/* Media */}
                     <div className="d-flex align-items-center align-items-sm-start mb-3">
                       <div className="flex-shrink-0">
-                        <img className="avatar avatar-sm avatar-4x3" src="../assets/svg/brands/mailchimp-icon.svg" alt="Image Description" />
+                        <img className="avatar avatar-sm avatar-4x3"  src={x?.user?.profilePicture} alt="Image Description" />
                       </div>
                       <div className="d-sm-none flex-grow-1 ms-3">
                         <h6 className="card-title">
                           <a className="text-dark" href="../demo-jobs/employer.html">Mailchimp</a>
-                          <img className="avatar avatar-xss ms-1" src="../assets/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
+                          <img className="avatar avatar-xss ms-1" src={x?.user?.profilePicture} alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
                         </h6>
                       </div>
                     </div>
@@ -694,11 +711,11 @@ window?.location?.assign(`/company/post-job/${project?.id}`)
                       <div className="row">
                         <div className="col col-md-8">
                           <h3 className="card-title">
-                            <a className="text-dark" href="../demo-jobs/employer.html">Senior B2B sales consultant</a>
+                            <a className="text-dark" href="../demo-jobs/employer.html">{x?.user?.firstName}  {x?.user?.surname}</a>
                           </h3>
                           <div className="d-none d-sm-inline-block">
                             <h6 className="card-title">
-                              <a className="text-dark" href="../demo-jobs/employer.html">Mailchimp</a>
+                              <a className="text-dark" href="../demo-jobs/employer.html">{x?.user?.email}</a>
                               <img className="avatar avatar-xss ms-1" src="../assets/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
                             </h6>
                           </div>
@@ -742,337 +759,13 @@ window?.location?.assign(`/company/post-job/${project?.id}`)
                 </div>
               </div>
               {/* End Card */}
-              {/* Card */}
-              <div className="card card-bordered">
-                <div className="card-body">
-                  {/* Media */}
-                  <div className="d-sm-flex">
-                    {/* Media */}
-                    <div className="d-flex align-items-center align-items-sm-start mb-3">
-                      <div className="flex-shrink-0">
-                        <img className="avatar avatar-sm avatar-4x3" src="../assets/svg/brands/capsule-icon.svg" alt="Image Description" />
-                      </div>
-                      <div className="d-sm-none flex-grow-1 ms-3">
-                        <h6 className="card-title">
-                          <a className="text-dark" href="../demo-jobs/employer.html">Capsule</a>
-                        </h6>
-                      </div>
-                    </div>
-                    {/* End Media */}
-                    <div className="flex-grow-1 ms-sm-3">
-                      <div className="row">
-                        <div className="col col-md-8">
-                          <h3 className="card-title">
-                            <a className="text-dark" href="../demo-jobs/employer.html">Office assistant/Social media assistant</a>
-                          </h3>
-                          <div className="d-none d-sm-inline-block">
-                            <h6 className="card-title">
-                              <a className="text-dark" href="../demo-jobs/employer.html">Capsule</a>
-                            </h6>
-                          </div>
-                        </div>
-                        {/* End Col */}
-                        <div className="col-auto order-md-3">
-                          {/* Checkbbox Bookmark */}
-                          <div className="form-check form-check-bookmark">
-                            <input className="form-check-input" type="checkbox"  id="jobsCardBookmarkCheck2" />
-                            <label className="form-check-label" htmlFor="jobsCardBookmarkCheck2">
-                              <span className="form-check-bookmark-default" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Save this job" data-bs-original-title="Save this job">
-                                <i className="bi-star" />
-                              </span>
-                              <span className="form-check-bookmark-active" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Saved" data-bs-original-title="Saved">
-                                <i className="bi-star-fill" />
-                              </span>
-                            </label>
-                          </div>
-                          {/* End Checkbbox Bookmark */}
-                        </div>
-                        {/* End Col */}
-                        <div className="col-12 col-md mt-3 mt-md-0">
-                          <span className="d-block small text-body mb-1">$50-$135 hourly</span>
-                        </div>
-                        {/* End Col */}
-                      </div>
-                      {/* End Row */}
-                    </div>
-                  </div>
-                  {/* End Media */}
-                </div>
-                <div className="card-footer pt-0">
-                  <ul className="list-inline list-separator small text-body">
-                    <li className="list-inline-item">Posted 21 hours ago</li>
-                    <li className="list-inline-item">Newcastle</li>
-                    <li className="list-inline-item">Part time</li>
-                  </ul>
-                </div>
-              </div>
-              {/* End Card */}
-              {/* Card */}
-              <div className="card card-bordered">
-                <div className="card-body">
-                  {/* Media */}
-                  <div className="d-sm-flex">
-                    {/* Media */}
-                    <div className="d-flex align-items-center align-items-sm-start mb-3">
-                      <div className="flex-shrink-0">
-                        <img className="avatar avatar-sm avatar-4x3" src="../assets/svg/brands/dropbox-icon.svg" alt="Image Description" />
-                      </div>
-                      <div className="d-sm-none flex-grow-1 ms-3">
-                        <h6 className="card-title">
-                          <a className="text-dark" href="../demo-jobs/employer.html">Dropbox</a>
-                        </h6>
-                      </div>
-                    </div>
-                    {/* End Media */}
-                    <div className="flex-grow-1 ms-sm-3">
-                      <div className="row">
-                        <div className="col col-md-8">
-                          <h3 className="card-title">
-                            <a className="text-dark" href="../demo-jobs/employer.html">Marketing and Communications Manager</a>
-                          </h3>
-                          <div className="d-none d-sm-inline-block">
-                            <h6 className="card-title">
-                              <a className="text-dark" href="../demo-jobs/employer.html">Dropbox</a>
-                              <img className="avatar avatar-xss ms-1" src="../assets/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
-                            </h6>
-                          </div>
-                        </div>
-                        {/* End Col */}
-                        <div className="col-auto order-md-3">
-                          {/* Checkbbox Bookmark */}
-                          <div className="form-check form-check-bookmark">
-                            <input className="form-check-input" type="checkbox"  id="jobsCardBookmarkCheck3" />
-                            <label className="form-check-label" htmlFor="jobsCardBookmarkCheck3">
-                              <span className="form-check-bookmark-default" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Save this job" data-bs-original-title="Save this job">
-                                <i className="bi-star" />
-                              </span>
-                              <span className="form-check-bookmark-active" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Saved" data-bs-original-title="Saved">
-                                <i className="bi-star-fill" />
-                              </span>
-                            </label>
-                          </div>
-                          {/* End Checkbbox Bookmark */}
-                        </div>
-                        {/* End Col */}
-                        <div className="col-12 col-md mt-3 mt-md-0">
-                          <span className="d-block small text-body mb-1">$5k monthly</span>
-                        </div>
-                        {/* End Col */}
-                      </div>
-                      {/* End Row */}
-                    </div>
-                  </div>
-                  {/* End Media */}
-                </div>
-                <div className="card-footer pt-0">
-                  <ul className="list-inline list-separator small text-body">
-                    <li className="list-inline-item">Posted 1 day ago</li>
-                    <li className="list-inline-item">London</li>
-                    <li className="list-inline-item">Full time</li>
-                  </ul>
-                </div>
-              </div>
-              {/* End Card */}
-              {/* Card */}
-              <div className="card card-bordered">
-                <div className="card-body">
-                  {/* Media */}
-                  <div className="d-sm-flex">
-                    {/* Media */}
-                    <div className="d-flex align-items-center align-items-sm-start mb-3">
-                      <div className="flex-shrink-0">
-                        <img className="avatar avatar-sm avatar-4x3" src="../assets/svg/brands/prosperops-icon.svg" alt="Image Description" />
-                      </div>
-                      <div className="d-sm-none flex-grow-1 ms-3">
-                        <h6 className="card-title">
-                          <a className="text-dark" href="../demo-jobs/employer.html">Prosperops</a>
-                        </h6>
-                      </div>
-                    </div>
-                    {/* End Media */}
-                    <div className="flex-grow-1 ms-sm-3">
-                      <div className="row">
-                        <div className="col col-md-8">
-                          <h3 className="card-title">
-                            <a className="text-dark" href="../demo-jobs/employer.html">Senior backend developer</a>
-                          </h3>
-                          <div className="d-none d-sm-inline-block">
-                            <h6 className="card-title">
-                              <a className="text-dark" href="../demo-jobs/employer.html">Prosperops</a>
-                            </h6>
-                          </div>
-                        </div>
-                        {/* End Col */}
-                        <div className="col-auto order-md-3">
-                          {/* Checkbbox Bookmark */}
-                          <div className="form-check form-check-bookmark">
-                            <input className="form-check-input" type="checkbox"  id="jobsCardBookmarkCheck4" />
-                            <label className="form-check-label" htmlFor="jobsCardBookmarkCheck4">
-                              <span className="form-check-bookmark-default" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Save this job" data-bs-original-title="Save this job">
-                                <i className="bi-star" />
-                              </span>
-                              <span className="form-check-bookmark-active" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Saved" data-bs-original-title="Saved">
-                                <i className="bi-star-fill" />
-                              </span>
-                            </label>
-                          </div>
-                          {/* End Checkbbox Bookmark */}
-                        </div>
-                        {/* End Col */}
-                        <div className="col-12 col-md mt-3 mt-md-0">
-                          <span className="d-block small text-body mb-1">$75k-$85k yearly</span>
-                          <span className="badge bg-soft-info text-info me-2">
-                            <span className="legend-indicator bg-info" />Remote
-                          </span>
-                        </div>
-                        {/* End Col */}
-                      </div>
-                      {/* End Row */}
-                    </div>
-                  </div>
-                  {/* End Media */}
-                </div>
-                <div className="card-footer pt-0">
-                  <ul className="list-inline list-separator small text-body">
-                    <li className="list-inline-item">Posted 7 hours ago</li>
-                    <li className="list-inline-item">Oxford</li>
-                    <li className="list-inline-item">Full time</li>
-                  </ul>
-                </div>
-              </div>
-              {/* End Card */}
-              {/* Card */}
-              <div className="card card-bordered">
-                <div className="card-body">
-                  {/* Media */}
-                  <div className="d-sm-flex">
-                    {/* Media */}
-                    <div className="d-flex align-items-center align-items-sm-start mb-3">
-                      <div className="flex-shrink-0">
-                        <img className="avatar avatar-sm avatar-4x3" src="../assets/svg/brands/airbnb-icon.svg" alt="Image Description" />
-                      </div>
-                      <div className="d-sm-none flex-grow-1 ms-3">
-                        <h6 className="card-title">
-                          <a className="text-dark" href="../demo-jobs/employer.html">Airbnb</a>
-                          <img className="avatar avatar-xss ms-1" src="../assets/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
-                        </h6>
-                      </div>
-                    </div>
-                    {/* End Media */}
-                    <div className="flex-grow-1 ms-sm-3">
-                      <div className="row">
-                        <div className="col col-md-8">
-                          <h3 className="card-title">
-                            <a className="text-dark" href="../demo-jobs/employer.html">Senior product manager</a>
-                          </h3>
-                          <div className="d-none d-sm-inline-block">
-                            <h6 className="card-title">
-                              <a className="text-dark" href="../demo-jobs/employer.html">Airbnb</a>
-                              <img className="avatar avatar-xss ms-1" src="../assets/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
-                            </h6>
-                          </div>
-                        </div>
-                        {/* End Col */}
-                        <div className="col-auto order-md-3">
-                          {/* Checkbbox Bookmark */}
-                          <div className="form-check form-check-bookmark">
-                            <input className="form-check-input" type="checkbox"  id="jobsCardBookmarkCheck5" />
-                            <label className="form-check-label" htmlFor="jobsCardBookmarkCheck5">
-                              <span className="form-check-bookmark-default" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Save this job" data-bs-original-title="Save this job">
-                                <i className="bi-star" />
-                              </span>
-                              <span className="form-check-bookmark-active" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Saved" data-bs-original-title="Saved">
-                                <i className="bi-star-fill" />
-                              </span>
-                            </label>
-                          </div>
-                          {/* End Checkbbox Bookmark */}
-                        </div>
-                        {/* End Col */}
-                        <div className="col-12 col-md mt-3 mt-md-0">
-                          <span className="d-block small text-body mb-1">$76k-$98k yearly</span>
-                        </div>
-                        {/* End Col */}
-                      </div>
-                      {/* End Row */}
-                    </div>
-                  </div>
-                  {/* End Media */}
-                </div>
-                <div className="card-footer pt-0">
-                  <ul className="list-inline list-separator small text-body">
-                    <li className="list-inline-item">Posted 2 days ago</li>
-                    <li className="list-inline-item">London</li>
-                    <li className="list-inline-item">Full time</li>
-                  </ul>
-                </div>
-              </div>
-              {/* End Card */}
-              {/* Card */}
-              <div className="card card-bordered">
-                <div className="card-body">
-                  {/* Media */}
-                  <div className="d-sm-flex">
-                    {/* Media */}
-                    <div className="d-flex align-items-center align-items-sm-start mb-3">
-                      <div className="flex-shrink-0">
-                        <img className="avatar avatar-sm avatar-4x3" src="../assets/svg/brands/figma-icon.svg" alt="Image Description" />
-                      </div>
-                      <div className="d-sm-none flex-grow-1 ms-3">
-                        <h6 className="card-title">
-                          <a className="text-dark" href="../demo-jobs/employer.html">Figma</a>
-                        </h6>
-                      </div>
-                    </div>
-                    {/* End Media */}
-                    <div className="flex-grow-1 ms-sm-3">
-                      <div className="row">
-                        <div className="col col-md-8">
-                          <h3 className="card-title">
-                            <a className="text-dark" href="../demo-jobs/employer.html">Administrative Business Partner</a>
-                          </h3>
-                          <div className="d-none d-sm-inline-block">
-                            <h6 className="card-title">
-                              <a className="text-dark" href="../demo-jobs/employer.html">Figma</a>
-                            </h6>
-                          </div>
-                        </div>
-                        {/* End Col */}
-                        <div className="col-auto order-md-3">
-                          {/* Checkbbox Bookmark */}
-                          <div className="form-check form-check-bookmark">
-                            <input className="form-check-input" type="checkbox"  id="jobsCardBookmarkCheck6" />
-                            <label className="form-check-label" htmlFor="jobsCardBookmarkCheck6">
-                              <span className="form-check-bookmark-default" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Save this job" data-bs-original-title="Save this job">
-                                <i className="bi-star" />
-                              </span>
-                              <span className="form-check-bookmark-active" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Saved" data-bs-original-title="Saved">
-                                <i className="bi-star-fill" />
-                              </span>
-                            </label>
-                          </div>
-                          {/* End Checkbbox Bookmark */}
-                        </div>
-                        {/* End Col */}
-                        <div className="col-12 col-md mt-3 mt-md-0">
-                          <span className="d-block small text-body mb-1">$50k-$100k yearly</span>
-                        </div>
-                        {/* End Col */}
-                      </div>
-                      {/* End Row */}
-                    </div>
-                  </div>
-                  {/* End Media */}
-                </div>
-                <div className="card-footer pt-0">
-                  <ul className="list-inline list-separator small text-body">
-                    <li className="list-inline-item">Posted 2 days ago</li>
-                    <li className="list-inline-item">Liverpool</li>
-                    <li className="list-inline-item">Part time</li>
-                  </ul>
-                </div>
-              </div>
-              {/* End Card */}
+              </>
+                  )
+ 
+                })
+              }
+             
+            
             </div>
             {/* End Card List */}
             {/* Pagination */}

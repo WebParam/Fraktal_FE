@@ -351,7 +351,8 @@ useEffect(() => {
       cvUrl:cvUrl,
       personalInformation:{about:information},
       _user: loggedInUser._id,
-      preferedWorkMethod: preferedWorkMethod
+      preferedWorkMethod: preferedWorkMethod,
+      user:loggedInUser._id,
     } as IDeveloperProfile;
 
     if (cv) {
