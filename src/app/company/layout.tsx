@@ -213,12 +213,19 @@ const signOut = () => {
                          {/* List */}
                          <ul className="nav nav-sm nav-tabs nav-vertical mb-4">
                          <li className="nav-item">
-                             <a href="/company/company-overview" className={ window&& window?.location?.href?.includes("company-overview") ?"nav-link active" :"nav-link"} style={{cursor: 'pointer'}}>
+                             <a href="/company/company-overview"
+                             //TODO: ATL:
+                              // className={ window&& window?.location?.href?.includes("company-overview") ?"nav-link active" :"nav-link"} style={{cursor: 'pointer'}}
+                              >
                              <i className="bi-person-badge nav-icon" /> Company info
                              </a>
                          </li>
                          <li className="nav-item">
-                             <a className={ window && window?.location?.href?.includes("company-projects") || window?.location?.href?.includes("post-job") ?"nav-link active" :"nav-link"} href="/company/company-projects">
+                             <a 
+                             //TODO: ATL
+                            //  className={ window && window?.location?.href?.includes("company-projects") || window?.location?.href?.includes("post-job") ?"nav-link active" :"nav-link"} 
+                             href="/company/company-projects"
+                             >
                              <i className=" bi-code-slash nav-icon" /> Projects
                              </a>
                          </li>
