@@ -120,6 +120,11 @@ export interface IContactForm{
     dateCompleted:string
   }
 
+  export interface IApply{
+    email:string 
+    file : File
+  }
+
   export interface IApplyForJobRegistration{
 
     // create a user in db using these fields.
