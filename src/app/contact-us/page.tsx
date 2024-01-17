@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer/Footer';
-import { PostContact, deleteUser } from '../endpoints/api';
+import { PostContact } from '../endpoints/api';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MobileMenu from '../components/MobileMenu/MobileMenu';

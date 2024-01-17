@@ -152,114 +152,124 @@ const signOut = () => {
               `}
     </Script>
     </head>
+   
       <body> 
       <div className="top">
         <Banner />
       </div>
-    <main id="content" role="main" className="bg-light">
-      <ToastContainer />
-  {/* Breadcrumb */}
-  <div className="navbar-dark" style={{backgroundColor: '#FD2DC3'}}>
-    <div className="container content-space-1 content-space-b-lg-3" >
-      <div className="row align-items-center">
-        <div className="col">
-          <div className="d-none d-lg-block">
-            <h1 className="h2 text-white">Company info</h1>
-          </div>
-          {/* Breadcrumb */}
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb breadcrumb-light mb-0">
-              <li className="breadcrumb-item">Account</li>
-              <li className="breadcrumb-item active" aria-current="page">Company Info</li>
-            </ol>
-          </nav>
-          {/* End Breadcrumb */}
-        </div>
+      
+      
+       <main id="content" role="main" className="bg-light">
+       <ToastContainer />
+   {/* Breadcrumb */}
+   <div className="navbar-dark" style={{backgroundColor: '#FD2DC3'}}>
+     <div className="container content-space-1 content-space-b-lg-3" >
+       <div className="row align-items-center">
+         <div className="col">
+           <div className="d-none d-lg-block">
+             <h1 className="h2 text-white">Company info</h1>
+           </div>
+           {/* Breadcrumb */}
+           <nav aria-label="breadcrumb">
+             <ol className="breadcrumb breadcrumb-light mb-0">
+               <li className="breadcrumb-item">Account</li>
+               <li className="breadcrumb-item active" aria-current="page">Company Info</li>
+             </ol>
+           </nav>
+           {/* End Breadcrumb */}
+         </div>
+ 
+         <div className="col Gotohome">
+           <Link href='/' >Go to Home</Link>
+         </div>
+       </div>
+     </div>
+   </div>
+   {/* End Breadcrumb */}
+   {/* Content */}
+   <div className="container content-space-1 content-space-t-lg-0 content-space-b-lg-2 mt-lg-n10">
+     <div className="row">
+ 
+     <div className="col-lg-3">
+                 {/* Navbar */}
+                 <div className="navbar-expand-lg navbar-light">
+                 <div id="sidebarNav" className="navbar-collapse navbar-vertical">
+                     {/* Card */}
+                     <div className="card flex-grow-1 mb-5">
+                     <div className="card-body">
+                         {/* Avatar */}
+                         <div className="d-none d-lg-block text-center mb-5">
+                         <div className="avatar avatar-xxl avatar-circle mb-3">
+                             <Image className="avatar-img" fill={true}  src={currentProfilePic != "" ? currentProfilePic: cookies.get("fraktional-user")?.profilePicture??""} alt="Image Description" />
+                             <Image className="avatar-status avatar-lg-status" src={topVendor} alt="Image Description" data-bs-toggle="tooltip" data-bs-placement="top" title="Verified user" />
+                         </div>
+ 
+                         <h4 className="card-title mb-0">{firstName!=""? firstName: loggedInUser.firstName} {surname!=""? surname: loggedInUser.surname}</h4>
+                         <p className="card-text small">{loggedInUser.email}</p>
+                         </div>
+                         {/* End Avatar */}
+                         {/* Nav */}
+                         <span className="text-cap">Account</span>
+                         {/* List */}
+                         <ul className="nav nav-sm nav-tabs nav-vertical mb-4">
+                         <li className="nav-item">
+                             <a href="/company/company-overview"
+                             //TODO: ATL:
+                              // className={ window&& window?.location?.href?.includes("company-overview") ?"nav-link active" :"nav-link"} style={{cursor: 'pointer'}}
+                              >
+                             <i className="bi-person-badge nav-icon" /> Company info
+                             </a>
+                         </li>
+                         <li className="nav-item">
+                             <a 
+                             //TODO: ATL
+                            //  className={ window && window?.location?.href?.includes("company-projects") || window?.location?.href?.includes("post-job") ?"nav-link active" :"nav-link"} 
+                             href="/company/company-projects"
+                             >
+                             <i className=" bi-code-slash nav-icon" /> Projects
+                             </a>
+                         </li>
+                         <li className="nav-item">
+                             <a className="nav-link " style={{pointerEvents: 'none', cursor: 'none', opacity: '.5'}}>
+                             <i className="bi-bell nav-icon" /> Notifications
+                             {/* <span className="badge bg-soft-dark text-dark rounded-pill nav-link-badge">1</span> */}
+                             </a>
+                         </li>
+                         <li className="nav-item">
+                             <a className="nav-link " style={{pointerEvents: 'none', cursor: 'none', opacity: '.5'}}>
+                             <i className="bi-sliders nav-icon" /> Preferences
+                             </a>
+                         </li>
+                         <li className="nav-item">
+                             <a onClick={signOut}  className="nav-link " style={{ cursor:'pointer', opacity: '.5'}}>
+                             <i className="bi bi-box-arrow-right nav-icon"/> Sign Out
+                             </a>               
+                         </li>
+                         </ul>
+                         {/* End List */}
+                     </div>
+                     </div>
+                     {/* End Card */}
+                 </div>
+                 </div>
+                 {/* End Navbar */}
+             </div>
+ 
+       {/* End Col */}
+      
+       <div className="col-lg-9">
+         {/* Card */}
+         {children}
+         {/* End Card */}
+       </div>
+       {/* End Col */}
+     </div>
+     {/* End Row */}
+   </div>
+ </main>
 
-        <div className="col Gotohome">
-          <Link href='/' >Go to Home</Link>
-        </div>
-      </div>
-    </div>
-  </div>
-  {/* End Breadcrumb */}
-  {/* Content */}
-  <div className="container content-space-1 content-space-t-lg-0 content-space-b-lg-2 mt-lg-n10">
-    <div className="row">
-
-    <div className="col-lg-3">
-                {/* Navbar */}
-                <div className="navbar-expand-lg navbar-light">
-                <div id="sidebarNav" className="navbar-collapse navbar-vertical">
-                    {/* Card */}
-                    <div className="card flex-grow-1 mb-5">
-                    <div className="card-body">
-                        {/* Avatar */}
-                        <div className="d-none d-lg-block text-center mb-5">
-                        <div className="avatar avatar-xxl avatar-circle mb-3">
-                            <Image className="avatar-img" fill={true}  src={currentProfilePic != "" ? currentProfilePic: cookies.get("fraktional-user")?.profilePicture??""} alt="Image Description" />
-                            <Image className="avatar-status avatar-lg-status" src={topVendor} alt="Image Description" data-bs-toggle="tooltip" data-bs-placement="top" title="Verified user" />
-                        </div>
-
-                        <h4 className="card-title mb-0">{firstName!=""? firstName: loggedInUser.firstName} {surname!=""? surname: loggedInUser.surname}</h4>
-                        <p className="card-text small">{loggedInUser.email}</p>
-                        </div>
-                        {/* End Avatar */}
-                        {/* Nav */}
-                        <span className="text-cap">Account</span>
-                        {/* List */}
-                        <ul className="nav nav-sm nav-tabs nav-vertical mb-4">
-                        <li className="nav-item">
-                            <a 
-                                href="/company/company-overview" 
-                                className={ window?.location?.href?.includes("company-overview") 
-                                ?"nav-link active" :"nav-link"} style={{cursor: 'pointer'}}>
-                            <i className="bi-person-badge nav-icon" /> Company info
-                            </a>
-                        </li>
-                        <li className="nav-item">
-                            <a className={ window?.location?.href?.includes("company-projects") || window?.location?.href?.includes("post-job") ?"nav-link active" :"nav-link"} href="/company/company-projects">
-                            <i className=" bi-code-slash nav-icon" /> Projects
-                            </a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link " style={{pointerEvents: 'none', cursor: 'none', opacity: '.5'}}>
-                            <i className="bi-bell nav-icon" /> Notifications
-                            {/* <span className="badge bg-soft-dark text-dark rounded-pill nav-link-badge">1</span> */}
-                            </a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link " style={{pointerEvents: 'none', cursor: 'none', opacity: '.5'}}>
-                            <i className="bi-sliders nav-icon" /> Preferences
-                            </a>
-                        </li>
-                        <li className="nav-item">
-                            <a onClick={signOut}  className="nav-link " style={{ cursor:'pointer', opacity: '.5'}}>
-                            <i className="bi bi-box-arrow-right nav-icon"/> Sign Out
-                            </a>               
-                        </li>
-                        </ul>
-                        {/* End List */}
-                    </div>
-                    </div>
-                    {/* End Card */}
-                </div>
-                </div>
-                {/* End Navbar */}
-            </div>
-
-      {/* End Col */}
-     
-      <div className="col-lg-9">
-        {/* Card */}
-        {children}
-        {/* End Card */}
-      </div>
-      {/* End Col */}
-    </div>
-    {/* End Row */}
-  </div>
-</main>
+      
+ 
 </body>
     </html>
       </>

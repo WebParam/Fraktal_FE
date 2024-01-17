@@ -17,7 +17,32 @@ import { IApplyForJobRegistration } from "../interfaces/job-registration";
 
 // const url = "https://viconet-vercel.vercel.app"
 const url = "https://viconet-vercel.vercel.app"
-const azureUrl = "https://fraktional-be.azurewebsites.net"
+const azureUrl = "https://localhost:7257"
+
+
+export async function ChangePasswordAndActivate(payload: IUserResetPassword) {
+  try {
+    const response = await axios.post(
+      `${url}/api/user/changePasswordAndActivate`,
+      payload
+    );
+
+    if (response.status === 200 || response.status === 201) {
+      // Registration successful, you can redirect the user or show a success message.
+      console.log("password reset successful");
+      return true;
+    } else {
+      console.error("password reset failed");
+      return false;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+}
+
+
+
 
 
 export async function registerUser(payload: IUser) {
@@ -53,6 +78,24 @@ export async function UserLogin(payload: IUserLogin) {
     return false;
   }
 }
+
+export async function GetBlog() {
+  try {
+    const response = await axios.get('https://public-api.wordpress.com/wp/v2/sites/fraktionaldevblog.wordpress.com/posts?_envelope=1');
+
+    if (response.status === 200 || response.status === 201) {
+      console.log("Fetched blogs successfully");
+      return response.data;
+    } else {
+      console.error("fetch blogs failed");
+      return false;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+}
+
 
 export async function uploadProfilePic(profilePic: FormData, userId: string) {
   const config = {
@@ -163,6 +206,23 @@ export async function GetProjectById(id: string) {
 export async function GetAllProjects() {
   try {
     const response = await axios.get(`${azureUrl}/projects/`);
+    
+    if (response.status === 200 || response.status === 201) {
+      console.log("retrieved successful");
+      return response;
+    } else {
+      console.error("retrieve failed");
+      return response;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return error;
+  }
+}
+
+export async function GetAllDeveloperProfiles() {
+  try {
+    const response = await axios.get(`${azureUrl}/personnel/`);
     
     if (response.status === 200 || response.status === 201) {
       console.log("retrieved successful");

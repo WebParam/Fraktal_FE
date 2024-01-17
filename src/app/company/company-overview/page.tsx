@@ -252,11 +252,6 @@ useEffect(() => {
   };
 
 
-  const signOut = () => {
-    cookies.remove("fraktional-user")
-    window.location.href="/"
-  }
-    
   async function deleteProfile(){
     let _id = toast.loading("Deleting your profile..", {
       position: "top-center",
