@@ -1,5 +1,6 @@
 "use client"
 import Image from 'next/image';
+import Head from 'next/head';
 import './homepage.scss';
 // import heroImage from '../assets/additional/heroImage.jpg';
 import card1 from "../assets/additional/images/laptop.png";
@@ -33,6 +34,18 @@ function HomePage() {
 
   return (
     <div>
+
+    <Head>
+        <title>
+          Home page
+        </title>
+        <meta
+          name="description"
+          content="fraktional dev param web developemt"
+          key="desc"
+        />
+      </Head>
+
       <Header 
         menuTogglerFunction={setMenuToggler} 
         menuTogglerValue={menuToggler} 

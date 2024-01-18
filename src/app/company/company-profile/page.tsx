@@ -2,7 +2,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { CreateJob, GetApplicantProfile } from '../../endpoints/api';
+
+import { IJobApplication } from '../../interfaces/IJobApplication';
+import { CreateJob, } from '../../endpoints/api';
 
 import './company.scss';
 
@@ -11,6 +13,7 @@ import dropboxicon from "../../../assets/svg/brands/dropbox-icon.svg";
 import star from "../../../assets/svg/illustrations/star.svg";
 import halfstar from "../../../assets/svg/illustrations/star-half.svg";
 import roundedicon from "../../../assets/svg/illustrations/top-vendor.svg";
+
 import img1 from "../../../assets/img/900x900/img1.jpg";
 import img8 from "../../../assets/img/900x900/img8.jpg";
 import img7 from "../../../assets/img/900x900/img7.jpg";
@@ -29,6 +32,7 @@ import london from "../../../assets/img/480x320/img28.jpg";
 import img29 from "../../../assets/img/480x320/img29.jpg";
 import img11 from "../../../assets/img/480x320/img11.jpg";
 import img10 from "../../../assets/img/480x320/img10.jpg";
+import { GetApplicantProfile } from '@/app/endpoints/api';
 import Banner from '../../banner/Banner';
 
 function companyProfile() {

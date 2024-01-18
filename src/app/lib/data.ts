@@ -236,7 +236,8 @@ export const universities =[
 
 
 
-export const degrees =[
+export const degrees =
+[
     { "value": "c0", "label": "Degree: Bachelor of Science in Computer Science" },
     { "value": "c1", "label": "Degree: Bachelor of Engineering in Software Engineering" },
     { "value": "c2", "label": "Degree: Bachelor of Technology in Information Technology" },

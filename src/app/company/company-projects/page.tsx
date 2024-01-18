@@ -20,7 +20,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import AvatarGroup from 'react-avatar-group';
 const moment = require("moment");
-import { redirect } from 'next/navigation';
+
 function developerOverview() {
  
 
@@ -52,8 +52,8 @@ useEffect(() => {
 
 function editProject(project:any){
 debugger;
-// window?.location?.assign(`/company/post-job/${project?.id}`)
-redirect(`/company/post-job/${project?.id}`);
+window!==undefined && typeof(window)!=='undefined' && window?.location?.assign(`/company/post-job/${project?.id}`)
+
 }
 
 
@@ -262,12 +262,9 @@ redirect(`/company/post-job/${project?.id}`);
                                             className="form-check-label"
                                             htmlFor="jobsCardBookmarkCheck1"
                                           >
-                                            <a href={`/company/post-job/${project?.id}`}>
-                                              <span className="form-check-bookmark-default" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Edit job" data-bs-original-title="Edit this job">
-                                            <i className="bi-pencil-square" style={{fontSize:"20px"}}/>   </span>
-                                            </a>
-                                           
-                                     
+                                           <span onClick={()=>editProject(project.data)} className="form-check-bookmark-default" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Edit job" data-bs-original-title="Edit this job">
+                                          <i className="bi-pencil-square" style={{fontSize:"20px"}}/>
+                                        </span>
                                             <span
                                               className="form-check-bookmark-active"
                                               data-bs-toggle="tooltip"

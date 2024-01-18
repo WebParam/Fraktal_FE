@@ -89,6 +89,7 @@ export interface IContactForm{
     keyCourses :string, 
     cvUrl:string, 
     personalInformation:IPersonalInformation, 
+    user:any;
     _user:string,
     preferedWorkMethod:string
   }
@@ -118,6 +119,11 @@ export interface IContactForm{
     instituteName:string,
     qualification:string,
     dateCompleted:string
+  }
+
+  export interface IApply{
+    email:string 
+    file : File
   }
 
   export interface IApplyForJobRegistration{

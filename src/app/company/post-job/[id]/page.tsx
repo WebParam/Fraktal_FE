@@ -26,11 +26,11 @@ function PostJob() {
     const [errorstyle6, setErrorStyle6] = useState(false); 
     const [errorstyle7, setErrorStyle7] = useState(false); 
     //formInput4
-    const [projectType, setProjectType] = useState(0);
+    const [projectType, setProjectType] = useState("");
     const [country, setCountry] = useState(0);
     const [language, setLanguage] = useState(0);
     const [projectName, setProjectName] = useState('');
-    const [projectTeam, setProjectTeam] = useState(0);
+    const [projectTeam, setProjectTeam] = useState("");
     const [streetAddress, setStreetAddress] = useState('');    
     const [budgetType, setBudgetType] = useState(0);
     const [city, setCity] = useState('');
@@ -102,11 +102,11 @@ function PostJob() {
 
       const payload: IJobApplication = {
         //new
-        projectType:projectType.toString(),
-        projectSector:"",
+        projectType:projectType,
         //
+        projectSector:"0",
         country: country,
-        language: language.toString(),
+         language: "",
         projectName: projectName,
         projectTeam: projectTeam.toString(),
         streetAddress: streetAddress,
@@ -343,9 +343,9 @@ const submitOptions = [
   debugger;
   setProjectName(_project?.projectName??"");
   setCountry(_project?.country??0);
-  setLanguage(parseInt(_project?.language??0));
-  setProjectType(parseInt(_project?.projectType??0));
-  setProjectTeam(parseInt(_project?.projectTeam??0));
+  // setLanguage(_project?.language??0);
+  setProjectType(_project?.projectType??"");
+  setProjectTeam(_project?.projectTeam);
   setStreetAddress(_project?.streetAddress??"");
   setCity(_project?.city??"");
   setState(_project?.state??"");
@@ -607,24 +607,24 @@ const submitOptions = [
                       id="typeLabel"
                       className="form-select"
                       name="countrySelect"
-                      onChange={((e)=>setProjectType(parseInt(e.target.value)))}
+                      onChange={(e)=>setProjectType(e.target.value)}
                     >    
-                      <option selected={projectType==0} value={0}>Fin-tech</option>             
-                       <option selected={projectType==1} value={1}>E-commerce platform</option>
-                       <option selected={projectType==2} value={2}>Marketting website</option>
-                       <option selected={projectType==3} value={3}>Big Data, ML or AI</option>
-                       <option selected={projectType==4} value={4}>Fin-tech</option>
-                       <option selected={projectType==5} value={5}>Healthcare Information System</option>
-                        <option selected={projectType==6} value={6}>Education Management System</option>
-                        <option selected={projectType==7} value={7}>Customer Relationship Management (CRM) Software</option>
-                        <option selected={projectType==8} value={8}>Supply Chain Management System</option>
-                        <option selected={projectType==9} value={9}>Social Media Platform</option>
-                        <option selected={projectType==10} value={10}>Mobile App Development (iOS/Android)</option>
-                        <option selected={projectType==11} value={11}>Gaming Software</option>
-                        <option selected={projectType==12} value={12}>Internet of Things (IoT) Applications</option>
-                        <option selected={projectType==13} value={13}>Content Management System (CMS)</option>
-                        <option selected={projectType==14} value={14}>Virtual Reality (VR) or Augmented Reality (AR) Applications</option>
-                        <option selected={projectType==15} value={15}>Project Management Software</option>
+                      <option selected={projectType=="projtype0"} value={"projtype0"}>Fin-tech</option>             
+                       <option selected={projectType=="projtype1"} value={"projtype1"}>E-commerce platform</option>
+                       <option selected={projectType=="projtype2"} value={"projtype2"}>Marketting website</option>
+                       <option selected={projectType=="projtype3"} value={"projtype3"}>Big Data, ML or AI</option>
+                       <option selected={projectType=="projtype4"} value={"projtype4"}>Fin-tech</option>
+                       <option selected={projectType=="projtype5"} value={"projtype5"}>Healthcare Information System</option>
+                        <option selected={projectType=="projtype6"} value={"projtype6"}>Education Management System</option>
+                        <option selected={projectType=="projtype7"} value={"projtype7"}>Customer Relationship Management (CRM) Software</option>
+                        <option selected={projectType=="projtype8"} value={"projtype8"}>Supply Chain Management System</option>
+                        <option selected={projectType=="projtype9"} value={"projtype9"}>Social Media Platform</option>
+                        <option selected={projectType=="projtype10"} value={"projtype10"}>Mobile App Development (iOS/Android)</option>
+                        <option selected={projectType=="projtype11"} value={"projtype11"}>Gaming Software</option>
+                        <option selected={projectType=="projtype12"} value={"projtype12"}>Internet of Things (IoT) Applications</option>
+                        <option selected={projectType=="projtype13"} value={"projtype13"}>Content Management System (CMS)</option>
+                        <option selected={projectType=="projtype14"} value={"projtype14"}>Virtual Reality (VR) or Augmented Reality (AR) Applications</option>
+                        <option selected={projectType=="projtype15"} value={"projtype15"}>Project Management Software</option>
                     </select>
                     {/* End Select */}
                   </div>
@@ -639,7 +639,7 @@ const submitOptions = [
                       id="languageLabel"
                       className="form-select"
                       name="languageSelect"
-                      onChange={((e)=>setLanguage(parseInt(e.target.value)))}
+                      onChange={(e)=>setLanguage(parseInt(e.target.value))}
                     >
                       <option selected={language==0} value={0}>English (UK)</option>
                       <option value={1} selected={language==1}>English (US)</option>
@@ -679,14 +679,14 @@ const submitOptions = [
                       id="typeLabel"
                       className="form-select"
                       name="countrySelect"
-                      onChange={((e)=>setProjectTeam(parseInt(e.target.value)))}
+                      onChange={(e)=>setProjectTeam(e.target.value)}
                     >    
-                      <option selected={projectType==0} value={0}>I want to develop a brand new system/application</option>             
-                       <option selected={projectType==1} value={1}>I want to add new features to a current system/application.</option>
-                       <option selected={projectType==2} value={2}>I want to scale up an existing development team to speed up development </option>
-                        <option selected={projectType==3} value={3}>I want to replace my current development team</option>
-                        <option selected={projectType==4} value={4}>I want to audit a current system/application</option>
-                        <option selected={projectType==5} value={5}>I want to change the hosting for an existing system/application </option>
+                      <option selected={projectTeam=="projTeam0"} value={0}>I want to develop a brand new system/application</option>             
+                       <option selected={projectTeam=="projteam1"} value={1}>I want to add new features to a current system/application.</option>
+                       <option selected={projectTeam=="projteam2"} value={2}>I want to scale up an existing development team to speed up development </option>
+                        <option selected={projectTeam=="projteam3"} value={3}>I want to replace my current development team</option>
+                        <option selected={projectTeam=="projteam4"} value={4}>I want to audit a current system/application</option>
+                        <option selected={projectTeam=="projteam5"} value={5}>I want to change the hosting for an existing system/application </option>
                     </select>
 
                   </div>

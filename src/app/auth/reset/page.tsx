@@ -86,11 +86,16 @@ function OTP() {
       return
     }
 
-    if(!passwordRegex.test(password)){
-      setEmptypasswordError(true)
-      setWeakPasswordError(true)
-      return
-     }
+    
+    //TODO: BRAD: check this function below, its preventing resetting a password. 
+    //The error message should read: "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number and one special character."
+
+
+    // if(!passwordRegex.test(password)){
+    //   setEmptypasswordError(true)
+    //   setWeakPasswordError(true)
+    //   return
+    //  }
 
      if(password !== confirmedpassword){
       setEmptypasswordError(true)

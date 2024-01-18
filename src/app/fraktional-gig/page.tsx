@@ -122,7 +122,7 @@ function jobs() {
                             {/* Media */}
                             <div className="d-flex align-items-center">
                             <div className="flex-shrink-0">
-                                {/* <Image className="avatar avatar-sm avatar-4x3" src={gig.img} alt="Image Description" /> */}
+                                {/* <Image className="avatar avatar-sm avatar-4x3" src={gig.} alt="Image Description" /> */}
                             </div>
                             <div className="flex-grow-1 ms-3">
                                 <h6 className="card-title">
