@@ -242,6 +242,7 @@ function viewGig({ params }: { params: { id: string }}) {
             }
         }
 
+    
         function saveAndCloseEditModal(){
 
             setEditModalOpen(false)
@@ -379,9 +380,9 @@ function viewGig({ params }: { params: { id: string }}) {
                 <div className="mb-4">
                 <h3>Personal information</h3>
                 </div>
-                <div className="row">
+                {/* <div className="row">
                 <div className="col-sm-6">
-                    {/* Form */}
+                  
                     <div className="mb-4">
                     <label className="form-label" htmlFor="applyForJobFirstName">First name</label>
                     <input 
@@ -395,10 +396,10 @@ function viewGig({ params }: { params: { id: string }}) {
                         onChange={handleFirstName}
                     />
                     </div>
-                    {/* End Form */}
+                   
                 </div>
                 <div className="col-sm-6">
-                    {/* Form */}
+                  
                     <div className="mb-4">
                     <label className="form-label" htmlFor="applyForJobLasttName">Last name</label>
                     <input 
@@ -412,9 +413,9 @@ function viewGig({ params }: { params: { id: string }}) {
                         onChange={handleLastName}
                     />
                     </div>
-                    {/* End Form */}
+                   
                 </div>
-                </div>
+                </div> */}
                 {/* End Form */}
                 {/* Form */}
                 <div className="mb-4">
@@ -491,12 +492,12 @@ function viewGig({ params }: { params: { id: string }}) {
                 </div>
                 </div>
                 {/* End Add Phone Input Field */}
-                <hr className="my-7" />
-                <div className="mb-4">
+                {/* <hr className="my-7" /> */}
+                {/* <div className="mb-4">
                 <h3>Profile</h3>
-                </div>
+                </div> */}
                 {/* Form */}
-                <div className="mb-4">
+                {/* <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobSummary">Summary</label>
                 <textarea 
                 className={`form-control ${summaryError ? 'error':''}`} 
@@ -508,10 +509,10 @@ function viewGig({ params }: { params: { id: string }}) {
                 value={summary}
                 onChange={handleSummary} />
                 {summaryError ? <p style={{color: 'red'}}>Please provide more than 20 characters</p>: ''}
-                </div>
+                </div> */}
                 {/* End Form */}
                 {/* Form */}
-                <div className="mb-4">
+                {/* <div className="mb-4">
                 <label className="form-label">Resume/CV and Cover Letter <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Maximum file size 10 MB." data-bs-original-title="Maximum file size 10 MB." /></label>
                 <div 
                     id="resumeAttach" 
@@ -520,12 +521,12 @@ function viewGig({ params }: { params: { id: string }}) {
                     <input type="file" name="resume" id="resume" onChange={handleResume} />
                     </div>
                 </div>
-                </div>
+                </div> */}
                 {/* End Form */}
-                <hr className="my-7" />
-                <div className="mb-4">
-                <h3>Details</h3>
-                </div>
+                {/* <hr className="my-7" /> */}
+                {/* <div className="mb-4"> */}
+                {/* <h3>Details</h3> */}
+                {/* </div> */}
                 <div className="mb-1">
                 <label className="input-label">Are you currently working?</label>
                 </div>
@@ -553,7 +554,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 />
                 <label className="btn btn-sm" htmlFor="applyForJobWorkStatusNoBtnRadio"><i className="bi-hand-thumbs-down me-1" /> No</label>
                 
-                {workStatus =="yes" && <div className="">
+                {/* {workStatus =="yes" && <div className="">
                 <label className="form-label" htmlFor="applyForJobNoticePeriod">Please provide some more details about your current job roles and responsibilities</label>
                 <textarea 
                     cols={6}
@@ -566,7 +567,7 @@ function viewGig({ params }: { params: { id: string }}) {
                     onChange={handleJob}
                 />
                 </div>
-                }
+                } */}
                 </div>
                 {/* End Radio Button Group */}
                 {/* Form */}
@@ -598,17 +599,17 @@ function viewGig({ params }: { params: { id: string }}) {
                 </div>
                 {/* End Form */}
                 {/* Form */}
-                <div className="mb-4">
+                {/* <div className="mb-4">
                 <label className="form-label">Upload your portfolio <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Maximum file size 10 MB." data-bs-original-title="Maximum file size 10 MB." /></label>
                 <div id="portfolioAttach" className={`js-dropzone dz-dropzone dz-dropzone-card dz-clickable ${portfolioError ? 'error':''}`}>
                     <div className="dz-message">
                     <input type="file" name="portfolio" id="porfolio" onChange={handlePortfolio} />
                     </div>
                 </div>
-                </div>
+                </div> */}
                 {/* End Form */}
                 {/* Form */}
-                <div className="mb-4">
+                {/* <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobExpectedSalary">Expected salary</label>
                 <input 
                     type="text" 
@@ -620,11 +621,11 @@ function viewGig({ params }: { params: { id: string }}) {
                     value={expectedSalary}
                     onChange={handleSalary}
                 />
-                </div>
+                </div> */}
                 {/* End Form */}
-                <div className="mb-1">
+                {/* <div className="mb-1">
                 <label className="input-label">Do you have experience designing for mobile?</label>
-                </div>
+                </div> */}
                 {/* Radio Button Group */}
                 {/* <div className="btn-group btn-group-segment mb-4" role="group" aria-label="Mobile experience radio button group">
                     <input
@@ -651,7 +652,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 </div> */}
                 {/* End Radio Button Group */}
                 <div className="d-grid mt-5">
-                <button onClick={applyForJob} type="submit" className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Send application</button>
+                <button onClick={applyForJob} type="submit" className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Create profile</button>
                 </div>
             </form>
             {showerror && <h5 style={{ textAlign: 'center', color: 'red', marginTop: '20px'}}>PLEASE CHECK IF ALL FIELDS ARE FILLED</h5>}

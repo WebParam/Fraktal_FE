@@ -137,7 +137,7 @@ const signOut = () => {
                 rel="stylesheet"
               />
                
-              <Script
+              {/* <Script
       strategy="lazyOnload"
       src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
     />
@@ -150,7 +150,7 @@ const signOut = () => {
                   page_path: window.location.pathname,
                   });
               `}
-    </Script>
+    </Script> */}
     </head>
       <body> 
       <div className="top">

@@ -53,24 +53,8 @@ export default function RootLayout({
                 rel="stylesheet"
               />
                
-              <Script
-      strategy="lazyOnload"
-      src={`https://www.googletagmanager.com/gtag/js?id=G-F1NZRBMHZ7`}
-    />
-    <Script strategy="lazyOnload">
-      {`
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', 'G-F1NZRBMHZ7', {
-                  page_path: window.location.pathname,
-                  });
-              `}
-    </Script>
-
-<>
       
-    </>
+
 
       </head>
       <body> 
