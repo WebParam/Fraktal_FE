@@ -14,11 +14,14 @@ import Aos from 'aos';
 import "aos/dist/aos.css"
 // import '@/styles/global.css';
 import { useEffect } from 'react'
-
+import Hotjar from '@hotjar/browser';
 
 
 const inter = Inter({ subsets: ['latin'] }, )
+const siteId = 3827134;
+const hotjarVersion = 6;
 
+Hotjar.init(siteId, hotjarVersion);
 
 // export const metadata: Metadata = {
 //   title: 'Fraktional',
@@ -53,8 +56,25 @@ export default function RootLayout({
                 rel="stylesheet"
               />
                
-      
+              <Script
+      strategy="lazyOnload"
+      src={`https://www.googletagmanager.com/gtag/js?id=G-F1NZRBMHZ7`}
+    />
+    <Script strategy="lazyOnload">
+      {`
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'G-F1NZRBMHZ7', {
+                  page_path: window.location.pathname,
+                  });
+              `}
+    </Script>
 
+<>
+      
+    </>
+    
 
       </head>
       <body> 
