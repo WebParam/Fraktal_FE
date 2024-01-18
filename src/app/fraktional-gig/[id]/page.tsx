@@ -370,42 +370,6 @@ Object.entries(payload).forEach(([key, value]) => {
                 </div>
                 <div className="row">
                 <div className="col-sm-6">
-                    {/* Form */}
-                    <div className="mb-4">
-                    <label className="form-label" htmlFor="applyForJobFirstName">First name</label>
-                    <input 
-                        type="text" 
-                        className={`form-control ${firstNameError ? 'error':''}`} 
-                        name="applyForJobNameFirstName" 
-                        id="applyForJobFirstName" 
-                        placeholder="First name" 
-                        aria-label="First name" 
-                        value={firstName}
-                        onChange={handleFirstName}
-                    />
-                    </div>
-                    {/* End Form */}
-                </div>
-                <div className="col-sm-6">
-                    {/* Form */}
-                    <div className="mb-4">
-                    <label className="form-label" htmlFor="applyForJobLasttName">Last name</label>
-                    <input 
-                        type="text" 
-                        className={`form-control ${lastNameError ? 'error':''}`}
-                        name="applyForJobNameLastName" 
-                        id="applyForJobLasttName" 
-                        placeholder="Last name" 
-                        aria-label="Last name" 
-                        value={lastName}
-                        onChange={handleLastName}
-                    />
-                    </div>
-                    {/* End Form */}
-                </div>
-                </div>
-                {/* End Form */}
-                {/* Form */}
                 <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobEmail">Email address</label>{emailExist && <span style={{color : "red", fontSize:"small",fontWeight:"600", marginLeft:"15px"}}>Email address already exist</span>}
                 <input 
@@ -420,8 +384,8 @@ Object.entries(payload).forEach(([key, value]) => {
                    
                 />
                 </div>
-                {/* End Form */}
-                {/* Form */}
+                </div>
+                <div className="col-sm-6">
                 <div className="js-add-field mb-4" data-hs-add-field-options="{
                     &quot;template&quot;: &quot;#addPhoneFieldTemplate&quot;,
                     &quot;container&quot;: &quot;#addPhoneFieldContainer&quot;,
@@ -452,12 +416,16 @@ Object.entries(payload).forEach(([key, value]) => {
                     </select>
                     {/* End Select */}
                 </div>
-                {/* Container For Input Field */}
-                {/* <div id="addPhoneFieldContainer" />
-                <a href="javascript:;" className="js-create-field form-link">
-                    <i className="bi-plus-circle me-1" /> Add phone
-                </a> */}
+             
                 </div>
+                                </div>
+                </div>
+                {/* End Form */}
+                {/* Form */}
+              
+                {/* End Form */}
+                {/* Form */}
+               
                 {/* End Form */}
                 {/* Add Phone Input Field */}
                 <div id="addPhoneFieldTemplate" style={{display: 'none', position: 'relative'}}>
@@ -480,12 +448,12 @@ Object.entries(payload).forEach(([key, value]) => {
                 </div>
                 </div>
                 {/* End Add Phone Input Field */}
-                <hr className="my-7" />
+                {/* <hr className="my-7" />
                 <div className="mb-4">
                 <h3>Profile</h3>
-                </div>
+                </div> */}
                 {/* Form */}
-                <div className="mb-4">
+                {/* <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobSummary">Summary</label>
                 <textarea 
                 className={`form-control ${summaryError ? 'error':''}`} 
@@ -497,15 +465,17 @@ Object.entries(payload).forEach(([key, value]) => {
                 value={summary}
                 onChange={handleSummary} />
                 {summaryError ? <p style={{color: 'red'}}>Please provide more than 20 characters</p>: ''}
-                </div>
+                </div> */}
                 {/* End Form */}
                 {/* Form */}
                 
                 {/* End Form */}
-                <hr className="my-7" />
+                {/* <hr className="my-7" />
                 <div className="mb-4">
                 <h3>Details</h3>
-                </div>
+                </div> */}
+                <div className="row">
+                <div className="col-sm-6">
                 <div className="mb-1">
                 <label className="input-label">Are you currently working?</label>
                 </div>
@@ -533,7 +503,7 @@ Object.entries(payload).forEach(([key, value]) => {
                 />
                 <label className="btn btn-sm" htmlFor="applyForJobWorkStatusNoBtnRadio"><i className="bi-hand-thumbs-down me-1" /> No</label>
                 
-                {workStatus =="yes" && <div className="">
+                {/* {workStatus =="yes" && <div className="">
                 <label className="form-label" htmlFor="applyForJobNoticePeriod">Please provide some more details about your current job roles and responsibilities</label>
                 <textarea 
                     cols={6}
@@ -546,10 +516,13 @@ Object.entries(payload).forEach(([key, value]) => {
                     onChange={handleJob}
                 />
                 </div>
-                }
+                } */}
                 </div>
+                </div>
+                
                 {/* End Radio Button Group */}
                 {/* Form */}
+                <div className="col-sm-6">
                 <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobNoticePeriod">Years Of Experience</label>
                 <input 
@@ -557,12 +530,16 @@ Object.entries(payload).forEach(([key, value]) => {
                     className={`form-control ${yearsOfExperienceError ? 'error':''}`} 
                     name="applyForJobNameNoticePeriod" 
                     id="applyForJobNoticePeriod" 
-                    placeholder="0" 
-                    aria-label="0"
+                    placeholder="" 
+                    aria-label=""
                     value={yearsOfExperience}
                     onChange={handleYearsOfExperience}
                 />
                 </div>
+                </div>
+                </div>
+                <div className="row">
+                <div className="col-sm-6">
                 <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobNoticePeriod">Notice period</label>
                 <input 
@@ -570,41 +547,46 @@ Object.entries(payload).forEach(([key, value]) => {
                     className={`form-control ${noticeError ? 'error':''}`} 
                     name="applyForJobNameNoticePeriod" 
                     id="applyForJobNoticePeriod" 
-                    placeholder="2 months" 
-                    aria-label="2 months"
+                    placeholder="" 
+                    aria-label=""
                     value={notice}
                     onChange={handleNotice}
                 />
                 </div>
+                </div>
                 {/* End Form */}
                 {/* Form */}
-                <div className="mb-4">
+                {/* <div className="mb-4">
                 <label className="form-label">Upload your portfolio <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Maximum file size 10 MB." data-bs-original-title="Maximum file size 10 MB." /></label>
                 <div id="portfolioAttach" className={`js-dropzone dz-dropzone dz-dropzone-card dz-clickable ${portfolioError ? 'error':''}`}>
                     <div className="dz-message">
                     <input type="file" name="portfolio" id="porfolio" onChange={handlePortfolio} />
                     </div>
                 </div>
-                </div>
+                </div> */}
                 {/* End Form */}
                 {/* Form */}
+       
+                <div className="col-sm-6">
                 <div className="mb-4">
-                <label className="form-label" htmlFor="applyForJobExpectedSalary">Expected salary</label>
+                <label className="form-label" htmlFor="applyForJobExpectedSalary">Expected rate per hour</label>
                 <input 
                     type="text" 
                     className={`form-control ${expectedSalaryEroor ? 'error':''}`} 
                     name="applyForJobNameExpectedSalary" 
                     id="applyForJobExpectedSalary" 
-                    placeholder="$5k-$7k" 
-                    aria-label="$5k-$7k"
+                    placeholder="" 
+                    aria-label=""
                     value={expectedSalary}
                     onChange={handleSalary}
                 />
                 </div>
-                {/* End Form */}
-                <div className="mb-1">
-                <label className="input-label">Do you have experience designing for mobile?</label>
                 </div>
+                </div>
+                {/* End Form */}
+                {/* <div className="mb-1">
+                <label className="input-label">Do you have experience designing for mobile?</label>
+                </div> */}
                 {/* Radio Button Group */}
                 {/* <div className="btn-group btn-group-segment mb-4" role="group" aria-label="Mobile experience radio button group">
                     <input
@@ -631,7 +613,7 @@ Object.entries(payload).forEach(([key, value]) => {
                 </div> */}
                 {/* End Radio Button Group */}
                 <div className="d-grid mt-5">
-                <button onClick={applyForJob} type="submit" className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Send application</button>
+                <button onClick={applyForJob} type="submit" className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Apply</button>
                 </div>
             </form>
             {showerror && <h5 style={{ textAlign: 'center', color: 'red', marginTop: '20px'}}>PLEASE CHECK IF ALL FIELDS ARE FILLED</h5>}
