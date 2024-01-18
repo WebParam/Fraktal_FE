@@ -7,17 +7,21 @@ import halfstar from "../../../assets/svg/illustrations/star-half.svg";
 import laptop from "../../../assets/vendor/bootstrap-icons/icons/laptop.svg";
 import dropbox from "../../../assets/svg/brands/dropbox-icon.svg";
 import googleDrive from "../../../assets/svg/brands/google-drive-icon.svg";
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { escape } from 'querystring';
 import Link from 'next/link';
 import { jobRegistration } from '@/app/endpoints/api';
 import { IApply, IApplyForJobRegistration } from '@/app/interfaces/user';
 import { VerifyOtp } from './verify-otp';
 import Modal from 'react-responsive-modal';
+import MobileMenu from '@/app/components/MobileMenu/MobileMenu';
+import Header from '@/app/components/Header/Header';
+import Footer from '@/app/components/Footer/Footer';
 
 function viewGig({ params }: { params: { id: string }}) {
     const gig = gigs.find(item => item.id === parseInt(params.id));
-
+    const [menuToggler, setMenuToggler] = useState<boolean>(false);
+    const inputFileRef = useRef<HTMLInputElement>(null);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -61,7 +65,10 @@ function viewGig({ params }: { params: { id: string }}) {
     // const [mobileExpError, setMobileExpError] = useState(false);
     const [showerror, setShowErrorMessage] = useState(false);
     const [emailExist, setEmailExist] = useState(false);
-
+    const uploadCVClick = () => {
+        /*Collecting node-element and performing click*/
+        inputFileRef?.current?.click();
+      }
     const handleFirstName = (e: any) => {
         setFirstName(e.target.value);
     }
@@ -263,14 +270,23 @@ Object.entries(payload).forEach(([key, value]) => {
               borderWidth: "1px",
             }),
           };
+
+          console.log("ddsds",resume)
     return (
+        <>
+          <Header 
+            menuTogglerFunction={setMenuToggler} 
+            menuTogglerValue={menuToggler} 
+        />
+        <MobileMenu menuToggler={menuToggler} />
+        
     <main id="content" role="main">
          <Modal styles={customModalStyles}  open={editModalOpen} onClose={() => setEditModalOpen(false)} center>
         <VerifyOtp email = {email} onClose={saveAndCloseEditModal} />
       </Modal>
-        <Link className="back" style={{margin: '40px', display: 'block', color: '#4B4C4E'}} href='/fraktional-gig'>
+        {/* <Link className="back" style={{margin: '40px', display: 'block', color: '#4B4C4E'}} href='/fraktional-gig'>
         <i className="bi bi-chevron-left"></i> back
-        </Link>
+        </Link> */}
         {/* Page Header */}
         <div className="container content-space-t-2">
             <div className="w-lg-75 mx-lg-auto">
@@ -350,10 +366,13 @@ Object.entries(payload).forEach(([key, value]) => {
                     <div className="col-sm-auto">
                     {/* Dropdown */}
                     <div className="dropdown">
-                        <a className="btn" style={{backgroundColor: '#FD2DC3', color: '#fff', width :"200px", fontSize:'small'}} href="#" id="jobImportResumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation>
-                        <input type="file" name="resume" id="resume" onChange={handleResume}/>
+                        <a className="btn" onClick={()=>uploadCVClick()} style={{backgroundColor: '#FD2DC3', color: '#fff', width :"200px", fontSize:'small'}} id="jobImportResumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation>
+                       Upload CV
                         </a>
-                    
+                        <p style={{float: "left",  marginRight: "10px", marginTop: "10px"}}>{resume && <small><i className="bi-file-arrow-up" /> {resume.name}  </small>}</p>
+                        <input type="file"  ref={inputFileRef}
+
+         name="resume" id="resume" onChange={handleResume} style={{display:"none"}}/>
                     </div>
                     {/* End Dropdown */}
                     </div>
@@ -622,6 +641,8 @@ Object.entries(payload).forEach(([key, value]) => {
         </div>
         {/* Content */}
     </main>
+    <Footer />
+    </>
     )
 }
 

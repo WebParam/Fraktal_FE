@@ -15,7 +15,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
 
   return (
     <>
-    <Banner />
+   
     <header className='header'>
       <Link href="/">
         <Image src={logo} priority={true} alt="logo" />

@@ -108,22 +108,18 @@ function jobs() {
                 <h2>Explore over 2 million tech and startup job-opportunities</h2>
                 <p>Find a job you love. <a className="link"  style={{color: '#FD2DC3'}}>Superchange your career.</a></p>
                 </div>
-                {/* End Heading */}
+           
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mb-5">
                
-                {projects.map(gig => (
+                {/* {projects.map(gig => (
                 <div className="col mb-5" key={gig.id}>
-                    {/* Card */}
                     <div className="card card-bordered h-100">
-                    {/* Card Body */}
                     <div className="card-body">
                         <div className="row mb-3">
                         <div className="col">
-                            {/* Media */}
                             <div className="d-flex align-items-center">
                             <div className="flex-shrink-0">
-                                {/* <Image className="avatar avatar-sm avatar-4x3" src={gig.} alt="Image Description" /> */}
-                            </div>
+                             </div>
                             <div className="flex-grow-1 ms-3">
                                 <h6 className="card-title">
                                 <a className="text-dark" href="#">{gig.projectName}</a>
@@ -131,11 +127,8 @@ function jobs() {
                                 </h6>
                             </div>
                             </div>
-                            {/* End Media */}
                         </div>
-                        {/* End Col */}
                         </div>
-                        {/* End Row */}
                         <h3 className="card-title">
                         <Link className="text-dark" href={`/fraktional-gig/${gig.id}`}>
                             {gig.projectSector}
@@ -146,8 +139,6 @@ function jobs() {
                         <span className="legend-indicator bg-info" />{gig.remote}
                         </span>
                     </div>
-                    {/* End Card Body */}
-                    {/* Card Footer */}
                     <div className="card-footer pt-0">
                         <ul className="list-inline list-separator small text-body">
                         <li className="list-inline-item">Posted {gig.fromDate}</li>
@@ -155,11 +146,9 @@ function jobs() {
                         <li className="list-inline-item">{gig.hires}</li>
                         </ul>
                     </div>
-                    {/* End Card Footer */}
                     </div>
-                    {/* End Card */}
                 </div>
-                ))}
+                ))} */}
                
                 {gigs.map(gig => (
                 <div className="col mb-5" key={gig.id}>
@@ -252,10 +241,10 @@ function jobs() {
                         </div>
                         {/* Blockquote */}
                         <figure className="mb-5">
-                        <blockquote className="blockquote blockquote-lg">" Save time and effort in your hiring journey. Fraktiional's simple process let you source, screen, and hire faster. "</blockquote>
+                        <blockquote className="blockquote blockquote-lg">" Save time and effort in your hiring journey. Fraktional's simple process let you source, screen, and hire faster. "</blockquote>
                         <figcaption className="blockquote-footer">
-                            Ameil
-                            <span className="blockquote-footer-source">Project manager | SSN</span>
+                            Nicole
+                            <span className="blockquote-footer-source">Project manager | Param</span>
                         </figcaption>
                         </figure>
                         {/* End Blockquote */}
