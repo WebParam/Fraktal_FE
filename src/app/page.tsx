@@ -18,7 +18,7 @@ import card4 from "../assets/additional/images/meeting1.png";
 import card5 from "../assets/additional/images/meeting2.png";
 import card6 from "../assets/additional/images/meeting3.png";
 import koala from '../assets/additional/koala.png';
-import macbook from '../assets/img/laptop.5e978542.webp';
+import macbook from '../assets/img/laptop.webp';
 import Footer from './components/Footer/Footer';
 
 import dynamic from "next/dynamic";
