@@ -49,6 +49,9 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
           <Link style={{color: '#4B4C4E'}} href='/about'>About</Link>
           </li>
           <li >
+          <Link style={{color: '#4B4C4E'}} href='/blog-posts'>News</Link>
+          </li>
+          <li >
           <Link style={{color: '#4B4C4E'}} href='/faq'>FAQ</Link>
           </li>
           <li className="dropdown liTwoDesk">

@@ -15,10 +15,11 @@ import "aos/dist/aos.css"
 // import '@/styles/global.css';
 import { useEffect } from 'react'
 import Hotjar from '@hotjar/browser';
+import Head from 'next/head'
 
 
 const inter = Inter({ subsets: ['latin'] }, )
-const siteId = 3827134;
+const siteId = 3827134; 
 const hotjarVersion = 6;
 
 Hotjar.init(siteId, hotjarVersion);
@@ -44,6 +45,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+      <Head>
+        <title>
+          iPhone 12 XS Max For Sale in Colorado - Big Discounts | Apple
+        </title>
+        <meta
+          name="description"
+          content="Check out iPhone 12 XR Pro and iPhone 12 Pro Max. Visit your local store and for expert advice."
+          key="desc"
+        />
+      </Head>
       <link rel="icon" href="/favicon.ico" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />
               <link

@@ -7,6 +7,7 @@ import { GetBlog } from "../endpoints/api";
 import { useRouter } from 'next/navigation';
 import Cookies from "universal-cookie";
 import './blog.scss';
+import Head from 'next/head';
 
 function Blogs() {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
@@ -44,6 +45,17 @@ function Blogs() {
   
   return (
     <>
+    <Head>
+        <title>
+          iPhone 12 XS Max For Sale in Colorado - Big Discounts | Apple
+        </title>
+        <meta
+          name="description"
+          content="Check out iPhone 12 XR Pro and iPhone 12 Pro Max. Visit your local store and for expert advice."
+          key="desc"
+        />
+      </Head>
+      
       <Header
         menuTogglerFunction={setMenuToggler}
         menuTogglerValue={menuToggler}
@@ -62,7 +74,8 @@ function Blogs() {
           onClick={handleBlogClick}
           href={`/blog-posts/${data.id}`}> 
           <img
-            className="h-auto max-w-full rounded-lg"
+            className=" max-w-full rounded-lg" 
+            style={{height: '300px', width: '100%'}}
             src={data.jetpack_featured_media_url}
             alt=""
           />
@@ -74,13 +87,13 @@ function Blogs() {
                     >
 
                     <h3 className="mb-5" style={{color: '#252525'}}
-                    dangerouslySetInnerHTML={{__html: data.title.rendered.substring(0,40)}}
+                    dangerouslySetInnerHTML={{__html: `${data.title.rendered.substring(0,60)} ${data.title.rendered.length>60?'...':''}`}}
                                 />
                       {/* {data.title.rendered.substring(0,40)} */}
                     </a>
                     <p className="mt-3 text-sm text-gray-500 dark:text-gray-300 md:text-sm ">
                       <p className="mb-5" style={{color: '#252525'}}
-                            dangerouslySetInnerHTML={{__html: data.content.rendered.substring(0,150)}}
+                            dangerouslySetInnerHTML={{__html: `${data.content.rendered.substring(0,200)} ${data.content.rendered.length>200?'...':''}`}}
                                   />
                     </p>
                     <p className="mt-3 text-sm text-blue-500">{ moment(data.date).format("DD/MM/YYYY")}</p>

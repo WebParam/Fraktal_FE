@@ -7,6 +7,8 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 
+
+
 export default function BlogPost() {
     const [blogs, setBlogs] = useState<any[]>([]);
     const [blog, setBlog] = useState<any>({});
@@ -43,6 +45,7 @@ export default function BlogPost() {
        
       
         <div>
+          
              <Header
         menuTogglerFunction={setMenuToggler}
         menuTogglerValue={menuToggler}
