@@ -8,6 +8,8 @@ import { useRouter } from 'next/navigation';
 import Cookies from "universal-cookie";
 import './blog.scss';
 import Head from 'next/head';
+import Layout from "../layout";
+
 
 function Blogs() {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
@@ -45,17 +47,10 @@ function Blogs() {
   
   return (
     <>
-    <Head>
-        <title>
-          iPhone 12 XS Max For Sale in Colorado - Big Discounts | Apple
-        </title>
-        <meta
-          name="description"
-          content="Check out iPhone 12 XR Pro and iPhone 12 Pro Max. Visit your local store and for expert advice."
-          key="desc"
-        />
-      </Head>
-      
+    <Layout
+        title='fraktional'  description="hhhhh" type="dddd"
+      >
+    
       <Header
         menuTogglerFunction={setMenuToggler}
         menuTogglerValue={menuToggler}
@@ -110,6 +105,7 @@ function Blogs() {
       </main>
 
       <Footer />
+      </Layout>
     </>
   );
 }

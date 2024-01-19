@@ -26,26 +26,20 @@ import React, { useEffect, useState } from 'react';
 import Header from './components/Header/Header'
 import MobileMenu from './components/MobileMenu/MobileMenu';
 import TransitionsModal from './components/Modal/TransitionsModal';
+import Layout from './layout';
 
 
 function HomePage() {
   const [menuToggler, setMenuToggler] = useState(false);
+  console.log
 
 
   return (
     <div>
-
-    <Head>
-        <title>
-          Home page
-        </title>
-        <meta
-          name="description"
-          content="fraktional dev param web developemt"
-          key="desc"
-        />
-      </Head>
-
+      <Layout
+        title='fraktional'  description="hhhhh" type="dddd"
+      >
+        
       <Header 
         menuTogglerFunction={setMenuToggler} 
         menuTogglerValue={menuToggler} 
@@ -115,7 +109,7 @@ function HomePage() {
             {/* Card */}
             <div className="card card-sm h-100">
               <div className="p-2">
-                <Image className="card-img" src={card1} alt="Image Description" />
+                <img className="card-img" src='https://res.cloudinary.com/domhrpxzy/image/upload/v1705670437/u5c23bccyozjzzrcp2et.png' alt="Image Description" />
               </div>
               <div className="card-body">
                 <h4 className="card-title">Softwear engineers:</h4>
@@ -403,6 +397,7 @@ function HomePage() {
     </main>
     {/* ========== END MAIN CONTENT ========== */}
     <Footer />
+    </Layout>
   </div>
   )
 }

@@ -29,6 +29,7 @@
     "react-ga": "^3.3.1",
     "react-google-autocomplete": "^2.7.3",
     "react-google-charts": "^4.0.1",
+    "react-helmet-async": "^2.0.4",
     "react-icons": "^4.11.0",
     "react-initials-avatar": "^1.1.2",
     "react-loading-skeleton": "^3.3.1",

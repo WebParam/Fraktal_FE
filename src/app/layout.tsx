@@ -16,10 +16,12 @@ import "aos/dist/aos.css"
 import { useEffect } from 'react'
 import Hotjar from '@hotjar/browser';
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+
 
 
 const inter = Inter({ subsets: ['latin'] }, )
-const siteId = 3827134; 
+const siteId = 3832611; 
 const hotjarVersion = 6;
 
 Hotjar.init(siteId, hotjarVersion);
@@ -29,11 +31,17 @@ Hotjar.init(siteId, hotjarVersion);
 //   description: 'Fraktional developers ',
 // }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+interface RootLayoutProps {
+  children: any;
+  pageMeta?:any;
+  title: any;
+  description: any;
+  type: any;
+}
+
+export default function Layout({ children, title, description, type, pageMeta }: RootLayoutProps) {
+
+
   
   useEffect(() => {
     // here you can add your aos options
@@ -42,19 +50,34 @@ export default function RootLayout({
     });
   }, []);
 
+  // const meta = {
+  //   title: ' iPhone 12 XS Max For Sale in Colorado - Big Discounts | Apple',
+  //   description: 'Check out iPhone 12 XR Pro and iPhone 12 Pro Max. Visit your local store and for expert advice.',
+  //   type: 'website',
+  //   ...pageMeta, 
+  // }
+
   return (
     <html lang="en">
       <head>
-      <Head>
+      
         <title>
-          iPhone 12 XS Max For Sale in Colorado - Big Discounts | Apple
+            {title}
         </title>
         <meta
           name="description"
-          content="Check out iPhone 12 XR Pro and iPhone 12 Pro Max. Visit your local store and for expert advice."
+          content={description}
           key="desc"
         />
-      </Head>
+
+  
+        <meta property='og:type' content={type} />
+        <meta property='og:site_name' content='fraktional' />
+        <meta property='og:description' content={description} />
+        <meta property='og:title' content={title} />
+
+
+     
       <link rel="icon" href="/favicon.ico" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />
               <link
@@ -82,16 +105,13 @@ export default function RootLayout({
               `}
     </Script>
 
-<>
-      
-    </>
+
+
     
 
       </head>
       <body> 
-        
       {children}
-     
       </body>
     </html>
   )
