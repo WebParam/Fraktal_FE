@@ -18,6 +18,7 @@ import card4 from "../assets/additional/images/meeting1.png";
 import card5 from "../assets/additional/images/meeting2.png";
 import card6 from "../assets/additional/images/meeting3.png";
 import koala from '../assets/additional/koala.png';
+import macbook from '../assets/img/laptop.5e978542.webp';
 import Footer from './components/Footer/Footer';
 
 import dynamic from "next/dynamic";
@@ -109,7 +110,7 @@ function HomePage() {
             {/* Card */}
             <div className="card card-sm h-100">
               <div className="p-2">
-                <img className="card-img" src='https://res.cloudinary.com/domhrpxzy/image/upload/v1705670437/u5c23bccyozjzzrcp2et.png' alt="Image Description" />
+                <Image className="card-img" src={macbook} alt="Image Description" />
               </div>
               <div className="card-body">
                 <h4 className="card-title">Softwear engineers:</h4>

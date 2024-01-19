@@ -14,6 +14,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { GetAllProjects, GetProjectById } from '../endpoints/api';
 import { IJobApplication } from '../interfaces/IJobApplication';
+import Layout from '../layout';
 
 function jobs() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
@@ -34,6 +35,9 @@ function jobs() {
 
     return (
     <>
+    <Layout
+        title='fraktional'  description="hhhhh" type="dddd"
+      >
         <Header 
             menuTogglerFunction={setMenuToggler} 
             menuTogglerValue={menuToggler} 
@@ -476,6 +480,7 @@ function jobs() {
             {/* End Card Grid */}
         </main>
         <Footer />
+        </Layout>
     </>
     )
 }

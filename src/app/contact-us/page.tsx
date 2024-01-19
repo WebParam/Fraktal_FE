@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MobileMenu from '../components/MobileMenu/MobileMenu';
 import './contactus.scss';
+import Layout from '../layout';
 
 const contactus = () => {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
@@ -52,6 +53,9 @@ const contactus = () => {
   
   return (
     <div>
+       <Layout
+        title='fraktional'  description="hhhhh" type="dddd"
+      >
         <>
   {/* ========== HEADER ========== */}
   <Header 
@@ -712,7 +716,7 @@ const contactus = () => {
   {/* JS Implementing Plugins */}
   {/* JS Front */}
   {/* JS Plugins Init. */}
-</>
+</></Layout>
 
     </div>
   )
