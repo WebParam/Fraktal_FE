@@ -30,7 +30,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
           </li>
           
           <li className="dropdown-li liOneDesk">
-          Get a F/ Dev <i className="bi bi-chevron-down"></i>
+            F/ Dev <i className="bi bi-chevron-down"></i>
             <div className='dropdown-Items dropdownOne'>
               <Link href='/fraktional-dev'>Start Hiring on Fraktional</Link>
               {/* <Link href='/faq'>FAQ</Link> */}
@@ -38,9 +38,9 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
             </div>
           </li>
           <li className="dropdown-li liOneDesk">
-          Get a F/ Gig <i className="bi bi-chevron-down"></i>
+          F/ Gig <i className="bi bi-chevron-down"></i>
             <div className='dropdown-Items dropdownOne'>
-              <Link href='/fraktional-gig'>Fraktional Gigs</Link>
+              <Link href='/fraktional-gig'>Find a Fraktional Gig</Link>
               {/* <Link href='/devfaq'>FAQ</Link> */}
             
             </div>

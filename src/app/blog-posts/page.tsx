@@ -22,7 +22,7 @@ function Blogs() {
 
   const handleBlogClick = (blog: any) => {
     router.push(`/blog-posts/${blog.id}`);
-    cookies.set('blog', blog);
+    // cookies.set('blog', blog);
     return;
   };
 
@@ -61,6 +61,11 @@ function Blogs() {
       <main id="content" role="main" className="pt-40 pb-20">
 
         <a></a>
+         {/* Heading */}
+         <div className="mb-5 mb-md-10" style={{textAlign:"center"}}>
+                    <h1 className="display-4" style={{color: '#4B4C4E'}}>News & Blog</h1>
+                    <p className="lead">Keep up to date with the latest news and developments.</p>
+                </div>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4" style={{padding: '5%'}}>
 
             {Array.isArray(blogData) && blogData.map((data: any, index: number) => (
@@ -82,7 +87,7 @@ function Blogs() {
                     >
 
                     <h3 className="mb-5" style={{color: '#252525'}}
-                    dangerouslySetInnerHTML={{__html: `${data.title.rendered.substring(0,60)} ${data.title.rendered.length>60?'...':''}`}}
+                    dangerouslySetInnerHTML={{__html: `${data.title.rendered.substring(0,50)} ${data.title.rendered.length>60?'...':''}`}}
                                 />
                       {/* {data.title.rendered.substring(0,40)} */}
                     </a>

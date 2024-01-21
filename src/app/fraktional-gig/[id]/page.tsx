@@ -17,9 +17,12 @@ import Modal from 'react-responsive-modal';
 import MobileMenu from '@/app/components/MobileMenu/MobileMenu';
 import Header from '@/app/components/Header/Header';
 import Footer from '@/app/components/Footer/Footer';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function viewGig({ params }: { params: { id: string }}) {
     const gig = gigs.find(item => item.id === parseInt(params.id));
+    debugger;
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const inputFileRef = useRef<HTMLInputElement>(null);
     const [firstName, setFirstName] = useState('');
@@ -125,7 +128,7 @@ function viewGig({ params }: { params: { id: string }}) {
           const fileName = file.name;
           setResume(file);
       
-      
+          setResumeError(false);
         }
       };
       
@@ -137,26 +140,16 @@ function viewGig({ params }: { params: { id: string }}) {
       const handleSubmit = (e: any) => {
             e.preventDefault();
 
-            if (!firstName.trim()) {
-                setFirstNameError(true);
+            if(resume==undefined){
+                setResumeError(true);
                 setShowErrorMessage(true);
-                return;
-            } else {
-                setFirstNameError(false)
-                setShowErrorMessage(false);
+               return;
             }
-
-            if (!lastName.trim()) {
-                setLastNameError(true);
-                setShowErrorMessage(true);
-            } else {
-                setLastNameError(false);
-                setShowErrorMessage(false);
-            }
+         
             
             if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
                 setEmailError(true);
-                setShowErrorMessage(true);
+                setShowErrorMessage(true);return;
             } else {
                 setEmailError(false);
                 setShowErrorMessage(false);
@@ -164,30 +157,22 @@ function viewGig({ params }: { params: { id: string }}) {
         
             if (!phone || !/^\d+$/.test(phone)) {
                setPhoneError(true)
-               setShowErrorMessage(true);
+               setShowErrorMessage(true);return;
             } else {
                 setPhoneError(false);
                 setShowErrorMessage(false);
             }
 
-            if (summary.length < 20) {
-                setSummaryError(true);
-                setShowErrorMessage(true);
-            } else {
-                setSummaryError(false);
-                setShowErrorMessage(false); 
-            }
-
             if (!resume) {
                 setResumeError(true);
-                setShowErrorMessage(true);
+                setShowErrorMessage(true);return;
             } else {
                 setResumeError(false);
                 setShowErrorMessage(false);
             }
-            if (!yearsOfExperienceError || !/^\d+$/.test(yearsOfExperience)) {
+            if (!yearsOfExperienceError) {
                 setyearsOfExperienceError(true)
-                setShowErrorMessage(true);
+                setShowErrorMessage(true);return;
              } else {
                 setyearsOfExperienceError(false);
                  setShowErrorMessage(false);
@@ -195,35 +180,45 @@ function viewGig({ params }: { params: { id: string }}) {
 
             if (!notice.trim()) {
                 setnoticeError(true);
-                setShowErrorMessage(true);
+                setShowErrorMessage(true);return;
             } else {
                 setnoticeError(false);
                 setShowErrorMessage(false);
             }
             
-            if (!portfolio) {
-                setPortfolioError(true);
-                setShowErrorMessage(true);
-            } else {
-                setPortfolioError(false);
-                setShowErrorMessage(false);
-            }
+          
 
             if (!/^\d+$/.test(expectedSalary)) {
                 setExpectedSalaryError(true);
-                setShowErrorMessage(true);
+                setShowErrorMessage(true);return;
             } else {
                 setExpectedSalaryError(false);
                 setShowErrorMessage(false);
             }
+            applyForJob(e);
         }   
 
 
         const applyForJob = async (e: any) => {
             e.preventDefault();
-      
+            let _id = toast.loading("Creating your profile..", {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+          
 const payload = {
     email: email,
+    phone: phone,
+    employed: workStatus,
+    experience: yearsOfExperience,
+    notice: notice,
+    rate: expectedSalary,
     file: resume,
 } as IApply;
 
@@ -236,10 +231,26 @@ Object.entries(payload).forEach(([key, value]) => {
             
             const registrationResult = await jobRegistration(formData, email) ;
             debugger;
+          
             console.log(registrationResult)
             if(registrationResult?.bool){
                 setEditModalOpen(true)
+                toast.update(_id, {
+                    render: "Your profile has been created. Please check your email and login to verify and complete your details.",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 5000,
+                  });
+                  window.location.href = "/auth/login"
+
             }else if(!registrationResult?.bool){
+                debugger;
+                toast.update(_id, {
+                    render: "Profile not created, please try again.",
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 5000
+                  });
                 setEmailExist(true)
                 window.scrollTo({
                     top: 10,
@@ -284,6 +295,8 @@ Object.entries(payload).forEach(([key, value]) => {
          <Modal styles={customModalStyles}  open={editModalOpen} onClose={() => setEditModalOpen(false)} center>
         <VerifyOtp email = {email} onClose={saveAndCloseEditModal} />
       </Modal>
+
+      <ToastContainer />
         {/* <Link className="back" style={{margin: '40px', display: 'block', color: '#4B4C4E'}} href='/fraktional-gig'>
         <i className="bi bi-chevron-left"></i> back
         </Link> */}
@@ -353,8 +366,12 @@ Object.entries(payload).forEach(([key, value]) => {
         <div className="container content-space-1 content-space-b-lg-3">
             <div className="w-lg-75 mx-lg-auto">
             {/* Card */}
+            <div className="row align-items-sm-center" style={{padding:"5%",marginBottom:"5%"}}>
+                    {gig?.description}
+            </div>
             <div className="card card-bordered mb-10">
                 <div className="card-body">
+                
                 <div className="row align-items-sm-center">
                     <div className="col-sm mb-2 mb-sm-0">
                     <h5 className="card-title text-uppercase">
@@ -374,6 +391,7 @@ Object.entries(payload).forEach(([key, value]) => {
 
          name="resume" id="resume" onChange={handleResume} style={{display:"none"}}/>
                     </div>
+                    {resumeError && <span style={{color : "red",fontWeight:"600", fontSize:"10px",marginLeft:"15px"}}>Please attach your resume</span>}
                     {/* End Dropdown */}
                     </div>
                     {/* End Col */}
@@ -390,7 +408,8 @@ Object.entries(payload).forEach(([key, value]) => {
                 <div className="row">
                 <div className="col-sm-6">
                 <div className="mb-4">
-                <label className="form-label" htmlFor="applyForJobEmail">Email address</label>{emailExist && <span style={{color : "red", fontSize:"small",fontWeight:"600", marginLeft:"15px"}}>Email address already exist</span>}
+                <label className="form-label" htmlFor="applyForJobEmail">Email address *</label>
+                {/* {emailExist && <span style={{color : "red", fontSize:"small",fontWeight:"600", marginLeft:"15px"}}>Email address already registered</span>} */}
                 <input 
                     type="email" 
                     className={`form-control ${emailError ? 'error':''}`} 
@@ -410,7 +429,7 @@ Object.entries(payload).forEach(([key, value]) => {
                     &quot;container&quot;: &quot;#addPhoneFieldContainer&quot;,
                     &quot;defaultCreated&quot;: 0
                 }">
-                <label className="form-label" htmlFor="applyForJobPhone">Phone</label>
+                <label className="form-label" htmlFor="applyForJobPhone">Phone *</label>
                 <div className="input-group">
                     <input 
                         type="text" 
@@ -496,7 +515,7 @@ Object.entries(payload).forEach(([key, value]) => {
                 <div className="row">
                 <div className="col-sm-6">
                 <div className="mb-1">
-                <label className="input-label">Are you currently working?</label>
+                <label className="input-label">Are you currently working? *</label>
                 </div>
                 {/* Radio Button Group */}
                 <div className="btn-group col-md-12 btn-group-segment mb-4" role="group" aria-label="Work status radio button group">
@@ -543,7 +562,7 @@ Object.entries(payload).forEach(([key, value]) => {
                 {/* Form */}
                 <div className="col-sm-6">
                 <div className="mb-4">
-                <label className="form-label" htmlFor="applyForJobNoticePeriod">Years Of Experience</label>
+                <label className="form-label" htmlFor="applyForJobNoticePeriod">Years Of Experience *</label>
                 <input 
                     type="text" 
                     className={`form-control ${yearsOfExperienceError ? 'error':''}`} 
@@ -560,7 +579,7 @@ Object.entries(payload).forEach(([key, value]) => {
                 <div className="row">
                 <div className="col-sm-6">
                 <div className="mb-4">
-                <label className="form-label" htmlFor="applyForJobNoticePeriod">Notice period</label>
+                <label className="form-label" htmlFor="applyForJobNoticePeriod">Notice period *</label>
                 <input 
                     type="text" 
                     className={`form-control ${noticeError ? 'error':''}`} 
@@ -588,7 +607,7 @@ Object.entries(payload).forEach(([key, value]) => {
        
                 <div className="col-sm-6">
                 <div className="mb-4">
-                <label className="form-label" htmlFor="applyForJobExpectedSalary">Expected rate per hour</label>
+                <label className="form-label" htmlFor="applyForJobExpectedSalary">Expected rate per hour *</label>
                 <input 
                     type="text" 
                     className={`form-control ${expectedSalaryEroor ? 'error':''}`} 
@@ -631,11 +650,13 @@ Object.entries(payload).forEach(([key, value]) => {
                     <label className="btn btn-sm" htmlFor="applyForJobWorkExperienceNoBtnRadio"><i className="bi-hand-thumbs-down me-1" /> No</label>
                 </div> */}
                 {/* End Radio Button Group */}
+                {showerror && <h5 style={{ textAlign: 'center', color: 'red',  fontSize:"12px",marginTop: '20px'}}>Please complete all required fields</h5>}
+            {emailExist && <h5 style={{ textAlign: 'center', color: 'red', fontSize:"12px", marginTop: '20px'}}>Error sending application. If you have registered previously, please login and try again.</h5>}
                 <div className="d-grid mt-5">
-                <button onClick={applyForJob} type="submit" className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Apply</button>
+                <button type="submit" className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Apply</button>
                 </div>
             </form>
-            {showerror && <h5 style={{ textAlign: 'center', color: 'red', marginTop: '20px'}}>PLEASE CHECK IF ALL FIELDS ARE FILLED</h5>}
+         
             {/* End Form */}
             </div>
         </div>
