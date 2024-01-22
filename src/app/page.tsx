@@ -112,13 +112,13 @@ function HomePage() {
             {/* Card */}
             <div className="card card-sm h-100">
               <div className="p-2" >
-              {/* <img
+              <img
                 className="card-img"
                 src="https://res.cloudinary.com/domhrpxzy/image/upload/v1705914738/rsuia2h2tlt9utkt8ifr.png"
                 alt="Image Description"
                 width={300}
                 height={400}
-              /> */}
+              />
               </div>
               <div className="card-body">
                 <h4 className="card-title">Softwear engineers:</h4>
