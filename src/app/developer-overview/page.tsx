@@ -21,9 +21,11 @@ import dynamic from "next/dynamic";
 import { Logout } from "../lib/function";
 import InitialsAvatar from 'react-initials-avatar';
 import 'react-initials-avatar/lib/ReactInitialsAvatar.css';
-import { IOption, degrees, getLabelFromValue, getOptionFromValue, universities } from "../lib/data";
+import { IOption, degrees, getLabelFromValue, getOptionFromValue, skills, universities } from "../lib/data";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { StylesConfig } from 'react-select';
+// const moment = require("moment");
 
 const cookies = new Cookies();
 
@@ -44,6 +46,7 @@ function developerOverview() {
   const [yearsOfExperience, setYearsOfExperience] = useState("");
   const [education, setEducation] = useState<IEducationInformation[]>([]);
   const [keyCourses, setKeyCourses] = useState("");
+  const [keySkills, setKeySkills] = useState([]);
   const [cvUrl, setCVUrl] = useState("");
   const [_user, setUser] = useState("");
   const [preferedWorkMethod, setPreferedWorkMethod] = useState("");
@@ -66,6 +69,10 @@ function developerOverview() {
   const [wrk_responsibilitiesError, setWrk_responsibilitiesError] = useState(false);
   const [wrk_locationError, setWrkLocationError] = useState(false);
 
+
+  const [menuItem, setMenu] = useState(1);
+
+  
 
   const [edu_InsituteName, setEduInstituteName] = useState("");
   const [edu_Qualification, setEduQualification] = useState("");
@@ -192,6 +199,7 @@ async function _GetDeveloperProfile(id:string){
   setUser(res?.data?.user); // change
   setPreferedWorkMethod(res?.data?.preferedWorkMethod);
   setExistingUser(true);
+  setKeySkills(res?.data?.keySkills);
   }
   setTimeout(() => {
     // setDisable(false)
@@ -337,6 +345,16 @@ useEffect(() => {
   async function updateProfile(){
     // setSaving(true)
     setHasChanged(false)
+    let _id = toast.loading("Updating your profile..", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
 
   let payload = {
       firstName:firstName,
@@ -373,7 +391,7 @@ useEffect(() => {
       const res = await CreateDeveloperProfile(payload);
     }
     
-
+    toast.dismiss(_id);
   }
 
   function getURL(){
@@ -394,7 +412,7 @@ const style = {
   })
 };
 
-console.log("DDD", deleteProfileAccept);
+console.log("DDD", loggedInUser);
     return (
       <>
       <div className="top">
@@ -428,7 +446,7 @@ console.log("DDD", deleteProfileAccept);
   </div>
   {/* End Breadcrumb */}
   {/* Content */}
-  <div className="container content-space-1 content-space-t-lg-0 content-space-b-lg-2 mt-lg-n10">
+  <div data-aos="fade-right" className="container content-space-1 content-space-t-lg-0 content-space-b-lg-2 mt-lg-n10">
     <div className="row">
       <div className="col-lg-3">
         {/* Navbar */}
@@ -452,25 +470,32 @@ console.log("DDD", deleteProfileAccept);
                 <span className="text-cap">Account</span>
                 {/* List */}
                 <ul className="nav nav-sm nav-tabs nav-vertical mb-4">
-                  <li className="nav-item">
-                    <a className="nav-link active" style={{cursor: 'pointer'}}>
+                  <li className="nav-item"  onClick={()=>setMenu(1)} >
+                    <a className={menuItem==1?"nav-link active" :"nav-link"} style={{cursor: 'pointer'}}>
                       <i className="bi-person-badge nav-icon" /> Personal info
                     </a>
                   </li>
+                 
                   <li className="nav-item">
-                    <a className="nav-link" href='/' style={{pointerEvents: 'none', cursor: 'none', opacity: '.5'}}>
-                      <i className="bi-shield-shaded nav-icon" /> Security
+                    <a className="nav-link " style={{pointerEvents: 'none', cursor:'none', opacity: '.5'}}>
+                      <i className="bi-briefcase nav-icon" /> Gigs
                     </a>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link " style={{pointerEvents: 'none', cursor: 'none', opacity: '.5'}}>
-                      <i className="bi-bell nav-icon" /> Notifications
+                      <i className="bi-calendar nav-icon" /> Interviews
                       {/* <span className="badge bg-soft-dark text-dark rounded-pill nav-link-badge">1</span> */}
                     </a>
                   </li>
+                  
                   <li className="nav-item">
                     <a className="nav-link " style={{pointerEvents: 'none', cursor:'none', opacity: '.5'}}>
-                      <i className="bi-sliders nav-icon" /> Preferences
+                      <i className="bi-bell nav-icon" /> Notifications
+                    </a>
+                  </li>
+                  <li className="nav-item" onClick={()=>setMenu(2)}>
+                    <a className={menuItem==2?"nav-link active" :"nav-link"}   style={{cursor: 'pointer'}}>
+                      <i className="bi-shield-shaded nav-icon" /> Security
                     </a>
                   </li>
                   <li className="nav-item">
@@ -490,7 +515,10 @@ console.log("DDD", deleteProfileAccept);
       <div className="col-lg-9">
         <div className="d-grid gap-3 gap-lg-5">
           {/* Card */}
-          <div className="card">
+          
+          {menuItem==1 &&
+            <>
+                    <div className="card" data-aos="fade-left">
             <div className="card-header border-bottom">
               <h4 className="card-header-title">Basic info</h4>
             </div>
@@ -531,9 +559,9 @@ console.log("DDD", deleteProfileAccept);
                   <label htmlFor="firstNameLabel" className="col-sm-3 col-form-label form-label">Full name <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Displayed on public forums, such as Front." /></label>
                   <div className="col-sm-9">
                     <div className="input-group">
-                      <input type="text" onChange={(e)=> setFirstName(e.target.value)} defaultValue={firstName!="" ? firstName: loggedInUser.firstName} className="form-control" name="firstName" id="firstNameLabel" placeholder="Enter first name" aria-label="Clarice" />
+                      <input type="text" onChange={(e)=> setFirstName(e.target.value)} defaultValue={firstName!="" && firstName!=undefined? firstName: loggedInUser.firstName} className="form-control" name="firstName" id="firstNameLabel" placeholder="Enter first name" aria-label="Clarice" />
                       {/* <small>This field is required</small> */}
-                      <input type="text" onChange={(e)=> setSurname(e.target.value)} defaultValue={surname!="" ?surname: loggedInUser.surname} className="form-control" name="lastName" id="lastNameLabel" placeholder="Enter last name" aria-label="Boone"  />
+                      <input type="text" onChange={(e)=> setSurname(e.target.value)} defaultValue={surname!="" && surname!=undefined ?surname: loggedInUser.surname} className="form-control" name="lastName" id="lastNameLabel" placeholder="Enter last name" aria-label="Boone"  />
                     </div>
                   </div>
                 </div>
@@ -898,7 +926,11 @@ console.log("DDD", deleteProfileAccept);
                             { getLabelFromValue(
                               x.instituteName,
                                 universities
-                              ) ?? ""
+                              ) ==""? x.instituteName
+                              :getLabelFromValue(
+                                x.instituteName,
+                                  universities
+                                )
                             }
 
                             </span>
@@ -1039,15 +1071,56 @@ console.log("DDD", deleteProfileAccept);
             </div>
             {/* End Body */}
           </div>
+
+          <div className="card">
+            <div className="card-header border-bottom">
+              <h4 className="card-header-title">Competencies</h4>
+            </div>
+            {/* Body */}
+              <div className="card-body">
+              <div className="mb-4">
+              <div className="row mb-4">
+                  <label htmlFor="firstNameLabel" className="col-sm-3 col-form-label form-label">Your competencies <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Displayed on public forums, such as Front." /></label>
+                  <div className="col-sm-9">
+                    <div className="input-group">
+                    <Select
+                    className="form-control selectControl"
+                  
+                    options={skills}
+                    value={getOptionFromValue(keySkills, skills)}
+                    placeholder="Search Skills"
+                    styles={style}
+                    onChange={
+                      ()=>{}
+                    }
+                    isSearchable={true}
+                    isMulti={true}
+                  />
+                    </div>
+                  </div>
+                </div>
+                
+                
+                  
+                
+              </div>
+            </div>
+            </div>
+            
+              
           <div className="card-footer pt-0">
                 <div className="d-flex justify-content-end gap-3">
                   <a className="btn btn-white" href="javascript:;">Cancel</a>
                   <a className="btn" onClick={()=>updateProfile()} style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Save changes</a>
                 </div>
               </div>
+          </>
+          }
+
           
           {/* Card */}
-          <div className="card">
+          {menuItem==2 &&
+          <div className="card" data-aos="fade-left">
             <div className="card-header border-bottom">
               <h4 className="card-header-title">Delete your account</h4>
             </div>
@@ -1096,6 +1169,7 @@ console.log("DDD", deleteProfileAccept);
             </div>
             {/* End Body */}
           </div>
+          }
           {/* End Card */}
           
         </div>

@@ -22,7 +22,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function viewGig({ params }: { params: { id: string }}) {
     const gig = gigs.find(item => item.id === parseInt(params.id));
-    debugger;
+
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const inputFileRef = useRef<HTMLInputElement>(null);
     const [firstName, setFirstName] = useState('');
@@ -170,7 +170,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 setResumeError(false);
                 setShowErrorMessage(false);
             }
-            if (!yearsOfExperienceError) {
+            if (!yearsOfExperience) {
                 setyearsOfExperienceError(true)
                 setShowErrorMessage(true);return;
              } else {
@@ -233,8 +233,8 @@ Object.entries(payload).forEach(([key, value]) => {
             debugger;
           
             console.log(registrationResult)
-            if(registrationResult?.bool){
-                setEditModalOpen(true)
+            if(registrationResult?._user){
+                // setEditModalOpen(true)
                 toast.update(_id, {
                     render: "Your profile has been created. Please check your email and login to verify and complete your details.",
                     type: "success",
@@ -243,7 +243,7 @@ Object.entries(payload).forEach(([key, value]) => {
                   });
                   window.location.href = "/auth/login"
 
-            }else if(!registrationResult?.bool){
+            }else{
                 debugger;
                 toast.update(_id, {
                     render: "Profile not created, please try again.",

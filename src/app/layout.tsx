@@ -34,12 +34,13 @@ Hotjar.init(siteId, hotjarVersion);
 interface RootLayoutProps {
   children: any;
   pageMeta?:any;
-  title: any;
-  description: any;
-  type: any;
+  title?: any;
+  description?: any;
+  type?: any;
+  ogImage?: any;
 }
 
-export default function Layout({ children, title, description, type, pageMeta }: RootLayoutProps) {
+export default function Layout({ children, title, description, type, pageMeta,ogImage }: RootLayoutProps) {
 
 
   
@@ -75,6 +76,7 @@ export default function Layout({ children, title, description, type, pageMeta }:
         <meta property='og:site_name' content='fraktional' />
         <meta property='og:description' content={description} />
         <meta property='og:title' content={title} />
+        <meta property='og:image' content={ogImage} />
 
 
      

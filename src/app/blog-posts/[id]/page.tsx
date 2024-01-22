@@ -3,6 +3,7 @@ import Footer from "@/app/components/Footer/Footer";
 import Header from "@/app/components/Header/Header";
 import MobileMenu from "@/app/components/MobileMenu/MobileMenu";
 import { GetBlog } from "@/app/endpoints/api";
+import Layout from "@/app/layout";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
@@ -45,7 +46,12 @@ export default function BlogPost() {
        
       
         <div>
-          
+               <Layout
+                  title={ `Fraktional Blog #${blog?.id}`}
+                  description={ blog?.title?.rendered} 
+                  type="blog" 
+                  ogImage={blog?.jetpack_featured_media_url}
+                >
              <Header
         menuTogglerFunction={setMenuToggler}
         menuTogglerValue={menuToggler}
@@ -86,6 +92,7 @@ export default function BlogPost() {
                                 />
                 </div>
                 <Footer />
+                </Layout>
            </div>
       )
 }

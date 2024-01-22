@@ -22,8 +22,8 @@ function jobs() {
 
     const loadAllProjects = async()=>{
         const res = await GetAllProjects() as any ;
-        debugger;
-        const resData = res.data.map((x:any)=>x.data) as IJobApplication[];
+    
+        const resData = res?.data?.map((x:any)=>x.data) as IJobApplication[];
         setProjects(resData);    
       }
 
