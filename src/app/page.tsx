@@ -113,6 +113,7 @@ function HomePage() {
             <div className="card card-sm h-100">
               <div className="p-2" >
               <Image
+                priority={true}
                 className="card-img"
                 src="https://res.cloudinary.com/domhrpxzy/image/upload/v1705914738/rsuia2h2tlt9utkt8ifr.png"
                 alt="Image Description"
