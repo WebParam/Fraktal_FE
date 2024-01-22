@@ -18,7 +18,7 @@ import card4 from "../assets/additional/images/meeting1.png";
 import card5 from "../assets/additional/images/meeting2.png";
 import card6 from "../assets/additional/images/meeting3.png";
 import koala from '../assets/additional/koala.png';
-import macbook from '../assets/img/laptop.webp';
+import macbook from '../assets/img/laptop.png';
 import Footer from './components/Footer/Footer';
 
 import dynamic from "next/dynamic";
@@ -28,6 +28,8 @@ import Header from './components/Header/Header'
 import MobileMenu from './components/MobileMenu/MobileMenu';
 import TransitionsModal from './components/Modal/TransitionsModal';
 import Layout from './layout';
+import { url } from 'inspector';
+
 
 
 function HomePage() {
@@ -109,8 +111,8 @@ function HomePage() {
           <div className="col-sm-6 col-lg-4 mb-4 mb-lg-0">
             {/* Card */}
             <div className="card card-sm h-100">
-              <div className="p-2">
-                <Image className="card-img" src={macbook} alt="Image Description" />
+              <div className="p-2" >
+                <Image className="card-img" src={macbook}  alt="Image Description" />
               </div>
               <div className="card-body">
                 <h4 className="card-title">Softwear engineers:</h4>
