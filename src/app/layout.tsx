@@ -20,11 +20,11 @@ import { useRouter } from 'next/router'
 
 
 
-const inter = Inter({ subsets: ['latin'] }, )
-const siteId = 3832611; 
-const hotjarVersion = 6;
+// const inter = Inter({ subsets: ['latin'] }, )
+// const siteId = 3832611; 
+// const hotjarVersion = 6;
 
-Hotjar.init(siteId, hotjarVersion);
+// Hotjar.init(siteId, hotjarVersion);
 
 // export const metadata: Metadata = {
 //   title: 'Fraktional',
