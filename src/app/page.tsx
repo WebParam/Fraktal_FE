@@ -18,7 +18,7 @@ import card4 from "../assets/additional/images/meeting1.png";
 import card5 from "../assets/additional/images/meeting2.png";
 import card6 from "../assets/additional/images/meeting3.png";
 import koala from '../assets/additional/koala.png';
-import macbook from '../assets/img/laptop.webp';
+import macbook from '../assets/img/laptop.png';
 import Footer from './components/Footer/Footer';
 
 import dynamic from "next/dynamic";
@@ -28,6 +28,10 @@ import Header from './components/Header/Header'
 import MobileMenu from './components/MobileMenu/MobileMenu';
 import TransitionsModal from './components/Modal/TransitionsModal';
 import Layout from './layout';
+import { url } from 'inspector';
+import lazySizes from 'lazysizes';
+
+
 
 
 function HomePage() {
@@ -37,6 +41,13 @@ function HomePage() {
 
   return (
     <div>
+      <Head>
+        <link
+            rel="preload"
+            href={'https://res.cloudinary.com/domhrpxzy/image/upload/v1705914738/rsuia2h2tlt9utkt8ifr.png'}
+            as="image"
+          />
+      </Head>
       <Layout
         title='fraktional'  description="hhhhh" type="dddd"
       >
@@ -109,8 +120,21 @@ function HomePage() {
           <div className="col-sm-6 col-lg-4 mb-4 mb-lg-0">
             {/* Card */}
             <div className="card card-sm h-100">
-              <div className="p-2">
-                <Image className="card-img" src={macbook} alt="Image Description" />
+              <div className="p-2" >
+              {/* <Image
+                priority={true}
+                className="card-img"
+                src="https://res.cloudinary.com/domhrpxzy/image/upload/v1705914738/rsuia2h2tlt9utkt8ifr.png"
+                alt="Image Description"
+                width={300}
+                height={400}
+              /> */}
+
+              <img
+              src="https://res.cloudinary.com/domhrpxzy/image/upload/v1705914738/rsuia2h2tlt9utkt8ifr.png"
+                loading="lazy"
+                data-sizes="auto"
+                className="lazyload" />
               </div>
               <div className="card-body">
                 <h4 className="card-title">Softwear engineers:</h4>

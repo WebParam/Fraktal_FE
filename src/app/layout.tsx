@@ -6,7 +6,7 @@ import "../assets/css/theme.min.css"
 import "../assets/vendor/bootstrap-icons/font/bootstrap-icons.css"
 import "../assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.css"
 import "../assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.css"
-import * as gtag from "./gtag"
+// import * as gtag from "./gtag"
 import Script from "next/script"
 import { Component } from 'react';
 import { AppProps } from 'next/app';
