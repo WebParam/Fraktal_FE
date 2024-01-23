@@ -44,14 +44,14 @@ export default function BlogPost() {
       return (
 
        
-      
-        <div>
-               <Layout
+             <>
+                <Layout
                   title={ `Fraktional Blog #${blog?.id}`}
                   description={ blog?.title?.rendered} 
                   type="blog" 
                   ogImage={blog?.jetpack_featured_media_url}
                 >
+                   <div>
              <Header
         menuTogglerFunction={setMenuToggler}
         menuTogglerValue={menuToggler}
@@ -92,7 +92,9 @@ export default function BlogPost() {
                                 />
                 </div>
                 <Footer />
+                </div>
                 </Layout>
-           </div>
+             </>
+           
       )
 }
