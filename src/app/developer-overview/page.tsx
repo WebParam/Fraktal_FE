@@ -21,10 +21,11 @@ import dynamic from "next/dynamic";
 import { Logout } from "../lib/function";
 import InitialsAvatar from 'react-initials-avatar';
 import 'react-initials-avatar/lib/ReactInitialsAvatar.css';
-import { IOption, degrees, getLabelFromValue, getOptionFromValue, skills, universities } from "../lib/data";
+import { IOption, degrees, getLabelFromValue, getOptionFromValue, noticePeriods, skills, universities } from "../lib/data";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { StylesConfig } from 'react-select';
+import moment from"moment";
 // const moment = require("moment");
 
 const cookies = new Cookies();
@@ -34,9 +35,15 @@ const cookies = new Cookies();
 
 function developerOverview() {
   const [workModalOpen, setWorkModalOpen] = useState(false);
+  const [workStatus, setWorkStatus] = useState("no");
   const [EducationModalOpen, setEducationModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   //form
+  const handleWorkStatusChange = (value: any) => {
+    setWorkStatus(value);
+  };
+
+
   const [information, setInformation] = useState("");
   const [firstName, setFirstName] = useState("");
   const [surname, setSurname] = useState("");
@@ -47,6 +54,7 @@ function developerOverview() {
   const [education, setEducation] = useState<IEducationInformation[]>([]);
   const [keyCourses, setKeyCourses] = useState("");
   const [keySkills, setKeySkills] = useState([]);
+  const [noticePeriod, setNoticePeriod] = useState("");
   const [cvUrl, setCVUrl] = useState("");
   const [_user, setUser] = useState("");
   const [preferedWorkMethod, setPreferedWorkMethod] = useState("");
@@ -326,6 +334,13 @@ function handleSelectQualification(data: any) {
   setEduQualification(_data.value);
 }
 
+
+function handleNoticePeriod(data: any) {
+  const _data = data as IOption;
+  setNoticePeriod(_data.value);
+}
+
+
 function handleSelectInstitute(data: any) {
   const _data = data as IOption;
   setEduInstituteName(_data.value);
@@ -600,7 +615,73 @@ console.log("DDD", loggedInUser);
                     <div id="addPhoneFieldContainer" />
                   </div>
                 </div>
+                
                 {/* End Form */}
+                <div className="row mb-4">
+                  <label htmlFor="firstNameLabel" className="col-sm-3 col-form-label form-label">Current Employment <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Your notice period" /></label>
+                  <div className="col-sm-9">
+                  <div className="col-sm-6">
+                <div className="mb-1">
+                <label className="input-label">Are you currently working? *</label>
+                </div>
+                {/* Radio Button Group */}
+                <div className="btn-group col-md-12 btn-group-segment mb-4" role="group" aria-label="Work status radio button group">
+                
+                <input 
+                    type="radio" 
+                    className="btn-check" 
+                    name="applyForJobWorkStatusBtnRadio" 
+                    id="applyForJobWorkStatusYesBtnRadio" 
+                    autoComplete="off"
+                    checked={workStatus === 'yes'}
+                    onChange={() => handleWorkStatusChange('yes')} 
+                />
+                <label className="btn btn-sm" htmlFor="applyForJobWorkStatusYesBtnRadio"><i className="bi-hand-thumbs-up me-1" /> Yes</label>
+                <input 
+                    type="radio" 
+                    className="btn-check" 
+                    name="applyForJobWorkStatusBtnRadio" 
+                    id="applyForJobWorkStatusNoBtnRadio" 
+                    autoComplete="off" 
+                    checked={workStatus === 'no'} 
+                    onChange={() => handleWorkStatusChange('no')} 
+                />
+                <label className="btn btn-sm" htmlFor="applyForJobWorkStatusNoBtnRadio"><i className="bi-hand-thumbs-down me-1" /> No</label>
+                
+              
+                </div>
+                </div>
+                {
+                  workStatus=="yes" && (
+                    <div className="input-group">
+
+                    <Select
+                    className="form-control selectControl"
+                  
+                    options={noticePeriods}
+                    value={getOptionFromValue([noticePeriod], noticePeriods)}
+                    placeholder="Notice period"
+                    styles={style}
+                    onChange={
+                      handleNoticePeriod
+                    }
+                    isSearchable={false}
+                    isMulti={false}
+                  />
+                
+                   
+                    </div>
+                  )
+                }
+                   
+                  </div>
+                </div>
+                <div className="row mb-4">
+                  <label htmlFor="emailLabel"  className="col-sm-3 col-form-label form-label">Expected Rate (per hour)</label>
+                  <div className="col-sm-9">
+                    <input type="rate" readOnly className="form-control" name="rate" id="emailLabel" placeholder="Email" aria-label="clarice@example.com" defaultValue={loggedInUser.email} />
+                  </div>
+                </div>
                 {/* Add Phone Input Field */}
                 <div id="addPhoneFieldTemplate" style={{display: 'none', position: 'relative'}}>
                   <div className="input-group input-group-add-field">
@@ -749,8 +830,8 @@ console.log("DDD", loggedInUser);
                       <div className="step-content">
                         <h5 className="step-title">{x.jobTitle}</h5>
                         <span className="d-block text-dark">{x.employer} - {x.location}</span>
-                        <small className="d-block mb-4">{x.startDate} to {x.endDate}</small>
-                        <p className="text-body mb-0">{x.responsibilities?.content}.</p>
+                        <small className="d-block mb-4">{moment(x.startDate).format("MMMM YYYY")} to {moment(x.endDate).format("MMMM YYYY")}</small>
+                        <p className="text-body mb-0">{x.responsibilities?.content}</p>
                       </div>
                       <span onClick={()=>{removeWorkExperience(i)}}>Delete</span>
                     </div>

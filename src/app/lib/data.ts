@@ -162,6 +162,14 @@
     {"value": "projteam5", "label": "I want to change the hosting for an existing system/application"}
   ];
 
+  export const noticePeriods =[
+    {"value": "nt1", "label": "No notice period"},
+    {"value": "nt2", "label": "2 weeks notice period"},
+    {"value": "nt3", "label": "1 month notice period"},
+    {"value": "nt4", "label": "2 months notice period"}
+  ];
+
+
   export interface IOption{
     value:string,
     label:string
@@ -404,6 +412,14 @@ export const roles =[
     {"value": "softwarearchitect", "label":"Software Architect"},
     {"value": "softwaredeveloper", "label":"Software Developer"}
 ]
+
+
+export const cities =[
+  {"value": "jhb", "label":"Johannesburg"},
+  {"value": "pta", "label":"Pretoria"},
+
+]
+
 
 export const provinces =[
     {"value":"gauteng", "label":"Gauteng"},
