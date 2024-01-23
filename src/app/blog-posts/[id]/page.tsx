@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 
+import koala from '../../../assets/additional/koala.png';
 
 
 export default function BlogPost() {
@@ -46,10 +47,11 @@ export default function BlogPost() {
        
              <>
                 <Layout
-                  title={ `Fraktional Blog #${blog?.id}`}
-                  description={ blog?.title?.rendered} 
+                  title={ `Fraktional Blog #${blog?.title?.rendered}`}
+                  description={blog?.excerpt?.rendered.replace(/<\/?[^>]+(>|$)/g, '').substring(0,200)} 
                   type="blog" 
-                  ogImage={blog?.jetpack_featured_media_url}
+                  // ogImage={blog?.jetpack_featured_media_url}
+                  ogImage={koala.src}
                 >
                    <div>
              <Header
