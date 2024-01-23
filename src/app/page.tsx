@@ -1,6 +1,5 @@
 "use client"
 import Image from 'next/image';
-import Head from 'next/head';
 import './homepage.scss';
 // import heroImage from '../assets/additional/heroImage.jpg';
 import card1 from "../assets/additional/images/laptop.png";
@@ -41,13 +40,7 @@ function HomePage() {
 
   return (
     <div>
-      <Head>
-        <link
-            rel="preload"
-            href={'https://res.cloudinary.com/domhrpxzy/image/upload/v1705914738/rsuia2h2tlt9utkt8ifr.png'}
-            as="image"
-          />
-      </Head>
+     
       <Layout
         title='fraktional'  description="hhhhh" type="dddd"
       >

@@ -7,7 +7,6 @@ import { GetBlog } from "../endpoints/api";
 import { useRouter } from 'next/navigation';
 import Cookies from "universal-cookie";
 import './blog.scss';
-import Head from 'next/head';
 import Layout from "../layout";
 
 
