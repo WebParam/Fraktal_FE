@@ -51,7 +51,7 @@ export default function BlogPost() {
                   description={blog?.excerpt?.rendered.replace(/<\/?[^>]+(>|$)/g, '').substring(0,200)} 
                   type="blog" 
                   // ogImage={blog?.jetpack_featured_media_url}
-                  ogImage={koala}
+                  ogImage={koala.src}
                 >
                    <div>
              <Header
