@@ -512,11 +512,11 @@ export async function verifyOtp(payload: IVerifyOtp) {
 
 export async function jobRegistration(payload:any, email:string) {
   try {
-    const response = await axios.post(`${azureUrl}/apply/${email}`, payload);
+    const response = await axios.post(`${azureUrl}/apply`, payload);
     debugger;
     if (response.status === 200 || response.status === 201) {
-      if (response.data._doc) {
-        return response.data._doc;
+      if (response.data) {
+        return response.data;
       } else {
         return false;
       }

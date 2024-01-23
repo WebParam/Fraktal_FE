@@ -7,45 +7,54 @@ import halfstar from "../../../assets/svg/illustrations/star-half.svg";
 import laptop from "../../../assets/vendor/bootstrap-icons/icons/laptop.svg";
 import dropbox from "../../../assets/svg/brands/dropbox-icon.svg";
 import googleDrive from "../../../assets/svg/brands/google-drive-icon.svg";
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { escape } from 'querystring';
 import Link from 'next/link';
 import { jobRegistration } from '@/app/endpoints/api';
 import { IApply, IApplyForJobRegistration } from '@/app/interfaces/user';
 import { VerifyOtp } from './verify-otp';
 import Modal from 'react-responsive-modal';
+import MobileMenu from '@/app/components/MobileMenu/MobileMenu';
+import Header from '@/app/components/Header/Header';
+import Select from "react-select";
+import Footer from '@/app/components/Footer/Footer';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { IOption, experience, getOptionFromValue, noticePeriods } from '@/app/lib/data';
 
 function viewGig({ params }: { params: { id: string }}) {
     const gig = gigs.find(item => item.id === parseInt(params.id));
 
+    const [menuToggler, setMenuToggler] = useState<boolean>(false);
+    const inputFileRef = useRef<HTMLInputElement>(null);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [summary, setSummary] = useState('');
     const [resume, setResume] = useState<File>()
-    const [workStatus, setWorkStatus] = useState('yes');
+    const [workStatus, setWorkStatus] = useState('no');
     const [currentJob, setCurrentJob] = useState('');
     const [yearsOfExperience, setYearsOfExperience] = useState('');
-    const [notice, setnotice] = useState('');
+   
     const [portfolio, setPortfolio] = useState([]);
     const [expectedSalary, setExpectedSalary] = useState('');
     const [mobileExp, setMobileExp] = useState('');
     const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
-    const userInformation = {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        phone: phone,
-        summary: summary,
-        resume: resume,
-        workStatus: workStatus,
-        notice: notice,
-        portfolio: portfolio,
-        expectedSalary: expectedSalary,
-        mobileExp: mobileExp,
-        // jobid: params.id
-      } ;
+    // const userInformation = {
+    //     firstName: firstName,
+    //     lastName: lastName,
+    //     email: email,
+    //     phone: phone,
+    //     summary: summary,
+    //     resume: resume,
+    //     workStatus: workStatus,
+    //     notice: noticePeriod,
+    //     portfolio: portfolio,
+    //     expectedSalary: expectedSalary,
+    //     mobileExp: mobileExp,
+    //     // jobid: params.id
+    //   } ;
 
     const [firstNameError, setFirstNameError] = useState(false);
     const [lastNameError, setLastNameError] = useState(false);
@@ -60,10 +69,28 @@ function viewGig({ params }: { params: { id: string }}) {
     const [expectedSalaryEroor, setExpectedSalaryError] = useState(false);
     // const [mobileExpError, setMobileExpError] = useState(false);
     const [showerror, setShowErrorMessage] = useState(false);
+    const [noticePeriod, setNoticePeriod] = useState("");
     const [emailExist, setEmailExist] = useState(false);
-
+    const uploadCVClick = () => {
+        /*Collecting node-element and performing click*/
+        inputFileRef?.current?.click();
+      }
     const handleFirstName = (e: any) => {
         setFirstName(e.target.value);
+    }
+
+    
+    function handleNoticePeriod(data: any) {
+        const _data = data as IOption;
+        debugger;
+        setNoticePeriod(_data.value);
+    }
+
+    
+    
+    function handleExperience(data: any) {
+        const _data = data as IOption;
+        setYearsOfExperience(_data.value);
     }
 
     
@@ -99,7 +126,7 @@ function viewGig({ params }: { params: { id: string }}) {
     }
 
     const handleNotice = (e: any) => {
-        setnotice(e.target.value);
+        setNoticePeriod(e.target.value);
     }
     
     const handleSalary = (e: any) => {
@@ -118,7 +145,7 @@ function viewGig({ params }: { params: { id: string }}) {
           const fileName = file.name;
           setResume(file);
       
-      
+          setResumeError(false);
         }
       };
       
@@ -130,26 +157,16 @@ function viewGig({ params }: { params: { id: string }}) {
       const handleSubmit = (e: any) => {
             e.preventDefault();
 
-            if (!firstName.trim()) {
-                setFirstNameError(true);
+            if(resume==undefined){
+                setResumeError(true);
                 setShowErrorMessage(true);
-                return;
-            } else {
-                setFirstNameError(false)
-                setShowErrorMessage(false);
+               return;
             }
-
-            if (!lastName.trim()) {
-                setLastNameError(true);
-                setShowErrorMessage(true);
-            } else {
-                setLastNameError(false);
-                setShowErrorMessage(false);
-            }
+         debugger;
             
             if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
                 setEmailError(true);
-                setShowErrorMessage(true);
+                setShowErrorMessage(true);return;
             } else {
                 setEmailError(false);
                 setShowErrorMessage(false);
@@ -157,66 +174,68 @@ function viewGig({ params }: { params: { id: string }}) {
         
             if (!phone || !/^\d+$/.test(phone)) {
                setPhoneError(true)
-               setShowErrorMessage(true);
+               setShowErrorMessage(true);return;
             } else {
                 setPhoneError(false);
                 setShowErrorMessage(false);
             }
 
-            if (summary.length < 20) {
-                setSummaryError(true);
-                setShowErrorMessage(true);
-            } else {
-                setSummaryError(false);
-                setShowErrorMessage(false); 
-            }
-
             if (!resume) {
                 setResumeError(true);
-                setShowErrorMessage(true);
+                setShowErrorMessage(true);return;
             } else {
                 setResumeError(false);
                 setShowErrorMessage(false);
             }
-            if (!yearsOfExperienceError || !/^\d+$/.test(yearsOfExperience)) {
+            if (!yearsOfExperience) {
                 setyearsOfExperienceError(true)
-                setShowErrorMessage(true);
+                setShowErrorMessage(true);return;
              } else {
                 setyearsOfExperienceError(false);
                  setShowErrorMessage(false);
              }
 
-            if (!notice.trim()) {
+            if (!noticePeriod.trim()) {
                 setnoticeError(true);
-                setShowErrorMessage(true);
+                setShowErrorMessage(true);return;
             } else {
                 setnoticeError(false);
                 setShowErrorMessage(false);
             }
             
-            if (!portfolio) {
-                setPortfolioError(true);
-                setShowErrorMessage(true);
-            } else {
-                setPortfolioError(false);
-                setShowErrorMessage(false);
-            }
+          
 
             if (!/^\d+$/.test(expectedSalary)) {
                 setExpectedSalaryError(true);
-                setShowErrorMessage(true);
+                setShowErrorMessage(true);return;
             } else {
                 setExpectedSalaryError(false);
                 setShowErrorMessage(false);
             }
+            applyForJob(e);
         }   
 
 
         const applyForJob = async (e: any) => {
             e.preventDefault();
-      
+            let _id = toast.loading("Creating your profile..", {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+          
 const payload = {
     email: email,
+    phone: phone,
+    employed: workStatus,
+    experience: yearsOfExperience,
+    notice: noticePeriod,
+    rate: expectedSalary,
     file: resume,
 } as IApply;
 
@@ -229,10 +248,26 @@ Object.entries(payload).forEach(([key, value]) => {
             
             const registrationResult = await jobRegistration(formData, email) ;
             debugger;
+          
             console.log(registrationResult)
-            if(registrationResult?.bool){
-                setEditModalOpen(true)
-            }else if(!registrationResult?.bool){
+            if(registrationResult?._user){
+                // setEditModalOpen(true)
+                toast.update(_id, {
+                    render: "Your profile has been created. Please check your email and login to verify and complete your details.",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 5000,
+                  });
+                  window.location.href = "/auth/login"
+
+            }else{
+                debugger;
+                toast.update(_id, {
+                    render: "Profile not created, please try again.",
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 5000
+                  });
                 setEmailExist(true)
                 window.scrollTo({
                     top: 10,
@@ -263,14 +298,25 @@ Object.entries(payload).forEach(([key, value]) => {
               borderWidth: "1px",
             }),
           };
+
+          console.log("ddsds",resume)
     return (
+        <>
+          <Header 
+            menuTogglerFunction={setMenuToggler} 
+            menuTogglerValue={menuToggler} 
+        />
+        <MobileMenu menuToggler={menuToggler} />
+        
     <main id="content" role="main">
          <Modal styles={customModalStyles}  open={editModalOpen} onClose={() => setEditModalOpen(false)} center>
         <VerifyOtp email = {email} onClose={saveAndCloseEditModal} />
       </Modal>
-        <Link className="back" style={{margin: '40px', display: 'block', color: '#4B4C4E'}} href='/fraktional-gig'>
+
+      <ToastContainer />
+        {/* <Link className="back" style={{margin: '40px', display: 'block', color: '#4B4C4E'}} href='/fraktional-gig'>
         <i className="bi bi-chevron-left"></i> back
-        </Link>
+        </Link> */}
         {/* Page Header */}
         <div className="container content-space-t-2">
             <div className="w-lg-75 mx-lg-auto">
@@ -337,8 +383,12 @@ Object.entries(payload).forEach(([key, value]) => {
         <div className="container content-space-1 content-space-b-lg-3">
             <div className="w-lg-75 mx-lg-auto">
             {/* Card */}
+            <div className="row align-items-sm-center" style={{padding:"5%",marginBottom:"5%"}}>
+                    {gig?.description}
+            </div>
             <div className="card card-bordered mb-10">
                 <div className="card-body">
+                
                 <div className="row align-items-sm-center">
                     <div className="col-sm mb-2 mb-sm-0">
                     <h5 className="card-title text-uppercase">
@@ -350,11 +400,15 @@ Object.entries(payload).forEach(([key, value]) => {
                     <div className="col-sm-auto">
                     {/* Dropdown */}
                     <div className="dropdown">
-                        <a className="btn" style={{backgroundColor: '#FD2DC3', color: '#fff', width :"200px", fontSize:'small'}} href="#" id="jobImportResumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation>
-                        <input type="file" name="resume" id="resume" onChange={handleResume}/>
+                        <a className="btn" onClick={()=>uploadCVClick()} style={{backgroundColor: '#FD2DC3', color: '#fff', width :"200px", fontSize:'small'}} id="jobImportResumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation>
+                       Upload CV
                         </a>
-                    
+                        <p style={{float: "left",  marginRight: "10px", marginTop: "10px"}}>{resume && <small><i className="bi-file-arrow-up" /> {resume.name}  </small>}</p>
+                        <input type="file"  ref={inputFileRef}
+
+         name="resume" id="resume" onChange={handleResume} style={{display:"none"}}/>
                     </div>
+                    {resumeError && <span style={{color : "red",fontWeight:"600", fontSize:"10px",marginLeft:"15px"}}>Please attach your resume</span>}
                     {/* End Dropdown */}
                     </div>
                     {/* End Col */}
@@ -370,44 +424,9 @@ Object.entries(payload).forEach(([key, value]) => {
                 </div>
                 <div className="row">
                 <div className="col-sm-6">
-                    {/* Form */}
-                    <div className="mb-4">
-                    <label className="form-label" htmlFor="applyForJobFirstName">First name</label>
-                    <input 
-                        type="text" 
-                        className={`form-control ${firstNameError ? 'error':''}`} 
-                        name="applyForJobNameFirstName" 
-                        id="applyForJobFirstName" 
-                        placeholder="First name" 
-                        aria-label="First name" 
-                        value={firstName}
-                        onChange={handleFirstName}
-                    />
-                    </div>
-                    {/* End Form */}
-                </div>
-                <div className="col-sm-6">
-                    {/* Form */}
-                    <div className="mb-4">
-                    <label className="form-label" htmlFor="applyForJobLasttName">Last name</label>
-                    <input 
-                        type="text" 
-                        className={`form-control ${lastNameError ? 'error':''}`}
-                        name="applyForJobNameLastName" 
-                        id="applyForJobLasttName" 
-                        placeholder="Last name" 
-                        aria-label="Last name" 
-                        value={lastName}
-                        onChange={handleLastName}
-                    />
-                    </div>
-                    {/* End Form */}
-                </div>
-                </div>
-                {/* End Form */}
-                {/* Form */}
                 <div className="mb-4">
-                <label className="form-label" htmlFor="applyForJobEmail">Email address</label>{emailExist && <span style={{color : "red", fontSize:"small",fontWeight:"600", marginLeft:"15px"}}>Email address already exist</span>}
+                <label className="form-label" htmlFor="applyForJobEmail">Email address *</label>
+                {/* {emailExist && <span style={{color : "red", fontSize:"small",fontWeight:"600", marginLeft:"15px"}}>Email address already registered</span>} */}
                 <input 
                     type="email" 
                     className={`form-control ${emailError ? 'error':''}`} 
@@ -420,14 +439,14 @@ Object.entries(payload).forEach(([key, value]) => {
                    
                 />
                 </div>
-                {/* End Form */}
-                {/* Form */}
+                </div>
+                <div className="col-sm-6">
                 <div className="js-add-field mb-4" data-hs-add-field-options="{
                     &quot;template&quot;: &quot;#addPhoneFieldTemplate&quot;,
                     &quot;container&quot;: &quot;#addPhoneFieldContainer&quot;,
                     &quot;defaultCreated&quot;: 0
                 }">
-                <label className="form-label" htmlFor="applyForJobPhone">Phone</label>
+                <label className="form-label" htmlFor="applyForJobPhone">Phone *</label>
                 <div className="input-group">
                     <input 
                         type="text" 
@@ -452,12 +471,16 @@ Object.entries(payload).forEach(([key, value]) => {
                     </select>
                     {/* End Select */}
                 </div>
-                {/* Container For Input Field */}
-                {/* <div id="addPhoneFieldContainer" />
-                <a href="javascript:;" className="js-create-field form-link">
-                    <i className="bi-plus-circle me-1" /> Add phone
-                </a> */}
+             
                 </div>
+                                </div>
+                </div>
+                {/* End Form */}
+                {/* Form */}
+              
+                {/* End Form */}
+                {/* Form */}
+               
                 {/* End Form */}
                 {/* Add Phone Input Field */}
                 <div id="addPhoneFieldTemplate" style={{display: 'none', position: 'relative'}}>
@@ -480,12 +503,12 @@ Object.entries(payload).forEach(([key, value]) => {
                 </div>
                 </div>
                 {/* End Add Phone Input Field */}
-                <hr className="my-7" />
+                {/* <hr className="my-7" />
                 <div className="mb-4">
                 <h3>Profile</h3>
-                </div>
+                </div> */}
                 {/* Form */}
-                <div className="mb-4">
+                {/* <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobSummary">Summary</label>
                 <textarea 
                 className={`form-control ${summaryError ? 'error':''}`} 
@@ -497,17 +520,19 @@ Object.entries(payload).forEach(([key, value]) => {
                 value={summary}
                 onChange={handleSummary} />
                 {summaryError ? <p style={{color: 'red'}}>Please provide more than 20 characters</p>: ''}
-                </div>
+                </div> */}
                 {/* End Form */}
                 {/* Form */}
                 
                 {/* End Form */}
-                <hr className="my-7" />
+                {/* <hr className="my-7" />
                 <div className="mb-4">
                 <h3>Details</h3>
-                </div>
+                </div> */}
+                <div className="row">
+                <div className="col-sm-6">
                 <div className="mb-1">
-                <label className="input-label">Are you currently working?</label>
+                <label className="input-label">Are you currently working? *</label>
                 </div>
                 {/* Radio Button Group */}
                 <div className="btn-group col-md-12 btn-group-segment mb-4" role="group" aria-label="Work status radio button group">
@@ -518,7 +543,7 @@ Object.entries(payload).forEach(([key, value]) => {
                     name="applyForJobWorkStatusBtnRadio" 
                     id="applyForJobWorkStatusYesBtnRadio" 
                     autoComplete="off"
-                    checked={workStatus === 'yes'}
+                    checked={workStatus == 'yes'}
                     onChange={() => handleWorkStatusChange('yes')} 
                 />
                 <label className="btn btn-sm" htmlFor="applyForJobWorkStatusYesBtnRadio"><i className="bi-hand-thumbs-up me-1" /> Yes</label>
@@ -528,12 +553,12 @@ Object.entries(payload).forEach(([key, value]) => {
                     name="applyForJobWorkStatusBtnRadio" 
                     id="applyForJobWorkStatusNoBtnRadio" 
                     autoComplete="off" 
-                    checked={workStatus === 'no'} 
+                    checked={workStatus == 'no'} 
                     onChange={() => handleWorkStatusChange('no')} 
                 />
                 <label className="btn btn-sm" htmlFor="applyForJobWorkStatusNoBtnRadio"><i className="bi-hand-thumbs-down me-1" /> No</label>
                 
-                {workStatus =="yes" && <div className="">
+                {/* {workStatus =="yes" && <div className="">
                 <label className="form-label" htmlFor="applyForJobNoticePeriod">Please provide some more details about your current job roles and responsibilities</label>
                 <textarea 
                     cols={6}
@@ -546,65 +571,103 @@ Object.entries(payload).forEach(([key, value]) => {
                     onChange={handleJob}
                 />
                 </div>
-                }
+                } */}
                 </div>
-                {/* End Radio Button Group */}
-                {/* Form */}
-                <div className="mb-4">
-                <label className="form-label" htmlFor="applyForJobNoticePeriod">Years Of Experience</label>
-                <input 
-                    type="text" 
-                    className={`form-control ${yearsOfExperienceError ? 'error':''}`} 
-                    name="applyForJobNameNoticePeriod" 
-                    id="applyForJobNoticePeriod" 
-                    placeholder="0" 
-                    aria-label="0"
-                    value={yearsOfExperience}
-                    onChange={handleYearsOfExperience}
-                />
                 </div>
+                <div className="col-sm-6">
                 <div className="mb-4">
-                <label className="form-label" htmlFor="applyForJobNoticePeriod">Notice period</label>
-                <input 
+                <label className="form-label" htmlFor="applyForJobNoticePeriod">Notice period *</label>
+                {/* <input 
                     type="text" 
                     className={`form-control ${noticeError ? 'error':''}`} 
                     name="applyForJobNameNoticePeriod" 
                     id="applyForJobNoticePeriod" 
-                    placeholder="2 months" 
-                    aria-label="2 months"
+                    placeholder="" 
+                    aria-label=""
                     value={notice}
                     onChange={handleNotice}
-                />
+                /> */}
+                  <Select
+                    className="select-padded "
+                    isDisabled={workStatus != 'yes'}
+                    options={noticePeriods}
+                    value={getOptionFromValue([noticePeriod], noticePeriods)}
+                    placeholder="Notice period"
+                    // styles={style}
+                    onChange={
+                      handleNoticePeriod
+                    }
+                    isSearchable={false}
+                    isMulti={false}
+                  />
+                </div>
+                </div>
+                {/* End Radio Button Group */}
+                {/* Form */}
+            
+                </div>
+                <div className="row">
+               
+                <div className="col-sm-6">
+                <div className="mb-4">
+                <label className="form-label" htmlFor="applyForJobNoticePeriod">Years Of Experience *</label>
+                {/* <input 
+                    type="text" 
+                    className={`form-control ${yearsOfExperienceError ? 'error':''}`} 
+                    name="applyForJobNameNoticePeriod" 
+                    id="applyForJobNoticePeriod" 
+                    placeholder="" 
+                    aria-label=""
+                    value={yearsOfExperience}
+                    onChange={handleYearsOfExperience}
+                /> */}
+                 <Select
+                    className="select-padded "
+                    options={experience}
+                    value={getOptionFromValue([yearsOfExperience], experience)}
+                    placeholder="Years of experience"
+                    // styles={style}
+                    onChange={
+                        handleExperience
+                    }
+                    isSearchable={false}
+                    isMulti={false}
+                  />
+                </div>
                 </div>
                 {/* End Form */}
                 {/* Form */}
-                <div className="mb-4">
+                {/* <div className="mb-4">
                 <label className="form-label">Upload your portfolio <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Maximum file size 10 MB." data-bs-original-title="Maximum file size 10 MB." /></label>
                 <div id="portfolioAttach" className={`js-dropzone dz-dropzone dz-dropzone-card dz-clickable ${portfolioError ? 'error':''}`}>
                     <div className="dz-message">
                     <input type="file" name="portfolio" id="porfolio" onChange={handlePortfolio} />
                     </div>
                 </div>
-                </div>
+                </div> */}
                 {/* End Form */}
                 {/* Form */}
+       
+                <div className="col-sm-6">
                 <div className="mb-4">
-                <label className="form-label" htmlFor="applyForJobExpectedSalary">Expected salary</label>
+                <label className="form-label" htmlFor="applyForJobExpectedSalary">Expected rate per hour *</label>
                 <input 
-                    type="text" 
+                    type="number" 
                     className={`form-control ${expectedSalaryEroor ? 'error':''}`} 
                     name="applyForJobNameExpectedSalary" 
                     id="applyForJobExpectedSalary" 
-                    placeholder="$5k-$7k" 
-                    aria-label="$5k-$7k"
+                    placeholder="" 
+                    aria-label=""
                     value={expectedSalary}
                     onChange={handleSalary}
                 />
                 </div>
-                {/* End Form */}
-                <div className="mb-1">
-                <label className="input-label">Do you have experience designing for mobile?</label>
                 </div>
+                </div>
+                {/* End Form */}
+                {/* <div className="mb-1">
+                <label className="input-label">Do you have experience designing for mobile?</label>
+                </div> */}
                 {/* Radio Button Group */}
                 {/* <div className="btn-group btn-group-segment mb-4" role="group" aria-label="Mobile experience radio button group">
                     <input
@@ -630,16 +693,20 @@ Object.entries(payload).forEach(([key, value]) => {
                     <label className="btn btn-sm" htmlFor="applyForJobWorkExperienceNoBtnRadio"><i className="bi-hand-thumbs-down me-1" /> No</label>
                 </div> */}
                 {/* End Radio Button Group */}
+                {showerror && <h5 style={{ textAlign: 'center', color: 'red',  fontSize:"12px",marginTop: '20px'}}>Please complete all required fields</h5>}
+            {emailExist && <h5 style={{ textAlign: 'center', color: 'red', fontSize:"12px", marginTop: '20px'}}>Error sending application. If you have registered previously, please login and try again.</h5>}
                 <div className="d-grid mt-5">
-                <button onClick={applyForJob} type="submit" className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Send application</button>
+                <button type="submit" className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Apply</button>
                 </div>
             </form>
-            {showerror && <h5 style={{ textAlign: 'center', color: 'red', marginTop: '20px'}}>PLEASE CHECK IF ALL FIELDS ARE FILLED</h5>}
+         
             {/* End Form */}
             </div>
         </div>
         {/* Content */}
     </main>
+    <Footer />
+    </>
     )
 }
 

@@ -3,9 +3,13 @@ import Footer from "@/app/components/Footer/Footer";
 import Header from "@/app/components/Header/Header";
 import MobileMenu from "@/app/components/MobileMenu/MobileMenu";
 import { GetBlog } from "@/app/endpoints/api";
+import Layout from "@/app/layout";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
+
+import koala from '../../../assets/additional/koala.png';
+
 
 export default function BlogPost() {
     const [blogs, setBlogs] = useState<any[]>([]);
@@ -41,8 +45,15 @@ export default function BlogPost() {
       return (
 
        
-      
-        <div>
+             <>
+                <Layout
+                  title={ `Fraktional Blog #${blog?.title?.rendered}`}
+                  description={blog?.excerpt?.rendered.replace(/<\/?[^>]+(>|$)/g, '').substring(0,200)} 
+                  type="blog" 
+                  // ogImage={blog?.jetpack_featured_media_url}
+                  ogImage={koala.src}
+                >
+                   <div>
              <Header
         menuTogglerFunction={setMenuToggler}
         menuTogglerValue={menuToggler}
@@ -83,6 +94,9 @@ export default function BlogPost() {
                                 />
                 </div>
                 <Footer />
-           </div>
+                </div>
+                </Layout>
+             </>
+           
       )
 }

@@ -6,7 +6,7 @@ import "../assets/css/theme.min.css"
 import "../assets/vendor/bootstrap-icons/font/bootstrap-icons.css"
 import "../assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.css"
 import "../assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.css"
-import * as gtag from "./gtag"
+// import * as gtag from "./gtag"
 import Script from "next/script"
 import { Component } from 'react';
 import { AppProps } from 'next/app';
@@ -15,24 +15,33 @@ import "aos/dist/aos.css"
 // import '@/styles/global.css';
 import { useEffect } from 'react'
 import Hotjar from '@hotjar/browser';
+import { useRouter } from 'next/router'
 
 
-const inter = Inter({ subsets: ['latin'] }, )
-const siteId = 3827134;
-const hotjarVersion = 6;
 
-Hotjar.init(siteId, hotjarVersion);
+// const inter = Inter({ subsets: ['latin'] }, )
+// const siteId = 3832611; 
+// const hotjarVersion = 6;
+
+// Hotjar.init(siteId, hotjarVersion);
 
 // export const metadata: Metadata = {
 //   title: 'Fraktional',
 //   description: 'Fraktional developers ',
 // }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+interface RootLayoutProps {
+  children: any;
+  pageMeta?:any;
+  title?: any;
+  description?: any;
+  type?: any;
+  ogImage?: any;
+}
+
+export default function Layout({ children, title, description, type, pageMeta,ogImage }: RootLayoutProps) {
+
+
   
   useEffect(() => {
     // here you can add your aos options
@@ -41,9 +50,41 @@ export default function RootLayout({
     });
   }, []);
 
+  // const meta = {
+  //   title: ' iPhone 12 XS Max For Sale in Colorado - Big Discounts | Apple',
+  //   description: 'Check out iPhone 12 XR Pro and iPhone 12 Pro Max. Visit your local store and for expert advice.',
+  //   type: 'website',
+  //   ...pageMeta, 
+  // }
+
   return (
     <html lang="en">
       <head>
+      
+      
+        {/* <meta 
+          name="description" 
+          property="og:description" 
+          content={description}/> */}
+           {/* <meta
+                  name="description"
+                  content={description??"Fraktional"}
+                  key="desc"
+                /> */}
+
+{description!=undefined && <>
+
+        <meta property='og:type' content={type} />
+        <title> {title} </title>      
+        <meta property='og:site_name' content={title} />
+        <meta property='og:description' content={description} />
+        <meta property='og:title' content={title} />
+        <meta property='og:image' content={ogImage} />
+
+</>}  
+     
+
+     
       <link rel="icon" href="/favicon.ico" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />
               <link
@@ -71,16 +112,13 @@ export default function RootLayout({
               `}
     </Script>
 
-<>
-      
-    </>
+
+
     
 
       </head>
       <body> 
-        
       {children}
-     
       </body>
     </html>
   )

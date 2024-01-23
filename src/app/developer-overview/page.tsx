@@ -21,9 +21,12 @@ import dynamic from "next/dynamic";
 import { Logout } from "../lib/function";
 import InitialsAvatar from 'react-initials-avatar';
 import 'react-initials-avatar/lib/ReactInitialsAvatar.css';
-import { IOption, degrees, getLabelFromValue, getOptionFromValue, universities } from "../lib/data";
+import { IOption, degrees, experience, getLabelFromValue, getOptionFromValue, noticePeriods, skills, universities } from "../lib/data";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { StylesConfig } from 'react-select';
+import moment from"moment";
+// const moment = require("moment");
 
 const cookies = new Cookies();
 
@@ -32,9 +35,15 @@ const cookies = new Cookies();
 
 function developerOverview() {
   const [workModalOpen, setWorkModalOpen] = useState(false);
+  const [workStatus, setWorkStatus] = useState("no");
   const [EducationModalOpen, setEducationModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   //form
+  const handleWorkStatusChange = (value: any) => {
+    setWorkStatus(value);
+  };
+
+
   const [information, setInformation] = useState("");
   const [firstName, setFirstName] = useState("");
   const [surname, setSurname] = useState("");
@@ -44,6 +53,9 @@ function developerOverview() {
   const [yearsOfExperience, setYearsOfExperience] = useState("");
   const [education, setEducation] = useState<IEducationInformation[]>([]);
   const [keyCourses, setKeyCourses] = useState("");
+  const [expectedRate, setExpectedRate] = useState("0");
+  const [keySkills, setKeySkills] = useState<any[]>([]);
+  const [noticePeriod, setNoticePeriod] = useState("");
   const [cvUrl, setCVUrl] = useState("");
   const [_user, setUser] = useState("");
   const [preferedWorkMethod, setPreferedWorkMethod] = useState("");
@@ -66,6 +78,10 @@ function developerOverview() {
   const [wrk_responsibilitiesError, setWrk_responsibilitiesError] = useState(false);
   const [wrk_locationError, setWrkLocationError] = useState(false);
 
+
+  const [menuItem, setMenu] = useState(1);
+
+  
 
   const [edu_InsituteName, setEduInstituteName] = useState("");
   const [edu_Qualification, setEduQualification] = useState("");
@@ -178,10 +194,12 @@ async function _GetDeveloperProfile(id:string){
   
   var res = await GetDeveloperProfile(id) as any;
   if(res.data){
+    debugger;
   setCurrentProfile(res.data);
-
+setNoticePeriod(res?.data?.noticePeriod)
   setInformation(res?.data?.personalInformation?.about);
   setFirstName(res?.data?.firstName);
+  setPhone(res?.data?.phone);
   setSurname(res?.data?.surname);
   setCurrentJob(res?.data?.currentJob);
   setPreviousWorkExperience(res?.data?.previousWorkExperience);
@@ -192,6 +210,10 @@ async function _GetDeveloperProfile(id:string){
   setUser(res?.data?.user); // change
   setPreferedWorkMethod(res?.data?.preferedWorkMethod);
   setExistingUser(true);
+  setKeySkills(res?.data?.keySkills);
+  setWorkStatus(res?.data?.workStatus);
+  setExpectedRate(res?.data?.expectedRate);
+  
   }
   setTimeout(() => {
     // setDisable(false)
@@ -318,6 +340,26 @@ function handleSelectQualification(data: any) {
   setEduQualification(_data.value);
 }
 
+
+function handleNoticePeriod(data: any) {
+  const _data = data as IOption;
+  setNoticePeriod(_data.value);
+}
+
+
+function handleExperience(data: any) {
+  const _data = data as IOption;
+  setYearsOfExperience(_data.value);
+}
+
+function handleSkills(data: any) {
+  const _data = data as IOption[];
+  debugger;
+  setKeySkills(_data.map(x=>x.value));
+}
+
+
+
 function handleSelectInstitute(data: any) {
   const _data = data as IOption;
   setEduInstituteName(_data.value);
@@ -337,6 +379,16 @@ useEffect(() => {
   async function updateProfile(){
     // setSaving(true)
     setHasChanged(false)
+    let _id = toast.loading("Updating your profile..", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
 
   let payload = {
       firstName:firstName,
@@ -346,7 +398,7 @@ useEffect(() => {
       previousWorkExperience:previousWorkExperience,
       yearsOfExperience:yearsOfExperience,
       education:education, 
-      keySkills:"", 
+      keySkills:keySkills, 
       keyCourses:keyCourses,
       cvUrl:cvUrl,
       personalInformation:{about:information},
@@ -373,7 +425,7 @@ useEffect(() => {
       const res = await CreateDeveloperProfile(payload);
     }
     
-
+    toast.dismiss(_id);
   }
 
   function getURL(){
@@ -394,7 +446,7 @@ const style = {
   })
 };
 
-console.log("DDD", deleteProfileAccept);
+console.log("DDD", loggedInUser);
     return (
       <>
       <div className="top">
@@ -428,7 +480,7 @@ console.log("DDD", deleteProfileAccept);
   </div>
   {/* End Breadcrumb */}
   {/* Content */}
-  <div className="container content-space-1 content-space-t-lg-0 content-space-b-lg-2 mt-lg-n10">
+  <div data-aos="fade-right" className="container content-space-1 content-space-t-lg-0 content-space-b-lg-2 mt-lg-n10">
     <div className="row">
       <div className="col-lg-3">
         {/* Navbar */}
@@ -452,25 +504,32 @@ console.log("DDD", deleteProfileAccept);
                 <span className="text-cap">Account</span>
                 {/* List */}
                 <ul className="nav nav-sm nav-tabs nav-vertical mb-4">
-                  <li className="nav-item">
-                    <a className="nav-link active" style={{cursor: 'pointer'}}>
+                  <li className="nav-item"  onClick={()=>setMenu(1)} >
+                    <a className={menuItem==1?"nav-link active" :"nav-link"} style={{cursor: 'pointer'}}>
                       <i className="bi-person-badge nav-icon" /> Personal info
                     </a>
                   </li>
+                 
                   <li className="nav-item">
-                    <a className="nav-link" href='/' style={{pointerEvents: 'none', cursor: 'none', opacity: '.5'}}>
-                      <i className="bi-shield-shaded nav-icon" /> Security
+                    <a className="nav-link " style={{pointerEvents: 'none', cursor:'none', opacity: '.5'}}>
+                      <i className="bi-briefcase nav-icon" /> Gigs
                     </a>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link " style={{pointerEvents: 'none', cursor: 'none', opacity: '.5'}}>
-                      <i className="bi-bell nav-icon" /> Notifications
+                      <i className="bi-calendar nav-icon" /> Interviews
                       {/* <span className="badge bg-soft-dark text-dark rounded-pill nav-link-badge">1</span> */}
                     </a>
                   </li>
+                  
                   <li className="nav-item">
                     <a className="nav-link " style={{pointerEvents: 'none', cursor:'none', opacity: '.5'}}>
-                      <i className="bi-sliders nav-icon" /> Preferences
+                      <i className="bi-bell nav-icon" /> Notifications
+                    </a>
+                  </li>
+                  <li className="nav-item" onClick={()=>setMenu(2)}>
+                    <a className={menuItem==2?"nav-link active" :"nav-link"}   style={{cursor: 'pointer'}}>
+                      <i className="bi-shield-shaded nav-icon" /> Security
                     </a>
                   </li>
                   <li className="nav-item">
@@ -490,7 +549,10 @@ console.log("DDD", deleteProfileAccept);
       <div className="col-lg-9">
         <div className="d-grid gap-3 gap-lg-5">
           {/* Card */}
-          <div className="card">
+          
+          {menuItem==1 &&
+            <>
+                    <div className="card" data-aos="fade-left">
             <div className="card-header border-bottom">
               <h4 className="card-header-title">Basic info</h4>
             </div>
@@ -531,9 +593,9 @@ console.log("DDD", deleteProfileAccept);
                   <label htmlFor="firstNameLabel" className="col-sm-3 col-form-label form-label">Full name <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Displayed on public forums, such as Front." /></label>
                   <div className="col-sm-9">
                     <div className="input-group">
-                      <input type="text" onChange={(e)=> setFirstName(e.target.value)} defaultValue={firstName!="" ? firstName: loggedInUser.firstName} className="form-control" name="firstName" id="firstNameLabel" placeholder="Enter first name" aria-label="Clarice" />
+                      <input type="text" onChange={(e)=> setFirstName(e.target.value)} defaultValue={firstName!="" && firstName!=undefined? firstName: loggedInUser.firstName} className="form-control" name="firstName" id="firstNameLabel" placeholder="Enter first name" aria-label="Clarice" />
                       {/* <small>This field is required</small> */}
-                      <input type="text" onChange={(e)=> setSurname(e.target.value)} defaultValue={surname!="" ?surname: loggedInUser.surname} className="form-control" name="lastName" id="lastNameLabel" placeholder="Enter last name" aria-label="Boone"  />
+                      <input type="text" onChange={(e)=> setSurname(e.target.value)} defaultValue={surname!="" && surname!=undefined ?surname: loggedInUser.surname} className="form-control" name="lastName" id="lastNameLabel" placeholder="Enter last name" aria-label="Boone"  />
                     </div>
                   </div>
                 </div>
@@ -572,11 +634,185 @@ console.log("DDD", deleteProfileAccept);
                     <div id="addPhoneFieldContainer" />
                   </div>
                 </div>
+                      
+                {/* <div className="row mb-4">
+                  <label className="col-sm-3 col-form-label form-label">Gender</label>
+                  <div className="col-sm-9">
+                    <div className="input-group input-group-md-down-break">
+                     
+                      <label className="form-control" htmlFor="genderTypeRadio1">
+                        <span className="form-check">
+                          <input  onChange={(e)=>setGender(0)}  type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio1" />
+                          <span className="form-check-label">Male</span>
+                        </span>
+                      </label>
+                    
+                      <label className="form-control" htmlFor="genderTypeRadio2">
+                        <span className="form-check">
+                          <input onChange={(e)=>setGender(1)} type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio2" />
+                          <span className="form-check-label">Female</span>
+                        </span>
+                      </label>
+
+                      <label className="form-control" htmlFor="genderTypeRadio3">
+                        <span className="form-check">
+                          <input onChange={(e)=>setGender(2)}   type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio3" />
+                          <span className="form-check-label">Other</span>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div> */}
+                {/* Form */}
+                <div className="row mb-4">
+                  <label className="col-sm-3 col-form-label form-label">Bio</label>
+                  <div className="col-sm-9">
+                    {/* Quill */}
+                    <div className="quill-custom">
+                      <div className="js-quill" style={{height: '15rem'}}>
+                        <textarea onChange={(e)=>setInformation(e.target.value)} name="summary" defaultValue={information} id="textarea" placeholder="Enter bio" style={{height: '100%', width: '100%', padding: '10px'}}></textarea>
+                      </div>
+                    </div>
+                    {/* End Quill */}
+                  </div>
+                </div>
+               
                 {/* End Form */}
+                {/* End Form */}
+                <div className="row mb-4">
+                  <label htmlFor="firstNameLabel" className="col-sm-3 col-form-label form-label">Current Employment <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Your notice period" /></label>
+                  <div className="col-sm-9">
+                  <div className="row">
+                  <div className="col-sm-6">
+                <div className="mb-1">
+                <label className="input-label">Are you currently working? *</label>
+                </div>
+                {/* Radio Button Group */}
+                <div className="btn-group col-md-12 btn-group-segment mb-4" role="group" aria-label="Work status radio button group">
+                
+                <input 
+                    type="radio" 
+                    className="btn-check" 
+                    name="applyForJobWorkStatusBtnRadio" 
+                    id="applyForJobWorkStatusYesBtnRadio" 
+                    autoComplete="off"
+                    checked={workStatus === 'yes'}
+                    onChange={() => handleWorkStatusChange('yes')} 
+                />
+                <label className="btn btn-sm" htmlFor="applyForJobWorkStatusYesBtnRadio"><i className="bi-hand-thumbs-up me-1" /> Yes</label>
+                <input 
+                    type="radio" 
+                    className="btn-check" 
+                    name="applyForJobWorkStatusBtnRadio" 
+                    id="applyForJobWorkStatusNoBtnRadio" 
+                    autoComplete="off" 
+                    checked={workStatus === 'no'} 
+                    onChange={() => handleWorkStatusChange('no')} 
+                />
+                <label className="btn btn-sm" htmlFor="applyForJobWorkStatusNoBtnRadio"><i className="bi-hand-thumbs-down me-1" /> No</label>
+                
+              
+                </div>
+                </div>
+                {
+                  workStatus=="yes" && (
+                    <div className="col-md-6" style={{marginTop: "5%"}}>
+                    <div className="input-group">
+
+                    <Select
+                    className="form-control selectControl"
+                  
+                    options={noticePeriods}
+                    value={getOptionFromValue([noticePeriod], noticePeriods)}
+                    placeholder="Notice period"
+                    styles={style}
+                    onChange={
+                      handleNoticePeriod
+                    }
+                    isSearchable={false}
+                    isMulti={false}
+                  />
+                
+                   
+                    </div>
+                    </div>
+                  )
+                }
+               </div>
+                   
+                  </div>
+               
+                </div>
+                
+                <div className="row mb-4">
+                  <label className="col-sm-3 col-form-label form-label">Prefered work method</label>
+                  <div className="col-sm-9">
+                    <div className="input-group input-group-md-down-break">
+                      {/* Radio Check */}
+                      <label className="form-control" htmlFor="preferedWorkMethod0">
+                        <span className="form-check">
+                          <input  onChange={(e)=>setPreferedWorkMethod("0")} checked={preferedWorkMethod=="0"} type="radio" className="form-check-input" name="genderTypeRadio" id="preferedWorkMethod0" />
+                          <span className="form-check-label">Remote</span>
+                        </span>
+                      </label>
+                      {/* End Radio Check */}
+                      {/* Radio Check */}
+                      <label className="form-control" htmlFor="preferedWorkMethod1">
+                        <span className="form-check">
+                          <input onChange={(e)=>setPreferedWorkMethod("1")} type="radio" checked={preferedWorkMethod=="1"}  className="form-check-input" name="genderTypeRadio" id="preferedWorkMethod1" />
+                          <span className="form-check-label">Hybrid</span>
+                        </span>
+                      </label>
+                      {/* End Radio Check */}
+                      {/* Radio Check */}
+                      <label className="form-control" htmlFor="preferedWorkMethod2">
+                        <span className="form-check">
+                          <input onChange={(e)=>setPreferedWorkMethod(" ")}  checked={preferedWorkMethod=="2"}  type="radio" className="form-check-input" name="genderTypeRadio" id="preferedWorkMethod2" />
+                          <span className="form-check-label">On Site</span>
+                        </span>
+                      </label>
+                      {/* End Radio Check */}
+                    </div>
+                  </div>
+                </div>
+                <div className="row mb-4">
+                  <label htmlFor="emailLabel"  className="col-sm-3 col-form-label form-label">Minimum Rate (per hour)</label>
+                  <div className="col-sm-9">
+                  <div className="col-sm-6">
+                    <input value={expectedRate} onChange={(e)=>setExpectedRate(e.target.value)} type="number" className="form-control" name="rate" id="emailLabel" placeholder="Rate per hour" aria-label="200" defaultValue={"0"} />
+                    </div>
+                  </div>
+                  
+                </div>
+                <div className="row mb-4">
+                  <label htmlFor="emailLabel"  className="col-sm-3 col-form-label form-label">Years of experience</label>
+                  <div className="col-sm-9">
+                <div className="col-md-6">
+                    <div className="input-group">
+
+                    <Select
+                    className="form-control selectControl"
+                  
+                    options={experience}
+                    value={getOptionFromValue([yearsOfExperience], experience)}
+                    placeholder="Years of experience"
+                    styles={style}
+                    onChange={
+                      handleExperience
+                    }
+                    isSearchable={false}
+                    isMulti={false}
+                  />
+                
+                   
+                    </div>
+                    </div>
+                    </div>
+                    </div>
                 {/* Add Phone Input Field */}
                 <div id="addPhoneFieldTemplate" style={{display: 'none', position: 'relative'}}>
                   <div className="input-group input-group-add-field">
-                    <input type="text" className="js-input-mask-dynamic form-control" value={phone!="" ? phone:loggedInUser.mobileNumber} onChange={(e)=>setPhone(e.target.value)} data-name="additionlPhone" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" data-hs-mask-options="{
+                    <input type="text" className="js-input-mask-dynamic form-control" value={phone!="" ? phone:loggedInUser.mobileNumber} onChange={(e)=>setPhone(e.target.value)} data-name="additionlPhone" placeholder="+(00) 00 000 0000" aria-label="+(00) 00 000 0000" data-hs-mask-options="{
                          &quot;mask&quot;: &quot;+{0}(000)000-00-00&quot;
                        }" />
                     {/* Select */}
@@ -600,53 +836,10 @@ console.log("DDD", deleteProfileAccept);
                 </div>
                 {/* End Add Phone Input Field */}
                 {/* Form */}
-                <div className="row mb-4">
-                  <label className="col-sm-3 col-form-label form-label">Gender</label>
-                  <div className="col-sm-9">
-                    <div className="input-group input-group-md-down-break">
-                      {/* Radio Check */}
-                      <label className="form-control" htmlFor="genderTypeRadio1">
-                        <span className="form-check">
-                          <input  onChange={(e)=>setGender(0)}  type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio1" />
-                          <span className="form-check-label">Male</span>
-                        </span>
-                      </label>
-                      {/* End Radio Check */}
-                      {/* Radio Check */}
-                      <label className="form-control" htmlFor="genderTypeRadio2">
-                        <span className="form-check">
-                          <input onChange={(e)=>setGender(1)} type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio2" />
-                          <span className="form-check-label">Female</span>
-                        </span>
-                      </label>
-                      {/* End Radio Check */}
-                      {/* Radio Check */}
-                      <label className="form-control" htmlFor="genderTypeRadio3">
-                        <span className="form-check">
-                          <input onChange={(e)=>setGender(2)}   type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio3" />
-                          <span className="form-check-label">Other</span>
-                        </span>
-                      </label>
-                      {/* End Radio Check */}
-                    </div>
-                  </div>
-                </div>
-                {/* End Form */}
-                {/* Form */}
-                <div className="row mb-4">
-                  <label className="col-sm-3 col-form-label form-label">Bio</label>
-                  <div className="col-sm-9">
-                    {/* Quill */}
-                    <div className="quill-custom">
-                      <div className="js-quill" style={{height: '15rem'}}>
-                        <textarea onChange={(e)=>setInformation(e.target.value)} name="summary" defaultValue={information} id="textarea" placeholder="Enter bio" style={{height: '100%', width: '100%', padding: '10px'}}></textarea>
-                      </div>
-                    </div>
-                    {/* End Quill */}
-                  </div>
-                </div>
                
+         
                 {/* End Form */}
+
               </form>
             </div>
             {/* End Body */}
@@ -702,6 +895,41 @@ console.log("DDD", deleteProfileAccept);
           </div>
           <div className="card">
             <div className="card-header border-bottom">
+              <h4 className="card-header-title">Competencies</h4>
+            </div>
+            {/* Body */}
+              <div className="card-body">
+              <div className="mb-4">
+              <div className="row mb-4">
+                  <label htmlFor="firstNameLabel" className="col-sm-3 col-form-label form-label">Your competencies <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Displayed on public forums, such as Front." /></label>
+                  <div className="col-sm-9">
+                    <div className="input-group">
+                    <Select
+                    className="form-control selectControl"
+                  
+                    options={skills}
+                    value={getOptionFromValue(keySkills, skills)}
+                    placeholder="Search Skills"
+                    styles={style}
+                    onChange={
+                      handleSkills
+                    }
+                    isSearchable={true}
+                    isMulti={true}
+                  />
+                    </div>
+                  </div>
+                </div>
+                
+                
+                  
+                
+              </div>
+            </div>
+            </div>
+            
+          <div className="card">
+            <div className="card-header border-bottom">
               <h4 className="card-header-title">Work Experience</h4>
             </div>
             
@@ -721,8 +949,8 @@ console.log("DDD", deleteProfileAccept);
                       <div className="step-content">
                         <h5 className="step-title">{x.jobTitle}</h5>
                         <span className="d-block text-dark">{x.employer} - {x.location}</span>
-                        <small className="d-block mb-4">{x.startDate} to {x.endDate}</small>
-                        <p className="text-body mb-0">{x.responsibilities?.content}.</p>
+                        <small className="d-block mb-4">{moment(x.startDate).format("MMMM YYYY")} to {moment(x.endDate).format("MMMM YYYY")}</small>
+                        <p className="text-body mb-0">{x.responsibilities?.content}</p>
                       </div>
                       <span onClick={()=>{removeWorkExperience(i)}}>Delete</span>
                     </div>
@@ -898,7 +1126,11 @@ console.log("DDD", deleteProfileAccept);
                             { getLabelFromValue(
                               x.instituteName,
                                 universities
-                              ) ?? ""
+                              ) ==""? x.instituteName
+                              :getLabelFromValue(
+                                x.instituteName,
+                                  universities
+                                )
                             }
 
                             </span>
@@ -1039,15 +1271,22 @@ console.log("DDD", deleteProfileAccept);
             </div>
             {/* End Body */}
           </div>
+
+       
+              
           <div className="card-footer pt-0">
                 <div className="d-flex justify-content-end gap-3">
                   <a className="btn btn-white" href="javascript:;">Cancel</a>
                   <a className="btn" onClick={()=>updateProfile()} style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Save changes</a>
                 </div>
               </div>
+          </>
+          }
+
           
           {/* Card */}
-          <div className="card">
+          {menuItem==2 &&
+          <div className="card" data-aos="fade-left">
             <div className="card-header border-bottom">
               <h4 className="card-header-title">Delete your account</h4>
             </div>
@@ -1096,6 +1335,7 @@ console.log("DDD", deleteProfileAccept);
             </div>
             {/* End Body */}
           </div>
+          }
           {/* End Card */}
           
         </div>

@@ -7,6 +7,8 @@ import { GetBlog } from "../endpoints/api";
 import { useRouter } from 'next/navigation';
 import Cookies from "universal-cookie";
 import './blog.scss';
+import Layout from "../layout";
+
 
 function Blogs() {
   const [menuToggler, setMenuToggler] = useState<boolean>(false);
@@ -19,7 +21,7 @@ function Blogs() {
 
   const handleBlogClick = (blog: any) => {
     router.push(`/blog-posts/${blog.id}`);
-    cookies.set('blog', blog);
+    // cookies.set('blog', blog);
     return;
   };
 
@@ -44,6 +46,10 @@ function Blogs() {
   
   return (
     <>
+    <Layout
+        title='fraktional'  description="hhhhh" type="dddd"
+      >
+    
       <Header
         menuTogglerFunction={setMenuToggler}
         menuTogglerValue={menuToggler}
@@ -54,6 +60,11 @@ function Blogs() {
       <main id="content" role="main" className="pt-40 pb-20">
 
         <a></a>
+         {/* Heading */}
+         <div className="mb-5 mb-md-10" style={{textAlign:"center"}}>
+                    <h1 className="display-4" style={{color: '#4B4C4E'}}>News & Blog</h1>
+                    <p className="lead">Keep up to date with the latest news and developments.</p>
+                </div>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4" style={{padding: '5%'}}>
 
             {Array.isArray(blogData) && blogData.map((data: any, index: number) => (
@@ -62,7 +73,8 @@ function Blogs() {
           onClick={handleBlogClick}
           href={`/blog-posts/${data.id}`}> 
           <img
-            className="h-auto max-w-full rounded-lg"
+            className=" max-w-full rounded-lg" 
+            style={{height: '300px', width: '100%'}}
             src={data.jetpack_featured_media_url}
             alt=""
           />
@@ -74,13 +86,13 @@ function Blogs() {
                     >
 
                     <h3 className="mb-5" style={{color: '#252525'}}
-                    dangerouslySetInnerHTML={{__html: data.title.rendered.substring(0,40)}}
+                    dangerouslySetInnerHTML={{__html: `${data.title.rendered.substring(0,50)} ${data.title.rendered.length>60?'...':''}`}}
                                 />
                       {/* {data.title.rendered.substring(0,40)} */}
                     </a>
                     <p className="mt-3 text-sm text-gray-500 dark:text-gray-300 md:text-sm ">
                       <p className="mb-5" style={{color: '#252525'}}
-                            dangerouslySetInnerHTML={{__html: data.content.rendered.substring(0,150)}}
+                            dangerouslySetInnerHTML={{__html: `${data.content.rendered.substring(0,200)} ${data.content.rendered.length>200?'...':''}`}}
                                   />
                     </p>
                     <p className="mt-3 text-sm text-blue-500">{ moment(data.date).format("DD/MM/YYYY")}</p>
@@ -97,6 +109,7 @@ function Blogs() {
       </main>
 
       <Footer />
+      </Layout>
     </>
   );
 }

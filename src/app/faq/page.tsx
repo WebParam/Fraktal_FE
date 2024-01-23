@@ -4,6 +4,7 @@ import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import MobileMenu from '../components/MobileMenu/MobileMenu';
 import './faq.scss'
+import Layout from '../layout';
 
 
 const faq = () => {
@@ -16,6 +17,9 @@ const faq = () => {
 
   return (
     <>
+    <Layout
+        title='fraktional'  description="hhhhh" type="dddd"
+      >
      <Header 
         menuTogglerFunction={setMenuToggler} 
         menuTogglerValue={menuToggler} 
@@ -609,6 +613,7 @@ const faq = () => {
   {/* JS Implementing Plugins */}
   {/* JS Front */}
   {/* JS Plugins Init. */}
+  </Layout>
 </>
 
   )

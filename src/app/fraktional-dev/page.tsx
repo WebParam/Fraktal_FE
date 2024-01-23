@@ -22,6 +22,7 @@ import { VerifyOtp } from '../auth/company-register/verify-otp';
 import { useRouter } from 'next/router';
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from 'react-toastify';
+import Layout from '../layout';
 
 
 function Fraktional() {
@@ -183,7 +184,10 @@ const customModalStyles = {
   },
 };
   return (
-    <div>    
+    <div>   
+      <Layout
+        title='fraktional'  description="hhhhh" type="dddd"
+      >
             <ToastContainer />       
       <Header 
         menuTogglerFunction={setMenuToggler} 
@@ -950,6 +954,7 @@ const customModalStyles = {
       {/* JS Implementing Plugins */}
       {/* JS Front */}
       {/* JS Plugins Init. */}
+      </Layout> 
       </div>
   );
 }

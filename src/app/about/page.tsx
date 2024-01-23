@@ -17,12 +17,16 @@ import team1 from "../../assets/img/160x160/img7.jpg";
 import team2 from "../../assets/img/160x160/img3.jpg";
 import team3 from "../../assets/img/160x160/img10.jpg";
 import team4 from "../../assets/img/160x160/img5.jpg";
+import Layout from "../layout";
 
 function About() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     
     return (
         <>
+         <Layout
+        title='About us'  description="About us Fraktional" type=""
+      >
         <Header 
             menuTogglerFunction={setMenuToggler} 
             menuTogglerValue={menuToggler} 
@@ -326,6 +330,7 @@ more efficient way to connect IT talent with projects</p>
 
 
         <Footer />
+        </Layout>
         </>
     )
 }
