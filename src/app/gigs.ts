@@ -1,15 +1,38 @@
+
 import mailchimp from "../assets/svg/brands/frontapp-icon.svg";
 import capsule from "../assets/svg/brands/capsule-icon.svg";
 import prosperus from "../assets/svg/brands/prosperops-icon.svg";
 import guideline from "../assets/svg/brands/guideline-icon.svg"; 
 
+export const filterJob=(searchKey:string[], cityKey?:string)=>{
+
+
+    const filteredBySearchFields= gigs.filter((gig)=>{
+       return searchKey.some(item => gig.searchFields?.includes(item))
+    })
+    
+  debugger;
+    if(cityKey){   
+        const filteredByCities =  filteredBySearchFields.filter((gig)=>{
+            return gig.location?.toLowerCase().includes(cityKey?.toLowerCase());
+        })
+
+        return filteredByCities;
+    }
+
+    return filteredBySearchFields;
+
+}
+
+
 export const gigs = [
     {
         id: 1,
         companyname: 'J-T Consulting',
+        searchFields:["jhb", "developer", "c#"],
         position: 'Senior Devops Engineer',
         salary: 'R125k-R135k month',
-        location: 'Johannesburg',
+        location: 'jhb',
         jobType: 'Full Time',
         img: mailchimp,
         posted: 'today',
@@ -19,9 +42,10 @@ export const gigs = [
     {
         id: 2,
         companyname: 'Tuto',
+        searchFields:["developer"],
         position: 'Intermediate JS Front End Developer',
         salary: 'R500 Hourly',
-        location: 'Pretoria',
+        location: 'pta',
         jobType: 'Part Time',
         img: capsule,
         posted: 'today',
@@ -31,6 +55,7 @@ export const gigs = [
     {
         id: 3,
         companyname: 'Tuto',
+        searchFields:["pta", "business analyst"],
         position: 'Senior full-stack developer',
         salary: 'R900 Hourly',
         location: 'Pretoria',

@@ -1,10 +1,12 @@
+
 "use client"
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import './jobs.scss';
+import Select from "react-select";
 import Header from '../components/Header/Header';
 import MobileMenu from '../components/MobileMenu/MobileMenu';
-import { gigs } from '../gigs';
+import { filterJob, gigs } from '../gigs';
 import img23 from "../../assets/img/900x900/img23.jpg";
 import topVendor from "../../assets/svg/illustrations/top-vendor.svg";
 import capsule from "../../assets/svg/brands/capsule-icon.svg";
@@ -15,10 +17,15 @@ import dynamic from 'next/dynamic';
 import { GetAllProjects, GetProjectById } from '../endpoints/api';
 import { IJobApplication } from '../interfaces/IJobApplication';
 import Layout from '../layout';
+import { IOption, cities } from '../lib/data';
 
 function jobs() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const [projects, setProjects] = useState<IJobApplication[]>([]);
+    const [filteredGigs, setFilteredGigs] = useState<any[]>([]);
+    const [searchKeys, setSearchKeys] = useState<string>("");
+
+    const [city, setCity] = useState<string>("");
 
     const loadAllProjects = async()=>{
         const res = await GetAllProjects() as any ;
@@ -27,11 +34,23 @@ function jobs() {
         setProjects(resData);    
       }
 
-    
+      function handleCitySelect(data: any) {
+        const _data = data as IOption;
+        setCity(_data.value);
+      }
+
+      
   useEffect(() => {
     
      loadAllProjects();
+     setFilteredGigs(gigs as []);
    },[]);
+
+
+   function filter(){
+    const result  = filterJob(searchKeys.trim().split(" "), city);
+    setFilteredGigs(result);
+   }
 
     return (
     <>
@@ -63,7 +82,7 @@ function jobs() {
                             <span className="input-group-prepend input-group-text">
                                 <i className="bi-search" />
                             </span>
-                            <input type="text" className="form-control" id="jobTitleForm" placeholder="Job, title, skills, or company" aria-label="Job, title, skills, or company" />
+                            <input onChange={(e)=>{setSearchKeys(e.target.value)}} type="text" className="form-control" id="jobTitleForm" placeholder="Job, title, skills, or company" aria-label="Job, title, skills, or company" />
                             </div>
                         </div>
                         <div className="input-card-form">
@@ -72,10 +91,18 @@ function jobs() {
                             <span className="input-group-prepend input-group-text">
                                 <i className="bi-geo-alt" />
                             </span>
-                            <input type="text" className="form-control" id="cityForm" placeholder="City" aria-label="City, state, or zip" />
+                            {/* <Select
+                                // className={} 
+                                  options={cities as any}
+                                  placeholder="Select a city"
+                                  onChange={handleCitySelect}
+                                  isSearchable={false}
+                                  isMulti={false}
+                                /> */}
+                            {/* <input type="text" className="form-control" id="cityForm" placeholder="City" aria-label="City, state, or zip" /> */}
                             </div>
                         </div>
-                        <button type="button" className="btn btn-primary" disabled={true} style={{background: '#FD2DC3 !important', border: 'none'}}>Search</button>
+                        <button type="button" className="btn btn-primary"  onClick={()=>filter()} disabled={false} style={{background: '#FD2DC3 !important', border: 'none'}}>Search</button>
                         </div>
                         {/* End Input Card */}
                     </form>
@@ -83,6 +110,14 @@ function jobs() {
                     </div>
                     {/* End Col */}
                 </div>
+                <Select
+                                // className={} 
+                                  options={cities as any}
+                                  placeholder="Select a city"
+                                  onChange={handleCitySelect}
+                                  isSearchable={false}
+                                  isMulti={false}
+                                />
                 {/* End Row */}
                 <div className="d-none d-lg-block col-lg-6 position-lg-absolute top-0 end-0">
                     <Image className="img-fluid rounded-2" src={img23} alt="Image Description" />
@@ -154,7 +189,7 @@ function jobs() {
                 </div>
                 ))} */}
                
-                {gigs.map(gig => (
+                {filteredGigs.map(gig => (
                 <div className="col mb-5" key={gig.id}>
                     {/* Card */}
                     <div className="card card-bordered h-100">
@@ -488,4 +523,3 @@ function jobs() {
 
 
 export default dynamic (() => Promise.resolve(jobs), {ssr: false})
-
