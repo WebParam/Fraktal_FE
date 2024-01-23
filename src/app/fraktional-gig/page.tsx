@@ -19,7 +19,8 @@ import Layout from '../layout';
 function jobs() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const [projects, setProjects] = useState<IJobApplication[]>([]);
-
+    const _gigs = gigs as any[];
+    
     const loadAllProjects = async()=>{
         const res = await GetAllProjects() as any ;
     
@@ -154,8 +155,8 @@ function jobs() {
                 </div>
                 ))} */}
                
-                {gigs.map(gig => (
-                <div className="col mb-5" key={gig.id}>
+                {_gigs.map(gig => (
+                <div className="col mb-5" key={gig?.id}>
                     {/* Card */}
                     <div className="card card-bordered h-100">
                     {/* Card Body */}
