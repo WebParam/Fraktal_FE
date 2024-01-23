@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 
+import koala from '../../../assets/additional/koala.png';
 
 
 export default function BlogPost() {
@@ -50,7 +51,7 @@ export default function BlogPost() {
                   description={blog?.excerpt?.rendered.replace(/<\/?[^>]+(>|$)/g, '').substring(0,200)} 
                   type="blog" 
                   // ogImage={blog?.jetpack_featured_media_url}
-                  ogImage={'https://res.cloudinary.com/dhdwwwbxz/image/upload/c_crop,ar_16:9/v1705821016/SocialBanc_Final_Logo_1600x_900_uvjfy2.png'}
+                  ogImage={koala}
                 >
                    <div>
              <Header

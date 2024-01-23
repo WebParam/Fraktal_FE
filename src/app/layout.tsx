@@ -74,9 +74,9 @@ export default function Layout({ children, title, description, type, pageMeta,og
 
 {description!=undefined && <>
 
-<meta property='og:type' content={type} />
+        <meta property='og:type' content={type} />
         <title> {title} </title>      
-        <meta property='og:site_name' content='fraktional' />
+        <meta property='og:site_name' content={title} />
         <meta property='og:description' content={description} />
         <meta property='og:title' content={title} />
         <meta property='og:image' content={ogImage} />
