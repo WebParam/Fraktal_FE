@@ -21,7 +21,7 @@ import dynamic from "next/dynamic";
 import { Logout } from "../lib/function";
 import InitialsAvatar from 'react-initials-avatar';
 import 'react-initials-avatar/lib/ReactInitialsAvatar.css';
-import { IOption, degrees, getLabelFromValue, getOptionFromValue, noticePeriods, skills, universities } from "../lib/data";
+import { IOption, degrees, experience, getLabelFromValue, getOptionFromValue, noticePeriods, skills, universities } from "../lib/data";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { StylesConfig } from 'react-select';
@@ -53,7 +53,8 @@ function developerOverview() {
   const [yearsOfExperience, setYearsOfExperience] = useState("");
   const [education, setEducation] = useState<IEducationInformation[]>([]);
   const [keyCourses, setKeyCourses] = useState("");
-  const [keySkills, setKeySkills] = useState([]);
+  const [expectedRate, setExpectedRate] = useState("0");
+  const [keySkills, setKeySkills] = useState<any[]>([]);
   const [noticePeriod, setNoticePeriod] = useState("");
   const [cvUrl, setCVUrl] = useState("");
   const [_user, setUser] = useState("");
@@ -193,10 +194,12 @@ async function _GetDeveloperProfile(id:string){
   
   var res = await GetDeveloperProfile(id) as any;
   if(res.data){
+    debugger;
   setCurrentProfile(res.data);
-
+setNoticePeriod(res?.data?.noticePeriod)
   setInformation(res?.data?.personalInformation?.about);
   setFirstName(res?.data?.firstName);
+  setPhone(res?.data?.phone);
   setSurname(res?.data?.surname);
   setCurrentJob(res?.data?.currentJob);
   setPreviousWorkExperience(res?.data?.previousWorkExperience);
@@ -208,6 +211,9 @@ async function _GetDeveloperProfile(id:string){
   setPreferedWorkMethod(res?.data?.preferedWorkMethod);
   setExistingUser(true);
   setKeySkills(res?.data?.keySkills);
+  setWorkStatus(res?.data?.workStatus);
+  setExpectedRate(res?.data?.expectedRate);
+  
   }
   setTimeout(() => {
     // setDisable(false)
@@ -341,6 +347,19 @@ function handleNoticePeriod(data: any) {
 }
 
 
+function handleExperience(data: any) {
+  const _data = data as IOption;
+  setYearsOfExperience(_data.value);
+}
+
+function handleSkills(data: any) {
+  const _data = data as IOption[];
+  debugger;
+  setKeySkills(_data.map(x=>x.value));
+}
+
+
+
 function handleSelectInstitute(data: any) {
   const _data = data as IOption;
   setEduInstituteName(_data.value);
@@ -379,7 +398,7 @@ useEffect(() => {
       previousWorkExperience:previousWorkExperience,
       yearsOfExperience:yearsOfExperience,
       education:education, 
-      keySkills:"", 
+      keySkills:keySkills, 
       keyCourses:keyCourses,
       cvUrl:cvUrl,
       personalInformation:{about:information},
@@ -615,11 +634,55 @@ console.log("DDD", loggedInUser);
                     <div id="addPhoneFieldContainer" />
                   </div>
                 </div>
-                
+                      
+                {/* <div className="row mb-4">
+                  <label className="col-sm-3 col-form-label form-label">Gender</label>
+                  <div className="col-sm-9">
+                    <div className="input-group input-group-md-down-break">
+                     
+                      <label className="form-control" htmlFor="genderTypeRadio1">
+                        <span className="form-check">
+                          <input  onChange={(e)=>setGender(0)}  type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio1" />
+                          <span className="form-check-label">Male</span>
+                        </span>
+                      </label>
+                    
+                      <label className="form-control" htmlFor="genderTypeRadio2">
+                        <span className="form-check">
+                          <input onChange={(e)=>setGender(1)} type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio2" />
+                          <span className="form-check-label">Female</span>
+                        </span>
+                      </label>
+
+                      <label className="form-control" htmlFor="genderTypeRadio3">
+                        <span className="form-check">
+                          <input onChange={(e)=>setGender(2)}   type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio3" />
+                          <span className="form-check-label">Other</span>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div> */}
+                {/* Form */}
+                <div className="row mb-4">
+                  <label className="col-sm-3 col-form-label form-label">Bio</label>
+                  <div className="col-sm-9">
+                    {/* Quill */}
+                    <div className="quill-custom">
+                      <div className="js-quill" style={{height: '15rem'}}>
+                        <textarea onChange={(e)=>setInformation(e.target.value)} name="summary" defaultValue={information} id="textarea" placeholder="Enter bio" style={{height: '100%', width: '100%', padding: '10px'}}></textarea>
+                      </div>
+                    </div>
+                    {/* End Quill */}
+                  </div>
+                </div>
+               
+                {/* End Form */}
                 {/* End Form */}
                 <div className="row mb-4">
                   <label htmlFor="firstNameLabel" className="col-sm-3 col-form-label form-label">Current Employment <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Your notice period" /></label>
                   <div className="col-sm-9">
+                  <div className="row">
                   <div className="col-sm-6">
                 <div className="mb-1">
                 <label className="input-label">Are you currently working? *</label>
@@ -653,6 +716,7 @@ console.log("DDD", loggedInUser);
                 </div>
                 {
                   workStatus=="yes" && (
+                    <div className="col-md-6" style={{marginTop: "5%"}}>
                     <div className="input-group">
 
                     <Select
@@ -671,21 +735,84 @@ console.log("DDD", loggedInUser);
                 
                    
                     </div>
+                    </div>
                   )
                 }
+               </div>
                    
+                  </div>
+               
+                </div>
+                
+                <div className="row mb-4">
+                  <label className="col-sm-3 col-form-label form-label">Prefered work method</label>
+                  <div className="col-sm-9">
+                    <div className="input-group input-group-md-down-break">
+                      {/* Radio Check */}
+                      <label className="form-control" htmlFor="preferedWorkMethod0">
+                        <span className="form-check">
+                          <input  onChange={(e)=>setPreferedWorkMethod("0")} checked={preferedWorkMethod=="0"} type="radio" className="form-check-input" name="genderTypeRadio" id="preferedWorkMethod0" />
+                          <span className="form-check-label">Remote</span>
+                        </span>
+                      </label>
+                      {/* End Radio Check */}
+                      {/* Radio Check */}
+                      <label className="form-control" htmlFor="preferedWorkMethod1">
+                        <span className="form-check">
+                          <input onChange={(e)=>setPreferedWorkMethod("1")} type="radio" checked={preferedWorkMethod=="1"}  className="form-check-input" name="genderTypeRadio" id="preferedWorkMethod1" />
+                          <span className="form-check-label">Hybrid</span>
+                        </span>
+                      </label>
+                      {/* End Radio Check */}
+                      {/* Radio Check */}
+                      <label className="form-control" htmlFor="preferedWorkMethod2">
+                        <span className="form-check">
+                          <input onChange={(e)=>setPreferedWorkMethod(" ")}  checked={preferedWorkMethod=="2"}  type="radio" className="form-check-input" name="genderTypeRadio" id="preferedWorkMethod2" />
+                          <span className="form-check-label">On Site</span>
+                        </span>
+                      </label>
+                      {/* End Radio Check */}
+                    </div>
                   </div>
                 </div>
                 <div className="row mb-4">
-                  <label htmlFor="emailLabel"  className="col-sm-3 col-form-label form-label">Expected Rate (per hour)</label>
+                  <label htmlFor="emailLabel"  className="col-sm-3 col-form-label form-label">Minimum Rate (per hour)</label>
                   <div className="col-sm-9">
-                    <input type="rate" readOnly className="form-control" name="rate" id="emailLabel" placeholder="Email" aria-label="clarice@example.com" defaultValue={loggedInUser.email} />
+                  <div className="col-sm-6">
+                    <input value={expectedRate} onChange={(e)=>setExpectedRate(e.target.value)} type="number" className="form-control" name="rate" id="emailLabel" placeholder="Rate per hour" aria-label="200" defaultValue={"0"} />
+                    </div>
                   </div>
+                  
                 </div>
+                <div className="row mb-4">
+                  <label htmlFor="emailLabel"  className="col-sm-3 col-form-label form-label">Years of experience</label>
+                  <div className="col-sm-9">
+                <div className="col-md-6">
+                    <div className="input-group">
+
+                    <Select
+                    className="form-control selectControl"
+                  
+                    options={experience}
+                    value={getOptionFromValue([yearsOfExperience], experience)}
+                    placeholder="Years of experience"
+                    styles={style}
+                    onChange={
+                      handleExperience
+                    }
+                    isSearchable={false}
+                    isMulti={false}
+                  />
+                
+                   
+                    </div>
+                    </div>
+                    </div>
+                    </div>
                 {/* Add Phone Input Field */}
                 <div id="addPhoneFieldTemplate" style={{display: 'none', position: 'relative'}}>
                   <div className="input-group input-group-add-field">
-                    <input type="text" className="js-input-mask-dynamic form-control" value={phone!="" ? phone:loggedInUser.mobileNumber} onChange={(e)=>setPhone(e.target.value)} data-name="additionlPhone" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" data-hs-mask-options="{
+                    <input type="text" className="js-input-mask-dynamic form-control" value={phone!="" ? phone:loggedInUser.mobileNumber} onChange={(e)=>setPhone(e.target.value)} data-name="additionlPhone" placeholder="+(00) 00 000 0000" aria-label="+(00) 00 000 0000" data-hs-mask-options="{
                          &quot;mask&quot;: &quot;+{0}(000)000-00-00&quot;
                        }" />
                     {/* Select */}
@@ -709,53 +836,10 @@ console.log("DDD", loggedInUser);
                 </div>
                 {/* End Add Phone Input Field */}
                 {/* Form */}
-                <div className="row mb-4">
-                  <label className="col-sm-3 col-form-label form-label">Gender</label>
-                  <div className="col-sm-9">
-                    <div className="input-group input-group-md-down-break">
-                      {/* Radio Check */}
-                      <label className="form-control" htmlFor="genderTypeRadio1">
-                        <span className="form-check">
-                          <input  onChange={(e)=>setGender(0)}  type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio1" />
-                          <span className="form-check-label">Male</span>
-                        </span>
-                      </label>
-                      {/* End Radio Check */}
-                      {/* Radio Check */}
-                      <label className="form-control" htmlFor="genderTypeRadio2">
-                        <span className="form-check">
-                          <input onChange={(e)=>setGender(1)} type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio2" />
-                          <span className="form-check-label">Female</span>
-                        </span>
-                      </label>
-                      {/* End Radio Check */}
-                      {/* Radio Check */}
-                      <label className="form-control" htmlFor="genderTypeRadio3">
-                        <span className="form-check">
-                          <input onChange={(e)=>setGender(2)}   type="radio" className="form-check-input" name="genderTypeRadio" id="genderTypeRadio3" />
-                          <span className="form-check-label">Other</span>
-                        </span>
-                      </label>
-                      {/* End Radio Check */}
-                    </div>
-                  </div>
-                </div>
-                {/* End Form */}
-                {/* Form */}
-                <div className="row mb-4">
-                  <label className="col-sm-3 col-form-label form-label">Bio</label>
-                  <div className="col-sm-9">
-                    {/* Quill */}
-                    <div className="quill-custom">
-                      <div className="js-quill" style={{height: '15rem'}}>
-                        <textarea onChange={(e)=>setInformation(e.target.value)} name="summary" defaultValue={information} id="textarea" placeholder="Enter bio" style={{height: '100%', width: '100%', padding: '10px'}}></textarea>
-                      </div>
-                    </div>
-                    {/* End Quill */}
-                  </div>
-                </div>
                
+         
                 {/* End Form */}
+
               </form>
             </div>
             {/* End Body */}
@@ -809,6 +893,41 @@ console.log("DDD", loggedInUser);
             </div>
             {/* End Body */}
           </div>
+          <div className="card">
+            <div className="card-header border-bottom">
+              <h4 className="card-header-title">Competencies</h4>
+            </div>
+            {/* Body */}
+              <div className="card-body">
+              <div className="mb-4">
+              <div className="row mb-4">
+                  <label htmlFor="firstNameLabel" className="col-sm-3 col-form-label form-label">Your competencies <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Displayed on public forums, such as Front." /></label>
+                  <div className="col-sm-9">
+                    <div className="input-group">
+                    <Select
+                    className="form-control selectControl"
+                  
+                    options={skills}
+                    value={getOptionFromValue(keySkills, skills)}
+                    placeholder="Search Skills"
+                    styles={style}
+                    onChange={
+                      handleSkills
+                    }
+                    isSearchable={true}
+                    isMulti={true}
+                  />
+                    </div>
+                  </div>
+                </div>
+                
+                
+                  
+                
+              </div>
+            </div>
+            </div>
+            
           <div className="card">
             <div className="card-header border-bottom">
               <h4 className="card-header-title">Work Experience</h4>
@@ -1153,41 +1272,7 @@ console.log("DDD", loggedInUser);
             {/* End Body */}
           </div>
 
-          <div className="card">
-            <div className="card-header border-bottom">
-              <h4 className="card-header-title">Competencies</h4>
-            </div>
-            {/* Body */}
-              <div className="card-body">
-              <div className="mb-4">
-              <div className="row mb-4">
-                  <label htmlFor="firstNameLabel" className="col-sm-3 col-form-label form-label">Your competencies <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Displayed on public forums, such as Front." /></label>
-                  <div className="col-sm-9">
-                    <div className="input-group">
-                    <Select
-                    className="form-control selectControl"
-                  
-                    options={skills}
-                    value={getOptionFromValue(keySkills, skills)}
-                    placeholder="Search Skills"
-                    styles={style}
-                    onChange={
-                      ()=>{}
-                    }
-                    isSearchable={true}
-                    isMulti={true}
-                  />
-                    </div>
-                  </div>
-                </div>
-                
-                
-                  
-                
-              </div>
-            </div>
-            </div>
-            
+       
               
           <div className="card-footer pt-0">
                 <div className="d-flex justify-content-end gap-3">

@@ -85,7 +85,7 @@ export interface IContactForm{
     previousWorkExperience:IWorkExperience[],
     yearsOfExperience:string, 
     education:IEducationInformation[], 
-    keySkills:string,
+    keySkills:string[],
     keyCourses :string, 
     cvUrl:string, 
     personalInformation:IPersonalInformation, 

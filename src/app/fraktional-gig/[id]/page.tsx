@@ -16,9 +16,11 @@ import { VerifyOtp } from './verify-otp';
 import Modal from 'react-responsive-modal';
 import MobileMenu from '@/app/components/MobileMenu/MobileMenu';
 import Header from '@/app/components/Header/Header';
+import Select from "react-select";
 import Footer from '@/app/components/Footer/Footer';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { IOption, experience, getOptionFromValue, noticePeriods } from '@/app/lib/data';
 
 function viewGig({ params }: { params: { id: string }}) {
     const gig = gigs.find(item => item.id === parseInt(params.id));
@@ -31,28 +33,28 @@ function viewGig({ params }: { params: { id: string }}) {
     const [phone, setPhone] = useState('');
     const [summary, setSummary] = useState('');
     const [resume, setResume] = useState<File>()
-    const [workStatus, setWorkStatus] = useState('yes');
+    const [workStatus, setWorkStatus] = useState('no');
     const [currentJob, setCurrentJob] = useState('');
     const [yearsOfExperience, setYearsOfExperience] = useState('');
-    const [notice, setnotice] = useState('');
+   
     const [portfolio, setPortfolio] = useState([]);
     const [expectedSalary, setExpectedSalary] = useState('');
     const [mobileExp, setMobileExp] = useState('');
     const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
-    const userInformation = {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        phone: phone,
-        summary: summary,
-        resume: resume,
-        workStatus: workStatus,
-        notice: notice,
-        portfolio: portfolio,
-        expectedSalary: expectedSalary,
-        mobileExp: mobileExp,
-        // jobid: params.id
-      } ;
+    // const userInformation = {
+    //     firstName: firstName,
+    //     lastName: lastName,
+    //     email: email,
+    //     phone: phone,
+    //     summary: summary,
+    //     resume: resume,
+    //     workStatus: workStatus,
+    //     notice: noticePeriod,
+    //     portfolio: portfolio,
+    //     expectedSalary: expectedSalary,
+    //     mobileExp: mobileExp,
+    //     // jobid: params.id
+    //   } ;
 
     const [firstNameError, setFirstNameError] = useState(false);
     const [lastNameError, setLastNameError] = useState(false);
@@ -67,6 +69,7 @@ function viewGig({ params }: { params: { id: string }}) {
     const [expectedSalaryEroor, setExpectedSalaryError] = useState(false);
     // const [mobileExpError, setMobileExpError] = useState(false);
     const [showerror, setShowErrorMessage] = useState(false);
+    const [noticePeriod, setNoticePeriod] = useState("");
     const [emailExist, setEmailExist] = useState(false);
     const uploadCVClick = () => {
         /*Collecting node-element and performing click*/
@@ -74,6 +77,20 @@ function viewGig({ params }: { params: { id: string }}) {
       }
     const handleFirstName = (e: any) => {
         setFirstName(e.target.value);
+    }
+
+    
+    function handleNoticePeriod(data: any) {
+        const _data = data as IOption;
+        debugger;
+        setNoticePeriod(_data.value);
+    }
+
+    
+    
+    function handleExperience(data: any) {
+        const _data = data as IOption;
+        setYearsOfExperience(_data.value);
     }
 
     
@@ -109,7 +126,7 @@ function viewGig({ params }: { params: { id: string }}) {
     }
 
     const handleNotice = (e: any) => {
-        setnotice(e.target.value);
+        setNoticePeriod(e.target.value);
     }
     
     const handleSalary = (e: any) => {
@@ -145,7 +162,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 setShowErrorMessage(true);
                return;
             }
-         
+         debugger;
             
             if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
                 setEmailError(true);
@@ -178,7 +195,7 @@ function viewGig({ params }: { params: { id: string }}) {
                  setShowErrorMessage(false);
              }
 
-            if (!notice.trim()) {
+            if (!noticePeriod.trim()) {
                 setnoticeError(true);
                 setShowErrorMessage(true);return;
             } else {
@@ -217,7 +234,7 @@ const payload = {
     phone: phone,
     employed: workStatus,
     experience: yearsOfExperience,
-    notice: notice,
+    notice: noticePeriod,
     rate: expectedSalary,
     file: resume,
 } as IApply;
@@ -526,7 +543,7 @@ Object.entries(payload).forEach(([key, value]) => {
                     name="applyForJobWorkStatusBtnRadio" 
                     id="applyForJobWorkStatusYesBtnRadio" 
                     autoComplete="off"
-                    checked={workStatus === 'yes'}
+                    checked={workStatus == 'yes'}
                     onChange={() => handleWorkStatusChange('yes')} 
                 />
                 <label className="btn btn-sm" htmlFor="applyForJobWorkStatusYesBtnRadio"><i className="bi-hand-thumbs-up me-1" /> Yes</label>
@@ -536,7 +553,7 @@ Object.entries(payload).forEach(([key, value]) => {
                     name="applyForJobWorkStatusBtnRadio" 
                     id="applyForJobWorkStatusNoBtnRadio" 
                     autoComplete="off" 
-                    checked={workStatus === 'no'} 
+                    checked={workStatus == 'no'} 
                     onChange={() => handleWorkStatusChange('no')} 
                 />
                 <label className="btn btn-sm" htmlFor="applyForJobWorkStatusNoBtnRadio"><i className="bi-hand-thumbs-down me-1" /> No</label>
@@ -557,30 +574,10 @@ Object.entries(payload).forEach(([key, value]) => {
                 } */}
                 </div>
                 </div>
-                
-                {/* End Radio Button Group */}
-                {/* Form */}
-                <div className="col-sm-6">
-                <div className="mb-4">
-                <label className="form-label" htmlFor="applyForJobNoticePeriod">Years Of Experience *</label>
-                <input 
-                    type="text" 
-                    className={`form-control ${yearsOfExperienceError ? 'error':''}`} 
-                    name="applyForJobNameNoticePeriod" 
-                    id="applyForJobNoticePeriod" 
-                    placeholder="" 
-                    aria-label=""
-                    value={yearsOfExperience}
-                    onChange={handleYearsOfExperience}
-                />
-                </div>
-                </div>
-                </div>
-                <div className="row">
                 <div className="col-sm-6">
                 <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobNoticePeriod">Notice period *</label>
-                <input 
+                {/* <input 
                     type="text" 
                     className={`form-control ${noticeError ? 'error':''}`} 
                     name="applyForJobNameNoticePeriod" 
@@ -589,7 +586,53 @@ Object.entries(payload).forEach(([key, value]) => {
                     aria-label=""
                     value={notice}
                     onChange={handleNotice}
-                />
+                /> */}
+                  <Select
+                    className="select-padded "
+                    isDisabled={workStatus != 'yes'}
+                    options={noticePeriods}
+                    value={getOptionFromValue([noticePeriod], noticePeriods)}
+                    placeholder="Notice period"
+                    // styles={style}
+                    onChange={
+                      handleNoticePeriod
+                    }
+                    isSearchable={false}
+                    isMulti={false}
+                  />
+                </div>
+                </div>
+                {/* End Radio Button Group */}
+                {/* Form */}
+            
+                </div>
+                <div className="row">
+               
+                <div className="col-sm-6">
+                <div className="mb-4">
+                <label className="form-label" htmlFor="applyForJobNoticePeriod">Years Of Experience *</label>
+                {/* <input 
+                    type="text" 
+                    className={`form-control ${yearsOfExperienceError ? 'error':''}`} 
+                    name="applyForJobNameNoticePeriod" 
+                    id="applyForJobNoticePeriod" 
+                    placeholder="" 
+                    aria-label=""
+                    value={yearsOfExperience}
+                    onChange={handleYearsOfExperience}
+                /> */}
+                 <Select
+                    className="select-padded "
+                    options={experience}
+                    value={getOptionFromValue([yearsOfExperience], experience)}
+                    placeholder="Years of experience"
+                    // styles={style}
+                    onChange={
+                        handleExperience
+                    }
+                    isSearchable={false}
+                    isMulti={false}
+                  />
                 </div>
                 </div>
                 {/* End Form */}
@@ -609,7 +652,7 @@ Object.entries(payload).forEach(([key, value]) => {
                 <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobExpectedSalary">Expected rate per hour *</label>
                 <input 
-                    type="text" 
+                    type="number" 
                     className={`form-control ${expectedSalaryEroor ? 'error':''}`} 
                     name="applyForJobNameExpectedSalary" 
                     id="applyForJobExpectedSalary" 

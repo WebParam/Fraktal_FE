@@ -169,6 +169,15 @@
     {"value": "nt4", "label": "2 months notice period"}
   ];
 
+  
+  export const experience =[
+    {"value": "exp1", "label": "This is my first job"},
+    {"value": "exp2", "label": "1-2 years experience"},
+    {"value": "exp3", "label": "2 - 5 years experience"},
+    {"value": "exp4", "label": "5 - 10 years experience"},
+  ];
+
+
 
   export interface IOption{
     value:string,
@@ -451,7 +460,7 @@ export interface IOption{
 }
 
 export function getOptionFromValue(value:string[], options:IOption[]):IOption[]{
-  debugger;
+
     const res = value.flatMap(x=>{return options.filter(y=>y.value==x);})
     return res;
   }
@@ -460,7 +469,7 @@ export function getOptionFromValue(value:string[], options:IOption[]):IOption[]{
 
   
 export function getLabelFromValue(value:string, options:IOption[]):string{
-  debugger;
+
     const res = options.filter(x=>x.value==value)[0];
     return res?.label??"";
   }
