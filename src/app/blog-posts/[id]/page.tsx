@@ -44,9 +44,8 @@ export default function BlogPost() {
       return (
 
        
-      
-       
-               <Layout
+             <>
+                <Layout
                   title={ `Fraktional Blog #${blog?.id}`}
                   description={ blog?.title?.rendered} 
                   type="blog" 
@@ -95,6 +94,7 @@ export default function BlogPost() {
                 <Footer />
                 </div>
                 </Layout>
+             </>
            
       )
 }
