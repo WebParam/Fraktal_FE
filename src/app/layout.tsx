@@ -66,17 +66,20 @@ export default function Layout({ children, title, description, type, pageMeta,og
         </title>
         <meta
           name="description"
-          content={description}
+          content={description??"Fraktional"}
           key="desc"
         />
 
-  
-        <meta property='og:type' content={type} />
+{description!=undefined && <>
+
+<meta property='og:type' content={type} />
         <meta property='og:site_name' content='fraktional' />
         <meta property='og:description' content={description} />
         <meta property='og:title' content={title} />
         <meta property='og:image' content={ogImage} />
 
+</>}  
+     
 
      
       <link rel="icon" href="/favicon.ico" />
