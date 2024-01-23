@@ -15,7 +15,6 @@ import "aos/dist/aos.css"
 // import '@/styles/global.css';
 import { useEffect } from 'react'
 import Hotjar from '@hotjar/browser';
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 
 
