@@ -23,7 +23,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { IOption, experience, getOptionFromValue, noticePeriods } from '@/app/lib/data';
 
 function viewGig({ params }: { params: { id: string }}) {
-    const gig = gigs.find(item => item.id === parseInt(params.id));
+    const _gigs = gigs as any[];
+    const gig = _gigs.find(item => item?.id === parseInt(params.id));
 
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const inputFileRef = useRef<HTMLInputElement>(null);
