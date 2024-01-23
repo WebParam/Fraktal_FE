@@ -49,7 +49,8 @@ export default function BlogPost() {
                   title={ `Fraktional Blog #${blog?.id}`}
                   description={ blog?.title?.rendered} 
                   type="blog" 
-                  ogImage={blog?.jetpack_featured_media_url}
+                  // ogImage={blog?.jetpack_featured_media_url}
+                  ogImage={'https://res.cloudinary.com/dhdwwwbxz/image/upload/c_crop,ar_16:9/v1705821016/SocialBanc_Final_Logo_1600x_900_uvjfy2.png'}
                 >
                    <div>
              <Header
