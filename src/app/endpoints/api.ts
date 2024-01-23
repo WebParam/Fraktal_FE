@@ -17,7 +17,7 @@ import { IApplyForJobRegistration } from "../interfaces/job-registration";
 
 // const url = "https://viconet-vercel.vercel.app"
 const url = "https://viconet-vercel.vercel.app"
-const azureUrl = "https://localhost:7257"
+const azureUrl = "https://fraktional-be.azurewebsites.net"
 
 
 export async function ChangePasswordAndActivate(payload: IUserResetPassword) {
@@ -512,11 +512,11 @@ export async function verifyOtp(payload: IVerifyOtp) {
 
 export async function jobRegistration(payload:any, email:string) {
   try {
-    const response = await axios.post(`${azureUrl}/apply`, payload);
+    const response = await axios.post(`${azureUrl}/apply/${email}`, payload);
     debugger;
     if (response.status === 200 || response.status === 201) {
-      if (response.data) {
-        return response.data;
+      if (response.data._doc) {
+        return response.data._doc;
       } else {
         return false;
       }
