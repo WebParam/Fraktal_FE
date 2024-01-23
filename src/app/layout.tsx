@@ -61,18 +61,21 @@ export default function Layout({ children, title, description, type, pageMeta,og
     <html lang="en">
       <head>
       
-        <title>
-            {title}
-        </title>
-        <meta
-          name="description"
-          content={description??"Fraktional"}
-          key="desc"
-        />
+      
+        {/* <meta 
+          name="description" 
+          property="og:description" 
+          content={description}/> */}
+           {/* <meta
+                  name="description"
+                  content={description??"Fraktional"}
+                  key="desc"
+                /> */}
 
 {description!=undefined && <>
 
 <meta property='og:type' content={type} />
+        <title> {title} </title>      
         <meta property='og:site_name' content='fraktional' />
         <meta property='og:description' content={description} />
         <meta property='og:title' content={title} />
