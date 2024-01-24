@@ -4,18 +4,18 @@ import prosperus from "../assets/svg/brands/prosperops-icon.svg";
 import guideline from "../assets/svg/brands/guideline-icon.svg"; 
 
 export const gigs = [
-    // {
-    //     id: 1,
-    //     companyname: 'J-T Consulting',
-    //     position: 'Senior Devops Engineer',
-    //     salary: 'R125k-R135k month',
-    //     location: 'Johannesburg',
-    //     jobType: 'Full Time',
-    //     img: mailchimp,
-    //     posted: 'today',
-    //     remote: 'remote',
-    //     description:"We are looking for a Senior DevOps Engineer to join our team. You will be responsible for helping to design, develop, and maintain our cloud infrastructure and services. You will be part of a small team of dedicated engineers who are passionate about delivering an exceptional user experience to our customers."
-    // },
+    {
+        id: 1,
+        companyname: 'J-T Consulting',
+        position: 'Senior Devops Engineer',
+        salary: 'R125k-R135k month',
+        location: 'Johannesburg',
+        jobType: 'Full Time',
+        img: mailchimp,
+        posted: 'today',
+        remote: 'remote',
+        description:"We are looking for a Senior DevOps Engineer to join our team. You will be responsible for helping to design, develop, and maintain our cloud infrastructure and services. You will be part of a small team of dedicated engineers who are passionate about delivering an exceptional user experience to our customers."
+    }
     // {
     //     id: 2,
     //     companyname: 'Tuto',
