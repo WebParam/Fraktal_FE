@@ -11,8 +11,19 @@
 
 .getStarted {
     border-radius: 8px;
-    background: linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.40) 124.34%);
+    background: linear-gradient(90deg, #FD2DC3 -2.8%, rgba(0, 63, 189, 0.4) 124.34%);
     border: none;
+}
+
+.ctabutton-1{
+    background-color: white;
+    color: black;
+}
+
+.ctabutton-1:hover{
+    transition: 10ms;
+    background: linear-gradient(90deg, #FD2DC3 -2.8%, rgba(0, 63, 189, 0.4) 124.34%);
+    color: white;
 }
 
 .backgroundcolor1{

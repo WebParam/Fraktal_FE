@@ -51,6 +51,7 @@ function jobs() {
     const result  = filterJob(searchKeys.trim().split(" "), city);
     setFilteredGigs(result);
    }
+   
 
     return (
     <>
@@ -86,22 +87,44 @@ function jobs() {
                             </div>
                         </div>
                         <div className="input-card-form">
-                            <label htmlFor="cityForm" className="form-label visually-hidden">City</label>
-                            <div className="input-group input-group-merge">
-                            <span className="input-group-prepend input-group-text">
-                                <i className="bi-geo-alt" />
-                            </span>
-                            {/* <Select
-                                // className={} 
-                                  options={cities as any}
-                                  placeholder="Select a city"
-                                  onChange={handleCitySelect}
-                                  isSearchable={false}
-                                  isMulti={false}
-                                /> */}
-                            {/* <input type="text" className="form-control" id="cityForm" placeholder="City" aria-label="City, state, or zip" /> */}
-                            </div>
-                        </div>
+    <label htmlFor="cityForm" className="form-label visually-hidden">City</label>
+    <div className="input-group input-group-merge">
+        <div>
+            <span className="input-group-prepend input-group-text">
+                {/* Any content you want to include */}
+            </span>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+            <div>
+                <i className="bi-geo-alt" />
+            </div>
+
+            <div style={{ marginLeft: '10px', position: 'relative' }}> {/* Adjust the margin as needed */}
+            <Select
+   
+    menuPosition={'fixed'}
+    options={cities as any}
+    placeholder="Select a city"
+    onChange={handleCitySelect}
+    isSearchable={false}
+    isMulti={false}
+    styles={{
+        control: (baseStyles, state) => ({
+            ...baseStyles,
+            width: '250px'
+        })
+       
+    }}
+/>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
                         <button type="button" className="btn btn-primary"  onClick={()=>filter()} disabled={false} style={{background: '#FD2DC3 !important', border: 'none'}}>Search</button>
                         </div>
                         {/* End Input Card */}
@@ -110,14 +133,7 @@ function jobs() {
                     </div>
                     {/* End Col */}
                 </div>
-                <Select
-                                // className={} 
-                                  options={cities as any}
-                                  placeholder="Select a city"
-                                  onChange={handleCitySelect}
-                                  isSearchable={false}
-                                  isMulti={false}
-                                />
+               
                 {/* End Row */}
                 <div className="d-none d-lg-block col-lg-6 position-lg-absolute top-0 end-0">
                     <Image className="img-fluid rounded-2" src={img23} alt="Image Description" />
