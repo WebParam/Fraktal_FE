@@ -18,12 +18,19 @@
 .ctabutton-1{
     background-color: white;
     color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    border: 1px solid #4B4C4E;
 }
 
 .ctabutton-1:hover{
     transition: 10ms;
     background: linear-gradient(90deg, #FD2DC3 -2.8%, rgba(0, 63, 189, 0.4) 124.34%);
-    color: white;
+    color: #F0ECEC;
+ 
+
 }
 
 .backgroundcolor1{
@@ -36,11 +43,14 @@
 .animatedText {
     margin-left: 10px;
     color: #FD2DC3;
+    // opacity: 0.3;
 }
+
+
 
 .fraktionalDev {
     border-radius: 15px;
-    background: rgba(255, 123, 237, 0.15);
+    background: rgba(210, 211, 229, 0.6);
 }
 
 
@@ -65,6 +75,9 @@
 
 .koalaContainer {
     height: 85vh;
+   
+    
+    padding-left: 10%;
 }
 
 .koalaHero {

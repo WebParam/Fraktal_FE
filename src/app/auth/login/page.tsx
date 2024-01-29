@@ -271,6 +271,12 @@ function SignIn() {
               <Link href="/auth/register">Sign up here</Link>
             </span>
           </p>
+          <p>
+            Read our terms and conditions{" "}
+            <span className="cta">
+              <Link href="/terms-and-conditions">T's and C's here</Link>
+            </span>
+          </p>
 
         {/* {userVerifyError ? (
           <p>

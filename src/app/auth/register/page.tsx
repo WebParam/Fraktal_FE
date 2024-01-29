@@ -451,6 +451,14 @@ function Register() {
               <Link href="/auth/login">Sign in here</Link>
             </span>
           </p>
+
+          <p>
+          Read our terms and conditions{" "}
+            <span className="cta">
+              <Link href="/terms-and-conditions">T's and C's here</Link>
+            </span>
+          </p>
+
         </div>
       </div>
     </section>

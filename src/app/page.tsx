@@ -35,7 +35,7 @@ import router from 'next/router';
 import moment from 'moment';
 import background from '../assets/img/Background.svg';
 import backf from './images/Background.png'
-import cards from '../assets/img/Cards.svg'
+import cards from '../assets/img/Asset 2.png';
 
 
 
@@ -88,7 +88,16 @@ function HomePage() {
     <main id="content" role="main" >
       {/* Hero */}
       
-      <div style={{ backgroundImage: `url(${background.src})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
+      <div 
+         style={{
+    backgroundImage: `url(${background.src})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+  
+ 
+  }}
+      >
      
         <div className="container d-lg-flex align-items-lg-center content-space-t-3 content-space-lg-0 min-vh-lg-100" >
           {/* Heading */}
@@ -107,8 +116,8 @@ function HomePage() {
                   <p className="lead">We connect developers and organizations with each other for short to medium term projects.</p>
                 </div>
                 <div className="d-grid d-sm-flex gap-3">
-                  <a  className=" btn text-black btn-transition px-6 getStarted" href="/fraktional-dev">Get started</a>
-                  <a className="ctabutton-1 btn  text-black btn-transition px-6" href="/fraktional-dev">Get started</a>
+                  <a className="ctabutton-1  btn-transition hover:text-white py-2 px-5" href="/fraktional-dev">Get an F-Dev</a>
+                  <a className="ctabutton-1  btn-transition hover:text-white py-2 px-5" href="/fraktional-gig">Get an F-Gig</a>
                 </div>
 
                 
@@ -119,13 +128,14 @@ function HomePage() {
           </div>
           {/* End Title & Description */}
           <div data-aos="fade-left" className="col-lg-7 col-xl-6 d-none d-lg-block position-absolute top-0 end-0 pe-0 koalaContainer" style={{marginTop: '6.75rem'}}>
+           
             <Image 
               src={cards} 
-          
-         
-              alt='koala' 
+              width={410}
+              alt='cards' 
               className='koalaHero' 
             />
+         
           </div>
         </div>
       </div>
