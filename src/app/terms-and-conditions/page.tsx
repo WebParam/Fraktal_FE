@@ -13,10 +13,10 @@ const page = () => {
   return (
 
     <div> 
-   <Header
-        menuTogglerFunction={setMenuToggler}
-        menuTogglerValue={menuToggler}
-      />
+    <Header
+            menuTogglerFunction={setMenuToggler}
+            menuTogglerValue={menuToggler}
+        />
        <MobileMenu menuToggler={menuToggler} />
 
       

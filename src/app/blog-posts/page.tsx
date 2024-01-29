@@ -78,7 +78,7 @@ function Blogs() {
               <div key={index} className="col-sm-6 col-lg-4 mb-5">
                 {/* Card */}
                 <a
-                  onClick={handleBlogClick}
+                  
                   href={`/blog-posts/${data.id}`}
                   className="card card-flush h-100"
                   data-aos="fade-up"

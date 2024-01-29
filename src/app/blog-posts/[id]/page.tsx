@@ -75,7 +75,10 @@ export default function BlogPost() {
                     backgroundSize: "cover",
                     borderRadius: "20px",
                     marginBottom: "5%",
-                    marginTop: "5%"
+                    marginTop: "5%",
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
                   }}
 
                   className="flex items-center justify-center text-center"

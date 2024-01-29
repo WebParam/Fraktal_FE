@@ -36,6 +36,7 @@ import moment from 'moment';
 import background from '../assets/img/Background.svg';
 import backf from './images/Background.png'
 import cards from '../assets/img/Asset 2.png';
+import Parallaxx from './components/parallax/page';
 
 
 
@@ -51,6 +52,7 @@ function HomePage() {
     // cookies.set('blog', blog);
     return;
   };
+
 
 
   useEffect(() => {
@@ -149,6 +151,7 @@ function HomePage() {
         {/* End Heading */}
         <div className="text-center mb-10">
           {/* List Checked */}
+          
           <ul className="list-inline list-checked list-checked-primary">
             <li className="list-inline-item list-checked-item">Innovate. Implement. Inspire.</li>
             <li className="list-inline-item list-checked-item">Analyze. Architect. Advance</li>
@@ -479,6 +482,10 @@ function HomePage() {
       {/* End Card Grid */}
     </main>
     {/* ========== END MAIN CONTENT ========== */}
+
+    <Parallaxx/>
+                    
+
     <Footer />
     </Layout>
   </div>
