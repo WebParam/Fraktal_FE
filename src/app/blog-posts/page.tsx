@@ -61,7 +61,7 @@ function Blogs() {
 
         <a></a>
          {/* Heading */}
-         <div className="mb-5 mb-md-10" style={{textAlign:"center"}}>
+         <div className="mb-5 mb-md-10" style={{textAlign:"center", paddingTop: '10%'}}>
                     <h1 className="display-4" style={{color: '#4B4C4E'}}>News & Blog</h1>
                     <p className="lead">Keep up to date with the latest news and developments.</p>
                 </div>

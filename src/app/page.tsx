@@ -37,6 +37,7 @@ import background from '../assets/img/Background.svg';
 import backf from './images/Background.png'
 import cards from '../assets/img/Asset 2.png';
 import Parallaxx from './components/parallax/page';
+import { Parallax } from 'react-scroll-parallax';
 
 
 
@@ -133,7 +134,7 @@ function HomePage() {
            
             <Image 
               src={cards} 
-              width={410}
+              width={390}
               alt='cards' 
               className='koalaHero' 
             />
@@ -365,6 +366,9 @@ function HomePage() {
       </div>
       {/* End Testimonials */}
       {/* Stats */}
+      
+
+
       <div data-aos="zoom-in-up" className="stats rounded-2 mx-3 mx-lg-10">
         <div className="container content-space-2">
           <div className="row justify-content-center">
