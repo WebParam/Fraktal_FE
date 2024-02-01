@@ -107,12 +107,15 @@ export default function BlogPost() {
 
                 <div className="lastsection1">
                   <div  className="lastsection" style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                      <div style={{display: 'flex', justifyContent: 'space-between', width: '90%', flexWrap: 'wrap' }}>
-                          <p style={{color: "#000", fontFamily: "Poppins", fontSize: 27, fontStyle: "normal", fontWeight: 500, lineHeight: "normal"}} >
-                              Looking to get an Fgig?
-                          </p>
-
-                            <a href="/fraktional-gig" style={{ width: 181, color: 'white', height: 59, backgroundColor: '#FD2DC3', borderRadius: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} >Sign Up</a>
+                      <div style={{display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'center', alignItems: 'center', width: '90%', flexWrap: 'wrap', margin: '20px', textAlign: 'center'}}>
+                          <h2>Get in the Know: Subscribe to the Fraktional Newsletter</h2>
+                          <p style={{paddingLeft: '10%', paddingRight: '10%'}}>Delivered straight to your inbox, every week. No spam, just pure tech goodness. </p>
+                          <div style={{width: '60%', height: '59px', borderRadius: '8px', border: '1px solid rgba(255, 123)', backgroundColor: '#FFF'}}>
+                            <form style={{display: 'flex', flexWrap: 'wrap',}}>
+                              <input style={{height: '59px', width: '70%', borderRadius: '8px', paddingLeft: '10px', outline: 'none', fontSize: '1.3vw'}} placeholder="Email Address" name="email" type="email" />
+                              <button style={{backgroundColor: '#FD2DC3', borderRadius: '6px', width: '30%', height: '59px', color: 'white', fontSize: '1.3vw'}} type="submit" >Subscribe</button>
+                            </form>
+                          </div>
                       </div>
                   </div>
                 </div>

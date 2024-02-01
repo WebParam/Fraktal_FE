@@ -37,7 +37,7 @@ import background from '../assets/img/Background.svg';
 import backf from './images/Background.png'
 import cards from '../assets/img/Asset 2.png';
 import Parallaxx from './components/parallax/page';
-import { Parallax } from 'react-scroll-parallax';
+
 
 
 
