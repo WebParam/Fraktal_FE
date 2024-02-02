@@ -127,8 +127,8 @@ function HomePage() {
               src="https://res.cloudinary.com/domhrpxzy/image/upload/v1705914738/rsuia2h2tlt9utkt8ifr.png"
                 loading="lazy"
                 data-sizes="auto"
-                className="lazyload" />
-              </div> */}
+                className="lazyload" /> */}
+              </div>
               <div className="card-body">
                 <h4 className="card-title">Softwear engineers:</h4>
                 <p className="card-text">Get a software engineer for new/existing builds.</p>
