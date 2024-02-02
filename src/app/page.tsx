@@ -123,12 +123,12 @@ function HomePage() {
                 height={400}
               /> */}
 
-              <img
+              {/* <img
               src="https://res.cloudinary.com/domhrpxzy/image/upload/v1705914738/rsuia2h2tlt9utkt8ifr.png"
                 loading="lazy"
                 data-sizes="auto"
                 className="lazyload" />
-              </div>
+              </div> */}
               <div className="card-body">
                 <h4 className="card-title">Softwear engineers:</h4>
                 <p className="card-text">Get a software engineer for new/existing builds.</p>
@@ -153,7 +153,7 @@ function HomePage() {
             {/* Card */}
             <div className="card card-sm h-100">
               <div className="p-2">
-                <Image className="card-img" src={card2} alt="Image Description" />
+                {/* <Image className="card-img" src={card2} alt="Image Description" /> */}
               </div>
               <div className="card-body">
                 <h4 className="card-title">Data Engineering:</h4>
@@ -176,7 +176,7 @@ function HomePage() {
             {/* Card */}
             <div className="card card-sm h-100">
               <div className="p-2">
-                <Image className="card-img" src={card3} alt="Image Description" />
+                {/* <Image className="card-img" src={card3} alt="Image Description" /> */}
               </div>
               <div className="card-body">
                 <h4 className="card-title">AI/ML Engineers:</h4>
