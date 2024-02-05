@@ -1,10 +1,12 @@
+
 "use client"
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import './jobs.scss';
+import Select from "react-select";
 import Header from '../components/Header/Header';
 import MobileMenu from '../components/MobileMenu/MobileMenu';
-import { gigs } from '../gigs';
+import { filterJob, gigs } from '../gigs';
 import img23 from "../../assets/img/900x900/img23.jpg";
 import topVendor from "../../assets/svg/illustrations/top-vendor.svg";
 import capsule from "../../assets/svg/brands/capsule-icon.svg";
@@ -15,12 +17,18 @@ import dynamic from 'next/dynamic';
 import { GetAllProjects, GetProjectById } from '../endpoints/api';
 import { IJobApplication } from '../interfaces/IJobApplication';
 import Layout from '../layout';
+import { IOption, cities } from '../lib/data';
 
 function jobs() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const [projects, setProjects] = useState<IJobApplication[]>([]);
     const _gigs = gigs as any[];
     
+    const [filteredGigs, setFilteredGigs] = useState<any[]>([]);
+    const [searchKeys, setSearchKeys] = useState<string>("");
+
+    const [city, setCity] = useState<string>("");
+
     const loadAllProjects = async()=>{
         const res = await GetAllProjects() as any ;
     
@@ -28,11 +36,24 @@ function jobs() {
         setProjects(resData);    
       }
 
-    
+      function handleCitySelect(data: any) {
+        const _data = data as IOption;
+        setCity(_data.value);
+      }
+
+      
   useEffect(() => {
     
      loadAllProjects();
+     setFilteredGigs(gigs as []);
    },[]);
+
+
+   function filter(){
+    const result  = filterJob(searchKeys.trim().split(" "), city);
+    setFilteredGigs(result);
+   }
+   
 
     return (
     <>
@@ -64,19 +85,49 @@ function jobs() {
                             <span className="input-group-prepend input-group-text">
                                 <i className="bi-search" />
                             </span>
-                            <input type="text" className="form-control" id="jobTitleForm" placeholder="Job, title, skills, or company" aria-label="Job, title, skills, or company" />
+                            <input onChange={(e)=>{setSearchKeys(e.target.value)}} type="text" className="form-control" id="jobTitleForm" placeholder="Job, title, skills, or company" aria-label="Job, title, skills, or company" />
                             </div>
                         </div>
                         <div className="input-card-form">
-                            <label htmlFor="cityForm" className="form-label visually-hidden">City</label>
-                            <div className="input-group input-group-merge">
-                            <span className="input-group-prepend input-group-text">
-                                <i className="bi-geo-alt" />
-                            </span>
-                            <input type="text" className="form-control" id="cityForm" placeholder="City" aria-label="City, state, or zip" />
-                            </div>
-                        </div>
-                        <button type="button" className="btn btn-primary" disabled={true} style={{background: '#FD2DC3 !important', border: 'none'}}>Search</button>
+    <label htmlFor="cityForm" className="form-label visually-hidden">City</label>
+    <div className="input-group input-group-merge">
+        <div>
+            <span className="input-group-prepend input-group-text">
+                {/* Any content you want to include */}
+            </span>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+            <div>
+                <i className="bi-geo-alt" />
+            </div>
+
+            <div style={{ marginLeft: '10px', position: 'relative' }}> {/* Adjust the margin as needed */}
+            <Select
+   
+    menuPosition={'fixed'}
+    options={cities as any}
+    placeholder="Select a city"
+    onChange={handleCitySelect}
+    isSearchable={false}
+    isMulti={false}
+    styles={{
+        control: (baseStyles, state) => ({
+            ...baseStyles,
+            width: '250px'
+        })
+       
+    }}
+/>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+                        <button type="button" className="btn btn-primary"  onClick={()=>filter()} disabled={false} style={{background: '#FD2DC3 !important', border: 'none'}}>Search</button>
                         </div>
                         {/* End Input Card */}
                     </form>
@@ -84,6 +135,7 @@ function jobs() {
                     </div>
                     {/* End Col */}
                 </div>
+               
                 {/* End Row */}
                 <div className="d-none d-lg-block col-lg-6 position-lg-absolute top-0 end-0">
                     <Image className="img-fluid rounded-2" src={img23} alt="Image Description" />
@@ -155,8 +207,8 @@ function jobs() {
                 </div>
                 ))} */}
                
-                {_gigs.map(gig => (
-                <div className="col mb-5" key={gig?.id}>
+                {filteredGigs.map(gig => (
+                <div className="col mb-5" key={gig.id}>
                     {/* Card */}
                     <div className="card card-bordered h-100">
                     {/* Card Body */}
@@ -489,4 +541,3 @@ function jobs() {
 
 
 export default dynamic (() => Promise.resolve(jobs), {ssr: false})
-

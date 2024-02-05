@@ -24,7 +24,7 @@ const Footer = (): ReactElement => {
                     <p><a href="/about">About</a></p>
                     <p><a href="/fraktional-gig">Gigs</a></p>
                     <p><a href="/fraktional-dev">Devs</a></p>
-                    <p>Customers</p>
+                    <p><a href='/terms-and-conditions'>Terms and Condtions</a></p>
                     <p><a href='/fraktional-dev'>Hire Us</a></p>
                 </div>
 

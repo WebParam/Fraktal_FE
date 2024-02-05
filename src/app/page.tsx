@@ -29,17 +29,53 @@ import TransitionsModal from './components/Modal/TransitionsModal';
 import Layout from './layout';
 import { url } from 'inspector';
 import lazySizes from 'lazysizes';
+import { GetBlog } from './endpoints/api';
+import { useParams } from 'next/navigation';
+import router from 'next/router';
+import moment from 'moment';
+import background from '../assets/img/Background.svg';
+import backf from './images/Background.png'
+import cards from '../assets/img/Asset 2.png';
+import Parallaxx from './components/parallax/page';
 
 
 
 
 function HomePage() {
   const [menuToggler, setMenuToggler] = useState(false);
+  const [blogData, setBlogData] = useState<any>(null);
+
+  const { id } = useParams();
   console.log
+  
+  const handleBlogClick = (blog: any) => {
+    router.push(`/blog-posts/${blog.id}`);
+    // cookies.set('blog', blog);
+    return;
+  };
+
+
+
+  useEffect(() => {
+    const fetchBlogData = async () => {
+      try {
+        const data = await GetBlog();
+        
+        if (data) {
+        }
+        setBlogData(data.body);
+        console.log(data.body);
+      } catch (error) {
+        console.error("Error fetching blog data:", error);
+      }
+    };
+
+    fetchBlogData();
+  }, []); 
 
 
   return (
-    <div>
+    <div >
      
       <Layout
         title='fraktional'  description="hhhhh" type="dddd"
@@ -52,10 +88,21 @@ function HomePage() {
       <MobileMenu menuToggler={menuToggler} />
 
     {/* ========== MAIN CONTENT ========== */}
-    <main id="content" role="main">
+    <main id="content" role="main" >
       {/* Hero */}
-      <div  className="d-lg-flex position-relative">
-        <div className="container d-lg-flex align-items-lg-center content-space-t-3 content-space-lg-0 min-vh-lg-100">
+      
+      <div 
+         style={{
+    backgroundImage: `url(${background.src})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+  
+ 
+  }}
+      >
+     
+        <div className="container d-lg-flex align-items-lg-center content-space-t-3 content-space-lg-0 min-vh-lg-100" >
           {/* Heading */}
           <div data-aos="fade-right" className="w-100">
             <div className="row">
@@ -72,9 +119,11 @@ function HomePage() {
                   <p className="lead">We connect developers and organizations with each other for short to medium term projects.</p>
                 </div>
                 <div className="d-grid d-sm-flex gap-3">
-                  <a className="btn btn-primary btn-transition px-6 getStarted" href="/fraktional-dev">Get started</a>
-                  <a className="btn btn-link learnmore" href="/about">Learn more <i className="bi-chevron-right small ms-1" /></a>
+                  <a className="ctabutton-1  btn-transition hover:text-white py-2 px-5" href="/fraktional-dev">Get an F-Dev</a>
+                  <a className="ctabutton-1  btn-transition hover:text-white py-2 px-5" href="/fraktional-gig">Get an F-Gig</a>
                 </div>
+
+                
               </div>
               {/* End Col */}
             </div>
@@ -82,19 +131,20 @@ function HomePage() {
           </div>
           {/* End Title & Description */}
           <div data-aos="fade-left" className="col-lg-7 col-xl-6 d-none d-lg-block position-absolute top-0 end-0 pe-0 koalaContainer" style={{marginTop: '6.75rem'}}>
+           
             <Image 
-              src={koala} 
-              priority={true}
-              placeholder='blur'
-              alt='koala' 
+              src={cards} 
+              width={390}
+              alt='cards' 
               className='koalaHero' 
             />
+         
           </div>
         </div>
       </div>
       {/* End Hero */}
       {/* Card Grid */}
-      <div data-aos="fade-up" className="container content-space-2 content-space-t-xl-3 content-space-b-lg-3">
+      <div data-aos="fade-up" className="container content-space-2 content-space-t-xl-3 content-space-b-lg-3" >
         {/* Heading */}
         <div className="w-md-75 w-lg-50 text-center mx-md-auto mb-5">
           <h2>Expertise Across Domains: Transforming Tech, Data, and Intelligence</h2>
@@ -102,6 +152,7 @@ function HomePage() {
         {/* End Heading */}
         <div className="text-center mb-10">
           {/* List Checked */}
+          
           <ul className="list-inline list-checked list-checked-primary">
             <li className="list-inline-item list-checked-item">Innovate. Implement. Inspire.</li>
             <li className="list-inline-item list-checked-item">Analyze. Architect. Advance</li>
@@ -123,11 +174,11 @@ function HomePage() {
                 height={400}
               /> */}
 
-              <img
+              {/* <img
               src="https://res.cloudinary.com/domhrpxzy/image/upload/v1705914738/rsuia2h2tlt9utkt8ifr.png"
                 loading="lazy"
                 data-sizes="auto"
-                className="lazyload" />
+                className="lazyload" /> */}
               </div>
               <div className="card-body">
                 <h4 className="card-title">Softwear engineers:</h4>
@@ -153,7 +204,7 @@ function HomePage() {
             {/* Card */}
             <div className="card card-sm h-100">
               <div className="p-2">
-                <Image className="card-img" src={card2} alt="Image Description" />
+                {/* <Image className="card-img" src={card2} alt="Image Description" /> */}
               </div>
               <div className="card-body">
                 <h4 className="card-title">Data Engineering:</h4>
@@ -176,7 +227,7 @@ function HomePage() {
             {/* Card */}
             <div className="card card-sm h-100">
               <div className="p-2">
-                <Image className="card-img" src={card3} alt="Image Description" />
+                {/* <Image className="card-img" src={card3} alt="Image Description" /> */}
               </div>
               <div className="card-body">
                 <h4 className="card-title">AI/ML Engineers:</h4>
@@ -315,6 +366,9 @@ function HomePage() {
       </div>
       {/* End Testimonials */}
       {/* Stats */}
+      
+
+
       <div data-aos="zoom-in-up" className="stats rounded-2 mx-3 mx-lg-10">
         <div className="container content-space-2">
           <div className="row justify-content-center">
@@ -357,55 +411,73 @@ function HomePage() {
           <h2>Discover more</h2>
         </div>
         {/* End Heading */}
-        <div className="overflow-hidden">
-          <div className="row gx-lg-7">
-            <div className="col-sm-6 col-lg-4 mb-5">
-              {/* Card */}
-              <a className="card card-flush h-100" data-aos="fade-up">
-                <Image className="card-img" src={card4} alt="Image Description" />
-                <div className="card-body">
-                  <span className="card-subtitle text-body">Read the blog</span>
-                  <h4 className="card-title">Expert Matching:</h4>
-                  <p className="card-text text-body">Connect companies with top-tier developers tailored to project needs.</p>
-                </div>
-              </a>
-              {/* End Card */}
-            </div>
-            {/* End Col */}
-            <div className="col-sm-6 col-lg-4 mb-5">
-              {/* Card */}
-              <a className="card card-flush h-100" data-aos="fade-up" data-aos-delay={150}>
-                <Image className="card-img" src={card5} alt="Image Description" />
-                <div className="card-body">
-                  <span className="card-subtitle text-body">Read the blog</span>
-                  <h4 className="card-title">Streamlined Process:</h4>
-                  <p className="card-text text-body">Simplify tech resourcing through our efficient, user-friendly platform.</p>
-                </div>
-              </a>
-              {/* End Card */}
-            </div>
-            {/* End Col */}
-            <div className="col-sm-6 col-lg-4 mb-5">
-              {/* Card */}
-              <a className="card card-flush h-100" data-aos="fade-up" data-aos-delay={200}>
-                <Image className="card-img" src={card6} alt="Image Description" />
-                <div className="card-body">
-                  <span className="card-subtitle text-body">Learn about other solutions</span>
-                  <h4 className="card-title">Flexible Engagements:</h4>
-                  <p className="card-text text-body">Offer adaptable commitments, from fractional to full project involvement.</p>
-                </div>
-              </a>
-              {/* End Card */}
-            </div>
-            {/* End Col */}
-          </div>
-          {/* End Row */}
+        <div style={{backgroundColor: 'brown', display: 'flex'}}>
+
         </div>
+        <div className="overflow-hidden">
+  <div className="row gx-lg-7">
+    {Array.isArray(blogData) &&
+      blogData
+        .slice(0, 3) // Display only the first 3 blogs (the latest ones)
+        .map((data: any, index: number) => (
+          <div key={index} className="col-sm-6 col-lg-4 mb-5">
+            {/* Card */}
+            <a
+              onClick={handleBlogClick}
+              href={`/blog-posts/${data.id}`}
+              className="card card-flush h-100"
+              data-aos="fade-up"
+            >
+              <img
+                style={{ height: '300px', width: '100%' }}
+                className="card-img"
+                src={data.jetpack_featured_media_url}
+                alt="Image Description"
+              />
+              <div className="card-body">
+                <span className="card-subtitle text-body">Read the blog</span>
+                <h3
+                  className="card-title"
+                  style={{ color: '#252525' }}
+                  dangerouslySetInnerHTML={{
+                    __html: `${data.title.rendered.substring(0, 50)} ${
+                      data.title.rendered.length > 60 ? '...' : ''
+                    }`,
+                  }}
+                />
+
+                <p className="card-text text-body">
+                  <p
+                    className="mb-5"
+                    style={{ color: '#252525' }}
+                    dangerouslySetInnerHTML={{
+                      __html: `${data.content.rendered.substring(0, 200)} ${
+                        data.content.rendered.length > 200 ? '...' : ''
+                      }`,
+                    }}
+                  />
+                </p>
+                <p className="mt-3 text-sm text-blue-500">
+                  {moment(data.date).format('DD/MM/YYYY')}
+                </p>
+              </div>
+            </a>
+            {/* End Card */}
+          </div>
+        ))}
+  </div>
+  {/* End Row */}
+</div>
+
+
+
+
+        
         {/* Card Info */}
         <div className="text-center">
           <div className="card card-info-link card-sm">
             <div className="card-body">
-              Want to read more? <a className="card-link ms-2" href="/about" style={{color: '#FD2DC3'}}>Go here <span className="bi-chevron-right small ms-1" /></a>
+              Want to read more? <a className="card-link ms-2" href={`/blog-posts`} style={{color: '#FD2DC3'}}>Go here <span className="bi-chevron-right small ms-1" /></a>
             </div>
           </div>
         </div>
@@ -414,6 +486,10 @@ function HomePage() {
       {/* End Card Grid */}
     </main>
     {/* ========== END MAIN CONTENT ========== */}
+
+    <Parallaxx/>
+                    
+
     <Footer />
     </Layout>
   </div>

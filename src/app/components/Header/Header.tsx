@@ -90,7 +90,13 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
             </div>
           </li> */}
         
-          <li className='hirenow'>
+          <li 
+            style={{
+              background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(0, 63, 189, 0.4) 124.34%)',
+              padding: '10px',
+            }}
+
+          className='hirenow'>
               <Link href={'../../auth/login'}>
                 Login
               </Link>
