@@ -1,0 +1,17 @@
+.tnc-container{
+    padding-top: 8%;
+    padding-right: 10%;
+    padding-left: 10%;
+    padding-bottom: 10%;
+}
+
+@media  (max-width:900px) {
+    .tnc-container{
+        padding-top: 15%;
+        padding-right: 10%;
+        padding-left: 10%;
+        padding-bottom: 15%;
+        
+    }
+}
+

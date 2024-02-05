@@ -16,6 +16,7 @@ import "aos/dist/aos.css"
 import { useEffect } from 'react'
 import Hotjar from '@hotjar/browser';
 import { useRouter } from 'next/router'
+import { Providers } from './Providers';
 
 
 
@@ -118,7 +119,7 @@ export default function Layout({ children, title, description, type, pageMeta,og
 
       </head>
       <body> 
-      {children}
+      <Providers>{children}</Providers>
       </body>
     </html>
   )
