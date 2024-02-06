@@ -426,6 +426,7 @@ export const roles =[
 export const cities =[
   {"value": "jhb", "label":"Johannesburg"},
   {"value": "pta", "label":"Pretoria"},
+  {"value": "cpt", "label":"Cape Town"},
 
 ]
 

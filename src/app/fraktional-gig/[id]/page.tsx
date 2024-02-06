@@ -219,7 +219,7 @@ function viewGig({ params }: { params: { id: string }}) {
 
         const applyForJob = async (e: any) => {
             e.preventDefault();
-            let _id = toast.loading("Creating your profile..", {
+            let _id = toast.loading("Creating your profile, please wait..", {
                 position: "top-center",
                 autoClose: 1000,
                 hideProgressBar: false,
@@ -651,7 +651,7 @@ Object.entries(payload).forEach(([key, value]) => {
        
                 <div className="col-sm-6">
                 <div className="mb-4">
-                <label className="form-label" htmlFor="applyForJobExpectedSalary">Expected rate per hour *</label>
+                <label className="form-label" htmlFor="applyForJobExpectedSalary">Current Salary *</label>
                 <input 
                     type="number" 
                     className={`form-control ${expectedSalaryEroor ? 'error':''}`} 

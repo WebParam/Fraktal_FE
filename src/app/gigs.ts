@@ -11,7 +11,6 @@ export const filterJob=(searchKey:string[], cityKey?:string)=>{
        return searchKey.some(item => gig.searchFields?.includes(item))
     })
     
-  debugger;
     if(cityKey){   
         const filteredByCities =  filteredBySearchFields.filter((gig)=>{
             return gig.location?.toLowerCase().includes(cityKey?.toLowerCase());
@@ -39,33 +38,33 @@ export const gigs = [
         remote: 'remote',
         description:"We are looking for a Senior DevOps Engineer to join our team. You will be responsible for helping to design, develop, and maintain our cloud infrastructure and services. You will be part of a small team of dedicated engineers who are passionate about delivering an exceptional user experience to our customers."
     },
-    // {
-    //     id: 2,
-    //     companyname: 'Tuto',
-    //     searchFields:["developer"],
-    //     position: 'Intermediate JS Front End Developer',
-    //     salary: 'R500 Hourly',
-    //     location: 'pta',
-    //     jobType: 'Part Time',
-    //     img: capsule,
-    //     posted: 'today',
-    //     remote: 'remote',
-    //     description:"We are looking for a Senior DevOps Engineer to join our team. You will be responsible for helping to design, develop, and maintain our cloud infrastructure and services. You will be part of a small team of dedicated engineers who are passionate about delivering an exceptional user experience to our customers."
-    // },
-    // {
-    //     id: 3,
-    //     companyname: 'Tuto',
-    //     searchFields:["pta", "business analyst"],
-    //     position: 'Senior full-stack developer',
-    //     salary: 'R900 Hourly',
-    //     location: 'Pretoria',
-    //     jobType: 'Part Time',
-    //     img: capsule,
-    //     posted: '1 day ago',
-    //     remote: 'on-site',
-    //     description:"We are looking for a Senior DevOps Engineer to join our team. You will be responsible for helping to design, develop, and maintain our cloud infrastructure and services. You will be part of a small team of dedicated engineers who are passionate about delivering an exceptional user experience to our customers."
+    {
+        id: 2,
+        companyname: 'Tuto',
+        searchFields:["developer"],
+        position: 'Intermediate JS Front End Developer',
+        salary: 'R500 Hourly',
+        location: 'pta',
+        jobType: 'Part Time',
+        img: capsule,
+        posted: 'today',
+        remote: 'remote',
+        description:"We are looking for a Senior DevOps Engineer to join our team. You will be responsible for helping to design, develop, and maintain our cloud infrastructure and services. You will be part of a small team of dedicated engineers who are passionate about delivering an exceptional user experience to our customers."
+    },
+    {
+        id: 3,
+        companyname: 'Tuto',
+        searchFields:["pta", "business analyst"],
+        position: 'Senior full-stack developer',
+        salary: 'R900 Hourly',
+        location: 'Pretoria',
+        jobType: 'Part Time',
+        img: capsule,
+        posted: '1 day ago',
+        remote: 'on-site',
+        description:"We are looking for a Senior DevOps Engineer to join our team. You will be responsible for helping to design, develop, and maintain our cloud infrastructure and services. You will be part of a small team of dedicated engineers who are passionate about delivering an exceptional user experience to our customers."
   
-    // },
+    },
     // {
     //     id: 4,
     //     companyname: 'Prosperops',
