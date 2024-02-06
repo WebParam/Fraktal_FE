@@ -132,7 +132,7 @@ function HomePage() {
           {/* End Title & Description */}
           <div data-aos="fade-left" className="col-lg-7 col-xl-6 d-none d-lg-block position-absolute top-0 end-0 pe-0 koalaContainer" style={{marginTop: '6.75rem'}}>
            
-            <Image 
+            <img 
               src={cards.src} 
               height={80}
               width={390}
