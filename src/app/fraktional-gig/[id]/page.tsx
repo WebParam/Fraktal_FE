@@ -247,7 +247,7 @@ Object.entries(payload).forEach(([key, value]) => {
 });
 
             
-            const registrationResult = await jobRegistration(formData, email) ;
+            const registrationResult = await jobRegistration(formData) ;
             debugger;
           
             console.log(registrationResult)

@@ -510,13 +510,14 @@ export async function verifyOtp(payload: IVerifyOtp) {
 }
 
 
-export async function jobRegistration(payload:any, email:string) {
+export async function jobRegistration(payload:any) {
   try {
     const response = await axios.post(`${azureUrl}/apply`, payload);
     debugger;
     if (response.status === 200 || response.status === 201) {
-      if (response.data._doc) {
-        return response.data._doc;
+      debugger;
+      if (response.data.dateCreated) {
+        return response.data;
       } else {
         return false;
       }
@@ -527,4 +528,5 @@ export async function jobRegistration(payload:any, email:string) {
     console.error("Error:", error);
     return false;
   }
+
 }
