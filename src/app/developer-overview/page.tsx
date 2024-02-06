@@ -81,7 +81,10 @@ function developerOverview() {
 
   const [menuItem, setMenu] = useState(1);
 
-  
+  const [editEducation, setEditEducation] = useState(0);  
+  const [isEditEducation, setIsEditEducation] = useState(false);  
+  const [editWork, setEditWork] = useState(0);  
+  const [isEditWork, setIsEditWork] = useState(false);  
 
   const [edu_InsituteName, setEduInstituteName] = useState("");
   const [edu_Qualification, setEduQualification] = useState("");
@@ -107,6 +110,38 @@ function developerOverview() {
 
     setHasChanged(true);
   };
+
+function editEducationInfo(index:number){
+
+const target = education[index];
+setEduInstituteName(target.instituteName);
+setEduQualification(target.qualification);
+var date = moment(target.dateCompleted, 'YYYY-MM-DD').format('YYYY-MM-DD');
+setEduCompletionDate(date);
+setEditEducation(index);
+setEducationModalOpen(true);
+setIsEditEducation(true);
+}
+
+function editWorkExperience(index:number){
+  const target = previousWorkExperience[index];
+  debugger;
+  setWrk_employee(target.employer??"");
+  setWrkLocation(target.location??"");
+  setWrk_jobTitle(target.jobTitle??"");
+  setWrk_responsibilities(target.responsibilities?.content??"");
+setWrkendDate(target.endDate??"");
+setWrk_startDate(target.startDate??"");
+setWorkModalOpen(true);
+setIsEditWork(true);
+
+  // setEduQualification(target.qualification);
+  // var date = moment(target.dateCompleted, 'YYYY-MM-DD').format('YYYY-MM-DD');
+  // setEduCompletionDate(date);
+  // setEditEducation(index);
+  // setEducationModalOpen(true);
+  // setIsEditEducation(true);
+}
 
   async function deleteProfile(){
     let _id = toast.loading("Deleting your profile..", {
@@ -194,7 +229,6 @@ async function _GetDeveloperProfile(id:string){
   
   var res = await GetDeveloperProfile(id) as any;
   if(res.data){
-    debugger;
   setCurrentProfile(res.data);
 setNoticePeriod(res?.data?.noticePeriod)
   setInformation(res?.data?.personalInformation?.about);
@@ -202,8 +236,10 @@ setNoticePeriod(res?.data?.noticePeriod)
   setPhone(res?.data?.phone);
   setSurname(res?.data?.surname);
   setCurrentJob(res?.data?.currentJob);
+
   setPreviousWorkExperience(res?.data?.previousWorkExperience);
   setYearsOfExperience(res?.data?.yearsOfExperience);
+
   setEducation(res?.data?.education);
   setKeyCourses(res?.data?.keyCourses);
   setCVUrl(res?.data?.cvUrl);
@@ -273,6 +309,16 @@ function addWorkExperience(){
     responsibilities:{content: wrk_responsibilities},
     location:wrk_location
   } as IWorkExperience
+  debugger;
+  if(isEditWork){
+    debugger;
+    const _new = previousWorkExperience;
+    const  newPayload = _new.splice(editWork,1,payload)
+     setPreviousWorkExperience(_new);
+     setIsEditWork(false);
+  }else{
+    setPreviousWorkExperience([...previousWorkExperience, payload]);
+  }
 
   setWrk_employee("");
   setWrk_jobTitle("");
@@ -282,7 +328,8 @@ function addWorkExperience(){
   setWrk_responsibilities("");
   setWorkModalOpen(false);
 
-  setPreviousWorkExperience([...previousWorkExperience, payload]);
+
+
 
 
 }
@@ -321,8 +368,17 @@ function addEducation(){
     dateCompleted:edu_completionDate
   } as IEducationInformation;
 
-  
-  setEducation([...education, payload]);
+  if(isEditEducation){
+    
+    const _new = education;
+    const  newPayload = _new.splice(editEducation,1,payload)
+
+     setEducation(_new);
+     setIsEditEducation(false);
+  }else{
+    setEducation([...education, payload]);
+  }
+
 
   setEduCompletionDate("");
   setEduQualification("");
@@ -366,7 +422,7 @@ function handleSelectInstitute(data: any) {
 }
 
 
-
+const frakcvUrl = `https://fraktional-be.azurewebsites.net/getPersonnelCv/${loggedInUser._id}`
 
 useEffect(() => {
   //check url and setActive
@@ -879,7 +935,7 @@ console.log("DDD", loggedInUser);
               { (cvUrl && cvUrl != "") && (
                       <a style={{float:"right"}} href={cvUrl} target="_blank">
                          
-                        <label className="l-18-n" style={{margin: "10px"}}>Download CV</label>
+                        <label className="l-18-n" style={{margin: "10px"}}>Original CV</label>
                       </a>
                        )}     
                        
@@ -889,6 +945,11 @@ console.log("DDD", loggedInUser);
                         <label className="l-18-n" style={{margin: "10px"}}>View CV</label>
                       </a>
                   )}
+
+                    <a style={{float:"right"}} href={frakcvUrl} target="_blank">
+                         
+                        <label className="l-18-n" style={{margin: "10px"}}> Fraktional CV</label>
+                      </a>
                 </div>
             </div>
             {/* End Body */}
@@ -952,7 +1013,9 @@ console.log("DDD", loggedInUser);
                         <small className="d-block mb-4">{moment(x.startDate).format("MMMM YYYY")} to {moment(x.endDate).format("MMMM YYYY")}</small>
                         <p className="text-body mb-0">{x.responsibilities?.content}</p>
                       </div>
-                      <span onClick={()=>{removeWorkExperience(i)}}>Delete</span>
+                      <span style={{margin:"10px"}} onClick={()=>{editWorkExperience(i)}}><i className="bi-pencil-square nav-icon"></i></span>
+                          <span style={{margin:"10px"}} onClick={()=>{removeWorkExperience(i)}}>   <i className="bi-trash3 nav-icon" /> </span>
+                      {/* <span onClick={()=>{removeWorkExperience(i)}}>Delete</span> */}
                     </div>
                   </li>
                   })}
@@ -995,6 +1058,7 @@ console.log("DDD", loggedInUser);
                                 placeholder="Title" 
                                 aria-label="Title"
                                 onChange={(e)=>{setWrk_jobTitle(e.target.value)}}
+                                defaultValue={wrk_jobTitle}
                               />
                             </div>
                             {/* End Form */}
@@ -1011,6 +1075,7 @@ console.log("DDD", loggedInUser);
                                 placeholder="Company Name" 
                                 aria-label="Company Name" 
                                 onChange={(e)=>{setWrk_employee(e.target.value)}}
+                                defaultValue={wrk_employer}
                                 />
                             </div>
                           </div>
@@ -1028,6 +1093,7 @@ console.log("DDD", loggedInUser);
                                 placeholder="eg. Johannesburg" 
                                 aria-label="Location"
                                 onChange={(e)=>{setWrkLocation(e.target.value)}}
+                                defaultValue={wrk_location}
                                 // value={workData.Location}
                                 // onChange={handleChange}
                                 required
@@ -1048,6 +1114,7 @@ console.log("DDD", loggedInUser);
                                   id="DurationStartwork" 
                                   aria-label="Duration" 
                                   onChange={(e)=>{setWrk_startDate(e.target.value)}}
+                                  defaultValue={wrk_startDate}
                                   // value={workData.DurationStart}
                                   // onChange={handleChange}
                                 />to
@@ -1058,6 +1125,7 @@ console.log("DDD", loggedInUser);
                                   id="durationEndwork" 
                                   aria-label="Duration" 
                                   onChange={(e)=>{setWrkendDate(e.target.value)}}
+                                  defaultValue={wrk_endDate}
                                   // value={workData.DurationEnd}
                                   // onChange={handleChange}
                                   />
@@ -1079,6 +1147,7 @@ console.log("DDD", loggedInUser);
                             aria-label="description" 
                             rows={4}
                             value={wrk_responsibilities}
+                            defaultValue={wrk_responsibilities}
                             onChange={(e) => setWrk_responsibilities(state => e.target.value)}
                             // value={workData.description}
                             // onChange={handleChange}
@@ -1120,7 +1189,12 @@ console.log("DDD", loggedInUser);
                             <h5 className="step-title">{ getLabelFromValue(
                               x.qualification,
                                 degrees
-                              ) ?? ""
+                              )==""? x.qualification:
+                              getLabelFromValue(
+                                x.qualification,
+                                  degrees
+                                )
+
                             }</h5>
                             <span className="d-block text-dark">
                             { getLabelFromValue(
@@ -1136,7 +1210,8 @@ console.log("DDD", loggedInUser);
                             </span>
                             <small className="d-block">{x.dateCompleted}</small>
                           </div>
-                          <span onClick={()=>{removeEducation(i)}}>Delete</span>
+                          <span style={{margin:"10px"}} onClick={()=>{editEducationInfo(i)}}><i className="bi-pencil-square nav-icon"></i></span>
+                          <span style={{margin:"10px"}} onClick={()=>{removeEducation(i)}}>   <i className="bi-trash3 nav-icon" /> </span>
                         </div>
                       </li>
 
@@ -1172,7 +1247,7 @@ console.log("DDD", loggedInUser);
                             {/* Form */}
                             <div className="mb-3">
                               <label className="form-label" htmlFor="hireUsFormTitle">Certificate</label>
-                              {/* <input 
+                              <input 
                                 type="text" 
                                 className={`form-control form-control-lg ${edu_QualificationError ? 'err':''}`} 
                                 name="Certificate" 
@@ -1180,11 +1255,12 @@ console.log("DDD", loggedInUser);
                                 placeholder="eg. Master's degree in Computer Software Engineering" 
                                 aria-label="Certificate" 
                                 onChange={(e)=>{setEduQualification(e.target.value)}}
+                                defaultValue={edu_Qualification}
                                 // value={educationData.certificate}
                                 // onChange={handleChangeEducation}
-                              /> */}
+                              />
 
-                              <Select
+                              {/* <Select
                                 className={`form-control form-control-lg ${edu_QualificationError ? 'err':''}`} 
                                   options={degrees as any}
                                   placeholder="Search Degree / Diploma"
@@ -1192,7 +1268,7 @@ console.log("DDD", loggedInUser);
                                   onChange={handleSelectQualification}
                                   isSearchable={true}
                                   
-                                />
+                                /> */}
 
                             </div>
                             {/* End Form */}
@@ -1211,25 +1287,26 @@ console.log("DDD", loggedInUser);
                             {/* Form */}
                             <div className="mb-3">
                               <label className="form-label" htmlFor="hireUsFormCompanyName">Institute</label>
-                              {/* <input 
+                              <input 
                                 type="text" 
                                 className={`form-control form-control-lg ${edu_InsituteNameError ? 'err':''}`} 
                                 name="SchoolName" 
                                 id="schoolName" 
-                                placeholder="School Name" 
-                                aria-label="School Name" 
+                                placeholder="Institute Name" 
+                                aria-label="Institute Name" 
                                 onChange={(e)=>{setEduInstituteName(e.target.value)}}
+                                defaultValue={edu_InsituteName}
                                 // value={educationData.schoolName}
                                 // onChange={handleChangeEducation}  
-                              /> */}
-                                <Select
+                              />
+                                {/* <Select
                                 className={`form-control form-control-lg ${edu_InsituteNameError ? 'err':''}`} 
                                   options={universities as any}
                                   placeholder="Search Institute"
                                   styles={style}
                                   onChange={handleSelectInstitute}
                                   isSearchable={true}
-                                />
+                                /> */}
                             </div>
                             {/* End Form */}
                           </div>
@@ -1244,6 +1321,7 @@ console.log("DDD", loggedInUser);
                                   className={`form-control form-control-lg ${edu_completionDateError ? 'err':''}`}
                                   name="durationStart" 
                                   id="durationStartEdu" 
+                                  defaultValue={edu_completionDate}
                                   aria-label="durationEdu" 
                                   // value={educationData.DurationStartedu}
                                   // onChange={handleChangeEducation}
