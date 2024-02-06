@@ -10,13 +10,13 @@ export default function Parallaxx() {
 
          
 
-          <div style={{fontSize: '2rem'}}>I am a ....</div>
+          <div style={{fontSize: '2rem'}}>I am a...</div>
 
            <div className='button-container'>
-              <a href='./fraktional-dev' className="button-1">
+              <a href='./fraktional-gig' className="button-1">
                       Developer looking for a gig
                 </a>
-                <a href='./fraktional-gig' className="button-1">
+                <a href='./fraktional-dev' className="button-1">
                       Business looking for a developer
                 </a>
            </div>

@@ -133,7 +133,8 @@ function HomePage() {
           <div data-aos="fade-left" className="col-lg-7 col-xl-6 d-none d-lg-block position-absolute top-0 end-0 pe-0 koalaContainer" style={{marginTop: '6.75rem'}}>
            
             <Image 
-              src={cards} 
+              src={cards.src} 
+              height={80}
               width={390}
               alt='cards' 
               className='koalaHero' 
@@ -165,23 +166,23 @@ function HomePage() {
             {/* Card */}
             <div className="card card-sm h-100">
               <div className="p-2" >
-              {/* <Image
+              <Image
                 priority={true}
                 className="card-img"
-                src="https://res.cloudinary.com/domhrpxzy/image/upload/v1705914738/rsuia2h2tlt9utkt8ifr.png"
+                src={macbook.src}
                 alt="Image Description"
-                width={300}
-                height={400}
-              /> */}
-
-              {/* <img
+                width={80}
+                height={80}
+              />
+{/* 
+              <img
               src="https://res.cloudinary.com/domhrpxzy/image/upload/v1705914738/rsuia2h2tlt9utkt8ifr.png"
                 loading="lazy"
                 data-sizes="auto"
                 className="lazyload" /> */}
               </div>
               <div className="card-body">
-                <h4 className="card-title">Softwear engineers:</h4>
+                <h4 className="card-title">Software engineers:</h4>
                 <p className="card-text">Get a software engineer for new/existing builds.</p>
                 {/* List Pointer */}
                 <ul className="list-pointer mb-0">
@@ -204,7 +205,7 @@ function HomePage() {
             {/* Card */}
             <div className="card card-sm h-100">
               <div className="p-2">
-                {/* <Image className="card-img" src={card2} alt="Image Description" /> */}
+                <Image className="card-img" width={80} height={80} src={card2.src} alt="Image Description" />
               </div>
               <div className="card-body">
                 <h4 className="card-title">Data Engineering:</h4>
@@ -227,7 +228,7 @@ function HomePage() {
             {/* Card */}
             <div className="card card-sm h-100">
               <div className="p-2">
-                {/* <Image className="card-img" src={card3} alt="Image Description" /> */}
+                <Image className="card-img"  width={80} height={80} src={card3.src} alt="Image Description" />
               </div>
               <div className="card-body">
                 <h4 className="card-title">AI/ML Engineers:</h4>
