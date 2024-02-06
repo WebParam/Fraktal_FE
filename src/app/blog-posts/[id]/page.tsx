@@ -110,7 +110,7 @@ export default function BlogPost() {
                       <div style={{display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'center', alignItems: 'center', width: '75%', flexWrap: 'wrap', margin: '20px', textAlign: 'center'}}>
                           <h2>Get in the Know: Subscribe to the Fraktional Newsletter</h2>
                           <p style={{paddingLeft: '10%', paddingRight: '10%'}}>Delivered straight to your inbox, every week. No spam, just pure tech goodness. </p>
-                          <div style={{width: '60%', height: '59px', borderRadius: '8px', border: '1px solid rgba(255, 123)', backgroundColor: '#FFF'}}>
+                          <div style={{width: '90%', height: '59px', borderRadius: '8px', border: '1px solid rgba(255, 123)', backgroundColor: '#FFF'}}>
                             <form style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}>
                               <input style={{height: '59px', width: '70%', borderRadius: '8px', paddingLeft: '10px', outline: 'none', fontSize: '1.3vw'}} placeholder="Email Address" name="email" type="email" />
                               <button style={{backgroundColor: '#FD2DC3', borderRadius: '6px', width: '28%', height: '50px', color: 'white', fontSize: '1vw', marginRight: '5px'}} type="submit" >Subscribe</button>
