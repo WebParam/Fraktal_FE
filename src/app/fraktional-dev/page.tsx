@@ -508,7 +508,7 @@ const customModalStyles = {
             {/* End Col */}
             <div className="col-md-4 mb-7">
               {/* Icon Blocks */}
-              <div className="text-center px-lg-3">
+              <div className="text-center px-lg-3"> 
                 <span className="svg-icon svg-icon-lg text-primary mb-3">
                   <Image alt='' src={flexebity}/>
                 </span>
