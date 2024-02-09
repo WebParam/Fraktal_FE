@@ -832,7 +832,7 @@ console.log("DDD", loggedInUser);
                   </div>
                 </div>
                 <div className="row mb-4">
-                  <label htmlFor="emailLabel"  className="col-sm-3 col-form-label form-label">Minimum Rate (per hour)</label>
+                  <label htmlFor="emailLabel"  className="col-sm-3 col-form-label form-label">Cuurent Salary</label>
                   <div className="col-sm-9">
                   <div className="col-sm-6">
                     <input value={expectedRate} onChange={(e)=>setExpectedRate(e.target.value)} type="number" className="form-control" name="rate" id="emailLabel" placeholder="Rate per hour" aria-label="200" defaultValue={"0"} />
