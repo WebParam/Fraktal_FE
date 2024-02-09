@@ -13,7 +13,18 @@ import { IUserLogin } from "@/app/interfaces/user";
 import Modal from "react-responsive-modal";
 import { VerifyOtp } from "../register/verify-otp";
 import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+library.add(faEye, faEyeSlash)
+
+
+
+
+
 const cookies = new Cookies(); // Create an instance of Cookies
+
+
 
 function SignIn() {
   const [formData, setFormData] = useState<IUserLogin>({
@@ -188,6 +199,7 @@ function SignIn() {
     }   
   }, [0]); 
 
+  const [visible, setVisible] = useState<boolean>(false);
   
   
 
@@ -247,19 +259,31 @@ function SignIn() {
                   <Link href="/auth/reset">Forgot Password</Link>
                 </span>
               </label>
-              <input
-                style={inputPasswordStyle}
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Enter your password"
-               
-                onChange={(e) => {
-                  setPassword(e.target.value)
-                  setPasswordError(false)
-
-                }}
-              />
+              <div style={{ position: 'relative' }}>
+        <input
+          style={inputPasswordStyle}
+          type={visible ? 'text' : 'password'}
+          name="password"
+          id="password"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+        />
+        <FontAwesomeIcon
+          icon={visible ? faEyeSlash : faEye}
+          onClick={() => setVisible(!visible)}
+          style={{
+            position: 'absolute',
+            top: '50%',
+            right: '10px', // Adjust as needed
+            transform: 'translateY(-50%)',
+            cursor: 'pointer',
+          }}
+        />
+      </div>
+                 
             </div>
 
             <button type="submit">Log In</button>
