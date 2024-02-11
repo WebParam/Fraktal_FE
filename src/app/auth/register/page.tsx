@@ -329,9 +329,9 @@ function Register() {
       </Modal>
       <div className="top">
       <Link href= "/"> <Image style={{ cursor: "pointer"}} src={logo} alt="logo" /></Link> 
-        <Link href="/">
+        {/* <Link href="/">
           <i className="bi bi-chevron-left"></i>Go to main
-        </Link>
+        </Link> */}
       </div>
 
       <div className="registerMain">

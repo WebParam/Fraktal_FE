@@ -12,8 +12,9 @@ import { escape } from 'querystring';
 import Link from 'next/link';
 import { jobRegistration } from '@/app/endpoints/api';
 import { IApply, IApplyForJobRegistration } from '@/app/interfaces/user';
-import { VerifyOtp } from './verify-otp';
+import { CompleteApplication } from './verify-otp';
 import Modal from 'react-responsive-modal';
+import 'react-responsive-modal/styles.css';
 import MobileMenu from '@/app/components/MobileMenu/MobileMenu';
 import Header from '@/app/components/Header/Header';
 import Select from "react-select";
@@ -21,6 +22,7 @@ import Footer from '@/app/components/Footer/Footer';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IOption, experience, getOptionFromValue, noticePeriods } from '@/app/lib/data';
+import Cookies from 'universal-cookie';
 
 function viewGig({ params }: { params: { id: string }}) {
     const _gigs = gigs as any[];
@@ -31,7 +33,8 @@ function viewGig({ params }: { params: { id: string }}) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
+    const [phone, setPhone] = useState(''); 
+    const [missingErrorMessage, setMissingErrorMessage] = useState<string[]>([]);
     const [summary, setSummary] = useState('');
     const [resume, setResume] = useState<File>()
     const [workStatus, setWorkStatus] = useState('no');
@@ -57,6 +60,7 @@ function viewGig({ params }: { params: { id: string }}) {
     //     // jobid: params.id
     //   } ;
 
+    const cookies = new Cookies(); // Create an instance of Cookies
     const [firstNameError, setFirstNameError] = useState(false);
     const [lastNameError, setLastNameError] = useState(false);
     const [emailError, setEmailError] = useState(false);
@@ -219,7 +223,7 @@ function viewGig({ params }: { params: { id: string }}) {
 
         const applyForJob = async (e: any) => {
             e.preventDefault();
-            let _id = toast.loading("Creating your profile, please wait..", {
+            let _id = toast.loading("Please do not navigate away from this page.", {
                 position: "top-center",
                 autoClose: 1000,
                 hideProgressBar: false,
@@ -249,22 +253,30 @@ Object.entries(payload).forEach(([key, value]) => {
             
             const registrationResult = await jobRegistration(formData) ;
             debugger;
-          
+          const errorMessage = registrationResult.missing as string[];
+         
             console.log(registrationResult)
-            if(registrationResult?._user){
+            if(registrationResult?.personnel?._user){
+                debugger;
+                cookies.set('fraktional-user', JSON.stringify(registrationResult?.user), { path: '/' });
                 // setEditModalOpen(true)
                 toast.update(_id, {
-                    render: "Your profile has been created. Please check your email and login to verify and complete your details.",
+                    render: "Your application has been created.",
                     type: "success",
                     isLoading: false,
                     autoClose: 5000,
                   });
-                  window.location.href = "/auth/login"
 
+                  debugger;
+                //display missing info
+                setMissingErrorMessage(errorMessage);
+                setEditModalOpen(true);
+
+             
             }else{
                 debugger;
                 toast.update(_id, {
-                    render: "Profile not created, please try again.",
+                    render: "Your application has not been created.",
                     type: "error",
                     isLoading: false,
                     autoClose: 5000
@@ -283,14 +295,7 @@ Object.entries(payload).forEach(([key, value]) => {
         
           
           }
-        const customModalStyles = {
-            modal: {
-              maxWidth: '40%', 
-              width: '50%',
-              borderRadius: "10px",
-              backgroundColor: "lightpink"
-            },
-          };
+     
 
           const inputEmailStyle = {
             ...(emailExist && {
@@ -301,6 +306,24 @@ Object.entries(payload).forEach(([key, value]) => {
           };
 
           console.log("ddsds",resume)
+
+          function sendToLogin(){
+            window.location.href = "/developer-overview"
+          
+ 
+   //   window.location.href = "/auth/login"
+
+
+          }
+          const customModalStyles = {
+            modal: {
+              maxWidth: '40%', 
+              width: '50%',
+              borderRadius: "10px",
+              backgroundColor: "white"
+            },
+          };
+
     return (
         <>
           <Header 
@@ -310,9 +333,7 @@ Object.entries(payload).forEach(([key, value]) => {
         <MobileMenu menuToggler={menuToggler} />
         
     <main id="content" role="main">
-         <Modal styles={customModalStyles}  open={editModalOpen} onClose={() => setEditModalOpen(false)} center>
-        <VerifyOtp email = {email} onClose={saveAndCloseEditModal} />
-      </Modal>
+      
 
       <ToastContainer />
         {/* <Link className="back" style={{margin: '40px', display: 'block', color: '#4B4C4E'}} href='/fraktional-gig'>
@@ -320,6 +341,24 @@ Object.entries(payload).forEach(([key, value]) => {
         </Link> */}
         {/* Page Header */}
         <div className="container content-space-t-2">
+        <Modal open={editModalOpen} styles={customModalStyles} onClose={() => setEditModalOpen(false)} center>
+            <div style={{width:"100%"}}>
+            <h4>Your job application has been created</h4>
+            {missingErrorMessage.length>0 && <p>There are some missing/incomplete information</p>}
+            {
+                
+                missingErrorMessage.length>0 && missingErrorMessage.map((error, index) => {
+                    return (
+                        <p key={index} className="errorMessage">{error}</p>
+                    )
+                })
+            }
+            <p>Please continue to verify your CV information and submit your application. </p>
+      
+                <button onClick={()=>sendToLogin()} className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff', width:"100%"}}>Continue</button>
+            </div>
+           
+      </Modal>
             <div className="w-lg-75 mx-lg-auto">
             <div className="page-header">
                 {/* Media */}

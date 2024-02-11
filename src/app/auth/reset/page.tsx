@@ -204,7 +204,7 @@ function OTP() {
       <section className="newpassword">
       <div className="top">
       <Image src={logo} alt='logo'/>
-        <Link href='/'><i className="bi bi-chevron-left"></i>Go to main</Link>
+        {/* <Link href='/'><i className="bi bi-chevron-left"></i>Go to main</Link> */}
       </div>
 
     
@@ -302,7 +302,7 @@ function OTP() {
         <section className="reset">
         <div className="top">
           <Image src={logo} alt='logo' onClick={() => router.push('/')} />
-          <button onClick={() => router.push('/')}><i className="bi bi-chevron-left"></i>Go to main</button>
+          {/* <button onClick={() => router.push('/')}><i className="bi bi-chevron-left"></i>Go to main</button> */}
         </div>
 
         <div className="resetMain">

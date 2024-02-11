@@ -42,7 +42,7 @@ function developerOverview() {
   const handleWorkStatusChange = (value: any) => {
     setWorkStatus(value);
   };
-
+  const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
 
   const [information, setInformation] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -98,6 +98,7 @@ function developerOverview() {
 
   const [currentProfilePic, setCurrentProfilePic] = useState("");
   const loggedInUser = cookies.get("fraktional-user")??"{}";
+  debugger;
   const [existingUser, setExistingUser] = useState(false);
 
     const [deleteProfileAccept, setDeleteProfileAccept] = useState(false);
@@ -110,6 +111,7 @@ function developerOverview() {
 
     setHasChanged(true);
   };
+const isApply = loggedInUser?.id? true: false;
 
 function editEducationInfo(index:number){
 
@@ -180,7 +182,7 @@ setIsEditWork(true);
 
     if(pp){
       profilePicUpload.append("profilePic", pp as Blob);
-      const profilePicDoc = await uploadProfilePic(profilePicUpload,loggedInUser._id??"");
+      const profilePicDoc = await uploadProfilePic(profilePicUpload,loggedInUser._id??loggedInUser?.id??"");
       
       console.log("profres", profilePicDoc);
       const newImage = profilePicDoc.data.data.Location
@@ -214,7 +216,7 @@ setIsEditWork(true);
   };
 
 async function _GetDeveloperProfile(id:string){
-
+debugger;
   let _id = toast.loading("Loading your profile..", {
     position: "top-center",
     autoClose: 1000,
@@ -426,7 +428,11 @@ const frakcvUrl = `https://fraktional-be.azurewebsites.net/getPersonnelCv/${logg
 
 useEffect(() => {
   //check url and setActive
-  loggedInUser._id&& _GetDeveloperProfile(loggedInUser?._id)
+
+  if(loggedInUser._id||loggedInUser.id){
+    debugger;
+     _GetDeveloperProfile(loggedInUser?._id ?? loggedInUser?.id)
+    }
    
   }, []);
 
@@ -436,6 +442,59 @@ useEffect(() => {
     // setSaving(true)
     setHasChanged(false)
     let _id = toast.loading("Updating your profile..", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
+  let payload = {
+      firstName:firstName,
+      surname:surname,
+      information: information, 
+      currentJob:currentJob,
+      previousWorkExperience:previousWorkExperience,
+      yearsOfExperience:yearsOfExperience,
+      education:education, 
+      keySkills:keySkills, 
+      keyCourses:keyCourses,
+      cvUrl:cvUrl,
+      personalInformation:{about:information},
+      _user: loggedInUser._id ??loggedInUser.id,
+      preferedWorkMethod: preferedWorkMethod,
+      user:loggedInUser._id??loggedInUser.id,
+    } as IDeveloperProfile;
+
+    if (cv) {
+      cvPayload.append("cv", cv as Blob);
+      const cvDoc = await uploadCV(cvPayload);
+      const path = cvDoc.data.data.Location;
+      payload.cvUrl = path;
+    }
+
+
+  
+
+    if(existingUser){
+      
+      var t = currentProfile;
+      const res = await UpdateDeveloperProfile(payload, currentProfile?._id??"");
+    }else{
+      const res = await CreateDeveloperProfile(payload);
+    }
+    
+    
+    toast.dismiss(_id);
+  }
+
+  async function completeApplication(){
+    // setSaving(true)
+    setHasChanged(false)
+    let _id = toast.loading("Submitting your application..", {
       position: "top-center",
       autoClose: 1000,
       hideProgressBar: false,
@@ -481,8 +540,13 @@ useEffect(() => {
       const res = await CreateDeveloperProfile(payload);
     }
     
+    if(isApply){
+      setEditModalOpen(true);
+    }
+
     toast.dismiss(_id);
   }
+
 
   function getURL(){
     if(cv!=undefined){
@@ -501,6 +565,18 @@ const style = {
     }
   })
 };
+const customModalStyles = {
+  modal: {
+    maxWidth: '40%', 
+    width: '50%',
+    borderRadius: "10px",
+    backgroundColor: "white"
+  },
+};
+function sendToLogin(){
+ Logout();
+
+}
 
 console.log("DDD", loggedInUser);
     return (
@@ -511,6 +587,17 @@ console.log("DDD", loggedInUser);
       </div>
     <main id="content" role="main" className="bg-light">
   {/* Breadcrumb */}
+  <Modal open={editModalOpen} styles={customModalStyles} onClose={() => setEditModalOpen(false)} center>
+            <div style={{width:"100%"}}>
+            <h4>Your job application has been submitted.</h4>
+         
+           {/* <p>A new account has also been created.</p> */}
+            <p>To track your application please check your email at {loggedInUser?.email} for your login details.</p>
+
+                <button onClick={()=>sendToLogin()} className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff', width:"100%"}}>Login</button>
+            </div>
+           
+      </Modal>
   <div className="navbar-dark" style={{backgroundColor: '#FD2DC3'}}>
     <div className="container content-space-1 content-space-b-lg-3" >
       <div className="row align-items-center">
@@ -527,10 +614,11 @@ console.log("DDD", loggedInUser);
           </nav>
           {/* End Breadcrumb */}
         </div>
-
+        {!isApply&&
         <div className="col Gotohome">
           <Link href='/' >Go to Home</Link>
         </div>
+      }
       </div>
     </div>
   </div>
@@ -538,71 +626,74 @@ console.log("DDD", loggedInUser);
   {/* Content */}
   <div data-aos="fade-right" className="container content-space-1 content-space-t-lg-0 content-space-b-lg-2 mt-lg-n10">
     <div className="row">
-      <div className="col-lg-3">
-        {/* Navbar */}
-        <div className="navbar-expand-lg navbar-light">
-          <div id="sidebarNav" className="navbar-collapse navbar-vertical">
-            {/* Card */}
-            <div className="card flex-grow-1 mb-5">
-              <div className="card-body">
-                {/* Avatar */}
-                <div className="d-none d-lg-block text-center mb-5">
-                  <div className="avatar avatar-xxl avatar-circle mb-3">
-                    <Image className="avatar-img" fill={true}  src={currentProfilePic!=""? currentProfilePic: cookies.get("fraktional-user")?.profilePicture??""} alt="Image Description" />
-                    <Image className="avatar-status avatar-lg-status" src={topVendor} alt="Image Description" data-bs-toggle="tooltip" data-bs-placement="top" title="Verified user" />
-                  </div>
+    {!isApply&&
+     <div className="col-lg-3">
+     {/* Navbar */}
+     <div className="navbar-expand-lg navbar-light">
+       <div id="sidebarNav" className="navbar-collapse navbar-vertical">
+         {/* Card */}
+         <div className="card flex-grow-1 mb-5">
+           <div className="card-body">
+             {/* Avatar */}
+             <div className="d-none d-lg-block text-center mb-5">
+               <div className="avatar avatar-xxl avatar-circle mb-3">
+                 <Image className="avatar-img" fill={true}  src={currentProfilePic!=""? currentProfilePic: cookies.get("fraktional-user")?.profilePicture??""} alt="Image Description" />
+                 <Image className="avatar-status avatar-lg-status" src={topVendor} alt="Image Description" data-bs-toggle="tooltip" data-bs-placement="top" title="Verified user" />
+               </div>
 
-                 <h4 className="card-title mb-0">{firstName!=""? firstName: loggedInUser.firstName} {surname!=""? surname: loggedInUser.surname}</h4>
-                  <p className="card-text small">{loggedInUser.email}</p>
-                </div>
-                {/* End Avatar */}
-                {/* Nav */}
-                <span className="text-cap">Account</span>
-                {/* List */}
-                <ul className="nav nav-sm nav-tabs nav-vertical mb-4">
-                  <li className="nav-item"  onClick={()=>setMenu(1)} >
-                    <a className={menuItem==1?"nav-link active" :"nav-link"} style={{cursor: 'pointer'}}>
-                      <i className="bi-person-badge nav-icon" /> Personal info
-                    </a>
-                  </li>
-                 
-                  <li className="nav-item">
-                    <a className="nav-link " style={{pointerEvents: 'none', cursor:'none', opacity: '.5'}}>
-                      <i className="bi-briefcase nav-icon" /> Gigs
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link " style={{pointerEvents: 'none', cursor: 'none', opacity: '.5'}}>
-                      <i className="bi-calendar nav-icon" /> Interviews
-                      {/* <span className="badge bg-soft-dark text-dark rounded-pill nav-link-badge">1</span> */}
-                    </a>
-                  </li>
-                  
-                  <li className="nav-item">
-                    <a className="nav-link " style={{pointerEvents: 'none', cursor:'none', opacity: '.5'}}>
-                      <i className="bi-bell nav-icon" /> Notifications
-                    </a>
-                  </li>
-                  <li className="nav-item" onClick={()=>setMenu(2)}>
-                    <a className={menuItem==2?"nav-link active" :"nav-link"}   style={{cursor: 'pointer'}}>
-                      <i className="bi-shield-shaded nav-icon" /> Security
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link " onClick={()=>Logout()}>
-                      <i className="bi-sliders nav-icon" /> Logout
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            {/* End Card */}
-          </div>
-        </div>
-        {/* End Navbar */}
-      </div>
+              <h4 className="card-title mb-0">{firstName!=""? firstName: loggedInUser.firstName} {surname!=""? surname: loggedInUser.surname}</h4>
+               <p className="card-text small">{loggedInUser.email}</p>
+             </div>
+             {/* End Avatar */}
+             {/* Nav */}
+             <span className="text-cap">Account</span>
+             {/* List */}
+             <ul className="nav nav-sm nav-tabs nav-vertical mb-4">
+               <li className="nav-item"  onClick={()=>setMenu(1)} >
+                 <a className={menuItem==1?"nav-link active" :"nav-link"} style={{cursor: 'pointer'}}>
+                   <i className="bi-person-badge nav-icon" /> Personal info
+                 </a>
+               </li>
+              
+               <li className="nav-item">
+                 <a className="nav-link " style={{pointerEvents: 'none', cursor:'none', opacity: '.5'}}>
+                   <i className="bi-briefcase nav-icon" /> Gigs
+                 </a>
+               </li>
+               <li className="nav-item">
+                 <a className="nav-link " style={{pointerEvents: 'none', cursor: 'none', opacity: '.5'}}>
+                   <i className="bi-calendar nav-icon" /> Interviews
+                   {/* <span className="badge bg-soft-dark text-dark rounded-pill nav-link-badge">1</span> */}
+                 </a>
+               </li>
+               
+               <li className="nav-item">
+                 <a className="nav-link " style={{pointerEvents: 'none', cursor:'none', opacity: '.5'}}>
+                   <i className="bi-bell nav-icon" /> Notifications
+                 </a>
+               </li>
+               <li className="nav-item" onClick={()=>setMenu(2)}>
+                 <a className={menuItem==2?"nav-link active" :"nav-link"}   style={{cursor: 'pointer'}}>
+                   <i className="bi-shield-shaded nav-icon" /> Security
+                 </a>
+               </li>
+               <li className="nav-item">
+                 <a className="nav-link " onClick={()=>Logout()}>
+                   <i className="bi-sliders nav-icon" /> Logout
+                 </a>
+               </li>
+             </ul>
+           </div>
+         </div>
+         {/* End Card */}
+       </div>
+     </div>
+     {/* End Navbar */}
+   </div>
+    }
+     
       {/* End Col */}
-      <div className="col-lg-9">
+      <div className= {!isApply?"col-lg-9":"col-lg-12"}>
         <div className="d-grid gap-3 gap-lg-5">
           {/* Card */}
           
@@ -900,16 +991,21 @@ console.log("DDD", loggedInUser);
             </div>
             {/* End Body */}
             {/* Footer */}
-            <div className="card-footer pt-0">
+            {!isApply&&
+              <div className="card-footer pt-0">
               <div className="d-flex justify-content-end gap-3">
                 <a className="btn btn-white" href="javascript:;">Cancel</a>
                 <a className="btn" onClick={()=>updateProfile()} style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Save changes</a>
               </div>
             </div>
+
+            }
+            
             {/* End Footer */}
           </div>
           {/* End Card */}
-          <div className="card">
+          {
+            !isApply && <div className="card">
             <div className="card-header border-bottom">
               <h4 className="card-header-title">Documents</h4>
             </div>
@@ -954,6 +1050,8 @@ console.log("DDD", loggedInUser);
             </div>
             {/* End Body */}
           </div>
+          }
+          
           <div className="card">
             <div className="card-header border-bottom">
               <h4 className="card-header-title">Competencies</h4>
@@ -1351,13 +1449,24 @@ console.log("DDD", loggedInUser);
           </div>
 
        
-              
-          <div className="card-footer pt-0">
-                <div className="d-flex justify-content-end gap-3">
-                  <a className="btn btn-white" href="javascript:;">Cancel</a>
-                  <a className="btn" onClick={()=>updateProfile()} style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Save changes</a>
-                </div>
-              </div>
+            {!isApply&&
+
+               <div className="card-footer pt-0">
+               <div className="d-flex justify-content-end gap-3">
+                 <a className="btn btn-white" href="javascript:;">Cancel</a>
+                 <a className="btn" onClick={()=>updateProfile()} style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Save changes</a>
+               </div>
+             </div>
+            }
+               {isApply&&
+            
+            <div className="card-footer pt-0">
+            <div className="d-flex justify-content-end gap-3">
+              <a className="btn" onClick={()=>completeApplication()} style={{backgroundColor: '#FD2DC3', color: '#fff', width:"100%"}}>Complete application</a>
+            </div>
+          </div>
+         }
+         
           </>
           }
 

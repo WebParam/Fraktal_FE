@@ -44,36 +44,6 @@ function SignIn() {
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const emailValue = cookies.get('myCookie');
 
-  //const { email, password } = formData; // Destructure the values for easier access
-
-  // const handleChange = (e: any) => {
-  //   const { name, value } = e.target;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value,
-  //   });
-  // };
-
-  // const userDetails = cookies.get('fraktional-user');
-
-  // useEffect(() => {
-  //   console.log(userDetails);
-  
-  //   if (userDetails?._id) {
-  //     if (userDetails.status === 1) {
-  //       if (userDetails.type === 0) {
-  //         window.location.href = "/developer-overview";
-  //       } else {
-          
-  //         window.location.href = "/company-overview";
-  //       }
-  //     }
-  //   } else {
-  //     cookies.set('fraktional-user', JSON.stringify(false));
-  //     window.location.href = "/auth/login";
-  //   }
-  // }, []);
-
   
   const handleSubmit = async (e: any) => {
     setInvalidLoginError(false)
@@ -211,9 +181,9 @@ function SignIn() {
       </Modal>
       <div className="top">
       <Link href= "/"> <Image style={{   cursor: "pointer"}} src={logo} alt="logo" /></Link> 
-        <Link href="/">
+        {/* <Link href="/">
           <i className="bi bi-chevron-left"></i>Go to main
-        </Link>
+        </Link> */}
       </div>
 
       <div className="signinMain">
@@ -271,7 +241,7 @@ function SignIn() {
             setPassword(e.target.value);
           }}
         />
-        <FontAwesomeIcon
+        {/* <FontAwesomeIcon
           icon={visible ? faEyeSlash : faEye}
           onClick={() => setVisible(!visible)}
           style={{
@@ -281,7 +251,7 @@ function SignIn() {
             transform: 'translateY(-50%)',
             cursor: 'pointer',
           }}
-        />
+        /> */}
       </div>
                  
             </div>
