@@ -26,6 +26,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { StylesConfig } from 'react-select';
 import moment from"moment";
+import { VerifyOtp } from "../auth/register/verify-otp";
 // const moment = require("moment");
 
 const cookies = new Cookies();
@@ -100,8 +101,10 @@ function developerOverview() {
   const loggedInUser = cookies.get("fraktional-user")??"{}";
   debugger;
   const [existingUser, setExistingUser] = useState(false);
-
+    const [updatePasswordModal, setUpdatePasswordModal] = useState(false);
     const [deleteProfileAccept, setDeleteProfileAccept] = useState(false);
+    
+    const [updatePasswordAccept, setUpdatePasswordAccept] = useState(false);
   const [cv, setCV] = useState<Blob | undefined>();
   const [hasChanged, setHasChanged] = useState(false);
   const cvPayload = new FormData();
@@ -1473,6 +1476,86 @@ console.log("DDD", loggedInUser);
           
           {/* Card */}
           {menuItem==2 &&
+          <>
+        
+          <div className="card" data-aos="fade-right">
+            <div className="card-header border-bottom">
+              <h4 className="card-header-title">Update your password</h4>
+            </div>
+            {/* Body */}
+            {updatePasswordModal==true
+               &&  
+               <Modal 
+               classNames={{modal:"card"}}
+                open={updatePasswordModal}
+                closeOnOverlayClick={true}
+                onClose={() => setUpdatePasswordModal(false)} 
+                center
+                >
+                  <div>
+                    <div className="card-body">
+                      {/* Heading */}
+                      <div className="text-center mb-5 mb-md-9" style={{marginBottom: "0px !important"}}>
+                        <h2>Update your password</h2>
+                      </div>
+                      <div className="row gx-3">
+                          <div className="col-sm-12">
+                            {/* Form */}
+                            <div className="mb-3">
+                              {/* <label className="form-label" htmlFor="hireUsFormTitle">Certificate</label> */}
+                              <VerifyOtp email = {loggedInUser?.email} onClose={()=>{}} />
+
+                              {/* <Select
+                                className={`form-control form-control-lg ${edu_QualificationError ? 'err':''}`} 
+                                  options={degrees as any}
+                                  placeholder="Search Degree / Diploma"
+                                  styles={style}
+                                  onChange={handleSelectQualification}
+                                  isSearchable={true}
+                                  
+                                /> */}
+
+                            </div>
+                            {/* End Form */}
+                          </div>
+                          {/* End Col */}
+                        
+                          {/* End Col */}
+                        </div>
+                      {/* Form */}
+                      <form >
+                      
+                        {/* End Form */}
+                        {/* <div className="d-grid">
+                           <button type="submit"onClick={(e)=>{e.preventDefault(); setUpdatePasswordModal(false)}} className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Cancel</button>
+                        </div> */}
+                      </form>
+                      {/* End Form */}
+                    </div>
+                  </div>
+               </Modal>}
+            <div className="card-body">
+       
+            <div className="card-body">
+              <p className="card-text">When you update your password, an OTP will be sent to {loggedInUser?.email}.</p>
+              <div className="mb-4">
+                {/* Check */}
+                <div className="form-check">
+                  <input type="checkbox"  onChange={()=>setUpdatePasswordAccept(!updatePasswordAccept)}  className="form-check-input" id="updatePasswordCheckbox" />
+                  <label className="form-check-label" htmlFor="updatePasswordCheckbox">Confirm that I want to update my password.</label>
+                </div>
+                {/* End Check */}
+              </div>
+              <div className="d-flex justify-content-end">
+              <button style={{width:"100%"}} disabled={updatePasswordAccept!=true} onClick={()=> setUpdatePasswordModal(true)} className="btn btn-primary">Update your password</button>
+              </div>
+
+           
+            </div>
+            {/* End Body */}
+          </div>
+          </div>
+
           <div className="card" data-aos="fade-left">
             <div className="card-header border-bottom">
               <h4 className="card-header-title">Delete your account</h4>
@@ -1522,6 +1605,7 @@ console.log("DDD", loggedInUser);
             </div>
             {/* End Body */}
           </div>
+          </>
           }
           {/* End Card */}
           
