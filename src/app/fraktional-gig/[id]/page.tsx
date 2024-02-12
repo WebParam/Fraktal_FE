@@ -242,6 +242,7 @@ const payload = {
     notice: noticePeriod,
     rate: expectedSalary,
     file: resume,
+    projectId:params.id
 } as IApply;
 
 const formData = new FormData();
