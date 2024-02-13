@@ -51,6 +51,7 @@ export default function Layout({ children, title, description, type, pageMeta,og
     });
   }, []);
 
+  console.log("ENV", process.env.NEXT_PUBLIC_ISPRO)
   // const meta = {
   //   title: ' iPhone 12 XS Max For Sale in Colorado - Big Discounts | Apple',
   //   description: 'Check out iPhone 12 XR Pro and iPhone 12 Pro Max. Visit your local store and for expert advice.',
@@ -97,21 +98,27 @@ export default function Layout({ children, title, description, type, pageMeta,og
                 href="https://fonts.cdnfonts.com/css/avenir"
                 rel="stylesheet"
               />
-               
-              <Script
-      strategy="lazyOnload"
-      src={`https://www.googletagmanager.com/gtag/js?id=G-F1NZRBMHZ7`}
-    />
-    <Script strategy="lazyOnload">
-      {`
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', 'G-F1NZRBMHZ7', {
-                  page_path: window.location.pathname,
-                  });
-              `}
-    </Script>
+
+        {
+          process.env.NEXT_PUBLIC_ISPROD =="true"&&
+          <>          <Script
+          strategy="lazyOnload"
+          src={`https://www.googletagmanager.com/gtag/js?id=G-F1NZRBMHZ7`}
+        />
+        <Script strategy="lazyOnload">
+          {`
+                      window.dataLayer = window.dataLayer || [];
+                      function gtag(){dataLayer.push(arguments);}
+                      gtag('js', new Date());
+                      gtag('config', 'G-F1NZRBMHZ7', {
+                      page_path: window.location.pathname,
+                      });
+                  `}
+        </Script>
+        </>
+
+        }       
+           
 
 
 

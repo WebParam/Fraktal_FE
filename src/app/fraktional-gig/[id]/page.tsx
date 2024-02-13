@@ -26,7 +26,7 @@ import Cookies from 'universal-cookie';
 
 function viewGig({ params }: { params: { id: string }}) {
     const _gigs = gigs as any[];
-    const gig = _gigs.find(item => item?.id === parseInt(params.id));
+    const gig = _gigs.find(item => item?.id === params.id);
 
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const inputFileRef = useRef<HTMLInputElement>(null);
@@ -397,13 +397,13 @@ Object.entries(payload).forEach(([key, value]) => {
                     </li>
                     <li className="list-inline-item">
                         {/* Rating */}
-                        <a className="d-flex gap-1" href="../demo-jobs/employer.html">
+                        <a className="d-flex gap-1" href="#">
                         <Image src={star} alt="Review rating" width={14} />
                         <Image src={star} alt="Review rating" width={14} />
                         <Image src={star} alt="Review rating" width={14} />
                         <Image src={star} alt="Review rating" width={14} />
                         <Image src={halfstar} alt="Review rating" width={14} />
-                        <span className="ms-1" style={{color: '#FD2DC3'}}>2,391 reviews</span>
+                        <span className="ms-1" style={{color: '#FD2DC3'}}>31 views</span>
                         </a>
                         {/* End Rating */}
                     </li>

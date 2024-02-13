@@ -30,17 +30,44 @@ export const filterJob=(searchKey:string[], cityKey?:string)=>{
 export const gigs = [
     {
         id: "65c628df282f79971828b674",
-        companyname: 'J-T Consulting',
-        searchFields:["jhb", "developer", "c#", "senior", "devops", "engineer", "full time", "remote"],
-        position: 'Senior Devops Engineer',
-        salary: 'R125k-R135k month',
+        companyname: 'Param Solutions',
+        searchFields:["jhb", "developer", "c#", "senior", ".net","engineer", "part time", "remote"],
+        position: 'Intermediate / Senior .NET Engineer',
+        salary: 'Market Related',
         location: 'JHB',
-        jobType: 'Full Time',
+        jobType: 'Part Time',
         img: mailchimp,
         posted: 'today',
         remote: 'remote',
-        description:"We are looking for a Senior DevOps Engineer to join our team. You will be responsible for helping to design, develop, and maintain our cloud infrastructure and services. You will be part of a small team of dedicated engineers who are passionate about delivering an exceptional user experience to our customers."
+        description:"Calling all intermediate (3+ years) & senior (5+ years) .NET developers who dream of working from anywhere, on projects that fuel their passion! At Fraktional, we're not just another coding gig. Say goodbye to fluorescent lights and endless meetings. With us, you set your schedule, choose your projects, and code from your dream workspace (beach hammock, anyone?). ☕️ "
     },
+    {
+        id: "65c628df282f79971828b6745",
+        companyname: 'Param Solutions',
+        searchFields:["jhb", "developer", "c#", "senior", ".net","engineer", "part time", "remote"],
+        position: 'Intermediate / Senior Java Developer',
+        salary: 'Market Related',
+        location: 'JHB',
+        jobType: 'Part Time',
+        img: mailchimp,
+        posted: 'today',
+        remote: 'remote',
+        description:"Are you a Java developer who thrives on building powerful, scalable applications? Do you have a passion for clean code and a hunger for challenging projects? Then we want YOU! We're seeking both intermediate and senior-level Java developers to join our dynamic team. Whether you're a rising star or a seasoned pro, we have the perfect opportunity to push your skills to the limit and make a real impact. "
+    },
+    {
+        id: "65c628df282f79971828b676",
+        companyname: 'Param Solutions',
+        searchFields:["jhb", "developer", "react", "senior", ".native","engineer", "part time", "remote"],
+        position: 'Intermediate / Senior React Native Engineer',
+        salary: 'Market Related',
+        location: 'JHB',
+        jobType: 'Part Time',
+        img: mailchimp,
+        posted: 'today',
+        remote: 'remote',
+        description:" Become a React Native developer and conquer both iOS & Android with a single codebase! We're searching for passionate devs (3+ yrs & 5+ experience) to: Build intuitive, performant mobile apps, Collaborate in a dynamic, fast-paced environment,Shape the future of our platform. Intermediate or Senior? We've got your level! Ready to unleash your React Native skills? ➡️  "
+    },
+    
     // {
     //     id: 2,
     //     companyname: 'Tuto',
