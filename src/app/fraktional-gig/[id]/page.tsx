@@ -421,7 +421,7 @@ Object.entries(payload).forEach(([key, value]) => {
         </div>
         {/* End Page Header */}
         {/* Content */}
-        <div className="container content-space- content-space-b-lg-3">
+        <div className="container content-space-b-2 content-space-b-lg-3">
             <div className="w-lg-75 mx-lg-auto">
             {/* Card */}
             <div className="row align-items-sm-center" style={{padding:"5%",marginBottom:"5%"}} dangerouslySetInnerHTML={{__html :gig?.description}}>
@@ -441,7 +441,7 @@ Object.entries(payload).forEach(([key, value]) => {
                     <div className="col-sm-auto">
                     {/* Dropdown */}
                     <div className="dropdown">
-                        <a className="btn" onClick={()=>uploadCVClick()} style={{backgroundColor: '#FD2DC3', color: '#fff', width :"200px", fontSize:'small'}} id="jobImportResumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation>
+                        <a className="btn" onClick={()=>uploadCVClick()} style={{backgroundColor: '#FD2DC3', color: '#fff', minWidth:"200px", width :"100%", fontSize:'small'}} id="jobImportResumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation>
                        Upload CV
                         </a>
                         <p style={{float: "left",  marginRight: "10px", marginTop: "10px"}}>{resume && <small><i className="bi-file-arrow-up" /> {resume.name}  </small>}</p>
