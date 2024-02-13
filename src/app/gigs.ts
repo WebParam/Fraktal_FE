@@ -41,7 +41,7 @@ export const gigs = [
         remote: 'remote',
         description:`Calling all intermediate (3+ years) & senior (5+ years) .NET developers who dream of working from anywhere, on projects that fuel their passion! At Fraktional, we're not just another coding gig. 
         <br/>
-         Say goodbye to fluorescent lights and endless meetings. With us, you set your schedule, choose your projects, and code from your dream workspace (beach hammock, anyone?). ☕️ <br/><br/>
+         Say goodbye to fluorescent lights and endless meetings. With us, you set your schedule, choose your projects, and code from your dream workspace (beach hammock, anyone?).  <br/><br/>
 
                 But wait, there's more!<br/>
                     Work on projects with amazing teams, pushing the boundaries of innovation.<br/>
@@ -57,7 +57,7 @@ export const gigs = [
         `
     },
     {
-        id: "65c628df282f79971828b6745",
+        id: "65cafa2b352110471825a468",
         companyname: 'Param Solutions',
         searchFields:["jhb", "developer", "c#", "senior", ".net","engineer", "part time", "remote"],
         position: 'Intermediate / Senior Java Developer',
@@ -82,10 +82,10 @@ Competitive salary and benefits<br/>
 Flexible work hours and remote options<br/>
 Professional development opportunities<br/><br/>
 
-Don't miss this chance to join our team and build the future! ✨`
+Don't miss this chance to join our team and build the future!`
     },
     {
-        id: "65c628df282f79971828b676",
+        id: "65cafa34352110471825a469",
         companyname: 'Param Solutions',
         searchFields:["jhb", "developer", "react", "senior", "native","engineer", "part time", "remote"],
         position: 'Intermediate / Senior React Native Engineer',
@@ -102,7 +102,7 @@ Don't miss this chance to join our team and build the future! ✨`
          Collaborate in a dynamic, fast-paced environment<br/> 
          Shape the future of our platform.<br/> <br/> 
          Intermediate or Senior? We've got your level! <br/> <br/>  
-         Ready to unleash your React Native skills? ➡️ 
+         Ready to unleash your React Native skills?  
          `
     },
     
