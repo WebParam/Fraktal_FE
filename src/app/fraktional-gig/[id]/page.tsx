@@ -421,7 +421,7 @@ Object.entries(payload).forEach(([key, value]) => {
         </div>
         {/* End Page Header */}
         {/* Content */}
-        <div className="container content-space-1 content-space-b-lg-3">
+        <div className="container content-space- content-space-b-lg-3">
             <div className="w-lg-75 mx-lg-auto">
             {/* Card */}
             <div className="row align-items-sm-center" style={{padding:"5%",marginBottom:"5%"}} dangerouslySetInnerHTML={{__html :gig?.description}}>

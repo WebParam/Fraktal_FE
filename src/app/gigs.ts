@@ -42,7 +42,7 @@ export const gigs = [
         description:`Calling all intermediate (3+ years) & senior (5+ years) .NET developers who dream of working from anywhere, on projects that fuel their passion! At Fraktional, we're not just another coding gig. 
         <br/>
          Say goodbye to fluorescent lights and endless meetings. With us, you set your schedule, choose your projects, and code from your dream workspace (beach hammock, anyone?). ☕️ <br/><br/>
-         
+
                 But wait, there's more!<br/>
                     Work on projects with amazing teams, pushing the boundaries of innovation.<br/>
                     Level up your skills with opportunities to grow.<br/>
@@ -67,12 +67,27 @@ export const gigs = [
         img: mailchimp,
         posted: 'today',
         remote: 'remote',
-        description:"Are you a Java developer who thrives on building powerful, scalable applications? Do you have a passion for clean code and a hunger for challenging projects? Then we want YOU! We're seeking both intermediate and senior-level Java developers to join our dynamic team. Whether you're a rising star or a seasoned pro, we have the perfect opportunity to push your skills to the limit and make a real impact. "
+        description:`
+        Are you a Java developer who thrives on building powerful, scalable applications? <br/>
+Do you have a passion for clean code and a hunger for challenging projects? <br/><br/>Then we want YOU!<br/>
+We're seeking both intermediate and senior-level Java developers to join Fraktional.dev.<br/> We have the perfect opportunity to push your skills to the limit and make a real impact.
+
+Requirements:<br/>
+-Bachelor's degree in Computer Science or related field<br/>
+-3+ years of Java development experience<br/>
+-Proficiency in Java EE or Spring framework<br/>
+-Strong SQL and database knowledge<br/><br/>
+Benefits:<br/>
+Competitive salary and benefits<br/>
+Flexible work hours and remote options<br/>
+Professional development opportunities<br/><br/>
+
+Don't miss this chance to join our team and build the future! ✨`
     },
     {
         id: "65c628df282f79971828b676",
         companyname: 'Param Solutions',
-        searchFields:["jhb", "developer", "react", "senior", ".native","engineer", "part time", "remote"],
+        searchFields:["jhb", "developer", "react", "senior", "native","engineer", "part time", "remote"],
         position: 'Intermediate / Senior React Native Engineer',
         salary: 'Salary: Market Related',
         location: 'JHB',
@@ -80,7 +95,15 @@ export const gigs = [
         img: mailchimp,
         posted: 'today',
         remote: 'remote',
-        description:" Become a React Native developer and conquer both iOS & Android with a single codebase! We're searching for passionate devs (3+ yrs & 5+ experience) to: Build intuitive, performant mobile apps, Collaborate in a dynamic, fast-paced environment,Shape the future of our platform. Intermediate or Senior? We've got your level! Ready to unleash your React Native skills? ➡️  "
+        description:`Become a React Native developer and conquer both iOS & Android with a single codebase! <br/> 
+        We're searching for passionate devs (3+ yrs & 5+ experience) to:<br/> 
+        - Build intuitive<br/> 
+        -Performant mobile apps <br/>
+         Collaborate in a dynamic, fast-paced environment<br/> 
+         Shape the future of our platform.<br/> <br/> 
+         Intermediate or Senior? We've got your level! <br/> <br/>  
+         Ready to unleash your React Native skills? ➡️ 
+         `
     },
     
     // {
