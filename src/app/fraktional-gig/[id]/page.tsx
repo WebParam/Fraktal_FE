@@ -424,8 +424,8 @@ Object.entries(payload).forEach(([key, value]) => {
         <div className="container content-space-1 content-space-b-lg-3">
             <div className="w-lg-75 mx-lg-auto">
             {/* Card */}
-            <div className="row align-items-sm-center" style={{padding:"5%",marginBottom:"5%"}}>
-                    {gig?.description}
+            <div className="row align-items-sm-center" style={{padding:"5%",marginBottom:"5%"}} dangerouslySetInnerHTML={{__html :gig?.description}}>
+                    {/* {gig?.description} */}
             </div>
             <div className="card card-bordered mb-10">
                 <div className="card-body">

@@ -74,8 +74,8 @@ export default function BlogPost() {
             <div  
                 style={{
                     position: "relative",
-                    paddingLeft: "15%",
-                    paddingRight: "15%",
+                    paddingLeft: "10%",
+                    paddingRight: "10%",
                     height: 400,
                     backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)), url(${blog?.jetpack_featured_media_url})`,
                     backgroundPosition: "center",

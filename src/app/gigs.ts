@@ -33,20 +33,35 @@ export const gigs = [
         companyname: 'Param Solutions',
         searchFields:["jhb", "developer", "c#", "senior", ".net","engineer", "part time", "remote"],
         position: 'Intermediate / Senior .NET Engineer',
-        salary: 'Market Related',
+        salary: 'Salary: Market Related',
         location: 'JHB',
         jobType: 'Part Time',
         img: mailchimp,
         posted: 'today',
         remote: 'remote',
-        description:"Calling all intermediate (3+ years) & senior (5+ years) .NET developers who dream of working from anywhere, on projects that fuel their passion! At Fraktional, we're not just another coding gig. Say goodbye to fluorescent lights and endless meetings. With us, you set your schedule, choose your projects, and code from your dream workspace (beach hammock, anyone?). ☕️ "
+        description:`Calling all intermediate (3+ years) & senior (5+ years) .NET developers who dream of working from anywhere, on projects that fuel their passion! At Fraktional, we're not just another coding gig. 
+        <br/>
+         Say goodbye to fluorescent lights and endless meetings. With us, you set your schedule, choose your projects, and code from your dream workspace (beach hammock, anyone?). ☕️ <br/><br/>
+         
+                But wait, there's more!<br/>
+                    Work on projects with amazing teams, pushing the boundaries of innovation.<br/>
+                    Level up your skills with opportunities to grow.<br/>
+                    Enjoy competitive pay and benefits that fit your freelance lifestyle.<br/>
+                    Be part of a supportive community of brilliant minds who share your passion for code.<br/>
+                    Think you've got the coding chops? Here's what we're looking for:<br/><br/>
+                    - Solid .NET expertise (C#, ASP.NET MVC, Entity Framework)<br/>
+                    - 3+ years & 5+ of experience building web applications<br/>
+                    - A collaborative spirit and a thirst for learning<br/>
+                    - The ability to work independently and manage your time like a pro
+
+        `
     },
     {
         id: "65c628df282f79971828b6745",
         companyname: 'Param Solutions',
         searchFields:["jhb", "developer", "c#", "senior", ".net","engineer", "part time", "remote"],
         position: 'Intermediate / Senior Java Developer',
-        salary: 'Market Related',
+        salary: 'Salary: Market Related',
         location: 'JHB',
         jobType: 'Part Time',
         img: mailchimp,
@@ -59,7 +74,7 @@ export const gigs = [
         companyname: 'Param Solutions',
         searchFields:["jhb", "developer", "react", "senior", ".native","engineer", "part time", "remote"],
         position: 'Intermediate / Senior React Native Engineer',
-        salary: 'Market Related',
+        salary: 'Salary: Market Related',
         location: 'JHB',
         jobType: 'Part Time',
         img: mailchimp,
