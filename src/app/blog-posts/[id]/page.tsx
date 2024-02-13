@@ -69,7 +69,7 @@ export default function BlogPost() {
 
       <MobileMenu menuToggler={menuToggler} />
 
-           <div className="" style={{paddingTop: '10%', paddingLeft: '25%', paddingRight: '25%'}}>
+           <div className="" style={{paddingTop: '10%', paddingLeft: '15%', paddingRight: '15%'}}>
 
             <div  
                 style={{
