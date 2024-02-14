@@ -44,7 +44,7 @@ function viewGig({ params }: { params: { id: string }}) {
     const [portfolio, setPortfolio] = useState([]);
     const [expectedSalary, setExpectedSalary] = useState('');
     const [mobileExp, setMobileExp] = useState('');
-    const [editModalOpen, setEditModalOpen] = useState<boolean>(true);
+    const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
     // const userInformation = {
     //     firstName: firstName,
     //     lastName: lastName,
