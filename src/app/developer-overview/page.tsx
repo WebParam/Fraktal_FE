@@ -550,6 +550,11 @@ useEffect(() => {
     toast.dismiss(_id);
   }
 
+  function closeModal(){
+    setEditModalOpen(false);
+    sendToLogin();
+  }
+
 
   function getURL(){
     if(cv!=undefined){
@@ -590,7 +595,7 @@ console.log("DDD", loggedInUser);
       </div>
     <main id="content" role="main" className="bg-light">
   {/* Breadcrumb */}
-  <Modal open={editModalOpen} styles={customModalStyles} onClose={() => setEditModalOpen(false)} center>
+  <Modal open={editModalOpen} styles={customModalStyles} onClose={() => closeModal()} center>
             <div style={{width:"100%"}}>
             <h4>Your job application has been submitted.</h4>
          
