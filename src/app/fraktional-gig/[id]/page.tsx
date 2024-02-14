@@ -200,13 +200,13 @@ function viewGig({ params }: { params: { id: string }}) {
                  setShowErrorMessage(false);
              }
 
-            if (!noticePeriod.trim()) {
-                setnoticeError(true);
-                setShowErrorMessage(true);return;
-            } else {
-                setnoticeError(false);
-                setShowErrorMessage(false);
-            }
+            // if (!noticePeriod.trim()) {
+            //     setnoticeError(true);
+            //     setShowErrorMessage(true);return;
+            // } else {
+            //     setnoticeError(false);
+            //     setShowErrorMessage(false);
+            // }
             
           
 
@@ -239,7 +239,7 @@ const payload = {
     phone: phone,
     employed: workStatus,
     experience: yearsOfExperience,
-    notice: noticePeriod,
+    notice: noticePeriod??"nt1",
     rate: expectedSalary,
     file: resume,
     projectId:params.id
