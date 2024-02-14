@@ -113,7 +113,7 @@ function Blogs() {
                       />
                     </p>
                     <p className="mt-3 text-sm text-blue-500">
-                      {moment(data.date).format('DD/MM/YYYY')}
+                      {moment(data.date).fromNow()}
                     </p>
                   </div>
                 </a>
