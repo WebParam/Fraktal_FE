@@ -47,38 +47,38 @@ short-medium term projects.</p>
                 </div>
                 <div className="row gx-3">
                 <div className="col mb-3">
-                    <div className="bg-img-start" style={{height: '15rem'}} >
+                    <div className="bg-img-start"  >
                     <Image src={img1} alt="card image" loading="lazy" style={{width: '100%', height: '100%'}}/>
                     </div>
                 </div>
                 {/* End Col */}
-                <div className="col-3 d-none d-md-block mb-3">
-                    <div className="bg-img-start" style={{height: '15rem'}} >
+                {/* <div className="col-3 d-none d-md-block mb-3">
+                    <div className="bg-img-start"  >
                         <Image src={img2} alt="card image" loading="lazy" style={{width: '100%', height: '100%'}}/>
                     </div>
-                </div>
+                </div> */}
                 {/* End Col */}
                 <div className="col mb-3">
-                    <div className="bg-img-start" style={{height: '15rem'}} >
+                    <div className="bg-img-start" >
                     <Image src={img3} alt="card image" loading="lazy" style={{width: '100%', height: '100%'}}/>
                     </div>
                 </div>
                 {/* End Col */}
                 <div className="w-100" />
                 <div className="col mb-3 mb-md-0">
-                    <div className="bg-img-start" style={{height: '15rem'}} >
+                    <div className="bg-img-start" >
                     <Image src={img4} alt="card image" loading="lazy" style={{width: '100%', height: '100%'}}/>
                     </div>
                 </div>
                 {/* End Col */}
                 <div className="col-4 d-none d-md-block mb-3 mb-md-0">
-                    <div className="bg-img-start" style={{height: '15rem'}} >
+                    <div className="bg-img-start" >
                     <Image src={img5} alt="card image" loading="lazy" style={{width: '100%', height: '100%'}}/>
                     </div>
                 </div>
                 {/* End Col */}
                 <div className="col">
-                    <div className="bg-img-start" style={{height: '15rem'}} >
+                    <div className="bg-img-start" >
                     <Image src={img6} alt="card image" loading="lazy" style={{width: '100%', height: '100%'}}/>
                     </div>
                 </div>

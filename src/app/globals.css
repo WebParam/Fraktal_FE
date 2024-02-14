@@ -25,3 +25,14 @@ p, li, a {
 .btn-primary{
     border:none !important;
 }
+
+.MuiButton-text{
+    color: deeppink !important;
+    font-weight: 500;
+    text-decoration: underline !important;
+
+}
+
+.text-blue-500{
+    color: deeppink !important;
+}
