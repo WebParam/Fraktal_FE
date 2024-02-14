@@ -218,8 +218,8 @@ function HomePage() {
                 </ul>
                 {/* End List Pointer */}
               </div>
-              <div><TransitionsModal text='"Choose from our pool of experienced data engineers, spanning senior to intermediate
-                                expertise, for optimal data solutions."'/></div>
+              <div><TransitionsModal text='Choose from our pool of experienced data engineers, spanning senior to intermediate
+                                expertise, for optimal data solutions.'/></div>
             </div>
             {/* End Card */}
           </div>

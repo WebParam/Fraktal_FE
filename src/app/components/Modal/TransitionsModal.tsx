@@ -12,8 +12,8 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 700,
-  height: 600,
+  width: "80%",
+  height: "50%",
   bgcolor: 'background.paper',
   border: '2px solid white',
   boxShadow: 0,
@@ -34,6 +34,7 @@ export default function BasicModal( { text }: BasicModalProps ) {
     <div>
       <Button onClick={handleOpen}>Learn more</Button>
       <Modal
+     
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -41,14 +42,14 @@ export default function BasicModal( { text }: BasicModalProps ) {
       >
         <Box sx={style} style={{borderRadius: 10}}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+           
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
 
         
           </Typography>
           <div className=''>
-                <div>{text}</div>
+                <div  style={{    fontSize: "medium", textAlign: "center"}}> {text}</div>
                 <Image src={developers1} alt=''/>
           </div>
 
