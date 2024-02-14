@@ -57,7 +57,7 @@ export const gigs = [
         `
     },
     {
-        id: "65cafa2b352110471825a468",
+        id: "65c628df282f79971828b6745",
         companyname: 'Param Solutions',
         searchFields:["jhb", "developer", "c#", "senior", ".net","engineer", "part time", "remote"],
         position: 'Intermediate / Senior Java Developer',
