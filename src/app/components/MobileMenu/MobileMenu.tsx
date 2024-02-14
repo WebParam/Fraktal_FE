@@ -105,16 +105,16 @@ const MobileMenu = ({ menuToggler }: MobileMenuProps): ReactElement => {
           </div>
         </li> */}
          <li>
-       <Link href='/blog-posts'>News</Link>
+       <Link style={{ color: '#4B4C4E' }} href='/blog-posts'>News</Link>
        </li>
         <li>
-          <Link href="/about">About</Link>
+          <Link style={{ color: '#4B4C4E' }} href="/about">About</Link>
         </li>
         <li>
-          <Link href="/contact-us">Contact Us</Link>
+          <Link style={{ color: '#4B4C4E' }} href="/contact-us">Contact Us</Link>
         </li>
         <li>
-          <Link href="/fraktional-dev">Hire Now</Link>
+          <Link style={{ color: '#4B4C4E' }} href="/fraktional-dev">Hire Now</Link>
         </li>
       </ul>
     </div>
