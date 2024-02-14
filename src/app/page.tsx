@@ -346,7 +346,7 @@ function HomePage() {
               <div className="mb-4">
                 {/* <Image className="avatar avatar-xl avatar-4x3" src={mailchimplogo} alt="Image Description" /> */}
               </div>
-              <blockquote data-aos="fade-left" className="blockquote blockquote-lg">" I'm absolutely floored by speed and quality of service that was provided and can guarantee that I will be a return customer. "</blockquote>
+              <blockquote data-aos="fade-top" className="blockquote blockquote-lg" style={{maxWidth:"100%"}}>" I'm absolutely floored by speed and quality of service that was provided and can guarantee that I will be a return customer. "</blockquote>
               <figcaption className="blockquote-footer">
                 <div className="d-flex align-items-center">
                   <div className="flex-shrink-0 d-md-none">
