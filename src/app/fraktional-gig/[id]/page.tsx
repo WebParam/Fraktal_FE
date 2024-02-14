@@ -44,7 +44,7 @@ function viewGig({ params }: { params: { id: string }}) {
     const [portfolio, setPortfolio] = useState([]);
     const [expectedSalary, setExpectedSalary] = useState('');
     const [mobileExp, setMobileExp] = useState('');
-    const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+    const [editModalOpen, setEditModalOpen] = useState<boolean>(true);
     // const userInformation = {
     //     firstName: firstName,
     //     lastName: lastName,
@@ -91,6 +91,11 @@ function viewGig({ params }: { params: { id: string }}) {
         setNoticePeriod(_data.value);
     }
 
+    function modalClose(){
+        setEditModalOpen(false);
+        sendToLogin();
+
+    }
     
     
     function handleExperience(data: any) {
@@ -318,7 +323,7 @@ Object.entries(payload).forEach(([key, value]) => {
           }
           const customModalStyles = {
             modal: {
-              maxWidth: '40%', 
+              maxWidth: '50%', 
               width: '50%',
               borderRadius: "10px",
               backgroundColor: "white"
@@ -342,7 +347,7 @@ Object.entries(payload).forEach(([key, value]) => {
         </Link> */}
         {/* Page Header */}
         <div className="container content-space-t-2">
-        <Modal open={editModalOpen} styles={customModalStyles} onClose={() => setEditModalOpen(false)} center>
+        <Modal open={editModalOpen} styles={customModalStyles} onClose={() => modalClose(false)} center>
             <div style={{width:"100%"}}>
             <h4>Your job application has been created</h4>
             {missingErrorMessage.length>0 && <p>There are some missing/incomplete information</p>}
