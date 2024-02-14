@@ -239,14 +239,14 @@ const payload = {
     phone: phone,
     employed: workStatus,
     experience: yearsOfExperience,
-    notice: noticePeriod??"nt1",
+    notice: noticePeriod ==""?"nt1":noticePeriod??"nt1",
     rate: expectedSalary,
     file: resume,
     projectId:params.id
 } as IApply;
 
 const formData = new FormData();
-
+debugger;
 Object.entries(payload).forEach(([key, value]) => {
     formData.append(key, value);
 });
