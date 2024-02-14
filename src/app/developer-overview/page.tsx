@@ -575,7 +575,7 @@ const style = {
 };
 const customModalStyles = {
   modal: {
-    maxWidth: '40%', 
+    maxWidth: '50%', 
     width: '50%',
     borderRadius: "10px",
     backgroundColor: "white"
