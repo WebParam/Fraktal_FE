@@ -68,21 +68,31 @@ export const gigs = [
         posted: 'today',
         remote: 'remote',
         description:`
-        Are you a Java developer who thrives on building powerful, scalable applications? <br/>
-Do you have a passion for clean code and a hunger for challenging projects? <br/><br/>Then we want YOU!<br/>
-We're seeking both intermediate and senior-level Java developers to join Fraktional.dev.<br/> We have the perfect opportunity to push your skills to the limit and make a real impact.
+                Are you a Java developer who thrives on building powerful, scalable applications? Do you have a passion for clean code and a hunger for challenging projects? Then we want YOU!<br/>
+        We're seeking both intermediate and senior-level Java developers to join our dynamic team. Whether you're a rising star or a seasoned pro, we have the perfect opportunity to push your skills to the limit and make a real impact.<br/><br/>
+        Responsibilities:<br/>
+        - Write clean, well-documented, and unit-tested code.<br/>
+        - Participate in code reviews and provide constructive feedback.<br/>
+        - Collaborate with product managers, designers, and engineers to understand and implement system requirements.<br/>
+        - Debug and troubleshoot complex technical issues.<br/>
+        - Stay up-to-date with the latest Java technologies and trends.<br/>
+        - Contribute to the overall technical direction of the platform.<br/><br/>
+        Requirements:<br/>
+        - 3+ years of experience as a Java developer.<br/>
+        - Strong understanding of object-oriented programming principles.<br/>
+        - Experience with popular Java frameworks (e.g., Spring, Hibernate).<br/>
+        - Experience with relational databases (e.g., MySQL, PostgreSQL).<br/>
+        - Experience with version control systems (e.g., Git).<br/>
+        - Excellent written and verbal communication skills.<br/>
+        - Ability to work independently and as part of a team.<br/>
+        - Passion for building high-quality software.<br/><br/>
+        Benefits:<br/>
+        - Competitive salary and benefits package.<br/>
+        - Opportunity to work on a challenging and impactful project.<br/>
+        - Collaborative and supportive work environment.<br/>
+        - Continuous learning and development opportunities.<br/><br/>
 
-Requirements:<br/>
--Bachelor's degree in Computer Science or related field<br/>
--3+ years of Java development experience<br/>
--Proficiency in Java EE or Spring framework<br/>
--Strong SQL and database knowledge<br/><br/>
-Benefits:<br/>
-Competitive salary and benefits<br/>
-Flexible work hours and remote options<br/>
-Professional development opportunities<br/><br/>
-
-Don't miss this chance to join our team and build the future!`
+        Don't miss this chance to join our team and build the future!`
     },
     {
         id: "65cafa34352110471825a469",
