@@ -255,7 +255,7 @@ debugger;
 Object.entries(payload).forEach(([key, value]) => {
     formData.append(key, value);
 });
-
+setEmailExist(false);
             
             const registrationResult = await jobRegistration(formData) ;
             debugger;
