@@ -1,5 +1,5 @@
 
-import mailchimp from "../assets/svg/brands/frontapp-icon.svg";
+import mailchimp from "../assets/svg/brands/param.svg";
 import capsule from "../assets/svg/brands/capsule-icon.svg";
 import prosperus from "../assets/svg/brands/prosperops-icon.svg";
 import guideline from "../assets/svg/brands/guideline-icon.svg"; 
@@ -115,6 +115,41 @@ export const gigs = [
          Ready to unleash your React Native skills?  
          `
     },
+    {
+        id: "65ce04f02c231258540e2753",
+        companyname: 'Param Solutions',
+        searchFields:["jhb", "intern", "developer","engineer", "full time", "on-site"],
+        position: 'Internship Placement',
+        salary: 'Salary: Market Related',
+        location: 'JHB',
+        jobType: 'Full Time',
+        img: mailchimp,
+        posted: 'today',
+        remote: 'on-site',
+        description:`Are you on a learnership programme looking to get placed? Fraktional helps you get placements so that you get the work experience that you need. <br/> <br/>  
+
+        You Must Be <br/><br/>
+        Passionate about technology and eager to gain hands-on experience.<br/>
+        Currently enrolled in a technology-related learnership program.<br/>
+        Between the ages of 18 and 35, with a hunger to learn and grow.<br/><br/>
+        
+        What we offer:<br/><br/>
+        
+        Real-world experience: Get hands-on training on cutting-edge technology while contributing to actual projects.<br/>
+        
+        Expert mentorship: Learn from experienced professionals who will guide you every step of the way.<br/>
+        
+        Structured learning: Gain industry-recognized qualifications while developing sought-after skills.<br/>
+        
+        Supportive environment: Collaborate with peers and become part of a dynamic team.<br/>
+        
+        Potential career transition: Upon successful completion, you might have the opportunity to join the team full-time!<br/>
+        
+        Ready to unlock your potential and take your tech journey to the next level?<br/>
+        
+        Submit your CV today and let Fraktional ignite your career!
+         `
+    }
     
     // {
     //     id: 2,
