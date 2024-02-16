@@ -632,7 +632,7 @@ console.log("DDD", loggedInUser);
   </div>
   {/* End Breadcrumb */}
   {/* Content */}
-  <div data-aos="fade-right" className="container content-space-1 content-space-t-lg-0 content-space-b-lg-2 mt-lg-n10">
+  <div data-aos="fade-top" className="container content-space-1 content-space-t-lg-0 content-space-b-lg-2 mt-lg-n10">
     <div className="row">
     {!isApply&&
      <div className="col-lg-3">
@@ -707,7 +707,7 @@ console.log("DDD", loggedInUser);
           
           {menuItem==1 &&
             <>
-                    <div className="card" data-aos="fade-left">
+                    <div className="card" data-aos="fade-top">
             <div className="card-header border-bottom">
               <h4 className="card-header-title">Basic info</h4>
             </div>
@@ -1483,7 +1483,7 @@ console.log("DDD", loggedInUser);
           {menuItem==2 &&
           <>
         
-          <div className="card" data-aos="fade-right">
+          <div className="card" data-aos="fade-top">
             <div className="card-header border-bottom">
               <h4 className="card-header-title">Update your password</h4>
             </div>
@@ -1561,7 +1561,7 @@ console.log("DDD", loggedInUser);
           </div>
           </div>
 
-          <div className="card" data-aos="fade-left">
+          <div className="card" data-aos="fade-top">
             <div className="card-header border-bottom">
               <h4 className="card-header-title">Delete your account</h4>
             </div>
