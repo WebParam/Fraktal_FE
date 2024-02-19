@@ -99,8 +99,8 @@ export default function Layout({ children, title, description, type, pageMeta,og
                 rel="stylesheet"
               />
 
-        {
-          process.env.NEXT_PUBLIC_ISPROD =="true"&&
+        {/* {
+          process.env.NEXT_PUBLIC_ISPROD =="true"&& */}
           <>          <Script
           strategy="lazyOnload"
           src={`https://www.googletagmanager.com/gtag/js?id=G-F1NZRBMHZ7`}
@@ -117,7 +117,7 @@ export default function Layout({ children, title, description, type, pageMeta,og
         </Script>
         </>
 
-        }       
+        {/* }        */}
            
 
 
