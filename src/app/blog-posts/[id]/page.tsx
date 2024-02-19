@@ -113,7 +113,7 @@ export default function BlogPost() {
                           <div style={{width: '90%', height: '59px', borderRadius: '8px', border: '1px solid rgba(255, 123)', backgroundColor: '#FFF'}}>
                             <form style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}>
                               <input style={{height: '59px', width: '70%', borderRadius: '8px', paddingLeft: '10px', outline: 'none', fontSize: '1.3vw'}} placeholder="Email Address" name="email" type="email" />
-                              <button style={{backgroundColor: '#FD2DC3', borderRadius: '6px', width: '28%', height: '50px', color: 'white', fontSize: '1vw', marginRight: '5px'}} type="submit" >Subscribe</button>
+                              <button style={{backgroundColor: '#FD2DC3', borderRadius: '6px', width: '28%', height: '50px', color: 'white', fontSize: '1vw', marginRight: '0px'}} type="submit" >Subscribe</button>
                             </form>
                           </div>
                       </div>
