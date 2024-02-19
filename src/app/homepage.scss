@@ -1,3 +1,30 @@
+* {
+    font-family: 'Lato', sans-serif;
+}
+
+
+h1,h2,h3,h4,h5,p{
+    font-family: 'lato', sans-serif;
+}
+
+.lastsection{
+    width: 55vw;
+    height: auto;
+    flex-shrink: 0;
+    border-radius: 11px;
+    background: rgba(255, 123, 237, 0.32);
+    padding: 10px;
+   
+}
+
+.lastsection1{
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+}
+
 .heroText {
         
     @media (min-width: 600px) {
@@ -29,6 +56,7 @@
     transition: 10ms;
     background: linear-gradient(90deg, #FD2DC3 -2.8%, rgba(0, 63, 189, 0.4) 124.34%);
     color: #F0ECEC;
+    border: none;
     
  
 

@@ -216,7 +216,7 @@ const customModalStyles = {
                       &quot;backSpeed&quot;: 30,
                       &quot;backDelay&quot;: 2500
                     }" />
-                  </span>fraktional team
+                  </span>fraktional <span style={{color: 'rgb(253, 45, 195)'}}>team</span> 
                 </h1>
                 <p className="lead">Whatever your goal - we will get you there.</p>
               </div>
