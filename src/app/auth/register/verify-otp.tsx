@@ -7,7 +7,7 @@ import Link from "next/link";
 import { ChangeEvent,  useRef, useState } from "react";
 import 'react-responsive-modal/styles.css';
 import { IUserSendOTP } from "../../interfaces/user";
-import {  ChangePasswordAzure, sendOTP, verifyOtp, verifyOtpAzure } from "../../endpoints/api";
+import {  ChangePasswordAzure, sendOTP, sendOtpAzure, verifyOtp, verifyOtpAzure } from "../../endpoints/api";
 import { usePathname } from 'next/navigation';
 
 
@@ -116,10 +116,10 @@ email
     setOtpSent(false)
     e.preventDefault()
     try {
-      const onSubmitOTP = await sendOTP( { email: email } as IUserSendOTP); // Rename the constant
-      if(onSubmitOTP !== 400){
+      const onSubmitOTP = await sendOtpAzure( { email: email } as IUserSendOTP);
+      if(onSubmitOTP){
         setOtpSent(true)
-      }else if (onSubmitOTP == 400) {
+      }else {
         setOtpSent(false)
         console.error('OTP failed');
       }
