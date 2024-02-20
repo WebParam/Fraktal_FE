@@ -168,7 +168,7 @@ function jobs() {
            
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mb-5">
                
-                {/* {projects.map(gig => (
+                {projects.map(gig => (
                 <div className="col mb-5" key={gig.id}>
                     <div className="card card-bordered h-100">
                     <div className="card-body">
@@ -191,7 +191,7 @@ function jobs() {
                             {gig.projectSector}
                         </Link>
                         </h3>
-                        <span className="d-block small text-body mb-1">{gig.pay}</span>
+                        <span className="d-block small text-body mb-1">R{gig.pay}</span>
                         <span className="badge me-2" style={{backgroundColor: 'lightpink', color: '#fff'}}>
                         <span className="legend-indicator bg-info" />{gig.remote}
                         </span>
@@ -205,7 +205,7 @@ function jobs() {
                     </div>
                     </div>
                 </div>
-                ))} */}
+                ))}
                
                 {filteredGigs.map(gig => (
                 <div className="col mb-5" key={gig.id}>

@@ -216,7 +216,7 @@ const customModalStyles = {
                       &quot;backSpeed&quot;: 30,
                       &quot;backDelay&quot;: 2500
                     }" />
-                  </span>fraktional team
+                  </span>fraktional <span style={{color: 'rgb(253, 45, 195)'}}>team</span> 
                 </h1>
                 <p className="lead">Whatever your goal - we will get you there.</p>
               </div>
@@ -485,10 +485,13 @@ const customModalStyles = {
             <div className="col-md-4 mb-7">
               {/* Icon Blocks */}
               <div className="text-center px-lg-3">
-                <span className="svg-icon svg-icon-lg text-primary mb-3">
-                  <Image alt='' src={puzzle}/>
-                </span>
-                <h3>Expert Matching</h3>
+                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                      <span className="svg-icon svg-icon-lg text-primary mb-3">
+                        <Image alt='' src={puzzle}/>
+                      </span>
+                      <h3>Expert Matching</h3>
+                </div>
+                
                 <p>Connect companies with top-tier developers tailored to project needs</p>
               </div>
               {/* End Icon Blocks */}
@@ -497,10 +500,14 @@ const customModalStyles = {
             <div className="col-md-4 mb-7">
               {/* Icon Blocks */}
               <div className="text-center px-lg-3">
-                <span className="svg-icon svg-icon-lg text-primary mb-3">
-                  <Image alt='' src={process}/>
-                </span>
-                <h3>Streamlined Process</h3>
+
+                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}} >
+                    <span className="svg-icon svg-icon-lg text-primary mb-3">
+                      <Image alt='' src={process}/>
+                    </span>
+                    <h3>Streamlined Process</h3>
+                </div>
+                
                 <p>Simplify tech resourcing through our efficient, user-friendly platform.</p>
               </div>
               {/* End Icon Blocks */}
@@ -509,10 +516,14 @@ const customModalStyles = {
             <div className="col-md-4 mb-7">
               {/* Icon Blocks */}
               <div className="text-center px-lg-3"> 
-                <span className="svg-icon svg-icon-lg text-primary mb-3">
+              <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}} >
+
+              <span className="svg-icon svg-icon-lg text-primary mb-3">
                   <Image alt='' src={flexebity}/>
                 </span>
                 <h3>Flexible Engagements</h3>
+              </div>
+                
                 <p> Offer adaptable commitments, from fractional to full project involvement.</p>
               </div>
               {/* End Icon Blocks */}

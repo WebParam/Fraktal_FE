@@ -36,9 +36,9 @@ const [projectLoading, setProjectLoading] = useState(true);
 
 
 async function _GetProjects(){
-  debugger;
+
   await GetAllProjects().then((res:any) => {
-    debugger;
+    
     setProjectLoading(false);
       setProjects(res.data);
   })

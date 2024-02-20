@@ -19,6 +19,8 @@ import card6 from "../assets/additional/images/meeting3.png";
 import koala from '../assets/additional/koala.png';
 import macbook from '../assets/img/laptop.png';
 import Footer from './components/Footer/Footer';
+import sanlam from '../assets/img/sanlam.png';
+import discovery from '../assets/img/discovery.png';
 
 import dynamic from "next/dynamic";
 import TypedText from './TypedText';
@@ -37,6 +39,10 @@ import background from '../assets/img/Background.svg';
 import backf from './images/Background.png'
 import cards from '../assets/img/Asset 2.png';
 import Parallaxx from './components/parallax/page';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 
 
 
@@ -53,6 +59,39 @@ function HomePage() {
     // cookies.set('blog', blog);
     return;
   };
+
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '55vw',
+    bgcolor: 'background.paper',
+    height: '50%', 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center'
+  };
+
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  setTimeout(() => {
+ 
+  }, 2000);
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      handleOpen();
+    }, 30000);
+  
+    // Clean up the timer to avoid memory leaks
+    return () => clearTimeout(timer);
+  }, []);
+  
 
 
 
@@ -76,6 +115,33 @@ function HomePage() {
 
   return (
     <div >
+
+<Modal
+  open={open}
+  onClose={handleClose}
+  aria-labelledby="modal-modal-title"
+  aria-describedby="modal-modal-description"
+
+  
+>
+
+  
+  <Box sx={style}>
+    <div style={{ backgroundColor: 'rgba(255, 123, 237, 0.32)', width: '100%', height: '100%', padding: '10%' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'center', alignItems: 'center', width: '100%', flexWrap: 'wrap', textAlign: 'center', height: '100%' }}>
+        <h2>Get in the Know: Subscribe to the Fraktional Newsletter</h2>
+        <p style={{ paddingLeft: '10%', paddingRight: '10%' }}>Delivered straight to your inbox, every week. No spam, just pure tech goodness.</p>
+        <div style={{ width: '90%', height: '59px', borderRadius: '8px', border: '1px solid rgba(255, 123)', backgroundColor: '#FFF' }}>
+          <form style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
+            <input style={{ height: '59px', width: '70%', borderRadius: '8px', paddingLeft: '10px', outline: 'none', fontSize: '1.3vw' }} placeholder="Email Address" name="email" type="email" />
+            <button style={{ backgroundColor: '#FD2DC3', borderRadius: '6px', width: '28%', height: '50px', color: 'white', fontSize: '1vw', marginRight: '0px' }} type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </Box>
+</Modal>
+
      
       <Layout
         title='fraktional'  description="hhhhh" type="dddd"
@@ -249,6 +315,16 @@ function HomePage() {
         </div>
         {/* End Row */}
       </div>
+
+        
+      <div>
+  
+     
+    </div>
+
+
+
+
       {/* End Card Grid */}
       {/* Features */}
       <div className="position-relative rounded-2 mx-3 mx-lg-10 fraktionalDev">
@@ -307,23 +383,30 @@ function HomePage() {
               <a className="btn btn-primary getStarted" style={{border:"0px"}} href="/fraktional-dev">Get started</a>
               <hr className="my-5" />
               <span className="d-block">Trusted by leading companies</span>
-              <div className="row">
-                <div className="col py-3">
-                  <Image style={{height:"40px", width:"40%"}} className="avatar avatar-4x3" src={fitbit} alt="Logo" />
+              <div className="">
+
+                <div style={{display: 'flex', gap: '10px', alignItems: 'center'}}>
+                <div>
+                  <Image style={{height:"40px", width:"40px"}} className="avatar avatar-4x3" src={fitbit} alt="Logo" />
                 </div>
-                {/* End Col */}
-                <div className="col py-3">
-                  <Image style={{height:"40px", width:"50%"}} className="avatar avatar-4x3" src={forbes} alt="Logo" />
+
+                <div>
+                <Image style={{height:"40px", width:"40px"}} className="avatar avatar-4x3" src={forbes} alt="Logo" />
                 </div>
-                {/* End Col */}
-                <div className="col py-3">
-                  <Image style={{height:"40px", width:"100%" }} className="avatar avatar-4x3" src={mailchimp} alt="Logo" />
+                
+                <div>
+                <Image style={{height:"60px", width:"60px" }} className="avatar avatar-4x3" src={sanlam} alt="Logo" />
                 </div>
-                {/* End Col */}
-                <div className="col py-3">
-                  <Image style={{height:"50px",width:"100%" }} className="avatar avatar-4x3" src={layar} alt="Logo" />
+
+                <div>
+                <Image style={{height:"45px",width:"45px" }} className="avatar avatar-4x3" src={discovery} alt="Logo" />
                 </div>
-                {/* End Col */}
+                </div>
+
+
+                
+               
+                
               </div>
               {/* End Row */}
             </div>
