@@ -86,14 +86,13 @@
     position: relative;
     top: -20%;
     transition: 0.2ms;
-
 }
 
 
-.koalaHero:hover{
-    scale: 1.05;
+// .koalaHero:hover{
+//     scale: 1.05;
 
-}
+// }
 
 .card-link {
     transition: .5s all;
@@ -101,4 +100,8 @@
     &:hover {
         color: #FD2DC3 !important;
     }
+}
+
+.list-checked-item::before {
+    color: #FD2DC3 !important;
 }

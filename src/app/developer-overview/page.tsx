@@ -14,7 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 import { IDeveloperProfile, IEducationInformation, IWorkExperience } from "../interfaces/user";
-import { CreateDeveloperProfile, DeleteDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile, uploadCV, uploadProfilePic } from "../endpoints/api";
+import { CreateDeveloperProfile, DeleteDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile, sendOtpAzure, uploadCV, uploadProfilePic } from "../endpoints/api";
 import Cookies from 'universal-cookie';
 import Banner from "../banner/Banner";
 import dynamic from "next/dynamic";
@@ -30,9 +30,6 @@ import { VerifyOtp } from "../auth/register/verify-otp";
 // const moment = require("moment");
 
 const cookies = new Cookies();
-
-
-
 
 function developerOverview() {
   const [workModalOpen, setWorkModalOpen] = useState(false);
@@ -99,21 +96,36 @@ function developerOverview() {
 
   const [currentProfilePic, setCurrentProfilePic] = useState("");
   const loggedInUser = cookies.get("fraktional-user")??"{}";
-  debugger;
   const [existingUser, setExistingUser] = useState(false);
-    const [updatePasswordModal, setUpdatePasswordModal] = useState(false);
-    const [deleteProfileAccept, setDeleteProfileAccept] = useState(false);
+  const [updatePasswordModal, setUpdatePasswordModal] = useState(false);
+  const [deleteProfileAccept, setDeleteProfileAccept] = useState(false);
     
-    const [updatePasswordAccept, setUpdatePasswordAccept] = useState(false);
+  const [updatePasswordAccept, setUpdatePasswordAccept] = useState(false);
   const [cv, setCV] = useState<Blob | undefined>();
   const [hasChanged, setHasChanged] = useState(false);
   const cvPayload = new FormData();
   const hiddenCVInput = useRef<HTMLInputElement>(null);
+
+  async function handleOtpSend() {
+    setUpdatePasswordModal(true);
+    console.log(loggedInUser?.email)
+    debugger;
+
+    let payload = {
+      email: loggedInUser?.email
+    }
+
+    const otpSent = await sendOtpAzure(payload)
+
+    console.log('otpSent', otpSent);
+  }
+
   const saveCV = (e: any) => {
     setCV(e.target.files[0]);
 
     setHasChanged(true);
   };
+
 const isApply = loggedInUser?.id? true: false;
 
 function editEducationInfo(index:number){
@@ -1507,35 +1519,11 @@ console.log("DDD", loggedInUser);
                           <div className="col-sm-12">
                             {/* Form */}
                             <div className="mb-3">
-                              {/* <label className="form-label" htmlFor="hireUsFormTitle">Certificate</label> */}
-                              <VerifyOtp email = {loggedInUser?.email} onClose={()=>{}} />
-
-                              {/* <Select
-                                className={`form-control form-control-lg ${edu_QualificationError ? 'err':''}`} 
-                                  options={degrees as any}
-                                  placeholder="Search Degree / Diploma"
-                                  styles={style}
-                                  onChange={handleSelectQualification}
-                                  isSearchable={true}
-                                  
-                                /> */}
-
+                              <VerifyOtp email={loggedInUser?.email} onClose={()=>{}} />
+                              <h1></h1>
                             </div>
-                            {/* End Form */}
                           </div>
-                          {/* End Col */}
-                        
-                          {/* End Col */}
                         </div>
-                      {/* Form */}
-                      <form >
-                      
-                        {/* End Form */}
-                        {/* <div className="d-grid">
-                           <button type="submit"onClick={(e)=>{e.preventDefault(); setUpdatePasswordModal(false)}} className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Cancel</button>
-                        </div> */}
-                      </form>
-                      {/* End Form */}
                     </div>
                   </div>
                </Modal>}
@@ -1552,7 +1540,7 @@ console.log("DDD", loggedInUser);
                 {/* End Check */}
               </div>
               <div className="d-flex justify-content-end">
-              <button style={{width:"100%"}} disabled={updatePasswordAccept!=true} onClick={()=> setUpdatePasswordModal(true)} className="btn btn-primary">Update your password</button>
+              <button style={{width:"100%", backgroundColor: '#FD2DC3'}} disabled={updatePasswordAccept!=true} onClick={handleOtpSend} className="btn btn-primary">Update your password</button>
               </div>
 
            

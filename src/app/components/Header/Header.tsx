@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Banner from '@/app/banner/Banner';
 import loginpage from '../../auth/login/page';
+import { usePathname } from 'next/navigation'
 
 type HeaderProps = {
   menuTogglerFunction: (state: boolean) => void;
@@ -12,6 +13,7 @@ type HeaderProps = {
 };
 
 const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: HeaderProps): ReactElement => {
+  const pathname = usePathname();
 
   return (
     <>
@@ -24,12 +26,12 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
       <nav>
         <ul className='header-navItems'>
           <li>
-            <Link href='/' style={{color: '#4B4C4E'}}>
+            <Link href='/' style={{color: '#4B4C4E'}} className={`${pathname === '/' ? 'activeLink':''}`}>
               Home
             </Link>
           </li>
           
-          <li className="dropdown-li liOneDesk">
+          <li style={{color: '#4B4C4E'}} className={`dropdown-li liOneDesk ${pathname === '/fraktional-dev' ? 'activeLink':''}`}>
             F/ Dev <i className="bi bi-chevron-down"></i>
             <div className='dropdown-Items dropdownOne'>
               <Link href='/fraktional-dev'>Start Hiring on Fraktional</Link>
@@ -37,7 +39,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
              
             </div>
           </li>
-          <li className="dropdown-li liOneDesk">
+          <li className={`dropdown-li liOneDesk ${pathname === '/fraktional-gig' ? 'activeLink':''}`}>
           F/ Gig <i className="bi bi-chevron-down"></i>
             <div className='dropdown-Items dropdownOne'>
               <Link href='/fraktional-gig'>Find a Fraktional Gig</Link>
@@ -46,16 +48,16 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
             </div>
           </li>
           <li >
-          <Link style={{color: '#4B4C4E'}} href='/about'>About</Link>
+          <Link style={{color: '#4B4C4E'}} href='/about' className={`${pathname === '/about' ? 'activeLink':''}`}>About</Link>
           </li>
           <li >
-          <Link style={{color: '#4B4C4E'}} href='/blog-posts'>News</Link>
+          <Link style={{color: '#4B4C4E'}} href='/blog-posts' className={`${pathname === '/blog-posts' ? 'activeLink':''}`}>News</Link>
           </li>
           <li >
-          <Link style={{color: '#4B4C4E'}} href='/faq'>FAQ</Link>
+          <Link style={{color: '#4B4C4E'}} href='/faq' className={`${pathname === '/faq' ? 'activeLink':''}`}>FAQ</Link>
           </li>
           <li className="dropdown liTwoDesk">
-          <Link style={{color: '#4B4C4E'}} href='/contact-us'>Contact us</Link>
+          <Link style={{color: '#4B4C4E'}} href='/contact-us' className={`${pathname === '/contact-us' ? 'activeLink':''}`}>Contact us</Link>
           </li>
           {/* <li className="dropdown-li liThreeDesk">
           Pages <i className="bi bi-chevron-down"></i>
