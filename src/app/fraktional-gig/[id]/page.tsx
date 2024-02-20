@@ -172,7 +172,6 @@ function viewGig({ params }: { params: { id: string }}) {
                 setShowErrorMessage(true);
                return;
             }
-         debugger;
             
             if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
                 setEmailError(true);
@@ -239,27 +238,28 @@ function viewGig({ params }: { params: { id: string }}) {
                 theme: "light",
               });
           
-const payload = {
-    email: email,
-    phone: phone,
-    employed: workStatus,
-    experience: yearsOfExperience,
-    notice: noticePeriod ==""?"nt1":noticePeriod??"nt1",
-    rate: expectedSalary,
-    file: resume,
-    projectId:params.id
-} as IApply;
+            const payload = {
+                email: email,
+                phone: phone,
+                employed: workStatus,
+                experience: yearsOfExperience,
+                notice: noticePeriod ==""?"nt1":noticePeriod??"nt1",
+                rate: expectedSalary,
+                file: resume,
+                projectId:params.id
+            } as IApply;
 
-const formData = new FormData();
-debugger;
-Object.entries(payload).forEach(([key, value]) => {
-    formData.append(key, value);
-});
-setEmailExist(false);
+            const formData = new FormData();
+            // debugger;
+            Object.entries(payload).forEach(([key, value]) => {
+                formData.append(key, value);
+            });
+
+            setEmailExist(false);
             
             const registrationResult = await jobRegistration(formData) ;
             debugger;
-          const errorMessage = registrationResult.missing as string[];
+            const errorMessage = registrationResult.missing as string[];
          
             console.log(registrationResult)
             if(registrationResult?.personnel?._user){

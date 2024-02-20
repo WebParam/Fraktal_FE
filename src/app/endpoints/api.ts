@@ -18,8 +18,8 @@ import { IApplyForJobRegistration } from "../interfaces/job-registration";
 
 // const url = "https://viconet-vercel.vercel.app"
 const url = "https://viconet-vercel.vercel.app"
-// const azureUrl = "https://fraktional-be.azurewebsites.net"
-const azureUrl = "https://localhost:7257"
+const azureUrl = "https://fraktional-be.azurewebsites.net"
+// const azureUrl = "https://localhost:7257"
 
 
 export async function ChangePasswordAndActivate(payload: IUserResetPassword) {
