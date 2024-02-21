@@ -81,7 +81,7 @@ email
     }
   };
 
-  const handleFormSubmitOTP = async(e: any) => {
+  const handleFormSubmitOTP = async (e: any) => {
     e.preventDefault();
     setOtpSent(false)
     setInvalidOTP(false)
@@ -164,6 +164,7 @@ email
             otpValidtated ?  
             <div className="otpForm">
             <form style={{width: '150%'}}>
+              
                 {passwordChanged ? 
                 <div className="loaderSpinner">
                     {passwordChangedSuccess ?

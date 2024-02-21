@@ -63,12 +63,13 @@ function HomePage() {
   const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
-    left: '50%',
+    left: '35%',
     transform: 'translate(-50%, -50%)',
-    width: '55vw',
+    width: '50vw',
     bgcolor: 'background.paper',
     height: '50%', 
-    display: 'flex', 
+    display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center', 
     alignItems: 'center'
   };
@@ -115,59 +116,47 @@ function HomePage() {
 
   return (
     <div >
-
-<Modal
-  open={open}
-  onClose={handleClose}
-  aria-labelledby="modal-modal-title"
-  aria-describedby="modal-modal-description"
-
-  
->
-
-  
-  <Box sx={style}>
-    <div style={{ backgroundColor: 'rgba(255, 123, 237, 0.32)', width: '100%', height: '100%', padding: '10%' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'center', alignItems: 'center', width: '100%', flexWrap: 'wrap', textAlign: 'center', height: '100%' }}>
-        <h2>Get in the Know: Subscribe to the Fraktional Newsletter</h2>
-        <p style={{ paddingLeft: '10%', paddingRight: '10%' }}>Delivered straight to your inbox, every week. No spam, just pure tech goodness.</p>
-        <div style={{ width: '90%', height: '59px', borderRadius: '8px', border: '1px solid rgba(255, 123)', backgroundColor: '#FFF' }}>
-          <form style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
-            <input style={{ height: '59px', width: '70%', borderRadius: '8px', paddingLeft: '10px', outline: 'none', fontSize: '1.3vw' }} placeholder="Email Address" name="email" type="email" />
-            <button style={{ backgroundColor: '#FD2DC3', borderRadius: '6px', width: '28%', height: '50px', color: 'white', fontSize: '1vw', marginRight: '0px' }} type="submit">Subscribe</button>
-          </form>
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+    <Box sx={style} className={'newsletter'}>
+      <div style={{ backgroundColor: 'rgba(255, 123, 237, 0.32)', width: '100%', height: '100%', padding: '10%'}}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'center', alignItems: 'center', width: '100%', flexWrap: 'wrap', textAlign: 'center', height: '100%' }}>
+          <h2>Get in the Know: Subscribe to the Fraktional Newsletter</h2>
+          <p style={{ paddingLeft: '10%', paddingRight: '10%' }}>Delivered straight to your inbox, every week. No spam, just pure tech goodness.</p>
+          <div style={{ width: '90%', height: '59px', borderRadius: '8px', border: '1px solid rgba(255, 123)', backgroundColor: '#FFF' }}>
+            <form style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
+              <input style={{ height: '59px', width: '70%', borderRadius: '8px', paddingLeft: '10px', outline: 'none', fontSize: '1.3vw' }} placeholder="Email Address" name="email" type="email" />
+              <button style={{ backgroundColor: '#FD2DC3', borderRadius: '6px', width: '28%', height: '50px', color: 'white', fontSize: '1vw', marginRight: '0px' }} type="submit">Subscribe</button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  </Box>
-</Modal>
-
-     
-      <Layout
-        title='fraktional'  description="hhhhh" type="dddd"
-      >
-        
-      <Header 
-        menuTogglerFunction={setMenuToggler} 
-        menuTogglerValue={menuToggler} 
-      />
-      <MobileMenu menuToggler={menuToggler} />
-
+    </Box>
+    </Modal> 
+    <Layout
+      title='fraktional'  description="hhhhh" type="dddd"
+    >
+    <Header 
+      menuTogglerFunction={setMenuToggler} 
+      menuTogglerValue={menuToggler} 
+    />
+    <MobileMenu menuToggler={menuToggler} />
     {/* ========== MAIN CONTENT ========== */}
     <main id="content" role="main" >
       {/* Hero */}
       
-      <div 
-         style={{
-    backgroundImage: `url(${background.src})`,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-  
- 
-  }}
+    <div 
+      style={{
+        backgroundImage: `url(${background.src})`,  
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+      }}
       >
-     
         <div className="container d-lg-flex align-items-lg-center content-space-t-3 content-space-lg-0 min-vh-lg-100" >
           {/* Heading */}
           <div data-aos="fade-right" className="w-100">
@@ -200,8 +189,8 @@ function HomePage() {
            
             <img 
               src={cards.src} 
-              height={80}
-              width={390}
+              height={100}
+              width={400}
               alt='cards' 
               className='koalaHero' 
             />
@@ -552,10 +541,6 @@ function HomePage() {
   </div>
   {/* End Row */}
 </div>
-
-
-
-
         
         {/* Card Info */}
         <div className="text-center">
@@ -569,11 +554,7 @@ function HomePage() {
       </div>
       {/* End Card Grid */}
     </main>
-    {/* ========== END MAIN CONTENT ========== */}
-
-    <Parallaxx/>
-                    
-
+    <Parallaxx/>           
     <Footer />
     </Layout>
   </div>

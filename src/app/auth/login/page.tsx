@@ -19,12 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 library.add(faEye, faEyeSlash)
 
 
-
-
-
 const cookies = new Cookies(); // Create an instance of Cookies
-
-
 
 function SignIn() {
   const [formData, setFormData] = useState<IUserLogin>({
@@ -78,15 +73,35 @@ function SignIn() {
 
     try {
       const loginResult = await UserLogin({email, password}); // Rename the constant
+      debugger;
+
       if (loginResult) {
+
+        const names = [
+          "BigFish",
+          "RedBear",
+          "JuiceBox",
+          "FireStorm"
+        ]
 
         if(loginResult.status == 1){
 
           cookies.set('fraktional-user', JSON.stringify(loginResult), { path: '/' });
  
-          if(loginResult.type==0){
+          if(loginResult.type == 0){
+            names.forEach(name => {
+          
+              if (password.includes(name)) {
+                cookies.set('ChangePassword', "true");
+              }
+            })
             window.location.href = "/developer-overview"
           }else{
+            names.forEach(name => {
+              if (password.includes(name)) {
+                cookies.set('ChangePassword', "true");
+              }
+            })
             window.location.href = "/company/company-overview"
           }
           setTimeout(() => {

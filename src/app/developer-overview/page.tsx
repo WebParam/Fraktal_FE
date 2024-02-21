@@ -32,6 +32,7 @@ import { VerifyOtp } from "../auth/register/verify-otp";
 const cookies = new Cookies();
 
 function developerOverview() {
+  const [changePassword, setChangePassword] = useState(false);
   const [workModalOpen, setWorkModalOpen] = useState(false);
   const [workStatus, setWorkStatus] = useState("no");
   const [EducationModalOpen, setEducationModalOpen] = useState(false);
@@ -443,13 +444,40 @@ const frakcvUrl = `https://fraktional-be.azurewebsites.net/getPersonnelCv/${logg
 
 useEffect(() => {
   //check url and setActive
+  const changePasswordw = Boolean(cookies.get("ChangePassword")) || false;
+
+  setChangePassword(changePasswordw);
+
+  if (changePassword) {
+    
+    setTimeout(() => {
+      let _id = toast.loading("Please update your password...", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      setTimeout(() => {
+        toast.dismiss(_id);
+      }, 5000)
+
+    }, 2000)
+    
+
+    setMenu(2);
+  }
 
   if(loggedInUser._id||loggedInUser.id){
     debugger;
      _GetDeveloperProfile(loggedInUser?._id ?? loggedInUser?.id)
     }
    
-  }, []);
+  }, [changePassword]);
 
 
 
@@ -490,9 +518,6 @@ useEffect(() => {
       const path = cvDoc.data.data.Location;
       payload.cvUrl = path;
     }
-
-
-  
 
     if(existingUser){
       

@@ -168,7 +168,7 @@ function jobs() {
            
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mb-5">
                
-                {projects.map(gig => (
+                {projects && projects.map(gig => (
                 <div className="col mb-5" key={gig.id}>
                     <div className="card card-bordered h-100">
                     <div className="card-body">
