@@ -103,7 +103,7 @@ window!==undefined && typeof(window)!=='undefined' && window?.location?.assign(`
               <div className="row align-items-center mb-5">
                 <div className="col-sm mb-3 mb-sm-0">
                   <h3 className="mb-0">
-                    {projects.length}  <span className="fw-normal">jobs found</span>
+                    {projects && projects.length}  <span className="fw-normal">jobs found</span>
                   </h3>
                 </div>
                 <div className="col-sm-auto">

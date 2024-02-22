@@ -90,14 +90,16 @@ function PostJob() {
     const cookies = new Cookies(); // Create an instance of Cookies
 
     const loggedInUser = cookies.get("fraktional-user")??"{}";
+
     function setTeam(value:string){
       debugger;
       setProjectTeam(value);
-      }
-      function setType(value:string){
-        debugger;
-        setProjectType(value);
-        }
+    }
+
+    function setType(value:string){
+      debugger;
+      setProjectType(value);
+    }
 
     async function createJobPost(){
 
@@ -174,7 +176,6 @@ function PostJob() {
     try {
       const res = await CreateJob(payload);
 
-      
       if(res){
         toast.update(_id, {
                render:
@@ -236,76 +237,76 @@ function PostJob() {
     }
 
 
-  function setStepActive(step:number){
+    function setStepActive(step:number){
 
-    setActiveStep(step);
+      setActiveStep(step);
 
-  }
+    }
 
-  const jobTypeOptions = [
-    "Full Time",
-    "Part Time",
-    "Temporary",
-    "Contract",
-    "Internship",
-    "Commission Only"
-  ]
-  const scheduleOptions = [
-    "8 Hour Shift",
-    "10 Hour Shift",
-    "12 Hour Shift",
-    "Weekends",
-    "Monday to Friday",
-    "On Call",
-    "Holidays",
-    "Night Shift",
-    "Overtime",
-    "Day Shift",
-    "Other"
-  ]
+    const jobTypeOptions = [
+      "Full Time",
+      "Part Time",
+      "Temporary",
+      "Contract",
+      "Internship",
+      "Commission Only"
+    ]
+    const scheduleOptions = [
+      "8 Hour Shift",
+      "10 Hour Shift",
+      "12 Hour Shift",
+      "Weekends",
+      "Monday to Friday",
+      "On Call",
+      "Holidays",
+      "Night Shift",
+      "Overtime",
+      "Day Shift",
+      "Other"
+    ]
 
-  const languageOptions = [
-    "English(US)",
-    "English(UK)",
-    "Deutsch",
-    "Dansk",
-    "Español",
-    "Nederlands",
-    "Italiano",
-    "中文 (繁體)"
-  ]
-function mapValueToText(value:number, options:any){
-  return options[value]
-}
+    const languageOptions = [
+      "English(US)",
+      "English(UK)",
+      "Deutsch",
+      "Dansk",
+      "Español",
+      "Nederlands",
+      "Italiano",
+      "中文 (繁體)"
+    ]
+    function mapValueToText(value:number, options:any){
+      return options[value]
+    }
 
-const submitOptions = [
-  "Yes",
-  "No",
-  "Optional"
-]
-  const methodOptions = [
+    const submitOptions = [
+      "Yes",
+      "No",
+      "Optional"
+    ]
+    const methodOptions = [
     "Email",
     "Phone",
     "In-person"
-  ]
+    ]
 
 
 
 
 
-  const handleJobTypeChange = (type:number) => {
-    const newType = type;
-    setJobType(newType);
-  };
+    const handleJobTypeChange = (type:number) => {
+      const newType = type;
+      setJobType(newType);
+    };
 
-  const goToSecondSlide = () => {
+    const goToSecondSlide = () => {
       if (projectName.length > 1 ) {
         setErrorStyle1(false);
         setActiveStep(state => 1)
       }
 
-        setErrorStyle1(true);
-  }
+      setErrorStyle1(true);
+    }
 
   const goToThirdSlide = () => {
     if (streetAddress.length > 5 ) {
@@ -411,11 +412,8 @@ const submitOptions = [
 
 }
 
-console.log("ewewew", projectTeam)
-
-    return (
+  return (
   <>
-
     <div className="container content-space-2" style={{position: 'relative', top: '20px'}}>
       {/* Step Form */}
       <form
@@ -453,8 +451,8 @@ console.log("ewewew", projectTeam)
                       className="step-content-wrapper"
                       // onClick={()=>{setStepActive(0)}}
                       data-hs-step-form-next-options='{
-                  "targetSelector": "#postJobStepBasic"
-                }'
+                      "targetSelector": "#postJobStepBasic"
+                    }'
                     >
                       <span className="step-icon step-icon-soft-dark">1</span>
                       <div className="step-content">
@@ -470,8 +468,8 @@ console.log("ewewew", projectTeam)
                       className="step-content-wrapper"
                       // onClick={()=>{setStepActive(1)}}
                       data-hs-step-form-next-options='{
-                  "targetSelector": "#postJobStepAddress"
-                }'
+                        "targetSelector": "#postJobStepAddress"
+                      }'
                     >
                       <span className="step-icon step-icon-soft-dark">2</span>
                       <div className="step-content">
@@ -656,11 +654,6 @@ console.log("ewewew", projectTeam)
 
                     {/* End Select */}
                   </div>
-                  {/* End Form */}
-                  {/* Form */}
-          
-                  {/* End Form */}
-                  {/* Form */}
                   <div className="mb-4">
                     <label htmlFor="jobTitleLabel" className="form-label">
                      Project team *
@@ -1226,6 +1219,8 @@ console.log("ewewew", projectTeam)
                           id="jobSalaryCurrencyLabel"
                           className="form-select"
                           name="jobSalaryCurrencySelect"
+                          value={currency}
+                          
                           onChange={((e)=>setCurrency(parseInt(e.target.value)))}
                         >
                           <option value={0} selected={currency==0}>
@@ -1257,8 +1252,7 @@ console.log("ewewew", projectTeam)
                           id="salaryFromLabel"
                           placeholder={"10000"}
                           style={{ width: '200px' }}
-                          onChange={((e)=>setPay(parseInt(e.target.value)))}
-                          defaultValue={pay}
+                          onChange={((e)=>  setPay(Number(e.target.value)))}
                           value={pay}
                           // aria-label={0}
                         />
