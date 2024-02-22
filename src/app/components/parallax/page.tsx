@@ -6,7 +6,7 @@ import { Parallax } from 'react-scroll-parallax';
 export default function Parallaxx() {
   return (
 <Parallax speed={5} scale={[0.5, 1.2]}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', justifyContent: 'center', alignItems: 'center',   width: '100%', height: '400px', backgroundColor: 'rgba(255, 123, 237, 0.15)'}}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', justifyContent: 'center', alignItems: 'center',   width: '100%', height: '400px', backgroundColor: '#f7faf9'}}>
 
          
 

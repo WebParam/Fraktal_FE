@@ -89,8 +89,8 @@ function jobs() {
                             </div>
                         </div>
                         <div className="input-card-form">
-    <label htmlFor="cityForm" className="form-label visually-hidden">City</label>
-    <div className="input-group input-group-merge">
+                <label htmlFor="cityForm" className="form-label visually-hidden">City</label>
+                <div className="input-group input-group-merge">
         <div>
             <span className="input-group-prepend input-group-text">
                 {/* Any content you want to include */}
@@ -105,17 +105,17 @@ function jobs() {
             <div style={{ marginLeft: '10px', position: 'relative' }}> {/* Adjust the margin as needed */}
             <Select
    
-    menuPosition={'fixed'}
-    options={cities as any}
-    placeholder="Select a city"
-    onChange={handleCitySelect}
-    isSearchable={false}
-    isMulti={false}
-    styles={{
-        control: (baseStyles, state) => ({
-            ...baseStyles,
-            width: '250px'
-        })
+            menuPosition={'fixed'}
+            options={cities as any}
+            placeholder="Select a city"
+            onChange={handleCitySelect}
+            isSearchable={false}
+            isMulti={false}
+            styles={{
+                control: (baseStyles, state) => ({
+                    ...baseStyles,
+                    width: '250px'
+             })
        
     }}
 />
