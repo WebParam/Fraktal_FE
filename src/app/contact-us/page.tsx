@@ -77,18 +77,18 @@ const contactus = () => {
           </div>
           {/* End Heading */}
           {/* Leaflet */}
-                            <div className="overflow-hidden" style={{ border: '0'}}>
-                            <iframe
-                            width={600}
-                            height={450}
-                            loading="lazy"
-                            allowFullScreen
-                            referrerPolicy="no-referrer-when-downgrade"
-                            src="https://www.google.com/maps/embed/v1/search?key=AIzaSyBvivpZTRxbl7MY6aAqhHaDKqK-bp1fnXM&q=The+Workshop+70+7th+Ave+Parktown+JHB+2196"
-                        ></iframe>
+          <div className="overflow-hidden" style={{ border: '0'}}>
+            <iframe
+            width={600}
+            height={450}
+            loading="lazy"
+            allowFullScreen
+            referrerPolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed/v1/search?key=AIzaSyBvivpZTRxbl7MY6aAqhHaDKqK-bp1fnXM&q=The+Workshop+70+7th+Ave+Parktown+JHB+2196"
+        ></iframe>
           </div>
           {/* End Leaflet */}
-          <div className="row">
+          <div className="row" style={{marginTop: '40px'}}>
             <div className="col-sm-6">
               <h5 className="mb-1">Call us:</h5>
               <p>(010) 346 5261</p>

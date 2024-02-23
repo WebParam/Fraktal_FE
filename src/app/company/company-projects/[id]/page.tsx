@@ -86,14 +86,13 @@ interface TableData {
 
 const data: TableData[] = [  
     {
-      name:"Cristiano Ronaldo",
+      name:"Prince Kwanele",
       specs:"React JS",
       view: "project"
     },
     {
-
-      name:"Erling Haaland",
-      specs:"Anuglar JS",
+      name:"Lihle Mqhayi",
+      specs:"SEE SHARP",
       view: "project"
     }
     

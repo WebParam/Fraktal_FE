@@ -9,6 +9,7 @@ import {
   IUserLogin,
   IUserResetPassword,
   IUserSendOTP,
+  IUserUpdatePassword,
   IVerifyOtp,
 } from "../interfaces/user";
 import { ICompanyRegister } from "../interfaces/organisation";
@@ -41,9 +42,6 @@ export async function ChangePasswordAndActivate(payload: IUserResetPassword) {
     return false;
   }
 }
-
-
-
 
 
 export async function registerUser(payload: IUser) {
@@ -530,4 +528,56 @@ export async function jobRegistration(payload:any) {
     return false;
   }
 
+}
+
+
+export async function sendOtpAzure(payload: IUserSendOTP) {
+  try {
+    const response = await axios.post(`${azureUrl}/sendOTP`, payload);
+    console.log('response:', response)
+    if (response.status === 200 || response.status === 201) {
+      console.log("otp sent successful");
+        return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+}
+
+export async function verifyOtpAzure(payload: IVerifyOtp) {
+  try {
+    debugger;
+    const response = await axios.post(`${azureUrl}/verifyOTP`, payload);
+    debugger;
+    console.log('verify response: ', response)
+
+    if (response) {
+      return true;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    debugger;
+    return false;
+  }
+}
+
+export async function ChangePasswordAzure(payload: IUserUpdatePassword) {
+  try {
+    const response = await axios.post(`${azureUrl}/updatePassword`,payload);
+
+    if (response.status === 200 || response.status === 201) {
+      // Registration successful, you can redirect the user or show a success message.
+      console.log("password reset successful");
+      return true;
+    } else {
+      console.error("password reset failed");
+      return false;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
 }

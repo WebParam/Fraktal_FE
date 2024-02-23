@@ -52,6 +52,11 @@ export interface IUser {
     otp:string | Number;
   }
 
+  export interface IUserUpdatePassword {
+    email: string;
+    newPassword: string;
+  }
+
   export interface IdeletUser {
     id: string
   }
@@ -59,7 +64,6 @@ export interface IUser {
   
   export interface IUserSendOTP {
     email:string;
-  
   }
 
   export interface IJobResponsibilities{

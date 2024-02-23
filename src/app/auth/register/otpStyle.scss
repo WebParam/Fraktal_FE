@@ -164,3 +164,44 @@
     appearance: none;
     -moz-appearance: none;
   }
+
+  .newpassword {
+    width: 100% !important;
+    height: 100px; 
+    outline: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+    & > input {
+        height: 50px;
+        border: .0625rem solid rgba(20, 20, 21, 0.1);
+        width: 100%;
+        padding-left: 5px;
+        
+        &:focus {
+          outline: none;
+        }
+    }
+  }
+
+  .passworderror {
+    border: 1px dotted red !important;
+  }
+
+  .loaderSpinner {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &.rs-loader-spin {
+        transform: scale(5);
+    }
+  }
+
+  .disableButton {
+    opacity: .5;
+    cursor: none;
+  }

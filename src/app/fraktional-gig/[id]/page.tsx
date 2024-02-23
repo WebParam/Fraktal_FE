@@ -172,7 +172,6 @@ function viewGig({ params }: { params: { id: string }}) {
                 setShowErrorMessage(true);
                return;
             }
-         debugger;
             
             if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
                 setEmailError(true);
@@ -239,27 +238,28 @@ function viewGig({ params }: { params: { id: string }}) {
                 theme: "light",
               });
           
-const payload = {
-    email: email,
-    phone: phone,
-    employed: workStatus,
-    experience: yearsOfExperience,
-    notice: noticePeriod ==""?"nt1":noticePeriod??"nt1",
-    rate: expectedSalary,
-    file: resume,
-    projectId:params.id
-} as IApply;
+            const payload = {
+                email: email,
+                phone: phone,
+                employed: workStatus,
+                experience: yearsOfExperience,
+                notice: noticePeriod ==""?"nt1":noticePeriod??"nt1",
+                rate: expectedSalary,
+                file: resume,
+                projectId:params.id
+            } as IApply;
 
-const formData = new FormData();
-debugger;
-Object.entries(payload).forEach(([key, value]) => {
-    formData.append(key, value);
-});
-setEmailExist(false);
+            const formData = new FormData();
+            // debugger;
+            Object.entries(payload).forEach(([key, value]) => {
+                formData.append(key, value);
+            });
+
+            setEmailExist(false);
             
             const registrationResult = await jobRegistration(formData) ;
             debugger;
-          const errorMessage = registrationResult.missing as string[];
+            const errorMessage = registrationResult.missing as string[];
          
             console.log(registrationResult)
             if(registrationResult?.personnel?._user){
@@ -466,8 +466,45 @@ setEmailExist(false);
             {/* Form */}
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                <h3>Personal information</h3>
+                    <h3>Personal information</h3>
                 </div>
+                <div className="row">
+                <div className="col-sm-6">
+                <div className="mb-4">
+                <label className="form-label" htmlFor="applyForJobName">First Name *</label>
+                {/* {emailExist && <span style={{color : "red", fontSize:"small",fontWeight:"600", marginLeft:"15px"}}>Email address already registered</span>} */}
+                <input 
+                    type="text" 
+                    className={`form-control ${firstNameError ? 'error':''}`} 
+                    name="Firstname" 
+                    id="applyForJobName" 
+                    placeholder="John" 
+                    aria-label="John"
+                    value={firstName}
+                    onChange={handleFirstName}
+                   
+                />
+                </div>
+                </div>
+                <div className="col-sm-6">
+                <div className="mb-4">
+                <label className="form-label" htmlFor="applyForJobLastName">Surname *</label>
+                {/* {emailExist && <span style={{color : "red", fontSize:"small",fontWeight:"600", marginLeft:"15px"}}>Email address already registered</span>} */}
+                <input 
+                    type="text" 
+                    className={`form-control ${lastNameError ? 'error':''}`} 
+                    name="LastName" 
+                    id="applyForJobLastName" 
+                    placeholder="Doe" 
+                    aria-label="Doe"
+                    value={lastName}
+                    onChange={handleLastName}
+                   
+                />
+                </div>
+                </div>
+                </div>
+
                 <div className="row">
                 <div className="col-sm-6">
                 <div className="mb-4">

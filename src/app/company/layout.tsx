@@ -55,6 +55,8 @@ const [companyAddress, setCompanyAddress] = useState("");
 const [staff, setStaff] = useState<any>();
 const [companyCity, setCompanyCity] = useState("");
 const [companyCountry, setCompanyCountry] = useState("");
+const [userName, setUserName] = useState('');
+const [userEmail, setUserEmail] = useState('');
 
 
 const loggedInUser = cookies.get("fraktional-user")??"{}";
@@ -63,6 +65,9 @@ const [projects, setProjects] = useState<IJobApplication[]>([]);
     
     useEffect(() => {
       // here you can add your aos options
+      console.log(loggedInUser)
+      setUserName(`${loggedInUser.firstName} ${loggedInUser.surname}`)
+      setUserEmail(loggedInUser.email);
       Aos.init({
         offset: 100,
       });
@@ -204,8 +209,8 @@ const signOut = () => {
                              <Image className="avatar-status avatar-lg-status" src={topVendor} alt="Image Description" data-bs-toggle="tooltip" data-bs-placement="top" title="Verified user" />
                          </div>
  
-                         <h4 className="card-title mb-0">{firstName!=""? firstName: loggedInUser.firstName} {surname!=""? surname: loggedInUser.surname}</h4>
-                         <p className="card-text small">{loggedInUser.email}</p>
+                         <h4 className="card-title mb-0">{userName}</h4>
+                         <p className="card-text small">{userEmail}</p>
                          </div>
                          {/* End Avatar */}
                          {/* Nav */}

@@ -2,6 +2,7 @@ import { useState, ReactElement } from 'react';
 import './MobileMenu.scss';
 import Link from 'next/link';
 import Banner from '../../banner/Banner';
+import { usePathname } from 'next/navigation'
 
 type MobileMenuProps = {
   menuToggler: boolean;
@@ -9,6 +10,7 @@ type MobileMenuProps = {
 
 const MobileMenu = ({ menuToggler }: MobileMenuProps): ReactElement => {
   const [selectedItem, setSelectedItem] = useState<string | null>('home');
+  const pathname = usePathname();
 
   const selectItemHandler = (item: string) => {
     setSelectedItem(item === selectedItem ? null : item);
@@ -24,12 +26,12 @@ const MobileMenu = ({ menuToggler }: MobileMenuProps): ReactElement => {
             selectItemHandler('home');
           }}
         >
-          <Link href="/" style={{ color: '#4B4C4E' }}>
+          <Link href="/" style={{ color: '#4B4C4E' }} className={`${pathname === '/' ? 'MobileactiveLink':''}`}>
             Home
           </Link>
         </li>
         <li
-          className='dropdown-li liOne'
+          className={`dropdown-li liOne ${pathname === '/fraktional-dev' ? 'MobileactiveLink':''}`}
           style={{color: `${selectedItem === 'getDev' ? 'lightpink' : ''}`}}
           onClick={() => {
               selectItemHandler('getDev');
@@ -42,7 +44,7 @@ const MobileMenu = ({ menuToggler }: MobileMenuProps): ReactElement => {
           </div>
         </li>
         <li
-          className='dropdown-li liTwo'
+          className={`dropdown-li liTwo ${pathname === '/fraktional-gig' ? 'MobileactiveLink':''}`}
           style={{color: `${selectedItem === 'getGig' ? 'lightpink' : ''}`}}
           onClick={() => {
             selectItemHandler('getGig');
@@ -54,64 +56,14 @@ const MobileMenu = ({ menuToggler }: MobileMenuProps): ReactElement => {
               {/* <Link href='/devfaq'>FAQ</Link> */}
           </div>
         </li>
-        {/* <li
-          className='dropdown-li liThree'
-          style={{color: `${selectedItem === 'pages' ? 'lightpink' : ''}`}}
-          onClick={() => {
-            selectItemHandler('pages');
-          }}
-        >
-          Pages <i className="bi bi-chevron-down"></i>
-          <div className={`dropdown-Items_Mobile dropdownThree ${selectedItem === 'pages' ? 'clicked' : ''}`}>
-          <Link href='/'>FAQ</Link>
-              <Link href='/'>Terms & Conditions</Link>
-              <Link href='/'>Privacy & Policy</Link>
-              <Link href='/'>Coming Soon</Link>
-              <Link href='/'>Maintainance Mode</Link>
-              <Link href='/'>Invoice</Link>
-              <Link href='/'>Status</Link>
-              <Link href='/'>Error 404</Link>
-          </div>
-        </li>
-        <li
-          className={`dropdown-li liFour ${selectedItem === 'blog' ? 'clicked' : ''}`}
-          style={{color: `${selectedItem === 'blog' ? 'lightpink' : ''}`}}
-          onClick={() => {
-            selectItemHandler('blog');
-          }}
-        >
-          Blog <i className="bi bi-chevron-down"></i>
-          <div className={`dropdown-Items_Mobile dropdownFour ${selectedItem === 'blog' ? 'clicked' : ''}`}>
-            <Link href='/'>Journal</Link>
-            <Link href='/'>Metro</Link>
-            <Link href='/'>Newsroom</Link>
-            <Link href='/'>Article</Link>
-            <Link href='/'>Author Profile</Link>
-          </div>
-        </li>
-        <li
-          className='dropdown-li liFive'
-          style={{color: `${selectedItem === 'portfolio' ? 'lightpink' : ''}`}}
-          onClick={() => {
-            selectItemHandler('portfolio');
-          }}
-        >
-          Portfolio <i className="bi bi-chevron-down"></i>
-          <div className={`dropdown-Items_Mobile dropdownFive ${selectedItem === 'portfolio' ? 'clicked' : ''}`}>
-            <Link href='/'>Grid</Link>
-            <Link href='/'>Product Article</Link>
-            <Link href='/'>Case Studies: Branding</Link>
-            <Link href='/'>Case Studies: Product</Link>
-          </div>
-        </li> */}
          <li>
-       <Link style={{ color: '#4B4C4E' }} href='/blog-posts'>News</Link>
+       <Link style={{ color: '#4B4C4E' }} href='/blog-posts' className={`${pathname === '/blog-posts' ? 'MobileactiveLink':''}`}>News</Link>
        </li>
         <li>
-          <Link style={{ color: '#4B4C4E' }} href="/about">About</Link>
+          <Link style={{ color: '#4B4C4E' }} href="/about" className={`${pathname === '/about' ? 'MobileactiveLink':''}`}>About</Link>
         </li>
         <li>
-          <Link style={{ color: '#4B4C4E' }} href="/contact-us">Contact Us</Link>
+          <Link style={{ color: '#4B4C4E' }} href="/contact-us" className={`${pathname === '/contact-us' ? 'MobileactiveLink':''}`}>Contact Us</Link>
         </li>
         <li>
           <Link style={{ color: '#4B4C4E' }} href="/fraktional-dev">Hire Now</Link>

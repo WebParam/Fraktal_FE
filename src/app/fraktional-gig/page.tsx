@@ -22,12 +22,11 @@ import { IOption, cities } from '../lib/data';
 function jobs() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const [projects, setProjects] = useState<IJobApplication[]>([]);
-    const _gigs = gigs as any[];
-    
     const [filteredGigs, setFilteredGigs] = useState<any[]>([]);
     const [searchKeys, setSearchKeys] = useState<string>("");
-
     const [city, setCity] = useState<string>("");
+    
+    const _gigs = gigs as any[];
 
     const loadAllProjects = async()=>{
         const res = await GetAllProjects() as any ;
@@ -36,14 +35,12 @@ function jobs() {
         setProjects(resData);    
       }
 
-      function handleCitySelect(data: any) {
+    function handleCitySelect(data: any) {
         const _data = data as IOption;
         setCity(_data.value);
-      }
-
+    }
       
   useEffect(() => {
-    
      loadAllProjects();
      setFilteredGigs(gigs as []);
    },[]);
@@ -89,8 +86,8 @@ function jobs() {
                             </div>
                         </div>
                         <div className="input-card-form">
-    <label htmlFor="cityForm" className="form-label visually-hidden">City</label>
-    <div className="input-group input-group-merge">
+                <label htmlFor="cityForm" className="form-label visually-hidden">City</label>
+                <div className="input-group input-group-merge">
         <div>
             <span className="input-group-prepend input-group-text">
                 {/* Any content you want to include */}
@@ -102,32 +99,27 @@ function jobs() {
                 <i className="bi-geo-alt" />
             </div>
 
-            <div style={{ marginLeft: '10px', position: 'relative' }}> {/* Adjust the margin as needed */}
-            <Select
-   
-    menuPosition={'fixed'}
-    options={cities as any}
-    placeholder="Select a city"
-    onChange={handleCitySelect}
-    isSearchable={false}
-    isMulti={false}
-    styles={{
-        control: (baseStyles, state) => ({
-            ...baseStyles,
-            width: '250px'
-        })
-       
-    }}
-/>
-
-
-
+            <div style={{ marginLeft: '10px', position: 'relative' }}>
+            <Select  
+            menuPosition={'fixed'}
+            options={cities as any}
+            placeholder="Select a city"
+            onChange={handleCitySelect}
+            isSearchable={false}
+            isMulti={false}
+            styles={{
+            control: (baseStyles, state) => ({
+                ...baseStyles,
+                width: '250px'
+                })
+                }}
+            />
             </div>
-        </div>
-    </div>
-</div>
+            </div>
+            </div>
+            </div>
 
-                        <button type="button" className="btn btn-primary"  onClick={()=>filter()} disabled={false} style={{background: '#FD2DC3 !important', border: 'none'}}>Search</button>
+                        <button type="button" className="btn btn-primary"  onClick={() => filter()} disabled={false} style={{background: '#FD2DC3 !important', border: 'none'}}>Search</button>
                         </div>
                         {/* End Input Card */}
                     </form>
@@ -168,7 +160,7 @@ function jobs() {
            
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mb-5">
                
-                {projects.map(gig => (
+                {projects && projects.map(gig => (
                 <div className="col mb-5" key={gig.id}>
                     <div className="card card-bordered h-100">
                     <div className="card-body">
@@ -193,7 +185,7 @@ function jobs() {
                         </h3>
                         <span className="d-block small text-body mb-1">R{gig.pay}</span>
                         <span className="badge me-2" style={{backgroundColor: 'lightpink', color: '#fff'}}>
-                        <span className="legend-indicator bg-info" />{gig.remote}
+                        <span className="legend-indicator bg-info" />{`${gig.remote == 0 ? 'onsite':'remote'}`}
                         </span>
                     </div>
                     <div className="card-footer pt-0">
@@ -537,7 +529,6 @@ function jobs() {
     </>
     )
 }
-
 
 
 export default dynamic (() => Promise.resolve(jobs), {ssr: false})
