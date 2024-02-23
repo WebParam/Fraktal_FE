@@ -22,39 +22,51 @@ import AvatarGroup from 'react-avatar-group';
 const moment = require("moment");
 
 function developerOverview() {
- 
+    const [selectedOption, setSelectedOption] = useState('ascending');
+    const [viewStyle, setViewStyle] = useState('flex');
 
-const [position, setPosition] = useState("");
+    const [position, setPosition] = useState("");
 
-const [projectLoading, setProjectLoading] = useState(true);
-  const loggedInUser = cookies.get("fraktional-user")??"{}";
-  const [projects, setProjects] = useState<IJobApplication[]>([]);
-
-
-async function _GetProjects(id:string){
-
-  await GetProjectsByOrgId(id).then((res:any) => {
-    setProjectLoading(false);
-      setProjects(res.data);
-  })
-}
+    const [projectLoading, setProjectLoading] = useState(true);
+      const loggedInUser = cookies.get("fraktional-user")??"{}";
+      const [projects, setProjects] = useState<IJobApplication[]>([]);
 
 
+    async function _GetProjects(id:string){
+
+      await GetProjectsByOrgId(id).then((res:any) => {
+        setProjectLoading(false);
+          setProjects(res.data);
+      })
+    }
+
+    const handleSelectChange = (event:any) => {
+      setSelectedOption(event.target.value);
+      console.log(selectedOption)
+    };
+
+    const sortedProjects = projects.sort((a:any, b:any) => {
+      console.log(a)
+      if (selectedOption === 'ascending') {
+        return a.data?.projectName.localeCompare(b.data?.projectName); // A-to-Z based on project name
+      } else {
+        return b.data?.projectName.localeCompare(a.data?.projectName); // Z-to-A based on project name
+      }
+    });
 
 
-useEffect(() => {
-  //check url and setActive
-  
-  loggedInUser._id&& _GetProjects("655a3ed54b837045859ab384");
+    useEffect(() => {
+      //check url and setActive
+      
+      loggedInUser._id&& _GetProjects("655a3ed54b837045859ab384");
 
-  }, []);
+      }, []);
 
 
-function editProject(project:any){
-debugger;
-window!==undefined && typeof(window)!=='undefined' && window?.location?.assign(`/company/post-job/${project?.id}`)
-
-}
+    function editProject(project:any){
+    debugger;
+    window!==undefined && typeof(window)!=='undefined' && window?.location?.assign(`/company/post-job/${project?.id}`)
+    }
 
 
     return (
@@ -120,23 +132,21 @@ window!==undefined && typeof(window)!=='undefined' && window?.location?.assign(`
                     {/* End Select */}
                     {/* Select */}
                     <div className="mb-2 mb-sm-0 me-sm-2">
-                      <select className="form-select form-select-sm">
-                        <option value="alphabeticalOrderSelect1">
-                          A-to-Z
-                        </option>
-                        <option value="alphabeticalOrderSelect2">Z-to-A</option>
-                      </select>
+                    <select className="form-select form-select-sm" value={selectedOption} onChange={handleSelectChange}>
+                      <option value="ascending">A-to-Z</option>
+                      <option value="descending">Z-to-A</option>
+                    </select>
                     </div>
                     {/* End Select */}
                     {/* Nav */}
                     <ul className="nav nav-segment">
-                      <li className="nav-item">
-                        <a className="nav-link" href="../demo-jobs/job-grid.html">
+                      <li className="nav-item"  >
+                        <a className={`nav-link ${viewStyle == 'grid' && 'active'}`} onClick={() => setViewStyle('grid')}>
                           <i className="bi-grid-fill" />
                         </a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link active" href="../demo-jobs/job-list.html">
+                        <a className={`nav-link ${viewStyle == 'flex' && 'active'}`} onClick={() => setViewStyle('flex')}>
                           <i className="bi-list" />
                         </a>
                       </li>
@@ -167,7 +177,7 @@ window!==undefined && typeof(window)!=='undefined' && window?.location?.assign(`
                 {/* Select Group */}
                
                 {/* <div className="row row-cols-1 row-cols-sm-2 mb-5"> */}
-                <div className="d-grid gap-5 mb-10">
+                <div className={`d-grid gap-5 mb-10 cardsContainer ${viewStyle == 'grid' && 'grid'}`} >
                   {
                     projectLoading?
                     <>
@@ -190,7 +200,7 @@ window!==undefined && typeof(window)!=='undefined' && window?.location?.assign(`
                        
                     </>:
                     <>  {
-                      projects?.map((project:any) => {
+                      sortedProjects?.map((project:any) => {
                         
                         return (
                           <>
