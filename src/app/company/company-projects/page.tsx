@@ -215,7 +215,7 @@ function developerOverview() {
                                     </div>
                                     <div className="d-sm-none flex-grow-1 ms-3">
                                       <h6 className="card-title">
-                                      <a className="text-dark" href="../demo-jobs/employer.html">{project?.data.projectName}</a>
+                                      <Link className="text-dark" href={`/company/company-projects/${project.data.id}`}>{project?.data.projectName}</Link>
                                         <img
                                           className="avatar avatar-xss ms-1"
                                           src="../assets/svg/illustrations/top-vendor.svg"
@@ -232,23 +232,15 @@ function developerOverview() {
                                     <div className="row">
                                       <div className="col col-md-8">
                                         <h3 className="card-title">
-                                          <a className="text-dark" href="../demo-jobs/employer.html">
+                                          <a className="text-dark" href={`/company/company-projects/${project.data.id}`}>
                                           {project?.data.projectName}
                                           </a>
                                         </h3>
                                         <div className="d-none d-sm-inline-block">
                                           <h6 className="card-title">
-                                            <a className="text-dark" href="../demo-jobs/employer.html">
+                                            <Link className="text-dark" href={`/company/company-projects/${project.data.id}`}>
                                             {project?.org.name}
-                                            </a>
-                                            {/* <img
-                                              className="avatar avatar-xss ms-1"
-                                              src="../assets/svg/illustrations/top-vendor.svg"
-                                              alt="Review rating"
-                                              data-toggle="tooltip"
-                                              data-placement="top"
-                                              title="Claimed profile"
-                                            /> */}
+                                            </Link>
                                           </h6>
                                         </div>
                                         <ul className="list-inline list-separator small text-body mt-3">

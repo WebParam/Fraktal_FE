@@ -531,5 +531,4 @@ function jobs() {
 }
 
 
-
 export default dynamic (() => Promise.resolve(jobs), {ssr: false})
