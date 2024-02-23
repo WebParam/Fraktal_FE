@@ -67,7 +67,7 @@ function HomePage() {
     transform: 'translate(-50%, -50%)',
     width: '50vw',
     bgcolor: 'background.paper',
-    height: '50%', 
+    height: 'auto', 
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center', 
@@ -87,7 +87,7 @@ function HomePage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       handleOpen();
-    }, 3000);
+    }, 30000);
   
     // Clean up the timer to avoid memory leaks
     return () => clearTimeout(timer);
@@ -135,8 +135,8 @@ function HomePage() {
           <p style={{ paddingLeft: '10%', paddingRight: '10%' }}>Delivered straight to your inbox, every week. No spam, just pure tech goodness.</p>
           <div style={{ width: '90%', height: '59px', borderRadius: '8px', border: '1px solid rgba(255, 123)', backgroundColor: '#FFF' }}>
             <form style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
-              <input style={{ height: '59px', width: '70%', borderRadius: '8px', paddingLeft: '10px', outline: 'none', fontSize: '1.3vw' }} placeholder="Email Address" name="email" type="email" />
-              <button style={{ backgroundColor: '#FD2DC3', borderRadius: '6px', width: '28%', height: '50px', color: 'white', fontSize: '1vw', marginRight: '0px' }} type="submit">Subscribe</button>
+              <input style={{ height: '59px', width: '70%', borderRadius: '8px', paddingLeft: '10px', outline: 'none', fontSize: '0.8rem' }} placeholder="Email Address" name="email" type="email" />
+              <button style={{ backgroundColor: '#FD2DC3', borderRadius: '6px', width: '28%', height: '50px', color: 'white', fontSize: '0.8rem', marginRight: '0px' }} type="submit">Subscribe</button>
             </form>
           </div>
         </div>
