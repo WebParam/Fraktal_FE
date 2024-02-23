@@ -466,8 +466,45 @@ function viewGig({ params }: { params: { id: string }}) {
             {/* Form */}
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                <h3>Personal information</h3>
+                    <h3>Personal information</h3>
                 </div>
+                <div className="row">
+                <div className="col-sm-6">
+                <div className="mb-4">
+                <label className="form-label" htmlFor="applyForJobName">First Name *</label>
+                {/* {emailExist && <span style={{color : "red", fontSize:"small",fontWeight:"600", marginLeft:"15px"}}>Email address already registered</span>} */}
+                <input 
+                    type="text" 
+                    className={`form-control ${firstNameError ? 'error':''}`} 
+                    name="Firstname" 
+                    id="applyForJobName" 
+                    placeholder="John" 
+                    aria-label="John"
+                    value={firstName}
+                    onChange={handleFirstName}
+                   
+                />
+                </div>
+                </div>
+                <div className="col-sm-6">
+                <div className="mb-4">
+                <label className="form-label" htmlFor="applyForJobLastName">Surname *</label>
+                {/* {emailExist && <span style={{color : "red", fontSize:"small",fontWeight:"600", marginLeft:"15px"}}>Email address already registered</span>} */}
+                <input 
+                    type="text" 
+                    className={`form-control ${lastNameError ? 'error':''}`} 
+                    name="LastName" 
+                    id="applyForJobLastName" 
+                    placeholder="Doe" 
+                    aria-label="Doe"
+                    value={lastName}
+                    onChange={handleLastName}
+                   
+                />
+                </div>
+                </div>
+                </div>
+
                 <div className="row">
                 <div className="col-sm-6">
                 <div className="mb-4">

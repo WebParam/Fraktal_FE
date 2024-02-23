@@ -87,7 +87,7 @@ function HomePage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       handleOpen();
-    }, 30000);
+    }, 3000);
   
     // Clean up the timer to avoid memory leaks
     return () => clearTimeout(timer);
@@ -375,7 +375,7 @@ function HomePage() {
                 <li className="list-checked-item">30 Days Onboarding</li>
               </ul>
               {/* End List Checked */}
-              <a className="btn btn-primary getStarted" style={{border:"0px"}} href="/fraktional-dev">Get started</a>
+              <a className="btn btn-primary getStarted" style={{border:"0px", background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(0, 63, 189, 0.4) 124.34%)'}} href="/fraktional-dev">Get started</a>
               <hr className="my-5" />
               <span className="d-block">Trusted by leading companies</span>
               <div className="">

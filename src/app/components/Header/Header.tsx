@@ -96,6 +96,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
             style={{
               background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(0, 63, 189, 0.4) 124.34%)',
               padding: '10px',
+              borderRadius: '8px'
             }}
 
           className='hirenow'>
