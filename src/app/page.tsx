@@ -63,7 +63,7 @@ function HomePage() {
   const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
-    left: '35%',
+    left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '50vw',
     bgcolor: 'background.paper',
@@ -124,6 +124,12 @@ function HomePage() {
     >
     <Box sx={style} className={'newsletter'}>
       <div style={{ backgroundColor: 'rgba(255, 123, 237, 0.32)', width: '100%', height: '100%', padding: '10%'}}>
+        <div style={{position: 'absolute', left: '96%', top: '1.5%', paddingTop: '-10%'}}>
+        <button style={{ backgroundColor: 'transparent', border: 'none', fontSize: '20px', cursor: 'pointer' }} onClick={handleClose}>
+            &#x2715; {/* Close icon (x) */}
+          </button>
+        </div>
+
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'center', alignItems: 'center', width: '100%', flexWrap: 'wrap', textAlign: 'center', height: '100%' }}>
           <h2>Get in the Know: Subscribe to the Fraktional Newsletter</h2>
           <p style={{ paddingLeft: '10%', paddingRight: '10%' }}>Delivered straight to your inbox, every week. No spam, just pure tech goodness.</p>
