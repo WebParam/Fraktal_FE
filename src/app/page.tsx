@@ -87,7 +87,7 @@ function HomePage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       handleOpen();
-    }, 3000);
+    }, 30000);
   
     // Clean up the timer to avoid memory leaks
     return () => clearTimeout(timer);
