@@ -68,6 +68,9 @@ const MobileMenu = ({ menuToggler }: MobileMenuProps): ReactElement => {
         <li>
           <Link style={{ color: '#4B4C4E' }} href="/fraktional-dev">Hire Now</Link>
         </li>
+        <li className='login'>
+          <Link href="/auth/login" id='login'>Login</Link>
+        </li>
       </ul>
     </div>
     </>

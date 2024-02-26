@@ -200,7 +200,7 @@ function developerOverview() {
                        
                     </>:
                     <>  {
-                      sortedProjects?.map((project:any) => {
+                      sortedProjects && sortedProjects?.map((project:any) => {
                         
                         return (
                           <>
