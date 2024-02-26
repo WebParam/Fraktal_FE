@@ -10,7 +10,7 @@ import googleDrive from "../../../assets/svg/brands/google-drive-icon.svg";
 import { useRef, useState } from 'react';
 import { escape } from 'querystring';
 import Link from 'next/link';
-import { jobRegistration } from '@/app/endpoints/api';
+import { PersonnelExists, jobRegistration } from '@/app/endpoints/api';
 import { IApply, IApplyForJobRegistration } from '@/app/interfaces/user';
 import { CompleteApplication } from './verify-otp';
 import Modal from 'react-responsive-modal';
@@ -44,7 +44,8 @@ function viewGig({ params }: { params: { id: string }}) {
     const [portfolio, setPortfolio] = useState([]);
     const [expectedSalary, setExpectedSalary] = useState('');
     const [mobileExp, setMobileExp] = useState('');
-    const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+    const [editModalOpen, setEditModalOpen] = useState<boolean>(false); 
+    const [existingModalOpen, setExistingModalOpen] = useState<boolean>(false);
     // const userInformation = {
     //     firstName: firstName,
     //     lastName: lastName,
@@ -172,7 +173,6 @@ function viewGig({ params }: { params: { id: string }}) {
                 setShowErrorMessage(true);
                return;
             }
-         debugger;
             
             if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
                 setEmailError(true);
@@ -227,72 +227,90 @@ function viewGig({ params }: { params: { id: string }}) {
 
 
         const applyForJob = async (e: any) => {
-            e.preventDefault();
-            let _id = toast.loading("Please do not navigate away from this page.", {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-          
-const payload = {
-    email: email,
-    phone: phone,
-    employed: workStatus,
-    experience: yearsOfExperience,
-    notice: noticePeriod ==""?"nt1":noticePeriod??"nt1",
-    rate: expectedSalary,
-    file: resume,
-    projectId:params.id
-} as IApply;
 
-const formData = new FormData();
-debugger;
-Object.entries(payload).forEach(([key, value]) => {
-    formData.append(key, value);
-});
-setEmailExist(false);
-            
-            const registrationResult = await jobRegistration(formData) ;
-            debugger;
-          const errorMessage = registrationResult.missing as string[];
-         
-            console.log(registrationResult)
-            if(registrationResult?.personnel?._user){
-                debugger;
-                cookies.set('fraktional-user', JSON.stringify(registrationResult?.user), { path: '/' });
-                // setEditModalOpen(true)
-                toast.update(_id, {
-                    render: "Your application has been created.",
-                    type: "success",
-                    isLoading: false,
-                    autoClose: 5000,
-                  });
 
-                  debugger;
-                //display missing info
-                setMissingErrorMessage(errorMessage);
-                setEditModalOpen(true);
-
-             
+            const exists = await PersonnelExists(email) as any;
+            if(exists.data?.id){
+                // cookies.set('fraktional-user', JSON.stringify(exists.response), { path: '/' });
+                // window.location.href = "/developer-overview"
+                setExistingModalOpen(true);
             }else{
+
                 debugger;
-                toast.update(_id, {
-                    render: "Your application has not been created.",
-                    type: "error",
-                    isLoading: false,
-                    autoClose: 5000
+                if(exists){
+                    
+                }
+    
+                e.preventDefault();
+                let _id = toast.loading("Please do not navigate away from this page.", {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
                   });
-                setEmailExist(true)
-                window.scrollTo({
-                    top: 10,
-                    behavior: 'smooth' // For smooth scrolling
+              
+                const payload = {
+                    email: email,
+                    phone: phone,
+                    employed: workStatus,
+                    experience: yearsOfExperience,
+                    notice: noticePeriod ==""?"nt1":noticePeriod??"nt1",
+                    rate: expectedSalary,
+                    file: resume,
+                    projectId:params.id
+                } as IApply;
+    
+                const formData = new FormData();
+                // debugger;
+                Object.entries(payload).forEach(([key, value]) => {
+                    formData.append(key, value);
                 });
+    
+                setEmailExist(false);
+                
+                const registrationResult = await jobRegistration(formData) ;
+                debugger;
+                const errorMessage = registrationResult.missing as string[];
+             
+                console.log(registrationResult)
+                if(registrationResult?.personnel?._user){
+                    debugger;
+                    cookies.set('fraktional-user', JSON.stringify(registrationResult?.user), { path: '/' });
+                    // setEditModalOpen(true)
+                    toast.update(_id, {
+                        render: "Your application has been created.",
+                        type: "success",
+                        isLoading: false,
+                        autoClose: 5000,
+                      });
+    
+                      debugger;
+                    //display missing info
+                    setMissingErrorMessage(errorMessage);
+                    setEditModalOpen(true);
+    
+                 
+                }else{
+                    debugger;
+                    toast.update(_id, {
+                        render: "Your application has not been created.",
+                        type: "error",
+                        isLoading: false,
+                        autoClose: 5000
+                      });
+                    setEmailExist(true)
+                    window.scrollTo({
+                        top: 10,
+                        behavior: 'smooth' // For smooth scrolling
+                    });
+                }
+
             }
+           
         }
 
         function saveAndCloseEditModal(){
@@ -315,12 +333,14 @@ setEmailExist(false);
 
           function sendToLogin(){
             window.location.href = "/developer-overview"
-          
- 
-   //   window.location.href = "/auth/login"
+          }
 
+          function sendExistingToLogin(){
+            window.location.href = "/auth/login"
+    
 
           }
+
           const customModalStyles = {
             modal: {
               maxWidth: '50%', 
@@ -347,6 +367,16 @@ setEmailExist(false);
         </Link> */}
         {/* Page Header */}
         <div className="container content-space-t-2">
+        <Modal open={existingModalOpen} styles={customModalStyles} onClose={() => modalClose()} center>
+            <div style={{width:"100%"}}>
+            <h4>We have detected an existing profile for the email supplied.</h4>
+            <p>Please login to apply for the gig</p>
+          
+                <button onClick={()=>sendExistingToLogin()} className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff', width:"100%"}}>Login</button>
+            </div>
+           
+      </Modal>
+ 
         <Modal open={editModalOpen} styles={customModalStyles} onClose={() => modalClose()} center>
             <div style={{width:"100%"}}>
             <h4>Your job application has been created</h4>
@@ -466,8 +496,45 @@ setEmailExist(false);
             {/* Form */}
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                <h3>Personal information</h3>
+                    <h3>Personal information</h3>
                 </div>
+                <div className="row">
+                <div className="col-sm-6">
+                <div className="mb-4">
+                <label className="form-label" htmlFor="applyForJobName">First Name *</label>
+                {/* {emailExist && <span style={{color : "red", fontSize:"small",fontWeight:"600", marginLeft:"15px"}}>Email address already registered</span>} */}
+                <input 
+                    type="text" 
+                    className={`form-control ${firstNameError ? 'error':''}`} 
+                    name="Firstname" 
+                    id="applyForJobName" 
+                    placeholder="John" 
+                    aria-label="John"
+                    value={firstName}
+                    onChange={handleFirstName}
+                   
+                />
+                </div>
+                </div>
+                <div className="col-sm-6">
+                <div className="mb-4">
+                <label className="form-label" htmlFor="applyForJobLastName">Surname *</label>
+                {/* {emailExist && <span style={{color : "red", fontSize:"small",fontWeight:"600", marginLeft:"15px"}}>Email address already registered</span>} */}
+                <input 
+                    type="text" 
+                    className={`form-control ${lastNameError ? 'error':''}`} 
+                    name="LastName" 
+                    id="applyForJobLastName" 
+                    placeholder="Doe" 
+                    aria-label="Doe"
+                    value={lastName}
+                    onChange={handleLastName}
+                   
+                />
+                </div>
+                </div>
+                </div>
+
                 <div className="row">
                 <div className="col-sm-6">
                 <div className="mb-4">

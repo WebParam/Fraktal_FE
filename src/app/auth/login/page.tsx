@@ -152,22 +152,22 @@ function SignIn() {
   }
 
 
-  useEffect(() => {
-    const userDetails = cookies.get('fraktional-user');
-    console.log(userDetails);
-    if (userDetails?._id) {
-      if (userDetails.status === 1) {
-        if (userDetails.type === 0) {
-          window.location.href = "/developer-overview";
-        } else {
-          window.location.href = "/company/company-overview";
-        }
-      }
-      else {
-        cookies.set('fraktional-user', JSON.stringify(false), { path: '/' });
-      }
-    }   
-  }, [0]); 
+  // useEffect(() => {
+  //   const userDetails = cookies.get('fraktional-user');
+  //   console.log(userDetails);
+  //   if (userDetails?._id) {
+  //     if (userDetails.status === 1) {
+  //       if (userDetails.type === 0) {
+  //         window.location.href = "/developer-overview";
+  //       } else {
+  //         window.location.href = "/company/company-overview";
+  //       }
+  //     }
+  //     else {
+  //       cookies.set('fraktional-user', JSON.stringify(false), { path: '/' });
+  //     }
+  //   }   
+  // }, [0]); 
 
   const [visible, setVisible] = useState<boolean>(false);
   

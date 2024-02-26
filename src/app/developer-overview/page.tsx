@@ -14,7 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 import { IDeveloperProfile, IEducationInformation, IWorkExperience } from "../interfaces/user";
-import { CreateDeveloperProfile, DeleteDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile, uploadCV, uploadProfilePic } from "../endpoints/api";
+import { CreateDeveloperProfile, DeleteDeveloperProfile, GetAllProjects, GetDeveloperProfile, GetProjectsByOrgId, ProjectsByPersonnel, UpdateDeveloperProfile, addToShortlist, uploadCV, uploadProfilePic } from "../endpoints/api";
 import Cookies from 'universal-cookie';
 import Banner from "../banner/Banner";
 import dynamic from "next/dynamic";
@@ -26,7 +26,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { StylesConfig } from 'react-select';
 import moment from"moment";
+
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+
 import { VerifyOtp } from "../auth/register/verify-otp";
+import { IJobApplication } from "../interfaces/IJobApplication";
+import AvatarGroup from "react-avatar-group";
 // const moment = require("moment");
 
 const cookies = new Cookies();
@@ -44,7 +50,9 @@ function developerOverview() {
     setWorkStatus(value);
   };
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+  const [applicationConfirm, setApplicationConfirm] = useState<boolean>(false);
 
+  const [currentApplication, setCurrentApplication] = useState<string>("");
   const [information, setInformation] = useState("");
   const [firstName, setFirstName] = useState("");
   const [surname, setSurname] = useState("");
@@ -78,7 +86,7 @@ function developerOverview() {
   const [wrk_endDateError, setWrkendDateError] = useState(false);
   const [wrk_responsibilitiesError, setWrk_responsibilitiesError] = useState(false);
   const [wrk_locationError, setWrkLocationError] = useState(false);
-
+  const [projectLoading, setProjectLoading] = useState(true);
 
   const [menuItem, setMenu] = useState(1);
 
@@ -95,6 +103,8 @@ function developerOverview() {
   const [edu_InsituteNameError, setEduInstituteNameError] = useState(false);
   const [edu_QualificationError, setEduQualificationError] = useState(false);
   const [edu_completionDateError, setEduCompletionDateError] = useState(false);
+  
+  const [selectedTab, setSelectedTab] = useState(0);
   const [currentProfilePicError, setCurrentProfilePicError] = useState(false);
 
   const [currentProfilePic, setCurrentProfilePic] = useState("");
@@ -103,7 +113,8 @@ function developerOverview() {
   const [existingUser, setExistingUser] = useState(false);
     const [updatePasswordModal, setUpdatePasswordModal] = useState(false);
     const [deleteProfileAccept, setDeleteProfileAccept] = useState(false);
-    
+     const [appliedProjects, setAppliedProjects] = useState<IJobApplication[]>([]);
+  const [projects, setProjects] = useState<IJobApplication[]>([]);
     const [updatePasswordAccept, setUpdatePasswordAccept] = useState(false);
   const [cv, setCV] = useState<Blob | undefined>();
   const [hasChanged, setHasChanged] = useState(false);
@@ -260,6 +271,15 @@ setNoticePeriod(res?.data?.noticePeriod)
     // setDisable(false)
     toast.dismiss(_id);
   }, 2000);
+}
+
+async function _GetProjects(){
+
+  await ProjectsByPersonnel().then((res:any) => {
+    setProjectLoading(false);
+      setProjects(res.data?.available);
+      setAppliedProjects(res.data?.applied);
+  })
 }
 
 
@@ -435,6 +455,7 @@ useEffect(() => {
   if(loggedInUser._id||loggedInUser.id){
     debugger;
      _GetDeveloperProfile(loggedInUser?._id ?? loggedInUser?.id)
+     _GetProjects();
     }
    
   }, []);
@@ -555,6 +576,12 @@ useEffect(() => {
     sendToLogin();
   }
 
+  function closeConfirmModal(){
+    setApplicationConfirm(false);
+   
+  }
+
+
 
   function getURL(){
     if(cv!=undefined){
@@ -586,6 +613,37 @@ function sendToLogin(){
 
 }
 
+async function applyNow(){
+  let _id = toast.loading("Sending your application..", {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+
+  const payload = {
+    userId:loggedInUser._id,
+    projectId: currentApplication,
+    status: 0
+  };
+
+  const res = await addToShortlist(payload);
+debugger;
+  if(res.id){
+    _GetProjects();
+    setApplicationConfirm(false);
+  }
+  setTimeout(() => {
+    // setDisable(false)
+    toast.dismiss(_id);
+  }, 2000);
+}
+
+
 console.log("DDD", loggedInUser);
     return (
       <>
@@ -606,6 +664,22 @@ console.log("DDD", loggedInUser);
             </div>
            
       </Modal>
+
+      <Modal open={applicationConfirm} styles={customModalStyles} onClose={() => closeConfirmModal()} center>
+            <div style={{width:"100%"}}>
+              <h4>Apply now</h4>
+
+        
+         
+           {/* <p>A new account has also been created.</p> */}
+            <p>Please confirm your application.</p>
+            <p>Your <a href={frakcvUrl} target="_blank">Fraktional CV</a> will be used for the application.</p>
+            <p>To ensure your application is up-to-date, kindly make sure to update your Fraktional profile.</p>
+                <button onClick={()=>{applyNow()}} className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff', width:"100%"}}>Submit my application</button>
+            </div>
+           
+      </Modal>
+
   <div className="navbar-dark" style={{backgroundColor: '#FD2DC3'}}>
     <div className="container content-space-1 content-space-b-lg-3" >
       <div className="row align-items-center">
@@ -664,7 +738,7 @@ console.log("DDD", loggedInUser);
                </li>
               
                <li className="nav-item">
-                 <a className="nav-link " style={{pointerEvents: 'none', cursor:'none', opacity: '.5'}}>
+                 <a className={menuItem==3?"nav-link active" :"nav-link"} onClick={()=>setMenu(3)} >
                    <i className="bi-briefcase nav-icon" /> Gigs
                  </a>
                </li>
@@ -1610,6 +1684,389 @@ console.log("DDD", loggedInUser);
             </div>
             {/* End Body */}
           </div>
+          </>
+          }
+          {/* End Card */}
+
+            {/* Card */}
+            {menuItem==3 &&
+          <>
+         <div className="card">
+          {/* He  er */}
+          <div className="card-header border-bottom">
+            <div className="row">
+              <div className="col-md-6 mb-3 mb-md-0">
+              <h4 className="card-header-title">Fraktional Gigs</h4>
+            </div>
+        
+            </div>
+          </div>
+          {/* End Header */}
+          {/* Body */}
+          <div className="card-body">
+            {/* Nav Scroller */}
+            <div className="js-nav-scroller hs-nav-scroller-horizontal">
+              <span className="hs-nav-scroller-arrow-prev" style={{display: 'none'}}>
+                <a className="hs-nav-scroller-arrow-link" href="javascript:;">
+                  <i className="bi-chevron-left" />
+                </a>
+              </span>
+              <span className="hs-nav-scroller-arrow-next" style={{display: 'none'}}>
+                <a className="hs-nav-scroller-arrow-link" href="javascript:;">
+                  <i className="bi-chevron-right" />
+                </a>
+              </span>
+              <div className="row align-items-center mb-5">
+                <div className="col-sm mb-3 mb-sm-0">
+                  <h3 className="mb-0">
+                    {projects.length}  <span className="fw-normal">available gigs</span>
+                  </h3>
+                </div>
+                <div className="col-sm-auto">
+                  <div className="d-sm-flex justify-content-sm-end align-items-center">
+                    {/* Select */}
+                    <div className="mb-2 mb-sm-0 me-sm-2">
+                      <select className="form-select form-select-sm">
+                        <option value="Relevance" >
+                          Relevance
+                        </option>
+                        <option value="mostRecent">Most recent</option>
+                      </select>
+                    </div>
+                    {/* End Select */}
+                    {/* Select */}
+                    <div className="mb-2 mb-sm-0 me-sm-2">
+                      <select className="form-select form-select-sm">
+                        <option value="alphabeticalOrderSelect1">
+                          A-to-Z
+                        </option>
+                        <option value="alphabeticalOrderSelect2">Z-to-A</option>
+                      </select>
+                    </div>
+                    {/* End Select */}
+                    {/* Nav */}
+                    <ul className="nav nav-segment">
+                      <li className="nav-item">
+                        <a className="nav-link" href="../demo-jobs/job-grid.html">
+                          <i className="bi-grid-fill" />
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a className="nav-link active" href="../demo-jobs/job-list.html">
+                          <i className="bi-list" />
+                        </a>
+                      </li>
+                    </ul>
+                    {/* End Nav */}
+                  </div>
+                </div>
+              </div>
+
+              {/* Nav */}
+              <ul className="nav nav-segment nav-fill mb-7" id="featuresTab" role="tablist">
+                <li className="nav-item" role="presentation">
+                  <a className={selectedTab==0?"nav-link active":"nav-link"} onClick={()=>setSelectedTab(0)} id="accountOrdersOne-tab" data-bs-toggle="tab" data-bs-target="#accountOrdersOne" role="tab" aria-controls="accountOrdersOne" aria-selected="true">Available Gigs</a>
+                </li>
+                <li className="nav-item" role="presentation">
+                  <a className={selectedTab==1?"nav-link active":"nav-link"} onClick={()=>setSelectedTab(1)} id="accountOrdersTwo-tab" data-bs-toggle="tab" role="tab" aria-controls="accountOrdersTwo" aria-selected="false" tabIndex={-1}>My applications</a>
+                </li>
+                {/* <li className="nav-item" role="presentation">
+                  <a className="nav-link" href="#accountOrdersThree" id="accountOrdersThree-tab" data-bs-toggle="tab" data-bs-target="#accountOrdersThree" role="tab" aria-controls="accountOrdersThree" aria-selected="false" tabIndex={-1}>Complete </a>
+                </li> */}
+              </ul>
+              {/* End Nav */}
+            </div>
+            {/* End Nav Scroller */}
+            {/* Tab Content */}
+            <div className="tab-content" id="accountOrdersTabContent">
+              <div className="tab-pane fade show active" id="accountOrdersOne" role="tabpanel" aria-labelledby="accountOrdersOne-tab">
+                {/* Select Group */}
+               
+                {/* <div className="row row-cols-1 row-cols-sm-2 mb-5"> */}
+                <div className="d-grid gap-5 mb-10">
+                  {
+                    projectLoading?
+                    <>
+                      <div className="row" style={{padding:"5%"}}>
+                        <div className="col-md-3">
+                        <Skeleton
+                            circle
+                            height={50}
+                            width={50}                   
+                            containerClassName="avatar-skeleton"
+                        />
+                          {/* <Skeleton width={50} /> */}
+                        </div>
+                        <div className="col-md-9">
+                          <Skeleton /> 
+                          <Skeleton count={3} />
+                          </div>
+                        </div>
+                        
+                       
+                    </>:
+                    <>  
+                    {
+                      selectedTab==0?
+                      projects?.map((project:any) => {
+                        
+                        return (
+                          <>
+                           <div className="card card-bordered">
+                              <div className="card-body">
+                                {/* Media */}
+                                <div className="d-sm-flex">
+                                  {/* Media */}
+                                  <div className="d-flex align-items-center align-items-sm-start mb-3">
+                                    <div className="flex-shrink-0">
+                                    <InitialsAvatar name={project?.data.projectName? project?.data.projectName:""} />
+                                    </div>
+                                    <div className="d-sm-none flex-grow-1 ms-3">
+                                      <h6 className="card-title">
+                                      <a className="text-dark" href="../demo-jobs/employer.html">{project?.data.projectName}</a>
+                                        <img
+                                          className="avatar avatar-xss ms-1"
+                                          src="../assets/svg/illustrations/top-vendor.svg"
+                                          alt="Review rating"
+                                          data-toggle="tooltip"
+                                          data-placement="top"
+                                          title="Claimed profile"
+                                        />
+                                      </h6>
+                                    </div>
+                                  </div>
+                                  {/* End Media */}
+                                  <div className="flex-grow-1 ms-sm-3">
+                                    <div className="row">
+                                      <div className="col col-md-8">
+                                        <h3 className="card-title">
+                                          <a className="text-dark" href="../demo-jobs/employer.html">
+                                          {project?.data.projectName}
+                                          </a>
+                                        </h3>
+                                        <div className="d-none d-sm-inline-block">
+                                          <h6 className="card-title">
+                                            <a className="text-dark" href="../demo-jobs/employer.html">
+                                            {project?.org.name}
+                                            </a>
+                                            {/* <img
+                                              className="avatar avatar-xss ms-1"
+                                              src="../assets/svg/illustrations/top-vendor.svg"
+                                              alt="Review rating"
+                                              data-toggle="tooltip"
+                                              data-placement="top"
+                                              title="Claimed profile"
+                                            /> */}
+                                          </h6>
+                                        </div>
+                                        <p>{project?.data?.description.substring(0,130)}...</p>
+                                        {/* <span className="d-block small text-body mt-2">
+                                       <strong> Budget:</strong> R{project.data.pay},00
+                                        </span> */}
+                                      </div>
+                                      {/* End Col */}
+                                      <div className="col-auto order-md-3">
+                                        {/* Checkbbox Bookmark */}
+                                        <div className="form-check form-check-bookmark">
+                                          <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            defaultValue=""
+                                            id="jobsCardBookmarkCheck1"
+                                          />
+                                          <label
+                                            className="form-check-label"
+                                            htmlFor="jobsCardBookmarkCheck1"
+                                          >
+                                           {/* <span onClick={()=>editProject(project.data)} className="form-check-bookmark-default" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Edit job" data-bs-original-title="Edit this job">
+                                          <i className="bi-pencil-square" style={{fontSize:"20px"}}/>
+                                        </span> */}
+                                            <span
+                                              className="form-check-bookmark-active"
+                                              data-bs-toggle="tooltip"
+                                              data-bs-placement="top"
+                                              aria-label="Saved"
+                                              data-bs-original-title="Saved"
+                                            >
+                                                <i className="bi-pencil-square" />
+                                            </span>
+                                          </label>
+                                        </div>
+                                        {/* End Checkbbox Bookmark */}
+                                      </div>
+                                      {/* End Col */}
+                                      <div className="col-12 col-md mt-3 mt-md-0">
+                                    
+                                        {project?.data.remote==1&& 
+                                         <span className="badge bg-soft-info text-info me-2">
+                                          <span className="legend-indicator bg-info" />
+                                          Remote
+                                        </span>
+                                        
+                                        }
+                                        <div className="mt-5 ">
+                                        <ul className="list-inline list-separator small text-body mt-3">
+                                          <li className=""> <strong>Start Date:</strong> {moment(project.data.startDate).format("DD/MM/YYYY")} </li>
+                                        </ul>
+                                        </div>
+                                       
+                                        <button onClick={()=>{setApplicationConfirm(true); setCurrentApplication(project?.data.id)}} style={{backgroundColor: "rgb(253, 45, 195)", color:"rgb(255, 255, 255)", marginTop:"10%", padding:"4px 15%"}} className="btn">Apply Now</button>
+                                      </div>
+                                      {/* End Col */}
+                                    </div>
+                                    {/* End Row */}
+                                  </div>
+                                </div>
+                                {/* End Media */}
+                              </div>
+                              <div className="card-footer pt-0">
+                                <ul className="list-inline list-separator small text-body">
+                                  <li className="list-inline-item"> {moment(project.data.dateCreated).fromNow()}</li>
+                                  <li className="list-inline-item">{project.data.city}</li>
+                                  <li className="list-inline-item"> {project?.data.remote==1? "Remote": project?.data.remote==1? "On-site":"Hybrid"  }</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </>
+                        )
+                      }):
+                      appliedProjects?.map((project:any) => {
+                        
+                        return (
+                          <>
+                           <div className="card card-bordered">
+                              <div className="card-body">
+                                {/* Media */}
+                                <div className="d-sm-flex">
+                                  {/* Media */}
+                                  <div className="d-flex align-items-center align-items-sm-start mb-3">
+                                    <div className="flex-shrink-0">
+                                    <InitialsAvatar name={project?.data.projectName? project?.data.projectName:""} />
+                                    </div>
+                                    <div className="d-sm-none flex-grow-1 ms-3">
+                                      <h6 className="card-title">
+                                      <a className="text-dark" href="../demo-jobs/employer.html">{project?.data.projectName}</a>
+                                        <img
+                                          className="avatar avatar-xss ms-1"
+                                          src="../assets/svg/illustrations/top-vendor.svg"
+                                          alt="Review rating"
+                                          data-toggle="tooltip"
+                                          data-placement="top"
+                                          title="Claimed profile"
+                                        />
+                                      </h6>
+                                    </div>
+                                  </div>
+                                  {/* End Media */}
+                                  <div className="flex-grow-1 ms-sm-3">
+                                    <div className="row">
+                                      <div className="col col-md-8">
+                                        <h3 className="card-title">
+                                          <a className="text-dark" href="../demo-jobs/employer.html">
+                                          {project?.data.projectName}
+                                          </a>
+                                        </h3>
+                                        <div className="d-none d-sm-inline-block">
+                                          <h6 className="card-title">
+                                            <a className="text-dark" href="../demo-jobs/employer.html">
+                                            {project?.org.name}
+                                            </a>
+                                            {/* <img
+                                              className="avatar avatar-xss ms-1"
+                                              src="../assets/svg/illustrations/top-vendor.svg"
+                                              alt="Review rating"
+                                              data-toggle="tooltip"
+                                              data-placement="top"
+                                              title="Claimed profile"
+                                            /> */}
+                                          </h6>
+                                        </div>
+                                        <p>{project?.data?.description.substring(0,130)}...</p>
+                                        {/* <span className="d-block small text-body mt-2">
+                                       <strong> Budget:</strong> R{project.data.pay},00
+                                        </span> */}
+                                      </div>
+                                      {/* End Col */}
+                                      <div className="col-auto order-md-3">
+                                        {/* Checkbbox Bookmark */}
+                                        <div className="form-check form-check-bookmark">
+                                          <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            defaultValue=""
+                                            id="jobsCardBookmarkCheck1"
+                                          />
+                                          <label
+                                            className="form-check-label"
+                                            htmlFor="jobsCardBookmarkCheck1"
+                                          >
+                                           {/* <span onClick={()=>editProject(project.data)} className="form-check-bookmark-default" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Edit job" data-bs-original-title="Edit this job">
+                                          <i className="bi-pencil-square" style={{fontSize:"20px"}}/>
+                                        </span> */}
+                                            <span
+                                              className="form-check-bookmark-active"
+                                              data-bs-toggle="tooltip"
+                                              data-bs-placement="top"
+                                              aria-label="Saved"
+                                              data-bs-original-title="Saved"
+                                            >
+                                                <i className="bi-pencil-square" />
+                                            </span>
+                                          </label>
+                                        </div>
+                                        {/* End Checkbbox Bookmark */}
+                                      </div>
+                                      {/* End Col */}
+                                      <div className="col-12 col-md mt-3 mt-md-0">
+                                    
+                                      
+                                        <div className="mt-5 ">
+                                        <ul className="list-inline list-separator small text-body mt-3">
+                                          <li className=""> <strong>Start Date:</strong> {moment(project.data.startDate).format("DD/MM/YYYY")} </li>
+                                        </ul>
+                                        </div>
+                                        <span style={{marginTop:"10%"}} className="badge bg-soft-info text-info me-2">
+                                          <span className="legend-indicator bg-info" />
+                                         Awaiting feedback
+                                        </span>
+                                        {/* <button onClick={()=>{setApplicationConfirm(true)}} style={{backgroundColor: "rgb(253, 45, 195)", color:"rgb(255, 255, 255)", marginTop:"10%", padding:"4px 10px"}} className="btn">Apply Now</button> */}
+                                      </div>
+                                      {/* End Col */}
+                                    </div>
+                                    {/* End Row */}
+                                  </div>
+                                </div>
+                                {/* End Media */}
+                              </div>
+                              <div className="card-footer pt-0">
+                                <ul className="list-inline list-separator small text-body">
+                                  <li className="list-inline-item"> {moment(project.data.dateCreated).fromNow()}</li>
+                                  <li className="list-inline-item">{project.data.city}</li>
+                                  <li className="list-inline-item"> {project?.data.remote==1? "Remote": project?.data.remote==1? "On-site":"Hybrid"  }</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </>
+                        )
+                      })
+                    }</>
+                    
+                  }
+
+                  
+           
+                </div>
+
+    
+                   {/* </div>YY */}
+              </div>
+            </div>
+            {/* End Tab Content */}
+          </div>
+          {/* End Body */}
+        </div>
+
+   
           </>
           }
           {/* End Card */}
