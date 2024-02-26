@@ -36,6 +36,8 @@ function developerOverview() {
 
       await GetProjectsByOrgId(id).then((res:any) => {
         setProjectLoading(false);
+
+        console.log("projects: ",res)
           setProjects(res.data);
       })
     }
@@ -58,7 +60,8 @@ function developerOverview() {
     useEffect(() => {
       //check url and setActive
       
-      loggedInUser._id&& _GetProjects("655a3ed54b837045859ab384");
+      loggedInUser._id && _GetProjects("655dea31a15c3984e6adc4aa");
+      console.log(loggedInUser)
 
       }, []);
 
@@ -200,7 +203,7 @@ function developerOverview() {
                        
                     </>:
                     <>  {
-                      sortedProjects && sortedProjects?.map((project:any) => {
+                      sortedProjects.length != 0 ? sortedProjects?.map((project:any) => {
                         
                         return (
                           <>
@@ -326,8 +329,17 @@ function developerOverview() {
                             </div>
                           </>
                         )
-                      })
-
+                      }):
+                      <div style={{textAlign:'center', display: 'flex', flexDirection:'column', alignItems:'center'}}>
+                        <p >
+                        No Projects Yet
+                        </p>
+                        <div className="col-md-6">
+                        <div className="d-flex justify-content-center align-items-md-center">
+                        <a href="/company/post-job"className="js-file-attach-reset-img btn btn-white btn-sm">Create new project</a>
+                        </div>
+                    </div>
+                        </div>
                     }</>
                     
                   }
