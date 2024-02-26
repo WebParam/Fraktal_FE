@@ -144,7 +144,7 @@ function developerOverview() {
                     {/* Nav */}
                     <ul className="nav nav-segment">
                       <li className="nav-item"  >
-                        <a className={`nav-link ${viewStyle == 'grid' && 'active'}`} onClick={() => setViewStyle('grid')}>
+                        <a className={`nav-link ${viewStyle == 'grid' && 'active'}`} onClick={() => setViewStyle('')}>
                           <i className="bi-grid-fill" />
                         </a>
                       </li>
@@ -180,7 +180,7 @@ function developerOverview() {
                 {/* Select Group */}
                
                 {/* <div className="row row-cols-1 row-cols-sm-2 mb-5"> */}
-                <div className={`d-grid gap-5 mb-10 cardsContainer ${viewStyle == 'grid' && 'grid'}`} >
+                <div className="d-grid gap-5 mb-10" >
                   {
                     projectLoading?
                     <>

@@ -84,10 +84,3 @@
     border-color: #FD2DC3;
 }
 
-.cardsContainer.grid {
-    
-    @media (min-width: 780px) {
-        display: grid;
-        grid-template-columns: 1fr 1fr;    
-    }
-}
