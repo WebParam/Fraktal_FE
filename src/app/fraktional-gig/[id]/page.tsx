@@ -10,7 +10,7 @@ import googleDrive from "../../../assets/svg/brands/google-drive-icon.svg";
 import { useRef, useState } from 'react';
 import { escape } from 'querystring';
 import Link from 'next/link';
-import { jobRegistration } from '@/app/endpoints/api';
+import { PersonnelExists, jobRegistration } from '@/app/endpoints/api';
 import { IApply, IApplyForJobRegistration } from '@/app/interfaces/user';
 import { CompleteApplication } from './verify-otp';
 import Modal from 'react-responsive-modal';
@@ -44,21 +44,8 @@ function viewGig({ params }: { params: { id: string }}) {
     const [portfolio, setPortfolio] = useState([]);
     const [expectedSalary, setExpectedSalary] = useState('');
     const [mobileExp, setMobileExp] = useState('');
-    const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
-    // const userInformation = {
-    //     firstName: firstName,
-    //     lastName: lastName,
-    //     email: email,
-    //     phone: phone,
-    //     summary: summary,
-    //     resume: resume,
-    //     workStatus: workStatus,
-    //     notice: noticePeriod,
-    //     portfolio: portfolio,
-    //     expectedSalary: expectedSalary,
-    //     mobileExp: mobileExp,
-    //     // jobid: params.id
-    //   } ;
+    const [editModalOpen, setEditModalOpen] = useState<boolean>(false); 
+    const [existingModalOpen, setExistingModalOpen] = useState<boolean>(false);
 
     const cookies = new Cookies(); // Create an instance of Cookies
     const [firstNameError, setFirstNameError] = useState(false);
@@ -226,73 +213,89 @@ function viewGig({ params }: { params: { id: string }}) {
 
 
         const applyForJob = async (e: any) => {
-            e.preventDefault();
-            let _id = toast.loading("Please do not navigate away from this page.", {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-          
-            const payload = {
-                email: email,
-                phone: phone,
-                employed: workStatus,
-                experience: yearsOfExperience,
-                notice: noticePeriod ==""?"nt1":noticePeriod??"nt1",
-                rate: expectedSalary,
-                file: resume,
-                projectId:params.id
-            } as IApply;
 
-            const formData = new FormData();
-            // debugger;
-            Object.entries(payload).forEach(([key, value]) => {
-                formData.append(key, value);
-            });
-
-            setEmailExist(false);
-            
-            const registrationResult = await jobRegistration(formData) ;
-            debugger;
-            const errorMessage = registrationResult.missing as string[];
-         
-            console.log(registrationResult)
-            if(registrationResult?.personnel?._user){
-                debugger;
-                cookies.set('fraktional-user', JSON.stringify(registrationResult?.user), { path: '/' });
-                // setEditModalOpen(true)
-                toast.update(_id, {
-                    render: "Your application has been created.",
-                    type: "success",
-                    isLoading: false,
-                    autoClose: 5000,
-                  });
-
-                  debugger;
-                //display missing info
-                setMissingErrorMessage(errorMessage);
-                setEditModalOpen(true);
-
-             
+            const exists = await PersonnelExists(email) as any;
+            if(exists.data?.id){
+                // cookies.set('fraktional-user', JSON.stringify(exists.response), { path: '/' });
+                // window.location.href = "/developer-overview"
+                setExistingModalOpen(true);
             }else{
+
                 debugger;
-                toast.update(_id, {
-                    render: "Your application has not been created.",
-                    type: "error",
-                    isLoading: false,
-                    autoClose: 5000
+                if(exists){
+                    
+                }
+    
+                e.preventDefault();
+                let _id = toast.loading("Please do not navigate away from this page.", {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
                   });
-                setEmailExist(true)
-                window.scrollTo({
-                    top: 10,
-                    behavior: 'smooth' // For smooth scrolling
+              
+                const payload = {
+                    email: email,
+                    phone: phone,
+                    employed: workStatus,
+                    experience: yearsOfExperience,
+                    notice: noticePeriod ==""?"nt1":noticePeriod??"nt1",
+                    rate: expectedSalary,
+                    file: resume,
+                    projectId:params.id
+                } as IApply;
+    
+                const formData = new FormData();
+                // debugger;
+                Object.entries(payload).forEach(([key, value]) => {
+                    formData.append(key, value);
                 });
+    
+                setEmailExist(false);
+                
+                const registrationResult = await jobRegistration(formData) ;
+                debugger;
+                const errorMessage = registrationResult.missing as string[];
+             
+                console.log(registrationResult)
+                if(registrationResult?.personnel?._user){
+                    debugger;
+                    cookies.set('fraktional-user', JSON.stringify(registrationResult?.user), { path: '/' });
+                    // setEditModalOpen(true)
+                    toast.update(_id, {
+                        render: "Your application has been created.",
+                        type: "success",
+                        isLoading: false,
+                        autoClose: 5000,
+                      });
+    
+                      debugger;
+                    //display missing info
+                    setMissingErrorMessage(errorMessage);
+                    setEditModalOpen(true);
+    
+                 
+                }else{
+                    debugger;
+                    toast.update(_id, {
+                        render: "Your application has not been created.",
+                        type: "error",
+                        isLoading: false,
+                        autoClose: 5000
+                      });
+                    setEmailExist(true)
+                    window.scrollTo({
+                        top: 10,
+                        behavior: 'smooth' // For smooth scrolling
+                    });
+                }
+
             }
+           
         }
 
         function saveAndCloseEditModal(){
@@ -315,12 +318,14 @@ function viewGig({ params }: { params: { id: string }}) {
 
           function sendToLogin(){
             window.location.href = "/developer-overview"
-          
- 
-   //   window.location.href = "/auth/login"
+          }
 
+          function sendExistingToLogin(){
+            window.location.href = "/auth/login"
+    
 
           }
+
           const customModalStyles = {
             modal: {
               maxWidth: '50%', 
@@ -347,6 +352,16 @@ function viewGig({ params }: { params: { id: string }}) {
         </Link> */}
         {/* Page Header */}
         <div className="container content-space-t-2">
+        <Modal open={existingModalOpen} styles={customModalStyles} onClose={() => modalClose()} center>
+            <div style={{width:"100%"}}>
+            <h4>We have detected an existing profile for the email supplied.</h4>
+            <p>Please login to apply for the gig</p>
+          
+                <button onClick={()=>sendExistingToLogin()} className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff', width:"100%"}}>Login</button>
+            </div>
+           
+      </Modal>
+ 
         <Modal open={editModalOpen} styles={customModalStyles} onClose={() => modalClose()} center>
             <div style={{width:"100%"}}>
             <h4>Your job application has been created</h4>
@@ -585,33 +600,7 @@ function viewGig({ params }: { params: { id: string }}) {
                     </a>
                 </div>
                 </div>
-                {/* End Add Phone Input Field */}
-                {/* <hr className="my-7" />
-                <div className="mb-4">
-                <h3>Profile</h3>
-                </div> */}
-                {/* Form */}
-                {/* <div className="mb-4">
-                <label className="form-label" htmlFor="applyForJobSummary">Summary</label>
-                <textarea 
-                className={`form-control ${summaryError ? 'error':''}`} 
-                name="applyForJobSummaryName" 
-                id="applyForJobSummary" 
-                placeholder="In a few words, tell us about yourself" 
-                aria-label="In a few words, tell us about yourself" 
-                rows={6} 
-                value={summary}
-                onChange={handleSummary} />
-                {summaryError ? <p style={{color: 'red'}}>Please provide more than 20 characters</p>: ''}
-                </div> */}
-                {/* End Form */}
-                {/* Form */}
-                
-                {/* End Form */}
-                {/* <hr className="my-7" />
-                <div className="mb-4">
-                <h3>Details</h3>
-                </div> */}
+             
                 <div className="row">
                 <div className="col-sm-6">
                 <div className="mb-1">
@@ -641,35 +630,13 @@ function viewGig({ params }: { params: { id: string }}) {
                 />
                 <label className="btn btn-sm" htmlFor="applyForJobWorkStatusNoBtnRadio"><i className="bi-hand-thumbs-down me-1" /> No</label>
                 
-                {/* {workStatus =="yes" && <div className="">
-                <label className="form-label" htmlFor="applyForJobNoticePeriod">Please provide some more details about your current job roles and responsibilities</label>
-                <textarea 
-                    cols={6}
-                    className="form-control" 
-                    name="applyForCurrentJob" 
-                    id="applyForCurrentJob" 
-                    placeholder="Please enter current job details" 
-                    aria-label="Please enter current job details"
-                    value={currentJob}
-                    onChange={handleJob}
-                />
-                </div>
-                } */}
+              
                 </div>
                 </div>
                 <div className="col-sm-6">
                 <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobNoticePeriod">Notice period *</label>
-                {/* <input 
-                    type="text" 
-                    className={`form-control ${noticeError ? 'error':''}`} 
-                    name="applyForJobNameNoticePeriod" 
-                    id="applyForJobNoticePeriod" 
-                    placeholder="" 
-                    aria-label=""
-                    value={notice}
-                    onChange={handleNotice}
-                /> */}
+              
                   <Select
                     className="select-padded "
                     isDisabled={workStatus != 'yes'}
@@ -694,16 +661,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 <div className="col-sm-6">
                 <div className="mb-4">
                 <label className="form-label" htmlFor="applyForJobNoticePeriod">Years Of Experience *</label>
-                {/* <input 
-                    type="text" 
-                    className={`form-control ${yearsOfExperienceError ? 'error':''}`} 
-                    name="applyForJobNameNoticePeriod" 
-                    id="applyForJobNoticePeriod" 
-                    placeholder="" 
-                    aria-label=""
-                    value={yearsOfExperience}
-                    onChange={handleYearsOfExperience}
-                /> */}
+              
                  <Select
                     className="select-padded "
                     options={experience}
@@ -718,18 +676,7 @@ function viewGig({ params }: { params: { id: string }}) {
                   />
                 </div>
                 </div>
-                {/* End Form */}
-                {/* Form */}
-                {/* <div className="mb-4">
-                <label className="form-label">Upload your portfolio <i className="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Maximum file size 10 MB." data-bs-original-title="Maximum file size 10 MB." /></label>
-                <div id="portfolioAttach" className={`js-dropzone dz-dropzone dz-dropzone-card dz-clickable ${portfolioError ? 'error':''}`}>
-                    <div className="dz-message">
-                    <input type="file" name="portfolio" id="porfolio" onChange={handlePortfolio} />
-                    </div>
-                </div>
-                </div> */}
-                {/* End Form */}
-                {/* Form */}
+                
        
                 <div className="col-sm-6">
                 <div className="mb-4">
@@ -747,35 +694,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 </div>
                 </div>
                 </div>
-                {/* End Form */}
-                {/* <div className="mb-1">
-                <label className="input-label">Do you have experience designing for mobile?</label>
-                </div> */}
-                {/* Radio Button Group */}
-                {/* <div className="btn-group btn-group-segment mb-4" role="group" aria-label="Mobile experience radio button group">
-                    <input
-                    type="radio"
-                    className="btn-check"
-                    name="applyForJobWorkExperienceBtnRadio"
-                    id="applyForJobWorkExperienceYesBtnRadio"
-                    autoComplete="off"
-                    checked={mobileExp === 'yes'} // Check if 'Yes' is selected
-                    onChange={() => handleMobileExp('yes')} // Handle 'Yes' selection
-                    />
-                    <label className="btn btn-sm" htmlFor="applyForJobWorkExperienceYesBtnRadio"><i className="bi-hand-thumbs-up me-1" /> Yes</label>
-
-                    <input
-                    type="radio"
-                    className="btn-check"
-                    name="applyForJobWorkExperienceBtnRadio"
-                    id="applyForJobWorkExperienceNoBtnRadio"
-                    autoComplete="off"
-                    checked={mobileExp === 'no'} // Check if 'No' is selected
-                    onChange={() => handleMobileExp('no')} // Handle 'No' selection
-                    />
-                    <label className="btn btn-sm" htmlFor="applyForJobWorkExperienceNoBtnRadio"><i className="bi-hand-thumbs-down me-1" /> No</label>
-                </div> */}
-                {/* End Radio Button Group */}
+              
                 {showerror && <h5 style={{ textAlign: 'center', color: 'red',  fontSize:"12px",marginTop: '20px'}}>Please complete all required fields</h5>}
             {emailExist && <h5 style={{ textAlign: 'center', color: 'red', fontSize:"12px", marginTop: '20px'}}>Error sending application. If you have registered previously, please login and try again.</h5>}
                 <div className="d-grid mt-5">

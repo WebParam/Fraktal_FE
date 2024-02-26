@@ -15,12 +15,19 @@ import {
 import { ICompanyRegister } from "../interfaces/organisation";
 import { IJobApplication } from "../interfaces/IJobApplication";
 import { IApplyForJobRegistration } from "../interfaces/job-registration";
-
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 // const url = "https://viconet-vercel.vercel.app"
 const url = "https://viconet-vercel.vercel.app"
 // const azureUrl = "https://fraktional-be.azurewebsites.net"
 const azureUrl = "https://localhost:7257"
+const user = JSON.stringify(cookies.get("fraktional-user"));
 
+const header =  {
+  //  "Authorization": `Anonymous`,
+   "Access-Control-Allow-Origin": "*",
+   "fraktional-user": user??""
+ }
 
 export async function ChangePasswordAndActivate(payload: IUserResetPassword) {
   try {
@@ -101,6 +108,7 @@ export async function uploadProfilePic(profilePic: FormData, userId: string) {
     headers: {
       "content-type": "multipart/form-data",
       "Access-Control-Allow-Origin": "*",
+      "fraktional-user": user??""
     },
   };
   const resp = await axios.post(
@@ -117,6 +125,7 @@ export async function uploadOrgPic(profilePic: FormData, userId: string) {
     headers: {
       "content-type": "multipart/form-data",
       "Access-Control-Allow-Origin": "*",
+      "fraktional-user": user??""
     },
   };
   const resp = await axios.post(
@@ -168,7 +177,7 @@ export async function GetOrganisation(id: string) {
 
 export async function GetProjectsByOrgId(id: string) {
   try {
-    const response = await axios.get(`${azureUrl}/projects/org/${id}`);
+    const response = await axios.get(`${azureUrl}/projects/org/${id}`, { headers: header });
     
     if (response.status === 200 || response.status === 201) {
       console.log("retrieved successful");
@@ -186,7 +195,7 @@ export async function GetProjectsByOrgId(id: string) {
 
 export async function GetProjectById(id: string) {
   try {
-    const response = await axios.get(`${azureUrl}/projects/${id}`);
+    const response = await axios.get(`${azureUrl}/projects/${id}`,  { headers: header });
     
     if (response.status === 200 || response.status === 201) {
       console.log("retrieved successful");
@@ -204,7 +213,7 @@ export async function GetProjectById(id: string) {
 
 export async function GetAllProjects() {
   try {
-    const response = await axios.get(`${azureUrl}/projects/`);
+    const response = await axios.get(`${azureUrl}/projects/`,  { headers: header });
     
     if (response.status === 200 || response.status === 201) {
       console.log("retrieved successful");
@@ -221,7 +230,7 @@ export async function GetAllProjects() {
 
 export async function GetAllDeveloperProfiles() {
   try {
-    const response = await axios.get(`${azureUrl}/personnel/`);
+    const response = await axios.get(`${azureUrl}/personnel/`,  { headers: header });
     
     if (response.status === 200 || response.status === 201) {
       console.log("retrieved successful");
@@ -293,9 +302,44 @@ export async function GetStaffInfo(id: string) {
   }
 }
 
+export async function PersonnelExists(email: string) {
+  try {
+    const response = await axios.get(`${azureUrl}/personnelExists/${email}`,  { headers: header });
+    
+    if (response.status === 200 || response.status === 201) {
+      console.log("retrieved successful");
+      return response;
+    } else {
+      console.error("retrieve failed");
+      return response;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return error;
+  }
+}
+
+export async function ProjectsByPersonnel() {
+  try {
+    const response = await axios.get(`${azureUrl}/projects/byPersonnel/`,  { headers: header });
+    
+    if (response.status === 200 || response.status === 201) {
+      console.log("retrieved successful");
+      return response;
+    } else {
+      console.error("retrieve failed");
+      return response;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return error;
+  }
+}
+
+
 export async function CreateDeveloperProfile(payload: IDeveloperProfile) {
   try {
-    const response = await axios.post(`${url}/api/personnel`, payload);
+    const response = await axios.post(`${url}/api/personnel`, payload, );
 
     if (response.status === 200 || response.status === 201) {
       console.log("update successful");
@@ -383,7 +427,7 @@ export async function uploadCV(formData: FormData) {
 
 export async function CreateJob(payload: IJobApplication) {
   try {
-    const response = await axios.post(`${azureUrl}/Project`, payload);
+    const response = await axios.post(`${azureUrl}/Project`, payload,  { headers: header });
 
     if (response.status === 200 || response.status === 201) {
       console.log("JOB POSTED");
@@ -400,7 +444,7 @@ export async function CreateJob(payload: IJobApplication) {
 
 export async function UpdateJob(payload: IJobApplication) {
   try {
-    const response = await axios.post(`${azureUrl}/api/jobApplications`, payload);
+    const response = await axios.post(`${azureUrl}/api/jobApplications`, payload,  { headers: header });
 
     if (response.status === 200 || response.status === 201) {
       console.log("Job Updated");
@@ -511,7 +555,7 @@ export async function verifyOtp(payload: IVerifyOtp) {
 
 export async function jobRegistration(payload:any) {
   try {
-    const response = await axios.post(`${azureUrl}/apply`, payload);
+    const response = await axios.post(`${azureUrl}/apply`, payload,  { headers: header });
   
     if (response.status === 200 || response.status === 201) {
       debugger;
@@ -546,6 +590,25 @@ export async function sendOtpAzure(payload: IUserSendOTP) {
     return false;
   }
 }
+  export async function onboardDeveloper(payload:any) {
+    try {
+      const response = await axios.post(`${azureUrl}/apply`, payload,  { headers: header });
+    
+      if (response.status === 200 || response.status === 201) {
+        debugger;
+        if (response.data?.personnel?.dateCreated) {
+          return response.data;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      return false;
+    }
+}
 
 export async function verifyOtpAzure(payload: IVerifyOtp) {
   try {
@@ -574,6 +637,25 @@ export async function ChangePasswordAzure(payload: IUserUpdatePassword) {
       return true;
     } else {
       console.error("password reset failed");
+
+}}catch (error) {
+  console.error("Error:", error);
+  return false;
+}
+}
+
+export async function addToShortlist(payload:any) {
+  try {
+    const response = await axios.post(`${azureUrl}/projects/shortlist`, payload,  { headers: header });
+  
+    if (response.status === 200 || response.status === 201) {
+      debugger;
+      if (response.data) {
+        return response.data;
+      } else {
+        return false;
+      }
+    } else {
       return false;
     }
   } catch (error) {
