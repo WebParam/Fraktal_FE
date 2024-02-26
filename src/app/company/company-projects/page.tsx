@@ -50,9 +50,9 @@ function developerOverview() {
     const sortedProjects = projects.sort((a:any, b:any) => {
       console.log(a)
       if (selectedOption === 'ascending') {
-        return a.data?.projectName.localeCompare(b.data?.projectName); // A-to-Z based on project name
+        return a.data?.projectName.localeCompare(b.data?.projectName); // A-to-Z 
       } else {
-        return b.data?.projectName.localeCompare(a.data?.projectName); // Z-to-A based on project name
+        return b.data?.projectName.localeCompare(a.data?.projectName); // Z-to-A 
       }
     });
 
@@ -60,7 +60,7 @@ function developerOverview() {
     useEffect(() => {
       //check url and setActive
       
-      loggedInUser._id && _GetProjects("655dea31a15c3984e6adc4aa");
+      loggedInUser._id && _GetProjects("655a3ed54b837045859ab384");
       console.log(loggedInUser)
 
       }, []);
