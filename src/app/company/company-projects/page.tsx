@@ -36,6 +36,8 @@ function developerOverview() {
 
       await GetProjectsByOrgId(id).then((res:any) => {
         setProjectLoading(false);
+
+        console.log("projects: ",res)
           setProjects(res.data);
       })
     }
@@ -48,9 +50,9 @@ function developerOverview() {
     const sortedProjects = projects.sort((a:any, b:any) => {
       console.log(a)
       if (selectedOption === 'ascending') {
-        return a.data?.projectName.localeCompare(b.data?.projectName); // A-to-Z based on project name
+        return a.data?.projectName.localeCompare(b.data?.projectName); // A-to-Z 
       } else {
-        return b.data?.projectName.localeCompare(a.data?.projectName); // Z-to-A based on project name
+        return b.data?.projectName.localeCompare(a.data?.projectName); // Z-to-A 
       }
     });
 
@@ -58,7 +60,8 @@ function developerOverview() {
     useEffect(() => {
       //check url and setActive
       
-      loggedInUser._id&& _GetProjects("655a3ed54b837045859ab384");
+      loggedInUser._id && _GetProjects("655a3ed54b837045859ab384");
+      console.log(loggedInUser)
 
       }, []);
 
@@ -141,7 +144,7 @@ function developerOverview() {
                     {/* Nav */}
                     <ul className="nav nav-segment">
                       <li className="nav-item"  >
-                        <a className={`nav-link ${viewStyle == 'grid' && 'active'}`} onClick={() => setViewStyle('grid')}>
+                        <a className={`nav-link ${viewStyle == 'grid' && 'active'}`} onClick={() => setViewStyle('')}>
                           <i className="bi-grid-fill" />
                         </a>
                       </li>
@@ -177,7 +180,7 @@ function developerOverview() {
                 {/* Select Group */}
                
                 {/* <div className="row row-cols-1 row-cols-sm-2 mb-5"> */}
-                <div className={`d-grid gap-5 mb-10 cardsContainer ${viewStyle == 'grid' && 'grid'}`} >
+                <div className="d-grid gap-5 mb-10" >
                   {
                     projectLoading?
                     <>
@@ -200,7 +203,7 @@ function developerOverview() {
                        
                     </>:
                     <>  {
-                      sortedProjects?.map((project:any) => {
+                      sortedProjects.length != 0 ? sortedProjects?.map((project:any) => {
                         
                         return (
                           <>
@@ -326,8 +329,17 @@ function developerOverview() {
                             </div>
                           </>
                         )
-                      })
-
+                      }):
+                      <div style={{textAlign:'center', display: 'flex', flexDirection:'column', alignItems:'center'}}>
+                        <p >
+                        No Projects Yet
+                        </p>
+                        <div className="col-md-6">
+                        <div className="d-flex justify-content-center align-items-md-center">
+                        <a href="/company/post-job"className="js-file-attach-reset-img btn btn-white btn-sm">Create new project</a>
+                        </div>
+                    </div>
+                        </div>
                     }</>
                     
                   }

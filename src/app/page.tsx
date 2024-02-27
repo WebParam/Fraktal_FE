@@ -21,7 +21,7 @@ import macbook from '../assets/img/laptop.png';
 import Footer from './components/Footer/Footer';
 import sanlam from '../assets/img/sanlam.png';
 import discovery from '../assets/img/discovery.png';
-
+import banner1 from '../assets/img/banner1.png'
 import dynamic from "next/dynamic";
 import TypedText from './TypedText';
 import React, { useEffect, useState } from 'react';
@@ -35,7 +35,7 @@ import { GetBlog } from './endpoints/api';
 import { useParams } from 'next/navigation';
 import router from 'next/router';
 import moment from 'moment';
-import background from '../assets/img/Background.svg';
+import background from '../assets/img/banner1.png';
 import backf from './images/Background.png'
 import cards from '../assets/img/Asset 2.png';
 import Parallaxx from './components/parallax/page';
@@ -157,7 +157,7 @@ function HomePage() {
       
     <div 
       style={{
-        backgroundImage: `url(${background.src})`,  
+        backgroundImage: `url(${banner1.src})`,  
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',

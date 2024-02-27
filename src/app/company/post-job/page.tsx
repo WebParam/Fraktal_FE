@@ -27,7 +27,8 @@ function PostJob() {
     const [errorstyle2, setErrorStyle2] = useState(false);
     const [errorstyle4, setErrorStyle4] = useState(false);
     const [errorstyle6, setErrorStyle6] = useState(false); 
-    const [errorstyle7, setErrorStyle7] = useState(false); 
+    const [errorstyle7, setErrorStyle7] = useState(false);
+    const [responsibilitiesError, setResposnisbilitesError] = useState(false);
     //formInput4
     const [projectType, setProjectType] = useState("");
     const [projectSector, setProjectSector] = useState("");
@@ -240,7 +241,10 @@ function PostJob() {
     function setStepActive(step:number){
 
       setActiveStep(step);
-
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     }
 
     const jobTypeOptions = [
@@ -301,47 +305,75 @@ function PostJob() {
 
     const goToSecondSlide = () => {
       if (projectName.length > 1 ) {
+        debugger;
         setErrorStyle1(false);
-        setActiveStep(state => 1)
+        setActiveStep(state => state = 1)
+
+        window.scroll({
+          top: 0,
+          behavior: 'smooth'
+        })
+      } else {
+        setErrorStyle1(true);
       }
 
-      setErrorStyle1(true);
     }
 
   const goToThirdSlide = () => {
-    if (streetAddress.length > 5 ) {
+    if (streetAddress.length > 1) {
       setErrorStyle2(false);
       setActiveStep(state => 2)
+
+      window.scroll({
+        top: 0,
+        behavior: 'smooth'
+      })
+    } else {
+      setErrorStyle2(true);
     }
 
-      setErrorStyle2(true);
   }
 
   const goToFifththSlide = () => {
-    if (pay > 0 && fromDate.length>6 && toDate.length > 6) {
+    if (pay > 0 && fromDate.length> 6 && toDate.length > 6) {
       setErrorStyle4(false);
       setActiveStep(state => 4)
+
+      window.scroll({
+        top: 0,
+        behavior: 'smooth'
+      })
+    } else {
+      setErrorStyle4(true);
     }
 
-      setErrorStyle4(true);
   }
 
   const goToSixthSlide = () => {
-    // if (website.length > 5) {
+    if (website.includes('.')) {
       setErrorStyle6(false);
       setActiveStep(state => 5)
-    // }
+      window.scroll({
+        top: 0,
+        behavior: 'smooth'
+      })
+    } else {
+      setErrorStyle6(true);
+    }
 
-      // setErrorStyle6(true);
   }
 
   const goToSeventhSlide = () => {
     if (description.length > 80) {
       setErrorStyle7(false);
       setActiveStep(state => 6)
-    }
-
+      window.scroll({
+        top: 0,
+        behavior: 'smooth'
+      })
+    } else {
       setErrorStyle7(true);
+    }
   }
 
   function handleSelectTechStack(data: any) {
@@ -550,7 +582,7 @@ function PostJob() {
                       </div>
                     </a>
                   </li>
-                  <li className={`step-item ${activeStep==6? "active focus":""}`}>
+                  <li className={`step-item ${activeStep == 6 ? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
                       // onClick={()=>{setStepActive(6)}}
@@ -1151,8 +1183,8 @@ function PostJob() {
               {/* Card */}
               <div
                 id="postJobStepPayment"
-                style={{ display: activeStep!= 3? "none":"" }} 
-                className={activeStep==3?"card active":"card"}>
+                style={{ display: activeStep != 3 ? "none":"" }} 
+                className={activeStep == 3 ? "card active":"card"}>
               
                 {/* Header */}
                 <div
@@ -1190,15 +1222,9 @@ function PostJob() {
                           name="jobSalaryTypeSelect"
                           // onChange={((e)=>setPay(e.target.value))}
                         >
-                          {/* <option value="Range" selected={true}>
-                            Range
-                          </option> */}
                           <option value={0}  selected={budgetType==0}>Starting at</option>
                           <option value={1}  selected={budgetType==1}>Up to</option>
                           <option value={2}  selected={budgetType==2}>Exact rate</option>
-                          {/* <option value="Salary based on experience">
-                            Salary based on experience
-                          </option> */}
                         </select>
                         {/* End Select */}
                       </div>
@@ -1335,7 +1361,7 @@ function PostJob() {
                           onChange={(e) => {
                             const inputTextto = e.target.value;
                             // Use a regular expression to check if the input matches the desired format
-                            const isValidFormat =inputTextto.length>2;
+                            const isValidFormat = inputTextto.length > 2;
                         
                             if (isValidFormat) {
                               setToDate(inputTextto);
@@ -1724,24 +1750,8 @@ function PostJob() {
                         </span>
                       </label>
                     
-                      {/* <label
-                        className="form-control"
-                        htmlFor="officeHoursCheckbox9"
-                      >
-                        <span className="form-check">
-                          <input
-                            type="checkbox"
-                            className="form-check-input"
-                            name="officeHoursCheckboxName"
-                            id="officeHoursCheckbox9"
-                          />
-                          <span className="form-check-label">Overtime</span>
-                        </span>
-                      </label>
-                */}
                     </div>
                   </div>
-                  {/* End Form */}
                   {/* Form */}
                   <div className="mb-4">
                     <label htmlFor="companyWebsiteLabel" className="form-label">
@@ -1867,13 +1877,8 @@ function PostJob() {
                           </span>
                         </span>
                       </label>
-                      {/* End Custom Radio */}
-                      {/* Custom Radio */}
-                     
-                      {/* End Custom Radio */}
                     </div>
                   </div>
-                  {/* End Form */}
                   {/* Form */}
                   <div className="mb-4">
                     <div className="row mb-2">
@@ -1891,15 +1896,17 @@ function PostJob() {
                       placeholder="Ex: All customers are required to wear a mask, curbside pickup available, common surfaces are sanitized regularly, etc."
                       aria-label="Ex: All customers are required to wear a mask, curbside pickup available, common surfaces are sanitized regularly, etc."
                       rows={4}
-                      onChange={((e)=>setDescription(e.target.value))}
-                      maxLength={250}
+                      onChange={((e)=> {
+                        setErrorStyle7(false);
+                        setDescription(e.target.value)})}
+                      // maxLength={250}
                       data-hs-count-characters-options='{
                           "output": "#additionalCovid19PrecautionsCountCharacters"
                         }'
                       defaultValue={description}
                       value={description}
                     />
-                      {errorstyle7 && <span style={{color: 'red'}}>Please provide a description of more than 80 characters</span>}
+                      {(!description && errorstyle7) && <span style={{color: 'red'}}>Please provide a description of more than 80 characters</span>}
                   </div>
                   {/* End Form */}
                      {/* Form */}
@@ -1928,7 +1935,7 @@ function PostJob() {
                       defaultValue={responsibilities}
                       value={responsibilities}
                     />
-                      {errorstyle7 && <span style={{color: 'red'}}>Please provide a description of more than 80 characters</span>}
+                      {(!responsibilities && errorstyle7) && <span style={{color: 'red'}}>Please provide a description of more than 80 characters</span>}
                   </div>
                   {/* End Form */}
                 </div>

@@ -126,7 +126,7 @@ function Fraktional() {
         };
 
         
-        const Addorganisation = await registerOrganisation( payload as ICompanyRegister); // Rename the constant
+        const Addorganisation = await registerOrganisation( payload as ICompanyRegister); 
         if(Addorganisation){
           //window.location.href="/company-overview"
           toast.dismiss(_id);

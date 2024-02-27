@@ -162,7 +162,6 @@ function PostJob() {
     try {
       const res = await CreateJob(payload);
 
-      
       if(res){
         toast.update(_id, {
                render:
@@ -226,6 +225,10 @@ function PostJob() {
 
   function setStepActive(step:number){
 
+    window.scroll({
+      top: 0,
+      behavior: 'smooth'
+    })
     setActiveStep(step);
 
   }
@@ -287,11 +290,16 @@ const submitOptions = [
   };
 
   const goToSecondSlide = () => {
-      if (projectName.length > 1 ) {
+      if (projectName != '') {
         setErrorStyle1(false);
-        setActiveStep(state => 1)
-      }
+        setActiveStep(state => state++)
 
+        window.scroll({
+          top: 0,
+          behavior: 'smooth'
+        })
+      }
+        alert('project name cant be found')
         setErrorStyle1(true);
   }
 
