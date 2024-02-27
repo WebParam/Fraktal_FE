@@ -175,7 +175,8 @@ function viewGig({ params }: { params: { id: string }}) {
             
             if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
                 setEmailError(true);
-                setShowErrorMessage(true);return;
+                setShowErrorMessage(true);
+                return;
             } else {
                 setEmailError(false);
                 setShowErrorMessage(false);
@@ -183,7 +184,8 @@ function viewGig({ params }: { params: { id: string }}) {
         
             if (!phone || !/^\d+$/.test(phone)) {
                setPhoneError(true)
-               setShowErrorMessage(true);return;
+               setShowErrorMessage(true);
+               return;
             } else {
                 setPhoneError(false);
                 setShowErrorMessage(false);
@@ -191,14 +193,16 @@ function viewGig({ params }: { params: { id: string }}) {
 
             if (!resume) {
                 setResumeError(true);
-                setShowErrorMessage(true);return;
+                setShowErrorMessage(true);
+                return;
             } else {
                 setResumeError(false);
                 setShowErrorMessage(false);
             }
             if (!yearsOfExperience) {
                 setyearsOfExperienceError(true)
-                setShowErrorMessage(true);return;
+                setShowErrorMessage(true);
+                return;
              } else {
                 setyearsOfExperienceError(false);
                  setShowErrorMessage(false);
@@ -216,7 +220,8 @@ function viewGig({ params }: { params: { id: string }}) {
 
             if (!/^\d+$/.test(expectedSalary)) {
                 setExpectedSalaryError(true);
-                setShowErrorMessage(true);return;
+                setShowErrorMessage(true);
+                return;
             } else {
                 setExpectedSalaryError(false);
                 setShowErrorMessage(false);
