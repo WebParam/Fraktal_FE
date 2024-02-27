@@ -687,7 +687,7 @@ useEffect(() => {
           <div className="col-lg-9">
             <div className="row align-items-center mb-5">
               <div className="col-sm mb-3 mb-sm-0">
-                <h3 className="mb-0">90 jobs for <span className="fw-normal">UK</span></h3>
+                <h3 className="mb-0">{personnel?.length} developers  <span className="fw-normal"></span></h3>
               </div>
               <div className="col-sm-auto">
                 <div className="d-sm-flex justify-content-sm-end align-items-center">
@@ -732,6 +732,7 @@ useEffect(() => {
               {
                 personnel&& personnel.map(x=>{
                   debugger;
+                
                   return(
                    
                     <>
@@ -742,7 +743,7 @@ useEffect(() => {
                     {/* Media */}
                     <div className="d-flex align-items-center align-items-sm-start mb-3">
                       <div className="flex-shrink-0">
-                        <img className="avatar avatar-sm avatar-4x3"  src={x?.user?.profilePicture} alt="Image Description" />
+                        <img className="avatar avatar-sm avatar-4x3"  src={x?.user?.profilePicture} alt="" />
                       </div>
                       <div className="d-sm-none flex-grow-1 ms-3">
                         <h6 className="card-title">
@@ -761,13 +762,12 @@ useEffect(() => {
                           <div className="d-none d-sm-inline-block">
                             <h6 className="card-title">
                               <a className="text-dark" href="../demo-jobs/employer.html">{x?.user?.email}</a>
-                              <img className="avatar avatar-xss ms-1" src="../assets/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
+                              {/* <img className="avatar avatar-xss ms-1" src="../assets/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" /> */}
                             </h6>
                           </div>
                         </div>
                         {/* End Col */}
-                        <div className="col-auto order-md-3">
-                          {/* Checkbbox Bookmark */}
+                        {/* <div className="col-auto order-md-3">
                           <div className="form-check form-check-bookmark">
                             <input className="form-check-input" type="checkbox"  id="jobsCardBookmarkCheck1" />
                             <label className="form-check-label" htmlFor="jobsCardBookmarkCheck1">
@@ -779,14 +779,24 @@ useEffect(() => {
                               </span>
                             </label>
                           </div>
-                          {/* End Checkbbox Bookmark */}
-                        </div>
+                        </div> */}
                         {/* End Col */}
                         <div className="col-12 col-md mt-3 mt-md-0">
-                          <span className="d-block small text-body mb-1">$125k-$135k yearly</span>
-                          <span className="badge bg-soft-info text-info me-2">
-                            <span className="legend-indicator bg-info" />Remote
+                          {/* <span className="d-block small text-body mb-1">Fraktional CV</span> */}
+                          {/* {
+                            x.keySkills.map((x:any)=>{
+                              return(
+                                <span className="badge bg-soft-info text-info me-2">
+                                <span className="legend-indicator bg-info" />{x}
+                              </span>
+                              )
+                            })
+                          } */}
+                          <a href={`https://fraktional-be.azurewebsites.net/getPersonnelCv/${x._user}`} target='__blank' className="badge bg-soft-info text-info me-2">
+                          <span>
+                            <span className="legend-indicator bg-info" />Fraktional CV
                           </span>
+                          </a>
                         </div>
                         {/* End Col */}
                       </div>

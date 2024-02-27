@@ -4,15 +4,9 @@ import Image from 'next/image';
 import { gigs } from '../../gigs';
 import star from "../../../assets/svg/illustrations/star.svg";
 import halfstar from "../../../assets/svg/illustrations/star-half.svg";
-import laptop from "../../../assets/vendor/bootstrap-icons/icons/laptop.svg";
-import dropbox from "../../../assets/svg/brands/dropbox-icon.svg";
-import googleDrive from "../../../assets/svg/brands/google-drive-icon.svg";
 import { useRef, useState } from 'react';
-import { escape } from 'querystring';
-import Link from 'next/link';
 import { PersonnelExists, jobRegistration } from '@/app/endpoints/api';
-import { IApply, IApplyForJobRegistration } from '@/app/interfaces/user';
-import { CompleteApplication } from './verify-otp';
+import { IApply } from '@/app/interfaces/user';
 import Modal from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 import MobileMenu from '@/app/components/MobileMenu/MobileMenu';
@@ -191,15 +185,7 @@ function viewGig({ params }: { params: { id: string }}) {
                  setShowErrorMessage(false);
              }
 
-            // if (!noticePeriod.trim()) {
-            //     setnoticeError(true);
-            //     setShowErrorMessage(true);return;
-            // } else {
-            //     setnoticeError(false);
-            //     setShowErrorMessage(false);
-            // }
             
-          
 
             if (!/^\d+$/.test(expectedSalary)) {
                 setExpectedSalaryError(true);
@@ -216,8 +202,7 @@ function viewGig({ params }: { params: { id: string }}) {
 
             const exists = await PersonnelExists(email) as any;
             if(exists.data?.id){
-                // cookies.set('fraktional-user', JSON.stringify(exists.response), { path: '/' });
-                // window.location.href = "/developer-overview"
+               
                 setExistingModalOpen(true);
             }else{
 
@@ -483,42 +468,7 @@ function viewGig({ params }: { params: { id: string }}) {
                 <div className="mb-4">
                     <h3>Personal information</h3>
                 </div>
-                <div className="row">
-                <div className="col-sm-6">
-                <div className="mb-4">
-                <label className="form-label" htmlFor="applyForJobName">First Name *</label>
-                {/* {emailExist && <span style={{color : "red", fontSize:"small",fontWeight:"600", marginLeft:"15px"}}>Email address already registered</span>} */}
-                <input 
-                    type="text" 
-                    className={`form-control ${firstNameError ? 'error':''}`} 
-                    name="Firstname" 
-                    id="applyForJobName" 
-                    placeholder="John" 
-                    aria-label="John"
-                    value={firstName}
-                    onChange={handleFirstName}
-                   
-                />
-                </div>
-                </div>
-                <div className="col-sm-6">
-                <div className="mb-4">
-                <label className="form-label" htmlFor="applyForJobLastName">Surname *</label>
-                {/* {emailExist && <span style={{color : "red", fontSize:"small",fontWeight:"600", marginLeft:"15px"}}>Email address already registered</span>} */}
-                <input 
-                    type="text" 
-                    className={`form-control ${lastNameError ? 'error':''}`} 
-                    name="LastName" 
-                    id="applyForJobLastName" 
-                    placeholder="Doe" 
-                    aria-label="Doe"
-                    value={lastName}
-                    onChange={handleLastName}
-                   
-                />
-                </div>
-                </div>
-                </div>
+       
 
                 <div className="row">
                 <div className="col-sm-6">

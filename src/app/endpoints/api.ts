@@ -17,10 +17,10 @@ import { IJobApplication } from "../interfaces/IJobApplication";
 import { IApplyForJobRegistration } from "../interfaces/job-registration";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
-// const url = "https://viconet-vercel.vercel.app"
+// const url = "http://localhost:8080"
 const url = "https://viconet-vercel.vercel.app"
-// const azureUrl = "https://fraktional-be.azurewebsites.net"
-const azureUrl = "https://localhost:7257"
+const azureUrl = "https://fraktional-be.azurewebsites.net"
+// const azureUrl = "https://localhost:7257"
 const user = JSON.stringify(cookies.get("fraktional-user"));
 
 const header =  {
