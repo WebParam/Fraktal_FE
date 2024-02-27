@@ -85,6 +85,7 @@ function companyDevelopers() {
         })
       }
       
+      console.log("personnel", personnel);
       
 useEffect(() => {
   //check url and setActive
@@ -492,7 +493,7 @@ useEffect(() => {
                   <form>
                     <div className="mb-5">
                       <h5 className="mb-3">Distance</h5>
-                      <p className="form-text">Within <span id="rangeSliderDistance">25</span> miles of <span className="fw-semibold text-dark">London</span></p>
+                      <p className="form-text">Within <span id="rangeSliderDistance">25</span> km of <span className="fw-semibold text-dark">Johannesburg</span></p>
                       {/* Range Slider */}
                       <div className="range-slider">
                         <div className="js-nouislider noUi-target noUi-ltr noUi-horizontal noUi-txt-dir-ltr" data-hs-nouislider-options="{
@@ -509,8 +510,8 @@ useEffect(() => {
                               <div className="noUi-touch-area" /></div></div></div></div>
                       </div>
                       <div className="d-flex justify-content-between align-items-center mt-5">
-                        <span className="text-body">5 miles</span>
-                        <span className="text-body">100 miles</span>
+                        <span className="text-body">5 km</span>
+                        <span className="text-body">100 km</span>
                       </div>
                       {/* End Range Slider */}
                     </div>
@@ -538,13 +539,13 @@ useEffect(() => {
                         {/* End Checkboxes */}
                         {/* Checkboxes */}
                         <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobTitleCheckbox2" defaultChecked />
+                          <input className="form-check-input" type="checkbox"  id="jobTitleCheckbox2" />
                           <label className="form-check-label d-flex" htmlFor="jobTitleCheckbox2">UI/UX Designer <span className="ms-auto">2</span></label>
                         </div>
                         {/* End Checkboxes */}
                         {/* Checkboxes */}
                         <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobTitleCheckbox3" defaultChecked />
+                          <input className="form-check-input" type="checkbox"  id="jobTitleCheckbox3" />
                           <label className="form-check-label d-flex" htmlFor="jobTitleCheckbox3">Full Stack Developer <span className="ms-auto">1</span></label>
                         </div>
                         {/* End Checkboxes */}
@@ -559,40 +560,10 @@ useEffect(() => {
                     <div className="mb-5">
                       <h5 className="mb-3">Company</h5>
                       <div className="d-grid gap-2">
-                        {/* Checkboxes */}
-                        <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobCompanyCheckbox1" />
-                          <label className="form-check-label d-flex" htmlFor="jobCompanyCheckbox1">Capsule <span className="ms-auto">2</span></label>
-                        </div>
-                        {/* End Checkboxes */}
-                        {/* Checkboxes */}
-                        <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobCompanyCheckbox2" />
-                          <label className="form-check-label d-flex" htmlFor="jobCompanyCheckbox2">Dropbox <span className="ms-auto">18</span></label>
-                        </div>
-                        {/* End Checkboxes */}
-                        {/* Checkboxes */}
-                        <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobCompanyCheckbox3" />
-                          <label className="form-check-label d-flex" htmlFor="jobCompanyCheckbox3">Mailchimp <span className="ms-auto">1</span></label>
-                        </div>
-                        {/* End Checkboxes */}
-                        {/* Checkboxes */}
-                        <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobCompanyCheckbox4" />
-                          <label className="form-check-label d-flex" htmlFor="jobCompanyCheckbox4">Google <span className="ms-auto">1</span></label>
-                        </div>
-                        {/* End Checkboxes */}
-                        {/* Checkboxes */}
-                        <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobCompanyCheckbox5" />
-                          <label className="form-check-label d-flex" htmlFor="jobCompanyCheckbox5">Prosperops <span className="ms-auto">2</span></label>
-                        </div>
-                        {/* End Checkboxes */}
-                        {/* Checkboxes */}
+                       
                         <div className="form-check">
                           <input className="form-check-input" type="checkbox"  id="jobCompanyCheckbox6" />
-                          <label className="form-check-label d-flex" htmlFor="jobCompanyCheckbox6">Figam <span className="ms-auto">6</span></label>
+                          <label className="form-check-label d-flex" htmlFor="jobCompanyCheckbox6">Param Solutions <span className="ms-auto">6</span></label>
                         </div>
                         {/* End Checkboxes */}
                       </div>
@@ -602,7 +573,7 @@ useEffect(() => {
                       <div className="d-grid gap-2">
                         {/* Checkboxes */}
                         <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobYearExperienceCheckbox1" defaultChecked />
+                          <input className="form-check-input" type="checkbox"  id="jobYearExperienceCheckbox1" />
                           <label className="form-check-label d-flex" htmlFor="jobYearExperienceCheckbox1">6-10 years <span className="ms-auto">73</span></label>
                         </div>
                         {/* End Checkboxes */}
@@ -805,12 +776,16 @@ useEffect(() => {
                   </div>
                   {/* End Media */}
                 </div>
-                <div className="card-footer pt-0">
+                <div className="card-footer pt-0" style={{display:'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center'}}>
                   <ul className="list-inline list-separator small text-body">
                     <li className="list-inline-item">Posted 7 hours ago</li>
                     <li className="list-inline-item">Oxford</li>
                     <li className="list-inline-item">Full time</li>
                   </ul>
+
+                  <div>
+                    {x.user.mobileNumber}
+                  </div>
                 </div>
               </div>
               {/* End Card */}
