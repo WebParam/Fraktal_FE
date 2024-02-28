@@ -1,4 +1,6 @@
 import { memo, useState, ReactElement, FC } from 'react';
+import { Loader } from 'rsuite';
+import "rsuite/Loader/styles/index.css";
 import './Header.scss';
 import logo from '../../../assets/additional/logo.webp';
 import Image from 'next/image';
@@ -14,6 +16,16 @@ type HeaderProps = {
 
 const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: HeaderProps): ReactElement => {
   const pathname = usePathname();
+  const [loginLoading, setLoginLoading] = useState(!false);
+  // const []
+  function handleLoadingState(): void {
+
+    if (pathname == '/') {
+      setLoginLoading(true);
+    }
+
+    setLoginLoading(false);
+  }
 
   return (
     <>
@@ -100,8 +112,11 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
             }}
 
           className='hirenow'>
-              <Link href={'../../auth/login'}>
-                Login
+              <Link href={'../../auth/login'} onClick={handleLoadingState}>
+                {
+                  loginLoading ? 'Login' : <Loader speed='fast' />
+                }
+                {/* Login */}
               </Link>
             
           </li>

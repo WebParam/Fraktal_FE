@@ -1,6 +1,6 @@
 'use client'
 import './DevOverview.scss';
-import { useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import 'react-responsive-modal/styles.css';
 import "react-toastify/dist/ReactToastify.css";
 import { GetAllDeveloperProfiles, PersonnelExists, onboardDeveloper } from "../../endpoints/api";
@@ -56,8 +56,12 @@ function companyDevelopers() {
     const [noticePeriod, setNoticePeriod] = useState("");
     const [emailExist, setEmailExist] = useState(false);
     const [newlyAddedPersonnel, setNewlyAddedPersonnel] = useState({} as IDeveloperProfile);
+    const [search, setSearch] = useState('');
+    const [orderDescending, setOrderDescending] = useState("ascending");
 
     const [personnel, setPersonnel] = useState<IDeveloperProfile[]>();
+    
+    const [personnelCopy, setPersonnelCopy] = useState<IDeveloperProfile[]>();
     
     const [addNew, setAddNew] = useState(false);
 
@@ -81,7 +85,8 @@ function companyDevelopers() {
 
         await GetAllDeveloperProfiles().then((res:any) => {
           toast.dismiss(_id);
-          setPersonnel(res?.data.filter((x:any)=>x.user !=null));
+          setPersonnel(res?.data?.filter((x:any)=>x.user !=null));
+          setPersonnelCopy(res?.data?.filter((x:any)=>x.user !=null));
         })
       }
       
@@ -327,7 +332,7 @@ useEffect(() => {
             }),
           };
 
-          console.log("ddsds",resume)
+          // console.log("ddsds",resume)
 
           function sendToLogin(){
             window.location.href = "/developer-overview"
@@ -349,17 +354,26 @@ useEffect(() => {
           };
 
 
+  function handleSearch(event: ChangeEvent<HTMLInputElement>): void {
+    setSearch(event.target.value);
+
+    if(search) {
+      const arrayCopy = personnelCopy?.filter(dev => dev.personalInformation.name?.toLowerCase().includes(search.toLowerCase()) || dev.personalInformation.address?.toLowerCase().includes(search.toLowerCase()) || dev.personalInformation.province?.toLowerCase().includes(search.toLowerCase()) || dev.currentJob?.toLowerCase().includes(search.toLowerCase()))
+      setPersonnelCopy(arrayCopy);
+    } 
+  }
+
+  useEffect(() => {
+    if (search.length == 0) {
+      setPersonnelCopy(personnel);
+    }
+  }, [search])
+
+
+
     return (
-        <>
-
-        
-   
-      
-
+    <>
       <ToastContainer />
-        {/* <Link className="back" style={{margin: '40px', display: 'block', color: '#4B4C4E'}} href='/fraktional-gig'>
-        <i className="bi bi-chevron-left"></i> back
-        </Link> */}
         {/* Page Header */}
         <div className="container">
         <Modal open={existingModalOpen} styles={customModalStyles} onClose={() => modalClose()} center>
@@ -406,7 +420,15 @@ useEffect(() => {
                   <span className="input-group-prepend input-group-text">
                     <i className="bi-search" />
                   </span>
-                  <input type="text" className="form-control" id="jobTitleForm" placeholder="Job, title, skills, or company" aria-label="Job, title, skills, or company" />
+                  <input 
+                    type="text" 
+                    className="form-control" 
+                    id="jobTitleForm" 
+                    placeholder="Job, title, skills, or company" 
+                    aria-label="Job, title, skills, or company" 
+                    value={search}
+                    onChange={handleSearch}  
+                  />
                 </div>
               </div>
               <div className="input-card-form">
@@ -658,7 +680,7 @@ useEffect(() => {
           <div className="col-lg-9">
             <div className="row align-items-center mb-5">
               <div className="col-sm mb-3 mb-sm-0">
-                <h3 className="mb-0">{personnel?.length} developers  <span className="fw-normal"></span></h3>
+                <h3 className="mb-0">{personnelCopy?.length} developers  <span className="fw-normal"></span></h3>
               </div>
               <div className="col-sm-auto">
                 <div className="d-sm-flex justify-content-sm-end align-items-center">
@@ -673,20 +695,20 @@ useEffect(() => {
                   {/* Select */}
                   <div className="mb-2 mb-sm-0 me-sm-2">
                     <select className="form-select form-select-sm">
-                      <option value="alphabeticalOrderSelect1" selected>A-to-Z</option>
-                      <option value="alphabeticalOrderSelect2">Z-to-A</option>
+                      <option value="ascending" selected>A-to-Z</option>
+                      <option value="descending">Z-to-A</option>
                     </select>
                   </div>
                   {/* End Select */}
                   {/* Nav */}
                   <ul className="nav nav-segment">
                     <li className="nav-item">
-                      <a className="nav-link" href="../demo-jobs/job-grid.html">
+                      <a className="nav-link">
                         <i className="bi-grid-fill" />
                       </a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link active" href="../demo-jobs/job-list.html">
+                      <a className="nav-link active" >
                         <i className="bi-list" />
                       </a>
                     </li>
@@ -701,13 +723,10 @@ useEffect(() => {
              
               
               {
-                personnel&& personnel.map(x=>{
-                  debugger;
-                
-                  return(
-                   
-                    <>
-                     <div className="card card-bordered">
+                (personnelCopy && personnelCopy?.length > 0) ? personnelCopy?.map(x=>{                
+                return (
+                <>
+                <div className="card card-bordered">
                 <div className="card-body">
                   {/* Media */}
                   <div className="d-sm-flex">
@@ -791,8 +810,8 @@ useEffect(() => {
               {/* End Card */}
               </>
                   )
- 
-                })
+                }) :
+                <div style={{fontSize: '2em', color: '#FD2DC3', height: '100px', lineHeight: '100px', textAlign: 'center'}}>No Devs Found</div> 
               }
              
             
@@ -1072,7 +1091,7 @@ useEffect(() => {
 }
         
    
-</main>
+        </main>
     </>
     )
     
