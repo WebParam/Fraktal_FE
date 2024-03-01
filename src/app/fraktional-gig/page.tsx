@@ -18,6 +18,7 @@ import { GetAllProjects, GetProjectById } from '../endpoints/api';
 import { IJobApplication } from '../interfaces/IJobApplication';
 import Layout from '../layout';
 import { IOption, cities } from '../lib/data';
+import moment from 'moment';
 
 function jobs() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
@@ -32,9 +33,11 @@ function jobs() {
         const res = await GetAllProjects() as any ;
     
         const resData = res?.data?.map((x:any)=>x.data) as IJobApplication[];
-        setProjects(resData.splice(0, 3));    
-      }
+        setProjects(resData.splice(0, 3));
 
+    }
+    console.log(projects);
+    
     function handleCitySelect(data: any) {
         const _data = data as IOption;
         setCity(_data.value);
