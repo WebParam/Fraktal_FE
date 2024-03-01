@@ -1,4 +1,6 @@
 'use client'
+import { Loader } from 'rsuite';
+import "rsuite/Loader/styles/index.css";
 import './otpStyle.scss';
 import './newpassword.scss';
 import './reset.scss';
@@ -20,7 +22,8 @@ function OTP() {
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [weakPasswordError, setWeakPasswordError] = useState<boolean>(false);
   const [EmptypasswordError, setEmptypasswordError] = useState<boolean>(false);
-
+  const [buttonClicked, setButtonClicked] = useState(false);
+  const [changePasswordbuttonClicked, setChangePasswordbuttonClicked] = useState(false);
   const [emailError, setEmailError] = useState<boolean>(false);
   const [regEmailError, setRegEmailError] = useState<boolean>(false);
 
@@ -78,12 +81,14 @@ function OTP() {
   //Reseting the password 
   const handleSubmitNewPass = async (e: any) => {
     e.preventDefault();
+    setChangePasswordbuttonClicked(true);
 
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
 
     if(!password){
       setEmptypasswordError(true)
-      return
+      setChangePasswordbuttonClicked(true)
+      return;
     }
 
     
@@ -97,16 +102,16 @@ function OTP() {
     //   return
     //  }
 
-     if(password !== confirmedpassword){
+     if(password != confirmedpassword){
       setEmptypasswordError(true)
       setPasswordError(true)
-      return
+      return;
      }
 
      try {
-      debugger;
       const changePassword = await resetPassword({email:email, password:password, otp:otp} as IUserResetPassword); // Rename the constant
       if(changePassword){
+        setChangePasswordbuttonClicked(false);
               console.log('reset password successful');
         router.push('/auth/login');
             
@@ -149,6 +154,7 @@ function OTP() {
 
   const handleSubmitReset = async (e: any) => {
     e.preventDefault();
+    setButtonClicked(true);
     if (!email) {
       setEmailError(true);
       return;
@@ -170,7 +176,7 @@ function OTP() {
         setUserDetails(onSubmitOTP);
       }else if (onSubmitOTP == 400) {
         setEmailError(false);
-
+        setButtonClicked(false);
         setRegEmailError(true);
         console.error('OTP failed');
       }
@@ -284,7 +290,9 @@ function OTP() {
                   }}
               />
             </div>
-            <button type="submit">Change Password</button>
+            <button type="submit" style={{display: 'flex', textAlign: 'center', justifyContent: 'center', alignItems: 'center'}}>
+              {!changePasswordbuttonClicked ? 'Change Password' : <Loader speed='fast' />}
+              </button>
           </form>
 
           <label>
@@ -340,7 +348,10 @@ function OTP() {
                   }} 
                 />
               </div>
-              <button onClick={handleSubmitReset}>Submit</button>
+              <button onClick={handleSubmitReset} style={{display: 'flex', textAlign: 'center', justifyContent: 'center', alignItems: 'center'}}>
+              {!buttonClicked ? 'Submit' : <Loader speed='fast' />}
+              </button>
+              
             </form>
 
             <p>Don't have an account yet? <span className='cta'><Link href="/auth/register">Sign up here</Link></span></p>

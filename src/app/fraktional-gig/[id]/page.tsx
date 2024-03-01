@@ -4,8 +4,8 @@ import Image from 'next/image';
 import { gigs } from '../../gigs';
 import star from "../../../assets/svg/illustrations/star.svg";
 import halfstar from "../../../assets/svg/illustrations/star-half.svg";
-import { useRef, useState } from 'react';
-import { PersonnelExists, jobRegistration } from '@/app/endpoints/api';
+import { useEffect, useRef, useState } from 'react';
+import { GetAllProjects, PersonnelExists, jobRegistration } from '@/app/endpoints/api';
 import { IApply } from '@/app/interfaces/user';
 import Modal from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
@@ -17,11 +17,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IOption, experience, getOptionFromValue, noticePeriods } from '@/app/lib/data';
 import Cookies from 'universal-cookie';
+import { IJobApplication } from '@/app/interfaces/IJobApplication';
 
 function viewGig({ params }: { params: { id: string }}) {
     const _gigs = gigs as any[];
-    const gig = _gigs.find(item => item?.id === params.id);
-
+    let gig = _gigs.find(item => item?.id === params.id);
+    // const [gig, setGig] = useState<IJobApplication>();
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const inputFileRef = useRef<HTMLInputElement>(null);
     const [firstName, setFirstName] = useState('');
@@ -57,10 +58,33 @@ function viewGig({ params }: { params: { id: string }}) {
     const [showerror, setShowErrorMessage] = useState(false);
     const [noticePeriod, setNoticePeriod] = useState("");
     const [emailExist, setEmailExist] = useState(false);
+    const [projects, setProjects] = useState<IJobApplication[]>([])
     const uploadCVClick = () => {
         /*Collecting node-element and performing click*/
         inputFileRef?.current?.click();
       }
+
+      const loadAllProjects = async()=>{
+        const res = await GetAllProjects() as any ;
+    
+        const resData = res?.data?.map((x:any)=>x.data) as IJobApplication[];
+        setProjects(resData);    
+      }
+
+      useEffect(() => {
+        loadAllProjects();
+      }, [])
+      
+
+      if (projects) {
+        console.log('projects', projects)
+        const frakgig = projects.find(x => x.id == params.id)
+
+        if (frakgig) {
+            gig = frakgig;
+        }
+      }
+
     const handleFirstName = (e: any) => {
         setFirstName(e.target.value);
     }
@@ -201,6 +225,8 @@ function viewGig({ params }: { params: { id: string }}) {
             }
             applyForJob(e);
         }   
+
+        console.log('gig: ', gig?.city);
 
 
         const applyForJob = async (e: any) => {
@@ -403,7 +429,7 @@ function viewGig({ params }: { params: { id: string }}) {
                     {/* End Row */}
                     <ul className="list-inline list-separator d-flex align-items-center mb-2">
                     <li className="list-inline-item">
-                        <a style={{color: '#FD2DC3'}}>{gig?.companyname}</a>
+                        <a style={{color: '#FD2DC3'}}>{gig?.companyname ? `${gig?.companyname}`:`${gig && gig.projectName}`}</a>
                     </li>
                     <li className="list-inline-item">
                         {/* Rating */}
@@ -419,9 +445,9 @@ function viewGig({ params }: { params: { id: string }}) {
                     </li>
                     </ul>
                     <ul className="list-inline list-separator small text-body mb-2">
-                    <li className="list-inline-item">Posted {gig?.posted}</li>
-                    <li className="list-inline-item">{gig?.location}, South Africa</li>
-                    <li className="list-inline-item">{gig?.jobType}</li>
+                    <li className="list-inline-item">Posted {gig ? `${gig?.posted}`:`${gig?.dateCreated}`}</li>
+                    <li className="list-inline-item">{gig?.city ? gig?.location : gig?.city}, South Africa</li>
+                    <li className="list-inline-item">{gig?.jobType == 0 ? 'onsite':'remote'}</li>
                     </ul>
                 </div>
                 </div>
@@ -435,7 +461,8 @@ function viewGig({ params }: { params: { id: string }}) {
             <div className="w-lg-75 mx-lg-auto">
             {/* Card */}
             <div className="row align-items-sm-center" style={{padding:"5%",marginBottom:"5%"}} dangerouslySetInnerHTML={{__html :gig?.description}}>
-                    {/* {gig?.description} */}
+            </div>
+            <div className="row align-items-sm-center" style={{padding:"5%",marginBottom:"5%"}} dangerouslySetInnerHTML={{__html :gig?.responsibilities}}>
             </div>
             <div className="card card-bordered mb-10">
                 <div className="card-body">

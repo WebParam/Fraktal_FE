@@ -10,7 +10,7 @@ import mailchimpicon from "../../assets/svg/brands/mailchimp-icon.svg";
 import googleicon from "../../assets/svg/brands/google-icon.svg";
 import varsity from "../../assets/svg/brands/the-university-of-manchester.svg";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 import { IDeveloperProfile, IEducationInformation, IWorkExperience } from "../interfaces/user";
@@ -670,7 +670,6 @@ async function applyNow(){
   };
 
   const res = await addToShortlist(payload);
-debugger;
   if(res.id){
     _GetProjects();
     setApplicationConfirm(false);
@@ -682,7 +681,9 @@ debugger;
 }
 
 
-console.log("DDD", loggedInUser);
+console.log("loggedin user: ", loggedInUser);
+
+
     return (
       <>
       <div className="top">
@@ -1751,10 +1752,10 @@ console.log("DDD", loggedInUser);
                     {/* Select */}
                     <div className="mb-2 mb-sm-0 me-sm-2">
                       <select className="form-select form-select-sm">
-                        <option value="alphabeticalOrderSelect1">
+                        <option value="ascending">
                           A-to-Z
                         </option>
-                        <option value="alphabeticalOrderSelect2">Z-to-A</option>
+                        <option value="descending">Z-to-A</option>
                       </select>
                     </div>
                     {/* End Select */}

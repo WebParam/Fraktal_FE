@@ -114,7 +114,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
           className='hirenow'>
               <Link href={'../../auth/login'} onClick={handleLoadingState}>
                 {
-                  loginLoading ? 'Login' : <Loader speed='fast' />
+                  loginLoading ? 'Login' : <Loader center speed='fast' size='sm' />
                 }
                 {/* Login */}
               </Link>

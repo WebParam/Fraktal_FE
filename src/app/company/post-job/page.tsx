@@ -350,17 +350,11 @@ function PostJob() {
   }
 
   const goToSixthSlide = () => {
-    if (website.includes('.')) {
-      setErrorStyle6(false);
       setActiveStep(state => 5)
       window.scroll({
         top: 0,
         behavior: 'smooth'
       })
-    } else {
-      setErrorStyle6(true);
-    }
-
   }
 
   const goToSeventhSlide = () => {
@@ -1767,7 +1761,6 @@ function PostJob() {
                       onChange={((e)=>setWebsite(e.target.value))}
                       value={website}
                     />
-                      {errorstyle6 && <span style={{color: 'red'}}>Website is required</span>}
                   </div>
                   {/* End Form */}
                 </div>
@@ -2225,7 +2218,7 @@ function PostJob() {
                     and applications will be processed in accordance with Fraktional
                    <a href="#">Cookie Policy</a>,{" "}
                     <a href="#">Privacy Policy</a> and{" "}
-                    <a href="#">Terms of Service</a>. You consent to Front Job
+                    <Link href="/terms-and-conditions">Terms of Service</Link>. You consent to Front Job
                     informing a user that you have opened, viewed or made a
                     decision regarding the user's application.
                   </p>

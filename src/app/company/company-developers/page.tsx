@@ -33,7 +33,7 @@ function companyDevelopers() {
     const [workStatus, setWorkStatus] = useState('no');
     const [currentJob, setCurrentJob] = useState('');
     const [yearsOfExperience, setYearsOfExperience] = useState('');
-   
+   const [remote, setRemote] = useState(false);
     const [portfolio, setPortfolio] = useState([]);
     const [expectedSalary, setExpectedSalary] = useState('');
     const [mobileExp, setMobileExp] = useState('');
@@ -57,6 +57,7 @@ function companyDevelopers() {
     const [emailExist, setEmailExist] = useState(false);
     const [newlyAddedPersonnel, setNewlyAddedPersonnel] = useState({} as IDeveloperProfile);
     const [search, setSearch] = useState('');
+    const [city, setCity] = useState('');
     const [orderDescending, setOrderDescending] = useState("ascending");
 
     const [personnel, setPersonnel] = useState<IDeveloperProfile[]>();
@@ -174,6 +175,7 @@ useEffect(() => {
         const file = e.target.files[0];
         setPortfolio(file);
       };
+
 
       const handleSubmit = (e: any) => {
             e.preventDefault();
@@ -358,9 +360,23 @@ useEffect(() => {
     setSearch(event.target.value);
 
     if(search) {
-      const arrayCopy = personnelCopy?.filter(dev => dev.personalInformation.name?.toLowerCase().includes(search.toLowerCase()) || dev.personalInformation.address?.toLowerCase().includes(search.toLowerCase()) || dev.personalInformation.province?.toLowerCase().includes(search.toLowerCase()) || dev.currentJob?.toLowerCase().includes(search.toLowerCase()))
+      const arrayCopy = personnelCopy?.filter(dev => dev.personalInformation.name?.toLowerCase().includes(search.toLowerCase()) || dev.currentJob?.toLowerCase().includes(search.toLowerCase()))
       setPersonnelCopy(arrayCopy);
     } 
+  }
+
+  function handleSearchCity(event: ChangeEvent<HTMLInputElement>): void {
+    setCity(event.target.value);
+
+    if(search) {
+      const arrayCopy = personnelCopy?.filter(dev => dev.personalInformation.country?.toLowerCase().includes(city.toLowerCase()) || dev.personalInformation.address?.toLowerCase().includes(city.toLowerCase()) || dev.personalInformation.province?.toLowerCase().includes(city.toLowerCase()))
+      setPersonnelCopy(arrayCopy);
+    } 
+  }
+
+  function handleSetRemote(e: any) {
+    setRemote(e.target.value)
+    console.log("remote", remote, e.target.value);
   }
 
   useEffect(() => {
@@ -368,6 +384,12 @@ useEffect(() => {
       setPersonnelCopy(personnel);
     }
   }, [search])
+
+  useEffect(() => {
+    if (city.length == 0) {
+      setPersonnelCopy(personnel);
+    }
+  }, [city])
 
 
 
@@ -408,7 +430,7 @@ useEffect(() => {
         
           <div className="card mb-10">
           <div className="gradient-x-three-sm-primary">
-          <button type="button" onClick={()=>setPageState(1)} style={{float:"right", marginTop:"1%"}} className="btn btn-primary"> + Add new developer</button>
+          <button type="button" onClick={()=>setPageState(1)} style={{float:"right", marginTop:"1%", backgroundColor: '#FD2DC3'}} className="btn btn-primary"> + Add new developer</button>
         <div className="container content-space-2">
         
           <form>
@@ -437,7 +459,15 @@ useEffect(() => {
                   <span className="input-group-prepend input-group-text">
                     <i className="bi-geo-alt" />
                   </span>
-                  <input type="text" className="form-control" id="cityForm" placeholder="City, state, or zip" aria-label="City, state, or zip" />
+                  <input 
+                    type="text" 
+                    className="form-control" 
+                    id="cityForm" 
+                    placeholder="City, state, or zip" 
+                    aria-label="City, state, or zip" 
+                    value={city}
+                    onChange={handleSearchCity}  
+                    />
                 </div>
               </div>
               <button type="button" className="btn btn-primary">Search</button>
@@ -445,47 +475,18 @@ useEffect(() => {
             {/* End Input Card */}
           </form>
           <div className="row align-items-center">
-            <div className="col-md-auto mb-3 mb-lg-0">
-              <h6 className="mb-1">Limit search to:</h6>
-            </div>
-            {/* End Col */}
-            <div className="col-md mb-3 mb-lg-0">
-              {/* Check */}
-              <div className="form-check form-check-inline">
-                <input className="form-check-input" type="checkbox" id="jobSearchToCheckbox1" defaultValue="option1" defaultChecked />
-                <label className="form-check-label" htmlFor="jobSearchToCheckbox1">Job title</label>
-              </div>
-              {/* End Check */}
-              {/* Check */}
-              <div className="form-check form-check-inline">
-                <input className="form-check-input" type="checkbox" id="jobSearchToCheckbox2" defaultValue="option2" />
-                <label className="form-check-label" htmlFor="jobSearchToCheckbox2">Skills</label>
-              </div>
-              {/* End Check */}
-              {/* Check */}
-              <div className="form-check form-check-inline">
-                <input className="form-check-input" type="checkbox" id="jobSearchToCheckbox3" defaultValue="option3" />
-                <label className="form-check-label" htmlFor="jobSearchToCheckbox3">Companies</label>
-              </div>
-              {/* End Check */}
-              {/* Check */}
-              <div className="form-check form-check-inline">
-                <input className="form-check-input" type="checkbox" id="jobSearchToCheckbox4" defaultValue="option4" />
-                <label className="form-check-label" htmlFor="jobSearchToCheckbox4">Field of study</label>
-              </div>
-              {/* End Check */}
-            </div>
+           
             <div className="col-md-auto">
               {/* Switch */}
               <div className="form-check form-switch">
-                <input className="form-check-input" type="checkbox" id="remoteOnlySwitch" />
+                <input className="form-check-input" type="checkbox" id="remoteOnlySwitch" checked={remote} onClick={handleSetRemote} />
                 <label className="form-check-label" htmlFor="remoteOnlySwitch">Remote only</label>
               </div>
               {/* End Switch */}
             </div>
             {/* End Col */}
           </div>
-          {/* End Row */}
+         
         </div>
       </div>
       <div className="container content-space-t-1 content-space-t-md-2 content-space-b-2 content-space-b-lg-3">

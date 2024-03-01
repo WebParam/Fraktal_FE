@@ -32,7 +32,7 @@ function jobs() {
         const res = await GetAllProjects() as any ;
     
         const resData = res?.data?.map((x:any)=>x.data) as IJobApplication[];
-        setProjects(resData);    
+        setProjects(resData.splice(0, 3));    
       }
 
     function handleCitySelect(data: any) {
@@ -42,7 +42,7 @@ function jobs() {
       
   useEffect(() => {
      loadAllProjects();
-     setFilteredGigs(gigs as []);
+     setFilteredGigs(gigs.splice(0, 3) as []);
    },[]);
 
 
@@ -160,7 +160,7 @@ function jobs() {
            
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mb-5">
                
-                {/* {projects && projects.map(gig => (
+                {projects && projects.map((gig, index) => (
                 <div className="col mb-5" key={gig.id}>
                     <div className="card card-bordered h-100">
                     <div className="card-body">
@@ -171,7 +171,7 @@ function jobs() {
                              </div>
                             <div className="flex-grow-1 ms-3">
                                 <h6 className="card-title">
-                                <a className="text-dark" href="#">{gig.projectName}</a>
+                                <a className="text-dark" href={`/fraktional-gig/${gig.id}`}>{gig.projectName}</a>
                                 <Image className="avatar avatar-xss ms-1" src={topVendor} alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
                                 </h6>
                             </div>
@@ -183,7 +183,7 @@ function jobs() {
                             {gig.projectSector}
                         </Link>
                         </h3>
-                        <span className="d-block small text-body mb-1">R{gig.pay}</span>
+                        <span className="d-block small text-body mb-1">Salary: R{gig.pay}</span>
                         <span className="badge me-2" style={{backgroundColor: 'lightpink', color: '#fff'}}>
                         <span className="legend-indicator bg-info" />{`${gig.remote == 0 ? 'onsite':'remote'}`}
                         </span>
@@ -198,7 +198,7 @@ function jobs() {
                     </div>
                 </div>
                 ))}
-                */}
+               
                 {filteredGigs.map(gig => (
                 <div className="col mb-5" key={gig.id}>
                     {/* Card */}

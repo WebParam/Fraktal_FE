@@ -1,4 +1,5 @@
 "use client"
+import "rsuite/Loader/styles/index.css";
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './fraktional-dev.scss';
@@ -26,6 +27,7 @@ import Layout from '../layout';
 import flexebity from '../../assets/img/flexibility.png';
 import process from '../../assets/img/process.png';
 import puzzle from '../../assets/img/puzzle.png';
+import { Loader } from 'rsuite';
 
 function Fraktional() {
   //const router = useRouter();
@@ -68,6 +70,7 @@ function Fraktional() {
   const [companyCountry, setCompanyCountry] = useState("");
   const [companyAddress, setCompanyAddress] = useState("");
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+  const [signUpLoading, setSignUpLoading] = useState(false);
  
 
   const handleInputChange = (e: any) => {
@@ -125,13 +128,15 @@ function Fraktional() {
           companyAddress:companyAddress
         };
 
-        
+        setSignUpLoading(true);
         const Addorganisation = await registerOrganisation( payload as ICompanyRegister); 
         if(Addorganisation){
-          //window.location.href="/company-overview"
           toast.dismiss(_id);
-         setEditModalOpen(true)
-        }else{
+          setEditModalOpen(true)
+          setSignUpLoading(false);
+          // window.location.href="/company/company-overview"
+        } else {
+          setSignUpLoading(false);
           toast.update(_id, {
             render:
               "Email address already registered",
@@ -447,9 +452,9 @@ const customModalStyles = {
                         />
                       </div>
                         {weakPassword &&  <span style={{color : "tomato", fontSize:"small", fontWeight:"600"}}>Password must contain at least 8 characters, including uppercase and lowercase letters, numbers, and special characters</span>
-}
-{confirm_PasswordError &&  <span style={{color : "tomato", fontSize:"small", fontWeight:"600"}}>Passwords do not match</span>
-}
+                        }
+                        {confirm_PasswordError &&  <span style={{color : "tomato", fontSize:"small", fontWeight:"600"}}>Passwords do not match</span>
+                        }
      
                       </div>
                     {/* Check */}
@@ -460,7 +465,11 @@ const customModalStyles = {
                     </div>
                     {/* End Check */}
                     <div className="d-grid mb-3">
-                      <button disabled={disableSubmitBtn || !achknowledge} type="submit" className="btn btn-primary btn-lg" style={{border:"0px",backgroundImage: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.40) 124.34%)'}}>Claim your free trial</button>
+                      <button disabled={disableSubmitBtn || !achknowledge} type="submit" className="btn btn-primary btn-lg" style={{border:"0px",backgroundImage: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.40) 124.34%)'}}>
+                      {
+                        !signUpLoading ? 'Sign Up' : <Loader speed='fast' size='sm' />
+                      }
+                        </button>
                     </div>
                   </div>
                 </div>

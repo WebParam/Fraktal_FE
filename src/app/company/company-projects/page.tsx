@@ -44,7 +44,6 @@ function developerOverview() {
 
     const handleSelectChange = (event:any) => {
       setSelectedOption(event.target.value);
-      console.log(selectedOption)
     };
 
     const sortedProjects = projects.sort((a:any, b:any) => {

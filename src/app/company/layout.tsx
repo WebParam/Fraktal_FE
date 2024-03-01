@@ -22,9 +22,6 @@ import defaultProfilePic from '../../assets/additional/person-circle.svg';
 import defaultCompanyPic from '../../assets/additional/buildings-fill.svg'; 
 import Script from "next/script";
 
-
-
-
   export default function RootLayout({
     children,
   }: {
@@ -159,11 +156,6 @@ const signOut = () => {
     </head>
    
       <body> 
-      <div className="top">
-        <Banner />
-      </div>
-      
-      
        <main id="content" role="main" className="bg-light">
        <ToastContainer />
    {/* Breadcrumb */}
