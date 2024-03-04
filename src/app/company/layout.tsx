@@ -185,7 +185,7 @@ const signOut = () => {
    {/* End Breadcrumb */}
    {/* Content */}
    <div className="container content-space-1 content-space-t-lg-0 content-space-b-lg-2 mt-lg-n10">
-     <div className="row">
+     <div className="row" id="layoutContainer" >
  
      <div className="col-lg-3">
                  {/* Navbar */}
@@ -193,7 +193,7 @@ const signOut = () => {
                  <div id="sidebarNav" className="navbar-collapse navbar-vertical">
                      {/* Card */}
                      <div className="card flex-grow-1 mb-5">
-                     <div className="card-body">
+                     <div className="card-body" id="leftProfileContainer">
                          {/* Avatar */}
                          <div className="d-none d-lg-block text-center mb-5">
                          <div className="avatar avatar-xxl avatar-circle mb-3">

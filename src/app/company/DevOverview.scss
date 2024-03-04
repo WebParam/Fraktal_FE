@@ -83,3 +83,26 @@
 .nav-vertical.nav-tabs .nav-link.active  {
     border-color: #FD2DC3;
 }
+
+#leftProfileContainer {
+    @media (min-width: 992px) {      
+        position: fixed;
+        z-index: 10;
+        background-color: #fff;
+        border-radius: 8px;
+        width: 20%;
+    }
+
+    @media (min-width: 1400px) {      
+        left: 10%;
+    }
+  }
+
+  #layoutContainer {
+
+    @media ((min-height: 550px) and (max-height: 900px)) {        
+        position: relative; 
+        top: -40px;
+    }
+    
+  }
