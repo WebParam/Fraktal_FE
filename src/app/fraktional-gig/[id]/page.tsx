@@ -18,10 +18,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { IOption, experience, getOptionFromValue, noticePeriods } from '@/app/lib/data';
 import Cookies from 'universal-cookie';
 import { IJobApplication } from '@/app/interfaces/IJobApplication';
+import img from '../../../assets/additional/paramLogo.svg';
+import { staticGenerationAsyncStorage } from 'next/dist/client/components/static-generation-async-storage';
 
 function viewGig({ params }: { params: { id: string }}) {
-    const _gigs = gigs as any[];
-    let gig = _gigs.find(item => item?.id === params.id);
+    // const _gigs = gigs as any[];
+    // let gig = _gigs.find(item => item?.id === params.id);
     // const [gig, setGig] = useState<IJobApplication>();
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const inputFileRef = useRef<HTMLInputElement>(null);
@@ -35,6 +37,7 @@ function viewGig({ params }: { params: { id: string }}) {
     const [workStatus, setWorkStatus] = useState('no');
     const [currentJob, setCurrentJob] = useState('');
     const [yearsOfExperience, setYearsOfExperience] = useState('');
+    const [gig, setGig] = useState<IJobApplication>();
    
     const [portfolio, setPortfolio] = useState([]);
     const [expectedSalary, setExpectedSalary] = useState('');
@@ -64,26 +67,25 @@ function viewGig({ params }: { params: { id: string }}) {
         inputFileRef?.current?.click();
       }
 
-      const loadAllProjects = async()=>{
+    const loadAllProjects = async()=>{
         const res = await GetAllProjects() as any ;
     
         const resData = res?.data?.map((x:any)=>x.data) as IJobApplication[];
-        setProjects(resData);    
-      }
-
-      useEffect(() => {
+        setProjects(resData);
+        
+    }
+    
+    useEffect(() => {
         loadAllProjects();
-      }, [])
-      
+        
+    }, [])
 
-      if (projects) {
-        console.log('projects', projects)
-        const frakgig = projects.find(x => x.id == params.id)
-
-        if (frakgig) {
-            gig = frakgig;
+    useEffect(() => {
+        if (projects) {
+            const job = projects.find(x => x.id == params.id);
+            setGig(job); 
         }
-      }
+    }, [projects]);
 
     const handleFirstName = (e: any) => {
         setFirstName(e.target.value);
@@ -225,8 +227,6 @@ function viewGig({ params }: { params: { id: string }}) {
             }
             applyForJob(e);
         }   
-
-        console.log('gig: ', gig?.city);
 
 
         const applyForJob = async (e: any) => {
@@ -401,12 +401,12 @@ function viewGig({ params }: { params: { id: string }}) {
                 {/* Media */}
                 <div className="d-sm-flex mb-3">
                 <div className="flex-shrink-0 mb-2 mb-sm-0">
-                    <Image className="avatar avatar-lg mb-3" src={gig?.img} alt="Image Description" />
+                    <Image className="avatar avatar-lg mb-3" src={img} alt="Image Description" />
                 </div>
                 <div className="flex-grow-1 ms-sm-4">
                     <div className="row">
                     <div className="col">
-                        <h1 className="page-header-title h2">{gig?.position}</h1>
+                        <h1 className="page-header-title h2">{gig?.projectName}</h1>
                     </div>
                     {/* End Col */}
                     <div className="col-auto">
@@ -429,7 +429,7 @@ function viewGig({ params }: { params: { id: string }}) {
                     {/* End Row */}
                     <ul className="list-inline list-separator d-flex align-items-center mb-2">
                     <li className="list-inline-item">
-                        <a style={{color: '#FD2DC3'}}>{gig?.companyname ? `${gig?.companyname}`:`${gig && gig.projectName}`}</a>
+                        <a style={{color: '#FD2DC3'}}>Param Solutions</a>
                     </li>
                     <li className="list-inline-item">
                         {/* Rating */}
@@ -445,9 +445,9 @@ function viewGig({ params }: { params: { id: string }}) {
                     </li>
                     </ul>
                     <ul className="list-inline list-separator small text-body mb-2">
-                    <li className="list-inline-item">Posted {gig ? `${gig?.posted}`:`${gig?.dateCreated}`}</li>
-                    <li className="list-inline-item">{gig?.city ? gig?.location : gig?.city}, South Africa</li>
-                    <li className="list-inline-item">{gig?.jobType == 0 ? 'onsite':'remote'}</li>
+                    <li className="list-inline-item">Posted {gig?.fromDate}</li>
+                    <li className="list-inline-item">{gig?.city}, South Africa</li>
+                    <li className="list-inline-item">{gig?.jobtype == 0 ? 'onsite':'remote'}</li>
                     </ul>
                 </div>
                 </div>
@@ -460,9 +460,19 @@ function viewGig({ params }: { params: { id: string }}) {
         <div className="container content-space-b-2 content-space-b-lg-3">
             <div className="w-lg-75 mx-lg-auto">
             {/* Card */}
-            <div className="row align-items-sm-center" style={{padding:"5%",marginBottom:"5%"}} dangerouslySetInnerHTML={{__html :gig?.description}}>
+            <div 
+            className="row align-items-sm-center" 
+            style={{padding:"5%",marginBottom:"5%"}} 
+            // dangerouslySetInnerHTML={{__html :gig?.description}}
+            >
+                {gig?.description}
             </div>
-            <div className="row align-items-sm-center" style={{padding:"5%",marginBottom:"5%"}} dangerouslySetInnerHTML={{__html :gig?.responsibilities}}>
+            <div 
+                className="row align-items-sm-center" 
+                style={{padding:"5%",marginBottom:"5%"}} 
+                // dangerouslySetInnerHTML={{__html :gig?.responsibilities}}
+                >
+                {gig?.responsibilities}
             </div>
             <div className="card card-bordered mb-10">
                 <div className="card-body">

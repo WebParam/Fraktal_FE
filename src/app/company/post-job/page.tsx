@@ -1921,7 +1921,6 @@ function PostJob() {
                       aria-label="Ex: All customers are required to wear a mask, curbside pickup available, common surfaces are sanitized regularly, etc."
                       rows={4}
                       onChange={((e)=>setResponsibilities(e.target.value))}
-                      maxLength={250}
                       data-hs-count-characters-options='{
                           "output": "#additionalCovid19PrecautionsCountCharacters"
                         }'

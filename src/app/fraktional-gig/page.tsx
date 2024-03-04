@@ -18,6 +18,7 @@ import { GetAllProjects, GetProjectById } from '../endpoints/api';
 import { IJobApplication } from '../interfaces/IJobApplication';
 import Layout from '../layout';
 import { IOption, cities } from '../lib/data';
+import img from '../../assets/additional/paramLogo.svg';
 import moment from 'moment';
 
 function jobs() {
@@ -33,7 +34,7 @@ function jobs() {
         const res = await GetAllProjects() as any ;
     
         const resData = res?.data?.map((x:any)=>x.data) as IJobApplication[];
-        setProjects(resData.splice(0, 3));
+        setProjects(resData);
 
     }
     console.log(projects);
@@ -45,7 +46,7 @@ function jobs() {
       
   useEffect(() => {
      loadAllProjects();
-     setFilteredGigs(gigs.splice(0, 3) as []);
+     setFilteredGigs(gigs as []);
    },[]);
 
 
@@ -163,30 +164,32 @@ function jobs() {
            
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mb-5">
                
-                {projects && projects.map((gig, index) => (
+                {projects && projects.map((gig) => (
                 <div className="col mb-5" key={gig.id}>
                     <div className="card card-bordered h-100">
                     <div className="card-body">
                         <div className="row mb-3">
                         <div className="col">
                             <div className="d-flex align-items-center">
-                            <div className="flex-shrink-0">
-                             </div>
-                            <div className="flex-grow-1 ms-3">
-                                <h6 className="card-title">
-                                <a className="text-dark" href={`/fraktional-gig/${gig.id}`}>{gig.projectName}</a>
-                                <Image className="avatar avatar-xss ms-1" src={topVendor} alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
-                                </h6>
-                            </div>
+                                <div className="flex-shrink-0">
+                                    <Image className="avatar avatar-sm avatar-4x3" src={img} alt="Image Description"  />
+                                </div>
+
+                                <div className="flex-grow-1 ms-3">
+                                    <h6 className="card-title">
+                                    <a className="text-dark" href={`/fraktional-gig/${gig.id}`}>Param Solutions</a>
+                                    <Image className="avatar avatar-xss ms-1" src={topVendor} alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
+                                    </h6>
+                                </div>
                             </div>
                         </div>
                         </div>
                         <h3 className="card-title">
                         <Link className="text-dark" href={`/fraktional-gig/${gig.id}`}>
-                            {gig.projectSector}
+                            {gig.projectName}
                         </Link>
                         </h3>
-                        <span className="d-block small text-body mb-1">Salary: R{gig.pay}</span>
+                        <span className="d-block small text-body mb-1">Salary: Market Related</span>
                         <span className="badge me-2" style={{backgroundColor: 'lightpink', color: '#fff'}}>
                         <span className="legend-indicator bg-info" />{`${gig.remote == 0 ? 'onsite':'remote'}`}
                         </span>
@@ -202,7 +205,7 @@ function jobs() {
                 </div>
                 ))}
                
-                {filteredGigs.map(gig => (
+                {!filteredGigs.map(gig => (
                 <div className="col mb-5" key={gig.id}>
                     {/* Card */}
                     <div className="card card-bordered h-100">
