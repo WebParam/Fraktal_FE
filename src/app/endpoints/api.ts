@@ -663,3 +663,24 @@ export async function addToShortlist(payload:any) {
     return false;
   }
 }
+
+
+export async function uploadCv(payload:any) {
+  try {
+    const response = await axios.post(`${azureUrl}/uploadCv`, payload,  { headers: header });
+  
+    if (response.status === 200 || response.status === 201) {
+      if (response.data?.personnel?.dateCreated) {
+        return response.data;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+
+}

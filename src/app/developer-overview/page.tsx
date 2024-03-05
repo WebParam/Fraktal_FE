@@ -26,7 +26,7 @@ import { IOption, degrees, experience, getLabelFromValue, getOptionFromValue, no
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { StylesConfig } from 'react-select';
-import moment from"moment";
+import moment from "moment";
 
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -238,9 +238,11 @@ setIsEditWork(true);
   }
 
   const handleCvClick = (event:any) => {
+    alert('cv clicked')
     if (hiddenCVInput !== null && hiddenCVInput.current!=null) {
       hiddenCVInput?.current.click();
     }
+    console.log('cv', cv)
   };
 
 async function _GetDeveloperProfile(id:string){
@@ -754,7 +756,7 @@ console.log("loggedin user: ", loggedInUser);
        <div id="sidebarNav" className="navbar-collapse navbar-vertical">
          {/* Card */}
          <div className="card flex-grow-1 mb-5">
-           <div className="card-body" id="leftProfileContainer">
+           <div className="card-body">
              {/* Avatar */}
              <div className="d-none d-lg-block text-center mb-5">
                <div className="avatar avatar-xxl avatar-circle mb-3">

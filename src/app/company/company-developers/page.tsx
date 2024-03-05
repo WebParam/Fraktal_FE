@@ -15,6 +15,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import { IApply, IDeveloperProfile } from '@/app/interfaces/user';
 import Modal from 'react-responsive-modal';
 import Select from "react-select";
+import { Loader, Placeholder } from 'rsuite';
+import "rsuite/Loader/styles/index.css";
+
 const moment = require("moment");
 
 function companyDevelopers() {
@@ -39,6 +42,7 @@ function companyDevelopers() {
     const [mobileExp, setMobileExp] = useState('');
     const [editModalOpen, setEditModalOpen] = useState<boolean>(false); 
     const [existingModalOpen, setExistingModalOpen] = useState<boolean>(false);
+
     
     const cookies = new Cookies(); // Create an instance of Cookies
    
@@ -59,6 +63,7 @@ function companyDevelopers() {
     const [search, setSearch] = useState('');
     const [city, setCity] = useState('');
     const [orderDescending, setOrderDescending] = useState("ascending");
+    const [range, setRange] = useState(25);
 
     const [personnel, setPersonnel] = useState<IDeveloperProfile[]>();
     
@@ -107,11 +112,13 @@ useEffect(() => {
         setNoticePeriod(_data.value);
     }
 
-    function modalClose(){
-        setEditModalOpen(false);
-        sendToLogin();
-
+    function modalCloseUserExists(){
+        setExistingModalOpen(false);
     }
+
+    function modalClose(){
+      setEditModalOpen(false);
+  }
     
     
     function handleExperience(data: any) {
@@ -234,9 +241,17 @@ useEffect(() => {
 
 
             const exists = await PersonnelExists(email) as any;
+            setAddNew(true);
+
+            window.scroll({
+              top: 10,
+              behavior: 'smooth'
+            })
+
             if(exists.data?.id){
                 // cookies.set('fraktional-user', JSON.stringify(exists.response), { path: '/' });
                 // window.location.href = "/developer-overview"
+                setAddNew(false);
                 setExistingModalOpen(true);
             }else{
 
@@ -284,6 +299,7 @@ useEffect(() => {
                 if(registrationResult?.personnel?._user){
                  
                     // setEditModalOpen(true)
+                    setAddNew(false);
                     toast.update(_id, {
                         render: "New developer has been added",
                         type: "success",
@@ -301,6 +317,7 @@ useEffect(() => {
                  
                 }else{
                     debugger;
+                    setAddNew(false)
                     toast.update(_id, {
                         render: "An error occured while adding the developer.",
                         type: "error",
@@ -337,13 +354,11 @@ useEffect(() => {
           // console.log("ddsds",resume)
 
           function sendToLogin(){
-            window.location.href = "/developer-overview"
+            setExistingModalOpen(false);
           }
 
           function sendExistingToLogin(){
-            window.location.href = "/auth/login"
-    
-
+            window.location.href = "/auth/login";
           }
 
           const customModalStyles = {
@@ -398,14 +413,14 @@ useEffect(() => {
       <ToastContainer />
         {/* Page Header */}
         <div className="container">
-        <Modal open={existingModalOpen} styles={customModalStyles} onClose={() => modalClose()} center>
+        
+        <Modal open={existingModalOpen} styles={customModalStyles} onClose={() => modalCloseUserExists()} center>
             <div style={{width:"100%"}}>
             <h4>We have detected an existing profile for the email supplied.</h4>
             <p>Please login to apply for the gig</p>
           
                 <button onClick={()=>sendExistingToLogin()} className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff', width:"100%"}}>Login</button>
             </div>
-           
       </Modal>
  
         <Modal open={editModalOpen} styles={customModalStyles} onClose={() => modalClose()} center>
@@ -514,27 +529,17 @@ useEffect(() => {
                 <div className="w-100">
                   {/* Form */}
                   <form>
-                    <div className="mb-5">
+                    <div className="mb-2">
                       <h5 className="mb-3">Distance</h5>
-                      <p className="form-text">Within <span id="rangeSliderDistance">25</span> km of <span className="fw-semibold text-dark">Johannesburg</span></p>
+                      <p className="form-text">From<br/><span className="fw-semibold text-dark">Johannesburg</span></p>
                       {/* Range Slider */}
                       <div className="range-slider">
-                        <div className="js-nouislider noUi-target noUi-ltr noUi-horizontal noUi-txt-dir-ltr" data-hs-nouislider-options="{
-                               &quot;range&quot;: {
-                                 &quot;min&quot;: 0,
-                                 &quot;max&quot;: 100
-                               },
-                               &quot;connect&quot;: [true, false],
-                               &quot;start&quot;: 25,
-                               &quot;result_min_target_el&quot;: &quot;#rangeSliderDistance&quot;
-                             }">
-                          <div className="noUi-base"><div className="noUi-connects"><div className="noUi-connect" style={{transform: 'translate(0%, 0px) scale(0.25, 1)'}} /></div><div className="noUi-origin" style={{transform: 'translate(-75%, 0px)', zIndex: 4}}>
-                            <div className="noUi-handle noUi-handle-lower" tabIndex={0} role="slider">
-                              <div className="noUi-touch-area" /></div></div></div></div>
+                        <input type="range" id="volume" name="volume" min="5" max="100" value={range} onChange={(e: any) => setRange(e.target.value)}></input>
+
                       </div>
                       <div className="d-flex justify-content-between align-items-center mt-5">
                         <span className="text-body">5 km</span>
-                        <span className="text-body">100 km</span>
+                        <span className="text-body">{range} km</span>
                       </div>
                       {/* End Range Slider */}
                     </div>
@@ -585,7 +590,7 @@ useEffect(() => {
                       <div className="d-grid gap-2">
                        
                         <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobCompanyCheckbox6" />
+                          <input className="form-check-input" type="checkbox"  id="jobCompanyCheckbox6" checked />
                           <label className="form-check-label d-flex" htmlFor="jobCompanyCheckbox6">Param Solutions <span className="ms-auto">6</span></label>
                         </div>
                         {/* End Checkboxes */}
@@ -597,13 +602,13 @@ useEffect(() => {
                         {/* Checkboxes */}
                         <div className="form-check">
                           <input className="form-check-input" type="checkbox"  id="jobYearExperienceCheckbox1" />
-                          <label className="form-check-label d-flex" htmlFor="jobYearExperienceCheckbox1">6-10 years <span className="ms-auto">73</span></label>
+                          <label className="form-check-label d-flex" htmlFor="jobYearExperienceCheckbox1">3-5 years <span className="ms-auto">73</span></label>
                         </div>
                         {/* End Checkboxes */}
                         {/* Checkboxes */}
                         <div className="form-check">
                           <input className="form-check-input" type="checkbox"  id="jobYearExperienceCheckbox2" />
-                          <label className="form-check-label d-flex" htmlFor="jobYearExperienceCheckbox2">3-5 years <span className="ms-auto">3</span></label>
+                          <label className="form-check-label d-flex" htmlFor="jobYearExperienceCheckbox2">6-10 years <span className="ms-auto">3</span></label>
                         </div>
                         {/* End Checkboxes */}
                         {/* Checkboxes */}
@@ -738,7 +743,7 @@ useEffect(() => {
                       </div>
                       <div className="d-sm-none flex-grow-1 ms-3">
                         <h6 className="card-title">
-                          <a className="text-dark" href="../demo-jobs/employer.html">Mailchimp</a>
+                          <a className="text-dark" href="#">Mailchimp</a>
                           <img className="avatar avatar-xss ms-1" src={x?.user?.profilePicture} alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
                         </h6>
                       </div>
@@ -748,11 +753,11 @@ useEffect(() => {
                       <div className="row">
                         <div className="col col-md-8">
                           <h3 className="card-title">
-                            <a className="text-dark" href="../demo-jobs/employer.html">{x?.user?.firstName}  {x?.user?.surname}</a>
+                            <a className="text-dark" href="#">{x?.user?.firstName}  {x?.user?.surname}</a>
                           </h3>
                           <div className="d-none d-sm-inline-block">
                             <h6 className="card-title">
-                              <a className="text-dark" href="../demo-jobs/employer.html">{x?.user?.email}</a>
+                              <a className="text-dark" href="#">{x?.user?.email}</a>
                               {/* <img className="avatar avatar-xss ms-1" src="../assets/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" /> */}
                             </h6>
                           </div>
@@ -798,8 +803,8 @@ useEffect(() => {
                 </div>
                 <div className="card-footer pt-0" style={{display:'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center'}}>
                   <ul className="list-inline list-separator small text-body">
-                    <li className="list-inline-item">Posted 7 hours ago</li>
-                    <li className="list-inline-item">Oxford</li>
+                    <li className="list-inline-item">Posted {x?.dateCreated.split("T")[0]}</li>
+                    <li className="list-inline-item">Gauteng</li>
                     <li className="list-inline-item">Full time</li>
                   </ul>
 
@@ -898,7 +903,16 @@ useEffect(() => {
             </div>
             {/* End Card */}
             {/* Form */}
+            {
+            addNew ? 
+          
+            <div>
+              <Placeholder.Paragraph rows={8} />
+              <Loader backdrop content="Adding dev" size='lg' vertical />
+            </div>
+                :
             <form onSubmit={handleSubmit}>
+
                 <div className="mb-4">
                     <h3>Personal information</h3>
                 </div>
@@ -1082,7 +1096,7 @@ useEffect(() => {
                 <div className="d-grid mt-5">
                 <button type="submit" className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff'}}>Add Developer</button>
                 </div>
-            </form>
+            </form>}
          
             {/* End Form */}
             </div>

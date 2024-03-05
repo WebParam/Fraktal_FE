@@ -73,9 +73,6 @@ function developerOverview() {
 
     return (
       <>
-    
-
-  
       {/* End Col */}
      
       {/* <div className="col-lg-9"> */}
