@@ -684,3 +684,20 @@ export async function uploadCv(payload:any) {
   }
 
 }
+
+export async function DeleteProject(id: string) {
+  try {
+
+    const response = await axios.delete(`${azureUrl}/projects/removeProject/${id}`);
+    
+    if (response.status === 200 || response.status === 201) {
+      return response;
+    } else {
+      console.error("delete failed");
+      return response;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return error;
+  }
+}

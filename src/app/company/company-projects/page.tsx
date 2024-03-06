@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import 'react-responsive-modal/styles.css';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { GetProjectsByOrgId } from "../../endpoints/api";
+import { DeleteProject, GetProjectsByOrgId } from "../../endpoints/api";
 import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
 import dynamic from "next/dynamic";
 const cookies = new Cookies(); // Create an instance of Cookies
@@ -19,11 +19,15 @@ import 'react-initials-avatar/lib/ReactInitialsAvatar.css';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import AvatarGroup from 'react-avatar-group';
+import { IApply, IDeveloperProfile } from '@/app/interfaces/user';
+import Modal from 'react-responsive-modal';
 const moment = require("moment");
 
 function developerOverview() {
     const [selectedOption, setSelectedOption] = useState('ascending');
     const [viewStyle, setViewStyle] = useState('flex');
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    const [itemToDelete, setItemToDelete] = useState<any>();
 
     const [position, setPosition] = useState("");
 
@@ -70,11 +74,41 @@ function developerOverview() {
     window!==undefined && typeof(window)!=='undefined' && window?.location?.assign(`/company/post-job/${project?.id}`)
     }
 
+    const customModalStyles = {
+      modal: {
+        maxWidth: '50%', 
+        width: '50%',
+        borderRadius: "10px",
+        backgroundColor: "white"
+      },
+    };
+
+    async function deleteJobPost(id: string) {
+      try {
+        const remove = await DeleteProject(id);
+        debugger;
+        console.log("items after remove: ",remove);
+      } catch (error: any) {
+        console.log(error);
+      }
+    }
+
+    function handleDelete(project: any) {
+      setItemToDelete(project);
+      setDeleteModalOpen(true);
+      console.log("prject to be deleted:", itemToDelete)
+    }
 
     return (
       <>
       {/* End Col */}
-     
+      <Modal open={deleteModalOpen} styles={customModalStyles} onClose={() => setDeleteModalOpen(false)} center>
+            <div style={{width:"100%"}}>
+            <h4>DELETE JOB CONFIRMATION</h4>
+            <p>Are you sure you want to delete the job post: {itemToDelete?.data?.projectName}</p>
+                <button onClick={()=> deleteJobPost(itemToDelete?.data.id)} className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff', width:"100%"}}>DELETE JOB</button>
+            </div>
+      </Modal>
       {/* <div className="col-lg-9"> */}
         {/* Card */}
         <div className="card">
@@ -201,6 +235,8 @@ function developerOverview() {
                     <>  {
                       sortedProjects.length != 0 ? sortedProjects?.map((project:any) => {
                         
+               
+
                         return (
                           <>
                            <div className="card card-bordered">
@@ -277,6 +313,32 @@ function developerOverview() {
                                             </span>
                                           </label>
                                         </div>
+
+                                        <div className="form-check form-check-bookmark">
+                                          <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            defaultValue=""
+                                            id="jobsCardBookmarkCheck2"
+                                          />
+                                          <label
+                                            className="form-check-label"
+                                            htmlFor="jobsCardBookmarkCheck2"
+                                          >
+                                           <span onClick={() => handleDelete(project)} className="form-check-bookmark-default" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Edit job" data-bs-original-title="Edit this job">
+                                          <i className="bi bi-trash3" style={{fontSize:"20px"}}/>
+                                        </span>
+                                            <span
+                                              className="form-check-bookmark-active"
+                                              data-bs-toggle="tooltip"
+                                              data-bs-placement="top"
+                                              aria-label="Saved"
+                                              data-bs-original-title="Saved"
+                                            >
+                                            <i className="bi bi-trash3"></i>
+                                            </span>
+                                          </label>
+                                        </div>
                                         {/* End Checkbbox Bookmark */}
                                       </div>
                                       {/* End Col */}
@@ -337,25 +399,16 @@ function developerOverview() {
                     </div>
                         </div>
                     }</>
-                    
                   }
-
-                  
-           
                 </div>
 
-    
-                   {/* </div>YY */}
+                   {/* </div> */}
               </div>
             </div>
             {/* End Tab Content */}
           </div>
           {/* End Body */}
         </div>
-        {/* End Card */}
-      {/* </div> */}
-      {/* End Col */}
-    
 </>
     )
 }
