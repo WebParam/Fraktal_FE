@@ -17,6 +17,7 @@ import Modal from 'react-responsive-modal';
 import Select from "react-select";
 import { Loader, Placeholder } from 'rsuite';
 import "rsuite/Loader/styles/index.css";
+import { revalidatePath } from 'next/cache';
 
 const moment = require("moment");
 
@@ -42,6 +43,7 @@ function companyDevelopers() {
     const [mobileExp, setMobileExp] = useState('');
     const [editModalOpen, setEditModalOpen] = useState<boolean>(false); 
     const [existingModalOpen, setExistingModalOpen] = useState<boolean>(false);
+    const [fullstackDev, setFullstackDev] = useState('');
 
     
     const cookies = new Cookies(); // Create an instance of Cookies
@@ -64,6 +66,8 @@ function companyDevelopers() {
     const [city, setCity] = useState('');
     const [orderDescending, setOrderDescending] = useState("ascending");
     const [range, setRange] = useState(25);
+    const [exp, setExp] = useState('');
+    const [education, setEducation] = useState('');
 
     const [personnel, setPersonnel] = useState<IDeveloperProfile[]>();
     
@@ -391,7 +395,6 @@ useEffect(() => {
 
   function handleSetRemote(e: any) {
     setRemote(e.target.value)
-    console.log("remote", remote, e.target.value);
   }
 
   useEffect(() => {
@@ -406,7 +409,76 @@ useEffect(() => {
     }
   }, [city])
 
+  function handleFullStack(title: string) {
+    setFullstackDev(title);
+    window.scroll({
+      top: 50,
+      behavior: 'smooth'
+    })
+  }  
 
+  useEffect(() => {
+    console.log(fullstackDev); // Logging the updated value of fullstackDev
+  
+    if (fullstackDev) {
+      const arrayCopy = personnel?.filter(dev =>
+        dev.previousWorkExperience.some(skill => skill.jobTitle?.toLowerCase().includes(fullstackDev.toLowerCase()))
+      );
+      setPersonnelCopy(arrayCopy);
+    } else {
+      setPersonnelCopy(personnel);
+    }
+  }, [fullstackDev]);
+
+  function handleFilterByExperience(expInput: string){
+    setExp(expInput)
+    window.scroll({
+      top: 50,
+      behavior: 'smooth'
+    })
+  }
+
+  useEffect(() => {
+  
+    if (exp) {
+      const arrayCopy = personnel?.filter(dev => dev.yearsOfExperience == exp);
+      setPersonnelCopy(arrayCopy);
+    } else {
+      setPersonnelCopy(personnel);
+    }
+  }, [exp]);
+  
+
+
+  function handleFilterByEducation(ed: string) {
+    setEducation(ed);
+    window.scroll({
+      top: 50,
+      behavior: 'smooth'
+    })
+  } 
+
+  useEffect(() => {
+  
+    if (education) {
+      const arrayCopy = personnel?.filter(dev =>
+        dev.education.some(ed => ed.qualification?.toLowerCase().includes(education.toLowerCase()))
+      );
+      setPersonnelCopy(arrayCopy);
+    } else {
+      setPersonnelCopy(personnel);
+    }
+  }, [education]);
+
+  function handleClearAll() {
+    setEducation('');
+    setExp('');;
+    setFullstackDev('');
+    window.scroll({
+      top: 50,
+      behavior: 'smooth'
+    })
+  }
 
     return (
     <>
@@ -559,30 +631,34 @@ useEffect(() => {
                     <div className="mb-5">
                       <h5 className="mb-3">Job titles</h5>
                       <div className="d-grid gap-2">
+                        {/* Checkbox */}
+                        <div className="form-check">
+                          <input className="form-check-input" type="checkbox"  id="jobTitleCheckbox3" onChange={() => handleFullStack('')} checked={fullstackDev == ''} />
+                          <label className="form-check-label d-flex" htmlFor="jobTitleCheckbox3">All<span className="ms-auto">{personnel?.length}</span></label>
+                        </div>
                         {/* Checkboxes */}
                         <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobTitleCheckbox1" />
-                          <label className="form-check-label d-flex" htmlFor="jobTitleCheckbox1">Graphic Designer <span className="ms-auto">2</span></label>
+                          <input className="form-check-input" type="checkbox"  id="jobTitleCheckbox3" onChange={() => handleFullStack('react')} checked={fullstackDev == 'react'} />
+                          <label className="form-check-label d-flex" htmlFor="jobTitleCheckbox3">React/Front End<span className="ms-auto">{personnel?.filter(dev => dev.previousWorkExperience.some(skill => skill.jobTitle?.toLowerCase().includes('react'))).length}</span></label>
                         </div>
                         {/* End Checkboxes */}
+                        <div className="form-check">
+                          <input className="form-check-input" type="checkbox"  id="jobTitleCheckbox3" onChange={() => handleFullStack('UI/UX')} checked={fullstackDev == 'UI/UX'} />
+                          <label className="form-check-label d-flex" htmlFor="jobTitleCheckbox3">UI/UX Developer <span className="ms-auto">{personnel?.filter(dev => dev.previousWorkExperience.some(skill => skill.jobTitle?.toLowerCase().includes('UI/UX'))).length}</span></label>
+                        </div>
                         {/* Checkboxes */}
                         <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobTitleCheckbox2" />
-                          <label className="form-check-label d-flex" htmlFor="jobTitleCheckbox2">UI/UX Designer <span className="ms-auto">2</span></label>
+                          <input className="form-check-input" type="checkbox"  id="jobTitleCheckbox3" onChange={() => handleFullStack('full stack')} checked={fullstackDev == 'full stack'} />
+                          <label className="form-check-label d-flex" htmlFor="jobTitleCheckbox3">Full Stack Developer <span className="ms-auto">{personnel?.filter(dev => dev.previousWorkExperience.some(skill => skill.jobTitle?.toLowerCase().includes('full stack'))).length}</span></label>
                         </div>
                         {/* End Checkboxes */}
+                        
                         {/* Checkboxes */}
                         <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobTitleCheckbox3" />
-                          <label className="form-check-label d-flex" htmlFor="jobTitleCheckbox3">Full Stack Developer <span className="ms-auto">1</span></label>
+                          <input className="form-check-input" type="checkbox"  id="jobTitleCheckbox3" onChange={() => handleFullStack('c# .net')} checked={fullstackDev == 'c# .net'} />
+                          <label className="form-check-label d-flex" htmlFor="jobTitleCheckbox3">C#/.NET developer <span className="ms-auto">{personnel?.filter(dev => dev.previousWorkExperience.some(skill => skill.jobTitle?.toLowerCase().includes('C# .NET'))).length}</span></label>
                         </div>
-                        {/* End Checkboxes */}
-                        {/* Checkboxes */}
-                        <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobTitleCheckbox4" />
-                          <label className="form-check-label d-flex" htmlFor="jobTitleCheckbox4">Information Associate <span className="ms-auto">1</span></label>
-                        </div>
-                        {/* End Checkboxes */}
+                        {/* End of Checkbox */}
                       </div>
                     </div>
                     <div className="mb-5">
@@ -599,24 +675,34 @@ useEffect(() => {
                     <div className="mb-5">
                       <h5 className="mb-3">Years of experience</h5>
                       <div className="d-grid gap-2">
+                      <div className="form-check">
+                          <input className="form-check-input" type="checkbox"  id="jobYearExperienceCheckbox1"  onChange={() => handleFilterByExperience('exp1')} checked={exp == 'exp1'} />
+                          <label className="form-check-label d-flex" htmlFor="jobYearExperienceCheckbox1">No experience <span className="ms-auto">{personnel?.filter(dev => dev.yearsOfExperience == 'exp1').length}</span></label>
+                        </div>
                         {/* Checkboxes */}
                         <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobYearExperienceCheckbox1" />
-                          <label className="form-check-label d-flex" htmlFor="jobYearExperienceCheckbox1">3-5 years <span className="ms-auto">73</span></label>
+                          <input className="form-check-input" type="checkbox"  id="jobYearExperienceCheckbox1"  onChange={() => handleFilterByExperience('exp2')} checked={exp == 'exp2'} />
+                          <label className="form-check-label d-flex" htmlFor="jobYearExperienceCheckbox1">1-2 years <span className="ms-auto">{personnel?.filter(dev => dev.yearsOfExperience == 'exp2').length}</span></label>
                         </div>
                         {/* End Checkboxes */}
                         {/* Checkboxes */}
                         <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobYearExperienceCheckbox2" />
-                          <label className="form-check-label d-flex" htmlFor="jobYearExperienceCheckbox2">6-10 years <span className="ms-auto">3</span></label>
+                          <input className="form-check-input" type="checkbox"  id="jobYearExperienceCheckbox2"  onChange={() => handleFilterByExperience('exp3')} checked={exp == 'exp3'}/>
+                          <label className="form-check-label d-flex" htmlFor="jobYearExperienceCheckbox2">2-5 years <span className="ms-auto">{personnel?.filter(dev => dev.yearsOfExperience == 'exp3').length}</span></label>
                         </div>
                         {/* End Checkboxes */}
                         {/* Checkboxes */}
                         <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobYearExperienceCheckbox3" />
-                          <label className="form-check-label d-flex" htmlFor="jobYearExperienceCheckbox3">More than 10 years <span className="ms-auto">1</span></label>
+                          <input className="form-check-input" type="checkbox"  id="jobYearExperienceCheckbox3"  onChange={() => handleFilterByExperience('exp4')} checked={exp == 'exp4'} />
+                          <label className="form-check-label d-flex" htmlFor="jobYearExperienceCheckbox3">5 - 10 years <span className="ms-auto">{personnel?.filter(dev => dev.yearsOfExperience == 'exp4').length}</span></label>
                         </div>
                         {/* End Checkboxes */}
+                         {/* Checkboxes */}
+                         <div className="form-check">
+                          <input className="form-check-input" type="checkbox"  id="jobYearExperienceCheckbox3"  onChange={() => handleFilterByExperience('exp5')} checked={exp == 'exp5'} />
+                          <label className="form-check-label d-flex" htmlFor="jobYearExperienceCheckbox3">10+ years <span className="ms-auto">{personnel?.filter(dev => dev.yearsOfExperience == 'exp4').length}</span></label>
+                        </div>
+                        {/* End checkbox */}
                       </div>
                     </div>
                     <div className="mb-5">
@@ -624,55 +710,51 @@ useEffect(() => {
                       <div className="d-grid gap-2">
                         {/* Checkboxes */}
                         <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobEducationCheckbox1" />
-                          <label className="form-check-label d-flex" htmlFor="jobEducationCheckbox1">Bachelors <span className="ms-auto">6</span></label>
+                          <input className="form-check-input" type="checkbox"  id="jobEducationCheckbox1" onChange={() => handleFilterByEducation('Bsc')} checked={education == 'Bsc'} />
+                          <label className="form-check-label d-flex" htmlFor="jobEducationCheckbox1">Bachelors <span className="ms-auto">{personnel?.filter(dev =>dev.education.some(ed => ed.qualification?.toLowerCase().includes('Bsc'.toLowerCase()))).length}</span></label>
                         </div>
                         {/* End Checkboxes */}
                         {/* Checkboxes */}
                         <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobEducationCheckbox2" />
-                          <label className="form-check-label d-flex" htmlFor="jobEducationCheckbox2">Masters <span className="ms-auto">1</span></label>
+                          <input className="form-check-input" type="checkbox"  id="jobEducationCheckbox2" onChange={() => handleFilterByEducation('Masters')} checked={education == 'Masters'} />
+                          <label className="form-check-label d-flex" htmlFor="jobEducationCheckbox2">Masters <span className="ms-auto">{personnel?.filter(dev =>dev.education.some(ed => ed.qualification?.toLowerCase().includes('Masters'.toLowerCase()))).length}</span></label>
                         </div>
                         {/* End Checkboxes */}
                         {/* Checkboxes */}
                         <div className="form-check">
-                          <input className="form-check-input" type="checkbox"  id="jobEducationCheckbox3" />
-                          <label className="form-check-label d-flex" htmlFor="jobEducationCheckbox3">Associates <span className="ms-auto">1</span></label>
+                          <input className="form-check-input" type="checkbox"  id="jobEducationCheckbox3" onChange={() => handleFilterByEducation('diploma')} checked={education == 'diploma'} />
+                          <label className="form-check-label d-flex" htmlFor="jobEducationCheckbox3">Diploma <span className="ms-auto">{personnel?.filter(dev =>dev.education.some(ed => ed.qualification?.toLowerCase().includes('diploma'.toLowerCase()))).length}</span></label>
                         </div>
                         {/* End Checkboxes */}
                       </div>
                     </div>
-                    <div className="mb-5">
+                    {/* <div className="mb-5">
                       <h5 className="mb-3">Assessment <i className="bi-question-circle text-body ml-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Assessments shown her6 are summarized for convenience only. View the candidate’s profile for more information, including score ranges for each assessment. Indeed makes no statement as to the skill level of any candidate." data-bs-original-title="Assessments shown her6 are summarized for convenience only. View the candidate’s profile for more information, including score ranges for each assessment. Indeed makes no statement as to the skill level of any candidate." /></h5>
                       <div className="d-grid gap-2">
-                        {/* Checkboxes */}
+                 
                         <div className="form-check">
                           <input className="form-check-input" type="checkbox"  id="jobAssessmentCheckbox1" />
                           <label className="form-check-label d-flex" htmlFor="jobAssessmentCheckbox1">Attention to detail <span className="ms-auto">3</span></label>
                         </div>
-                        {/* End Checkboxes */}
-                        {/* Checkboxes */}
+     
                         <div className="form-check">
                           <input className="form-check-input" type="checkbox"  id="jobAssessmentCheckbox2" />
                           <label className="form-check-label d-flex" htmlFor="jobAssessmentCheckbox2">Graphic design <span className="ms-auto">7</span></label>
                         </div>
-                        {/* End Checkboxes */}
-                        {/* Checkboxes */}
+        
                         <div className="form-check">
                           <input className="form-check-input" type="checkbox"  id="jobAssessmentCheckbox3" />
                           <label className="form-check-label d-flex" htmlFor="jobAssessmentCheckbox3">Social Media <span className="ms-auto">1</span></label>
-                        </div>
-                        {/* End Checkboxes */}
-                        {/* Checkboxes */}
+  
                         <div className="form-check">
                           <input className="form-check-input" type="checkbox"  id="jobAssessmentCheckbox4" />
                           <label className="form-check-label d-flex" htmlFor="jobAssessmentCheckbox4">Marketing <span className="ms-auto">1</span></label>
                         </div>
-                        {/* End Checkboxes */}
+           
                       </div>
-                    </div>
+                    </div> */}
                     <div className="d-grid">
-                      <button type="button" className="btn btn-white btn-transition">Clear all</button>
+                      <button type="button" className="btn btn-white btn-transition" onClick={handleClearAll}>Clear all</button>
                     </div>
                   </form>
                   {/* End Form */}
@@ -725,7 +807,7 @@ useEffect(() => {
             </div>
             {/* End Row */}
             {/* Card List */}
-            <div className="d-grid gap-5 mb-10">
+            <div  className="d-grid gap-5 mb-10">
              
               
               {
@@ -803,7 +885,7 @@ useEffect(() => {
                 </div>
                 <div className="card-footer pt-0" style={{display:'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center'}}>
                   <ul className="list-inline list-separator small text-body">
-                    <li className="list-inline-item">Posted {x?.dateCreated.split("T")[0]}</li>
+                    <li className="list-inline-item">Posted {x.user.dateCreated?.split("T")[0]}</li>
                     <li className="list-inline-item">Gauteng</li>
                     <li className="list-inline-item">Full time</li>
                   </ul>
@@ -824,7 +906,7 @@ useEffect(() => {
             </div>
             {/* End Card List */}
             {/* Pagination */}
-            <nav aria-label="Page navigation">
+            {(personnelCopy?.length ?? 0) > 5 && <nav aria-label="Page navigation">
               <ul className="pagination justify-content-center">
                 <li className="page-item disabled">
                   <a className="page-link" href="#" aria-label="Previous">
@@ -846,7 +928,7 @@ useEffect(() => {
                   </a>
                 </li>
               </ul>
-            </nav>
+            </nav>}
             {/* End Pagination */}
           </div>
           {/* End Col */}
