@@ -1,7 +1,5 @@
 'use client'
 import Image from 'next/image';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import Link from 'next/link';
 import './postJob.scss';
 import Select from "react-select";
@@ -1886,15 +1884,15 @@ function PostJob() {
                         />
                       </div>
                     </div>
-                    <ReactQuill
+                    {/* <ReactQuill
                       theme="snow"
                       placeholder="Describe the type of candidate you are looking for and the skills they should possess..."
                       value={description}
                       style={{height: '60%'}}
-                      onChange={((e)=> {
+                      onChange={((e:any)=> {
                         setErrorStyle7(false);
                         setDescription(e)})}
-                    />
+                    /> */}
                       {(!description && errorstyle7) && <span style={{color: 'red'}}>Please provide a description of more than 80 characters</span>}
                   </div>
                   {/* End Form */}
@@ -1910,15 +1908,15 @@ function PostJob() {
                       </div>
                     </div>
                     {/* End Row */}
-                      <ReactQuill
+                      {/* <ReactQuill
                       theme="snow"
                       placeholder="Ex: Applicant must be able to code in React and angular and know a bit of PHP"
                       aria-label="Ex: All customers are required to wear a mask, curbside pickup available, common surfaces are sanitized regularly, etc."
                       value={responsibilities}
                       defaultValue={responsibilities}
                       style={{height: '60%'}}
-                      onChange={((e)=>setResponsibilities(e))}
-                    />
+                      onChange={((e:any)=>setResponsibilities(e))}
+                    /> */}
                       {(!responsibilities && errorstyle8) && <span style={{color: 'red'}}>Please provide a description of more than 80 characters</span>}
                   </div>
                   {/* End Form */}
