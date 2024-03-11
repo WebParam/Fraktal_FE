@@ -1,5 +1,7 @@
 'use client'
 import Image from 'next/image';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import Link from 'next/link';
 import './postJob.scss';
 import Select from "react-select";
@@ -28,6 +30,7 @@ function PostJob() {
     const [errorstyle4, setErrorStyle4] = useState(false);
     const [errorstyle6, setErrorStyle6] = useState(false); 
     const [errorstyle7, setErrorStyle7] = useState(false);
+    const [errorstyle8, setErrorStyle8] = useState(false);
     const [responsibilitiesError, setResposnisbilitesError] = useState(false);
     //formInput4
     const [projectType, setProjectType] = useState("");
@@ -307,7 +310,7 @@ function PostJob() {
       if (projectName.length > 1 ) {
         debugger;
         setErrorStyle1(false);
-        setActiveStep(state => state = 1)
+        setActiveStep((state: any) => state = 1)
 
         window.scroll({
           top: 0,
@@ -322,7 +325,7 @@ function PostJob() {
   const goToThirdSlide = () => {
     if (streetAddress.length > 1) {
       setErrorStyle2(false);
-      setActiveStep(state => 2)
+      setActiveStep((state: any) => 2)
 
       window.scroll({
         top: 0,
@@ -337,7 +340,7 @@ function PostJob() {
   const goToFifththSlide = () => {
     if (pay > 0 && fromDate.length> 6 && toDate.length > 6) {
       setErrorStyle4(false);
-      setActiveStep(state => 4)
+      setActiveStep((state: any) => 4)
 
       window.scroll({
         top: 0,
@@ -350,7 +353,7 @@ function PostJob() {
   }
 
   const goToSixthSlide = () => {
-      setActiveStep(state => 5)
+      setActiveStep((state: any) => 5)
       window.scroll({
         top: 0,
         behavior: 'smooth'
@@ -360,7 +363,7 @@ function PostJob() {
   const goToSeventhSlide = () => {
     if (description.length > 80) {
       setErrorStyle7(false);
-      setActiveStep(state => 6)
+      setActiveStep((state: any) => 6)
       window.scroll({
         top: 0,
         behavior: 'smooth'
@@ -1873,37 +1876,30 @@ function PostJob() {
                     </div>
                   </div>
                   {/* Form */}
-                  <div className="mb-4">
+                  <div className="mb-4" style={{height: '300px'}}>
                     <div className="row mb-2">
                       <div className="col-auto align-self-end">
+                        <h5>Please enter Job description</h5>
                         <span
                           id="additionalCovid19PrecautionsCountCharacters"
                           className="text-muted"
                         />
                       </div>
                     </div>
-                    {/* End Row */}
-                    <textarea
-                      id="additionalCovid19PrecautionsLabel"
-                      className="js-count-characters form-control"
-                      placeholder="Ex: All customers are required to wear a mask, curbside pickup available, common surfaces are sanitized regularly, etc."
-                      aria-label="Ex: All customers are required to wear a mask, curbside pickup available, common surfaces are sanitized regularly, etc."
-                      rows={4}
+                    <ReactQuill
+                      theme="snow"
+                      placeholder="Describe the type of candidate you are looking for and the skills they should possess..."
+                      value={description}
+                      style={{height: '60%'}}
                       onChange={((e)=> {
                         setErrorStyle7(false);
-                        setDescription(e.target.value)})}
-                      // maxLength={250}
-                      data-hs-count-characters-options='{
-                          "output": "#additionalCovid19PrecautionsCountCharacters"
-                        }'
-                      defaultValue={description}
-                      value={description}
+                        setDescription(e)})}
                     />
                       {(!description && errorstyle7) && <span style={{color: 'red'}}>Please provide a description of more than 80 characters</span>}
                   </div>
                   {/* End Form */}
                      {/* Form */}
-                     <div className="mb-4">
+                    <div className="mb-4" style={{height: '300px'}}>
                     <div className="row mb-2">
                       <div className="col-auto align-self-end">
                         <h5>Please enter the responsibilities</h5>
@@ -1914,20 +1910,16 @@ function PostJob() {
                       </div>
                     </div>
                     {/* End Row */}
-                    <textarea
-                      id="additionalCovid19PrecautionsLabel"
-                      className="js-count-characters form-control"
+                      <ReactQuill
+                      theme="snow"
                       placeholder="Ex: Applicant must be able to code in React and angular and know a bit of PHP"
                       aria-label="Ex: All customers are required to wear a mask, curbside pickup available, common surfaces are sanitized regularly, etc."
-                      rows={4}
-                      onChange={((e)=>setResponsibilities(e.target.value))}
-                      data-hs-count-characters-options='{
-                          "output": "#additionalCovid19PrecautionsCountCharacters"
-                        }'
-                      defaultValue={responsibilities}
                       value={responsibilities}
+                      defaultValue={responsibilities}
+                      style={{height: '60%'}}
+                      onChange={((e)=>setResponsibilities(e))}
                     />
-                      {(!responsibilities && errorstyle7) && <span style={{color: 'red'}}>Please provide a description of more than 80 characters</span>}
+                      {(!responsibilities && errorstyle8) && <span style={{color: 'red'}}>Please provide a description of more than 80 characters</span>}
                   </div>
                   {/* End Form */}
                 </div>
@@ -2442,59 +2434,7 @@ function PostJob() {
                         <div className="col-sm-8 mb-3 mb-sm-0">
                           <h5>Job Responsibilities</h5>
                           <p>{responsibilities}</p>
-                          {/* <h5>About you:</h5>
-                          <ul className="mb-3">
-                            <li>
-                              You're always on top of the latest design trends,
-                              ambassador of Apple Humans guidelines and Google
-                              Material design and a good understanding of
-                              transitions and haptic feedback.
-                            </li>
-                            <li>
-                              You're a quick learner, always open-minded and
-                              curious, and eager to learn new skills.
-                            </li>
-                            <li>
-                              You have a keen interest and knowledge of
-                              gamification and the user onboarding process.
-                            </li>
-                            <li>
-                              You've got a can-do attitude, have a proactive
-                              approach to your work, are autonomous and take
-                              ownership of your work; a perfectionist and are
-                              used to working in a fast-paced environment.
-                            </li>
-                          </ul> */}
-                          {/* <h5>Requirements:</h5>
-                          <ul className="mb-3">
-                            <li>
-                              You're a driven designer and have a minimum of 2-3
-                              years of experience in delivering both UX &amp; UI
-                              design, including experience in mobile and native
-                              applications.
-                            </li>
-                            <li>
-                              You've got proven mobile design and proven UI
-                              experience on mobile app design and web: working
-                              with sketches, prototypes, wireframes, user flows
-                              and UI interactions.
-                            </li>
-                            <li>
-                              Your portfolio is full of beautiful, well thought
-                              out interface work that showcases your flair and
-                              attention-to-detail. It includes examples of
-                              mobile and app products you have worked on (iOS
-                              and Android)
-                            </li>
-                            <li>
-                              You've used Figma and are an Adobe Creative Cloud
-                              expert (Photoshop, Illustrator, After Effects).
-                            </li>
-                          </ul> */}
-                          {/* <h5>COVID-19 precautions</h5>
-                          <span className="d-block">
-                            Remote interview process
-                          </span> */}
+                         
                         </div>
                         {/* End Col */}
                         <div className="col-sm-4">
@@ -2746,5 +2686,6 @@ function PostJob() {
 }
 
 export default dynamic (() => Promise.resolve(PostJob), {ssr: false})
+
 
 
