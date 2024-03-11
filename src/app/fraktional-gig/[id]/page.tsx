@@ -447,7 +447,7 @@ function viewGig({ params }: { params: { id: string }}) {
                     <ul className="list-inline list-separator small text-body mb-2">
                     <li className="list-inline-item">Posted {gig?.fromDate}</li>
                     <li className="list-inline-item">{gig?.city}, South Africa</li>
-                    <li className="list-inline-item">{gig?.jobtype == 0 ? 'onsite':'remote'}</li>
+                    <li className="list-inline-item">{gig?.jobtype == 0 ? 'onsite':'hybrid'}</li>
                     </ul>
                 </div>
                 </div>
@@ -462,17 +462,17 @@ function viewGig({ params }: { params: { id: string }}) {
             {/* Card */}
             <div 
             className="row align-items-sm-center" 
-            style={{padding:"5%",marginBottom:"5%"}} 
-            // dangerouslySetInnerHTML={{__html :gig?.description}}
+            style={{padding:"5%", listStyle: "disc !important"}} 
+            dangerouslySetInnerHTML={{__html :gig?.description!}}
             >
-                {gig?.description}
+                {/* {gig?.description} */}
             </div>
             <div 
                 className="row align-items-sm-center" 
-                style={{padding:"5%",marginBottom:"5%"}} 
-                // dangerouslySetInnerHTML={{__html :gig?.responsibilities}}
+                style={{padding:"5%",marginBottom:"5%",listStyle: "disc !important", paddingTop: "0px"}} 
+                dangerouslySetInnerHTML={{__html :gig?.responsibilities!}}
                 >
-                {gig?.responsibilities}
+                {/* {gig?.responsibilities} */}
             </div>
             <div className="card card-bordered mb-10">
                 <div className="card-body">

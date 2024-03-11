@@ -191,7 +191,7 @@ function jobs() {
                         </h3>
                         <span className="d-block small text-body mb-1">Salary: Market Related</span>
                         <span className="badge me-2" style={{backgroundColor: 'lightpink', color: '#fff'}}>
-                        <span className="legend-indicator bg-info" />{`${gig.remote == 0 ? 'onsite':'remote'}`}
+                        <span className="legend-indicator bg-info" />{`${gig.remote == 0 ? 'onsite':'hybrid'}`}
                         </span>
                     </div>
                     <div className="card-footer pt-0">
@@ -205,7 +205,7 @@ function jobs() {
                 </div>
                 ))}
                
-                {!filteredGigs.map(gig => (
+                {!filteredGigs.filter(x=>x.status==0).map(gig => (
                 <div className="col mb-5" key={gig.id}>
                     {/* Card */}
                     <div className="card card-bordered h-100">
