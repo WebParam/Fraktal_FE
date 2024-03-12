@@ -1,10 +1,13 @@
 'use client'
+import './id.scss'
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+import 'react-quill/dist/quill.snow.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import '../postJob.scss';
 import React, { useState, useEffect } from 'react';
 import { IJobApplication } from '../../../interfaces/IJobApplication';
-import { CreateJob, GetProjectById, GetProjectsByOrgId } from '../../../endpoints/api';
+import { CreateJob, GetProjectById, GetProjectsByOrgId, UpdateJob } from '../../../endpoints/api';
 // import AutoComplete from "react-google-autocomplete";
 import Footer from '../../../components/Footer/Footer';
 import Header from '../../../components/Header/Header';
@@ -17,7 +20,7 @@ import Banner from '../../../banner/Banner';
 import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
 import { useRouter } from 'next/router'
 
-function PostJob() {
+function UpdateSingleJob() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const [activeStep, setActiveStep] = useState(0);
     const [errorstyle1, setErrorStyle1] = useState(false);
@@ -73,13 +76,13 @@ function PostJob() {
     const [jobSchedule, setJobSchedule] = useState(0);
     const [website, setWebsite] = useState('');
     const [responsibilities, setResponsibilities] = useState('');
+    const [description, setDescription] = useState('');
     const [methodToRecieveApplications, setMethodToRecieveApplications] = useState(0);
     const [submitResume, setSubmitResume] = useState(0);
     const [dailyUpdateEmailAddress, setDailyUpdateEmailAddress] = useState('');
     const [individualUpDateEmailAddress, setIndividualUpDateEmailAddress] = useState('');
     const [dailyUpdateEmail, setDailyUpdateEmail] = useState(0 !== 0);
     const [individualUpDateEmail, setIndividualUpDateEmail] = useState(0 !== 0);
-    const [description, setDescription] = useState('');
 
     const [project, setProject] = useState<IJobApplication>();
 
@@ -89,7 +92,7 @@ function PostJob() {
 
     async function createJobPost(){
 
-      let _id = toast.loading("Posting job..", {
+      let _id = toast.loading("Upading Job Details..", {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
@@ -147,6 +150,7 @@ function PostJob() {
         jobSchedule: jobSchedule??0,
         website: website,
         responsibilities: responsibilities,
+        description: description,
         methodToRecieveApplications: methodToRecieveApplications,
         submitResume: submitResume,
         dailyUpdateEmailAddress: dailyUpdateEmailAddress,
@@ -156,16 +160,15 @@ function PostJob() {
         // companyId: loggedInUser.staff.orgId, // to be updated
         companyId:"655a3ed54b837045859ab384",
         creatingUser: loggedInUser._id, // to be updated
-        description: description
       };
       
     try {
-      const res = await CreateJob(payload);
+      const res = await UpdateJob(payload);
 
       if(res){
         toast.update(_id, {
                render:
-                 "Job succesfuly posted",
+                 "Job succesfuly Updated",
                type: "success",
                isLoading: false,
              });
@@ -177,7 +180,7 @@ function PostJob() {
        } else {
         toast.update(_id, {
                render:
-                 "Error Posting a job",
+                 "Error Updating a job",
                type: "error",
                isLoading: false,
              });
@@ -193,7 +196,7 @@ function PostJob() {
             if (statusCode === 400) {
            
               toast.update(_id, {
-                render: `Error Posting a job`,
+                render: `Error Updating a job`,
                 type: "error",
                 isLoading: false,
               });
@@ -290,17 +293,12 @@ const submitOptions = [
   };
 
   const goToSecondSlide = () => {
-      if (projectName != '') {
-        setErrorStyle1(false);
         setActiveStep(state => state++)
 
         window.scroll({
           top: 0,
           behavior: 'smooth'
         })
-      }
-        alert('project name cant be found')
-        setErrorStyle1(true);
   }
 
   const goToThirdSlide = () => {
@@ -315,7 +313,7 @@ const submitOptions = [
   const goToFifththSlide = () => {
     if (pay > 0 && fromDate.length>6 && toDate.length > 6) {
       setErrorStyle4(false);
-      setActiveStep(state => 4)
+      setActiveStep((state: any) => 4)
     }
 
       setErrorStyle4(true);
@@ -324,7 +322,7 @@ const submitOptions = [
   const goToSixthSlide = () => {
     // if (website.length > 5) {
       setErrorStyle6(false);
-      setActiveStep(state => 5)
+      setActiveStep((state: any) => 5)
     // }
 
       // setErrorStyle6(true);
@@ -333,7 +331,7 @@ const submitOptions = [
   const goToSeventhSlide = () => {
     if (description.length > 80) {
       setErrorStyle7(false);
-      setActiveStep(state => 6)
+      setActiveStep((state: any) => 6)
     }
 
       setErrorStyle7(true);
@@ -443,7 +441,7 @@ const submitOptions = [
                   <li className={`step-item ${activeStep==0? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                      // onClick={()=>{setStepActive(0)}}
+                      onClick={()=>{setStepActive(0)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepBasic"
                 }'
@@ -460,7 +458,7 @@ const submitOptions = [
                   <li className={`step-item ${activeStep==1? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                      // onClick={()=>{setStepActive(1)}}
+                      onClick={()=>{setStepActive(1)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepAddress"
                 }'
@@ -477,7 +475,7 @@ const submitOptions = [
                   <li className={`step-item ${activeStep==2? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                    //  onClick={()=>{setStepActive(2)}}
+                     onClick={()=>{setStepActive(2)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepJobDetails"
                 }'
@@ -494,7 +492,7 @@ const submitOptions = [
                   <li className={`step-item ${activeStep==3? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                      // onClick={()=>{setStepActive(3)}}
+                      onClick={()=>{setStepActive(3)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepPayment"
                 }'
@@ -511,7 +509,7 @@ const submitOptions = [
                   <li className={`step-item ${activeStep==4? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                      // onClick={()=>{setStepActive(4)}}
+                      onClick={()=>{setStepActive(4)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepAdditionalJobDetails"
                 }'
@@ -530,7 +528,7 @@ const submitOptions = [
                   <li className={`step-item ${activeStep==5? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                      // onClick={()=>{setStepActive(5)}}
+                      onClick={()=>{setStepActive(5)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepJobDescription"
                 }'
@@ -547,7 +545,7 @@ const submitOptions = [
                   <li className={`step-item ${activeStep==6? "active focus":""}`}>
                     <a
                       className="step-content-wrapper"
-                      // onClick={()=>{setStepActive(6)}}
+                      onClick={()=>{setStepActive(6)}}
                       data-hs-step-form-next-options='{
                   "targetSelector": "#postJobStepJobApplicationSettings"
                 }'
@@ -703,25 +701,28 @@ const submitOptions = [
                 {/* End Body */}
                 {/* Footer */}
                 <div className="card-footer pt-0">
-                  {errorstyle1 && <span style={{color: 'red'}}>Please complete all required fields *</span>}
-                  <div className="d-flex justify-content-end align-items-center">
-                    <button
-                    onClick={()=>{goToSecondSlide()}}
-                      type="button"
-                      className="btn btn-primary"
-                      style={{ 
-                        background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
-                        color: 'white'
-                      }}
-                      data-hs-step-form-next-options='{
-                        "targetSelector": "#postJobStepAddress"
-                      }'
-                    >
-                      Save and continue{" "}
-                      <i className="bi-chevron-right small ms-1" />
-                    </button>
-                  </div>
-                </div>
+                 
+                 <div className="d-flex align-items-center">
+                  
+                   <div className="ms-auto">
+                     <button
+                     onClick={()=>{setActiveStep(7)}}
+                       type="button"
+                       className="btn btn-primary"
+                       style={{ 
+                         background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
+                         color: 'white'
+                       }}
+                       data-hs-step-form-next-options='{
+                         "targetSelector": "#postJobStepJobDetails"
+                       }'
+                     >
+                       Finish editing{" "}
+                       <i className="bi-chevron-right small ms-1" />
+                     </button>
+                   </div>
+                 </div>
+               </div>
                 {/* End Footer */}
               </div>
               {/* End Card */}
@@ -951,38 +952,28 @@ const submitOptions = [
                 </div>
                 {/* End Body */}
                 {/* Footer */}
-                <div className="card-footer pt-0">
-                 
-                  <div className="d-flex align-items-center">
-                    <button
-                    onClick={()=>{setStepActive(0)}}
-                      type="button"
-                      className="btn btn-ghost-secondary"
-                      data-hs-step-form-prev-options='{
-                   "targetSelector": "#postJobStepBasic"
-                 }'
-                    >
-                      <i className="bi-chevron-left small ms-1" /> Previous step
-                    </button>
-                    <div className="ms-auto">
-                      <button
-                      onClick={()=>{goToThirdSlide()}}
-                        type="button"
-                        className="btn btn-primary"
-                        style={{ 
-                          background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
-                          color: 'white'
-                        }}
-                        data-hs-step-form-next-options='{
-                          "targetSelector": "#postJobStepJobDetails"
-                        }'
-                      >
-                        Save and continue{" "}
-                        <i className="bi-chevron-right small ms-1" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <div className="card-footer pt-0">      
+                 <div className="d-flex align-items-center">
+                  
+                   <div className="ms-auto">
+                     <button
+                     onClick={()=>{setActiveStep(7)}}
+                       type="button"
+                       className="btn btn-primary"
+                       style={{ 
+                         background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
+                         color: 'white'
+                       }}
+                       data-hs-step-form-next-options='{
+                         "targetSelector": "#postJobStepJobDetails"
+                       }'
+                     >
+                       Finish editing{" "}
+                       <i className="bi-chevron-right small ms-1" />
+                     </button>
+                   </div>
+                 </div>
+               </div>
                 {/* End Footer */}
               </div>
               {/* End Card */}
@@ -1177,36 +1168,26 @@ const submitOptions = [
                 {/* End Body */}
                 {/* Footer */}
                 <div className="card-footer pt-0">
-                  <div className="d-flex align-items-center">
-                    <button
-                    onClick={()=>{setStepActive(1)}}
-                      type="button"
-                      className="btn btn-ghost-secondary"
-                      data-hs-step-form-prev-options='{
-                   "targetSelector": "#postJobStepAddress"
-                 }'
-                    >
-                      <i className="bi-chevron-left small ms-1" /> Previous step
-                    </button>
-                    <div className="ms-auto">
-                      <button
-                      onClick={()=>{setStepActive(3)}}
-                        type="button"
-                        className="btn btn-primary"
-                        style={{ 
-                          background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
-                          color: 'white'
-                        }}
-                        data-hs-step-form-next-options='{
-                          "targetSelector": "#postJobStepPayment"
-                        }'
-                      >
-                        Save and continue{" "}
-                        <i className="bi-chevron-right small ms-1" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                 <div className="d-flex align-items-center">
+                   <div className="ms-auto">
+                     <button
+                     onClick={()=>{setActiveStep(7)}}
+                       type="button"
+                       className="btn btn-primary"
+                       style={{ 
+                         background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
+                         color: 'white'
+                       }}
+                       data-hs-step-form-next-options='{
+                         "targetSelector": "#postJobStepJobDetails"
+                       }'
+                     >
+                       Finish editing{" "}
+                       <i className="bi-chevron-right small ms-1" />
+                     </button>
+                   </div>
+                 </div>
+               </div>
                 {/* End Footer */}
               </div>
               {/* End Card */}
@@ -1439,72 +1420,7 @@ const submitOptions = [
                           </span>
                         </span>
                       </label>
-                      {/* End Custom Radio */}
-                      {/* Custom Radio */}
-                      {/* <label
-                        className="form-control"
-                        htmlFor="supplementalPayCheckbox2"
-                      >
-                        <span className="form-check">
-                          <input
-                            type="checkbox"
-                            className="form-check-input"
-                            name="supplementalPayCheckboxName"
-                            id="supplementalPayCheckbox2"
-                          />
-                          <span className="form-check-label">
-                            Commission pay
-                          </span>
-                        </span>
-                      </label> */}
-                      {/* End Custom Radio */}
-                      {/* Custom Radio */}
-                      {/* <label
-                        className="form-control"
-                        htmlFor="supplementalPayCheckbox3"
-                      >
-                        <span className="form-check">
-                          <input
-                            type="checkbox"
-                            className="form-check-input"
-                            name="supplementalPayCheckboxName"
-                            id="supplementalPayCheckbox3"
-                          />
-                          <span className="form-check-label">Bonus pay</span>
-                        </span>
-                      </label> */}
-                      {/* End Custom Radio */}
-                      {/* Custom Radio */}
-                      {/* <label
-                        className="form-control"
-                        htmlFor="supplementalPayCheckbox4"
-                      >
-                        <span className="form-check">
-                          <input
-                            type="checkbox"
-                            className="form-check-input"
-                            name="supplementalPayCheckboxName"
-                            id="supplementalPayCheckbox4"
-                          />
-                          <span className="form-check-label">Tips</span>
-                        </span>
-                      </label> */}
-                      {/* End Custom Radio */}
-                      {/* Custom Radio */}
-                      {/* <label
-                        className="form-control"
-                        htmlFor="supplementalPayCheckbox5"
-                      >
-                        <span className="form-check">
-                          <input
-                            type="checkbox"
-                            className="form-check-input"
-                            name="supplementalPayCheckboxName"
-                            id="supplementalPayCheckbox5"
-                          />
-                          <span className="form-check-label">Other</span>
-                        </span>
-                      </label> */}
+                
                       {/* End Custom Radio */}
                     </div>
                   </div>
@@ -1612,87 +1528,11 @@ const submitOptions = [
                             </span>
                           </label>
                           {/* End Custom Radio */}
-                          {/* Custom Radio */}
-                          {/* <label
-                            className="form-control"
-                            htmlFor="benefitsCheckbox8"
-                          >
-                            <span className="form-check">
-                              <input
-                                type="checkbox"
-                                className="form-check-input"
-                                name="benefitsCheckboxName"
-                                id="benefitsCheckbox8"
-                                onChange={((e)=>setLifeInsurance(e.target.checked))}
-                              />
-                              <span className="form-check-label">
-                                Life insurance
-                              </span>
-                            </span>
-                          </label> */}
-                          {/* End Custom Radio */}
-                          {/* Custom Radio */}
-                          {/* <label
-                            className="form-control"
-                            htmlFor="benefitsCheckbox10"
-                          >
-                            <span className="form-check">
-                              <input
-                                type="checkbox"
-                                className="form-check-input"
-                                name="benefitsCheckboxName"
-                                id="benefitsCheckbox10"
-                                onChange={((e)=>setDisabilityInsurance(e.target.checked))}
-                              />
-                              <span className="form-check-label">
-                                Disability insurance
-                              </span>
-                            </span>
-                          </label> */}
-                          {/* End Custom Radio */}
                         </div>
                       </div>
                       {/* End Col */}
                       <div className="col-md-6">
                         <div className="d-grid gap-2">
-                          {/* Custom Radio */}
-                          {/* <label
-                            className="form-control"
-                            htmlFor="benefitsCheckbox11"
-                          >
-                            <span className="form-check">
-                              <input
-                                type="checkbox"
-                                className="form-check-input"
-                                name="benefitsCheckboxName"
-                                id="benefitsCheckbox11"
-                                onChange={((e)=>setRetirementPlan(e.target.checked))}
-                              />
-                              <span className="form-check-label">
-                                Retirement plan
-                              </span>
-                            </span>
-                          </label> */}
-                          {/* End Custom Radio */}
-                          {/* Custom Radio */}
-                          {/* <label
-                            className="form-control"
-                            htmlFor="benefitsCheckbox13"
-                          >
-                            <span className="form-check">
-                              <input
-                                type="checkbox"
-                                className="form-check-input"
-                                name="benefitsCheckboxName"
-                                id="benefitsCheckbox13"
-                                onChange={((e)=>setEmployeeDiscount(e.target.checked))}
-                              />
-                              <span className="form-check-label">
-                                Employee discount
-                              </span>
-                            </span>
-                          </label> */}
-                          {/* End Custom Radio */}
                           {/* Custom Radio */}
                           <label
                             className="form-control"
@@ -1734,83 +1574,8 @@ const submitOptions = [
                             </span>
                           </label>
                           {/* End Custom Radio */}
-                          {/* Custom Radio */}
-                          {/* <label
-                            className="form-control"
-                            htmlFor="benefitsCheckbox17"
-                          >
-                            <span className="form-check">
-                              <input
-                                type="checkbox"
-                                className="form-check-input"
-                                name="benefitsCheckboxName"
-                                id="benefitsCheckbox17"
-                                onChange={((e)=>setParentalLeave(e.target.checked))}
-                                
-                              />
-                              <span className="form-check-label">
-                                Parental leave
-                              </span>
-                            </span>
-                          </label> */}
-                          {/* End Custom Radio */}
-                          {/* Custom Radio */}
-                          {/* <label
-                            className="form-control"
-                            htmlFor="benefitsCheckbox18"
-                          >
-                            <span className="form-check">
-                              <input
-                                type="checkbox"
-                                className="form-check-input"
-                                name="benefitsCheckboxName"
-                                id="benefitsCheckbox18"
-                                onChange={((e)=>setSpendingAccount(e.target.checked))}
-                              />
-                              <span className="form-check-label">
-                                FLexible Spending Account
-                              </span>
-                            </span>
-                          </label> */}
-                          {/* End Custom Radio */}
-                          {/* Custom Radio */}
-                          {/* <label
-                            className="form-control"
-                            htmlFor="benefitsCheckbox18"
-                          >
-                            <span className="form-check">
-                              <input
-                                type="checkbox"
-                                className="form-check-input"
-                                name="benefitsCheckboxName"
-                                id="benefitsCheckbox18"
-                                onChange={((e)=>setRetirememntFund(e.target.checked))}
-                              />
-                              <span className="form-check-label">
-                                401k
-                              </span>
-                            </span>
-                          </label> */}
-                          {/* End Custom Radio */}
-                                {/* Custom Radio */}
-                                {/* <label
-                            className="form-control"
-                            htmlFor="benefitsCheckbox18"
-                          >
-                            <span className="form-check">
-                              <input
-                                type="checkbox"
-                                className="form-check-input"
-                                name="benefitsCheckboxName"
-                                id="benefitsCheckbox18"
-                                onChange={((e)=>setRetirememntFundMatch(e.target.checked))}
-                              />
-                              <span className="form-check-label">
-                                401k Match
-                              </span>
-                            </span>
-                          </label> */}
-                          {/* End Custom Radio */}
+                       
+
                           {/* Custom Radio */}
                           <label
                             className="form-control"
@@ -1860,36 +1625,28 @@ const submitOptions = [
                 {/* End Body */}
                 {/* Footer */}
                 <div className="card-footer pt-0">
-                  <div className="d-flex align-items-center">
-                    <button
-                    onClick={()=>{setStepActive(2)}}
-                      type="button"
-                      className="btn btn-ghost-secondary"
-                      data-hs-step-form-prev-options='{
-                   "targetSelector": "#postJobStepJobDetails"
-                 }'
-                    >
-                      <i className="bi-chevron-left small ms-1" /> Previous step
-                    </button>
-                    <div className="ms-auto">
-                      <button
-                      onClick={()=>{goToFifththSlide()}}
-                        type="button"
-                        className="btn btn-primary"
-                        style={{ 
-                          background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
-                          color: 'white'
-                        }}
-                        data-hs-step-form-next-options='{
-                          "targetSelector": "#postJobStepAdditionalJobDetails"
-                        }'
-                      >
-                        Save and continue{" "}
-                        <i className="bi-chevron-right small ms-1" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                 
+                 <div className="d-flex align-items-center">
+                  
+                   <div className="ms-auto">
+                     <button
+                     onClick={()=>{setActiveStep(7)}}
+                       type="button"
+                       className="btn btn-primary"
+                       style={{ 
+                         background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
+                         color: 'white'
+                       }}
+                       data-hs-step-form-next-options='{
+                         "targetSelector": "#postJobStepJobDetails"
+                       }'
+                     >
+                       Finish editing{" "}
+                       <i className="bi-chevron-right small ms-1" />
+                     </button>
+                   </div>
+                 </div>
+               </div>
                 {/* End Footer */}
               </div>
               {/* End Card */}
@@ -2081,36 +1838,28 @@ const submitOptions = [
                 {/* End Body */}
                 {/* Footer */}
                 <div className="card-footer pt-0">
-                  <div className="d-flex align-items-center">
-                    <button
-                    onClick={()=>{setStepActive(3)}}
-                      type="button"
-                      className="btn btn-ghost-secondary"
-                      data-hs-step-form-prev-options='{
-                   "targetSelector": "#postJobStepPayment"
-                 }'
-                    >
-                      <i className="bi-chevron-left small ms-1" /> Previous step
-                    </button>
-                    <div className="ms-auto">
-                      <button
-                      onClick={()=>{goToSixthSlide()}}
-                        type="button"
-                        className="btn btn-primary"
-                        style={{ 
-                          background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
-                          color: 'white'
-                        }}
-                        data-hs-step-form-next-options='{
-                          "targetSelector": "#postJobStepJobDescription"
-                        }'
-                      >
-                        Save and continue{" "}
-                        <i className="bi-chevron-right small ms-1" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                 
+                 <div className="d-flex align-items-center">
+                  
+                   <div className="ms-auto">
+                     <button
+                     onClick={()=>{setActiveStep(7)}}
+                       type="button"
+                       className="btn btn-primary"
+                       style={{ 
+                         background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
+                         color: 'white'
+                       }}
+                       data-hs-step-form-next-options='{
+                         "targetSelector": "#postJobStepJobDetails"
+                       }'
+                     >
+                       Finish editing{" "}
+                       <i className="bi-chevron-right small ms-1" />
+                     </button>
+                   </div>
+                 </div>
+               </div>
                 {/* End Footer */}
               </div>
               {/* End Card */}
@@ -2202,19 +1951,15 @@ const submitOptions = [
                       </div>
                     </div>
                     {/* End Row */}
-                    <textarea
-                      id="additionalCovid19PrecautionsLabel"
-                      className="js-count-characters form-control"
-                      placeholder="Ex: All customers are required to wear a mask, curbside pickup available, common surfaces are sanitized regularly, etc."
-                      aria-label="Ex: All customers are required to wear a mask, curbside pickup available, common surfaces are sanitized regularly, etc."
-                      rows={4}
-                      onChange={((e)=>setDescription(e.target.value))}
-                      maxLength={250}
-                      data-hs-count-characters-options='{
-                          "output": "#additionalCovid19PrecautionsCountCharacters"
-                        }'
-                      defaultValue={description}
+                    <ReactQuill
+                      theme="snow"
+                      placeholder="Describe the type of candidate you are looking for and the skills they should possess..."
                       value={description}
+                      defaultValue={description}
+                      style={{height: '60%'}}
+                      onChange={((e)=> {
+                        setErrorStyle7(false);
+                        setDescription(e)})}
                     />
                       {errorstyle7 && <span style={{color: 'red'}}>Please provide a description of more than 80 characters</span>}
                   </div>
@@ -2231,19 +1976,14 @@ const submitOptions = [
                       </div>
                     </div>
                     {/* End Row */}
-                    <textarea
-                      id="additionalCovid19PrecautionsLabel"
-                      className="js-count-characters form-control"
+                    <ReactQuill
+                      theme="snow"
                       placeholder="Ex: Applicant must be able to code in React and angular and know a bit of PHP"
                       aria-label="Ex: All customers are required to wear a mask, curbside pickup available, common surfaces are sanitized regularly, etc."
-                      rows={4}
-                      onChange={((e)=>setResponsibilities(e.target.value))}
-                      maxLength={250}
-                      data-hs-count-characters-options='{
-                          "output": "#additionalCovid19PrecautionsCountCharacters"
-                        }'
-                      defaultValue={responsibilities}
                       value={responsibilities}
+                      defaultValue={responsibilities}
+                      style={{height: '60%'}}
+                      onChange={((e)=>setResponsibilities(e))}
                     />
                       {errorstyle7 && <span style={{color: 'red'}}>Please provide a description of more than 80 characters</span>}
                   </div>
@@ -2252,36 +1992,28 @@ const submitOptions = [
                 {/* End Body */}
                 {/* Footer */}
                 <div className="card-footer pt-0">
-                  <div className="d-flex align-items-center">
-                    <button
-                    onClick={()=>{setStepActive(4)}}
-                      type="button"
-                      className="btn btn-ghost-secondary"
-                      data-hs-step-form-prev-options='{
-                   "targetSelector": "#postJobStepAdditionalJobDetails"
-                 }'
-                    >
-                      <i className="bi-chevron-left small ms-1" /> Previous step
-                    </button>
-                    <div className="ms-auto">
-                      <button
-                        type="button"
-                        className="btn btn-primary"
-                        style={{ 
-                          background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
-                          color: 'white'
-                        }}
-                        onClick={()=>{goToSeventhSlide()}}
-                        data-hs-step-form-next-options='{
-                          "targetSelector": "#postJobStepJobApplicationSettings"
-                        }'
-                      >
-                        Save and continue{" "}
-                        <i className="bi-chevron-right small ms-1" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                 
+                 <div className="d-flex align-items-center">
+                  
+                   <div className="ms-auto">
+                     <button
+                     onClick={()=>{setActiveStep(7)}}
+                       type="button"
+                       className="btn btn-primary"
+                       style={{ 
+                         background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
+                         color: 'white'
+                       }}
+                       data-hs-step-form-next-options='{
+                         "targetSelector": "#postJobStepJobDetails"
+                       }'
+                     >
+                       Finish editing{" "}
+                       <i className="bi-chevron-right small ms-1" />
+                     </button>
+                   </div>
+                 </div>
+               </div>
                 {/* End Footer */}
               </div>
               {/* End Card */}
@@ -2479,34 +2211,28 @@ const submitOptions = [
                 {/* End Body */}
                 {/* Footer */}
                 <div className="card-footer pt-0">
-                  <div className="d-flex align-items-center">
-                    <button
-                    onClick={()=>{setStepActive(5)}}
-                      type="button"
-                      className="btn btn-ghost-secondary"
-                      data-hs-step-form-prev-options='{
-                   "targetSelector": "#postJobStepJobDescription"
-                 }'
-                    >
-                      <i className="bi-chevron-left small ms-1" /> Previous step
-                    </button>
-                    <div className="ms-auto">
-                      <button
-                      onClick={()=>{setStepActive(7)}}
-                        id="postJobFinishBtn"
-                        type="button"
-                        className="btn btn-primary"
-                        style={{ 
-                          background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
-                          color: 'white'
-                        }}
-                      >
-                        Save and continue{" "}
-                        <i className="bi-chevron-right small ms-1" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                 
+                 <div className="d-flex align-items-center">
+                  
+                   <div className="ms-auto">
+                     <button
+                     onClick={()=>{setActiveStep(7)}}
+                       type="button"
+                       className="btn btn-primary"
+                       style={{ 
+                         background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(75, 76, 78, 0.4) 124.34%)',
+                         color: 'white'
+                       }}
+                       data-hs-step-form-next-options='{
+                         "targetSelector": "#postJobStepJobDetails"
+                       }'
+                     >
+                       Finish editing{" "}
+                       <i className="bi-chevron-right small ms-1" />
+                     </button>
+                   </div>
+                 </div>
+               </div>
                 {/* End Footer */}
               </div>
               {/* End Card */}
@@ -2975,28 +2701,15 @@ const submitOptions = [
                     By clicking "Confirm", you agree to candidates appearing in
                     your dashboard based on the preferences you've selected
                     above. You also agree to our{" "}
-                    <a href="#">Fraktional Terms of Service</a>.
+                    <Link href="/terms-and-conditions">Fraktional Terms of Service</Link>.
                   </p>
                 </div>
                 {/* End Body */}
                 {/* Footer */}
                 <div className="card-footer pt-0">
                   <div className="d-flex align-items-center">
-                    <button
-                    onClick={()=>{setStepActive(5)}}
-                      type="button"
-                      className="btn btn-ghost-secondary"
-                      data-hs-step-form-prev-options='{
-                   "targetSelector": "#postJobStepJobApplicationSettings"
-                 }'
-                    >
-                      <i className="bi-chevron-left small ms-1" /> Previous step
-                    </button>
                     <div className="ms-auto">
                       <div className="d-flex gap-3">
-                        <button type="button" className="btn btn-white"  style={{ border: '#FD2DC3 ' }}>
-                          Save in drafts
-                        </button>
                         <button
                           id="postJobFinishBtn"
                           type="button"
@@ -3016,7 +2729,7 @@ const submitOptions = [
             </div>
             {/* End Content Step Form */}
             {/* Message Body */}
-            <div id="successMessageContent" style={{ display: "none" }}>
+            {/* <div id="successMessageContent" style={{ display: "none" }}>
               <div className="text-center">
                 <img
                   className="img-fluid mb-3"
@@ -3046,7 +2759,7 @@ const submitOptions = [
                   </a>
                 </div>
               </div>
-            </div>
+            </div> */}
             {/* End Message Body */}
             {/* Sticky Block End Point */}
             <div id="stickyBlockEndPoint" />
@@ -3063,6 +2776,6 @@ const submitOptions = [
   );
 }
 
-export default dynamic (() => Promise.resolve(PostJob), {ssr: false})
+export default dynamic (() => Promise.resolve(UpdateSingleJob), {ssr: false})
 
 

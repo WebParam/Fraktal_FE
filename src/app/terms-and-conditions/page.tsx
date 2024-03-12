@@ -28,7 +28,7 @@ const page = () => {
 
                 <div style={{  textAlign: 'justify'}}>
                     <h2>1. Acceptance of Terms</h2>
-                    <p>By accessing and using the services provided by [Your Company Name], 
+                    <p>By accessing and using the services provided by <span style={{color: '#FD2DC3 '}}>Fraktional.dev</span>, 
                         you agree to be bound by the terms and conditions outlined herein. 
                         If you do not agree with any of these terms, you are prohibited 
                         from using or accessing our services.
@@ -36,13 +36,13 @@ const page = () => {
                 </div>
                 <div style={{textAlign: 'justify', paddingTop: '3%'}}>
                     <h2>2. Services</h2>
-                    <p>By accessing and using the services provided by [Your Company Name], 
+                    <p>By accessing and using the services provided by <span style={{color: '#FD2DC3 '}}>Fraktional.dev</span>, 
                         you agree to be bound by the terms and conditions outlined herein. 
                         If you do not agree with any of these terms, you are prohibited 
-                        from using or accessing our services. By accessing and using the services provided by [Your Company Name], 
+                        from using or accessing our services. By accessing and using the services provided by <span style={{color: '#FD2DC3 '}}>Fraktional.dev</span>, 
                         you agree to be bound by the terms and conditions outlined herein. 
                         If you do not agree with any of these terms, you are prohibited 
-                        from using or accessing our services. By accessing and using the services provided by [Your Company Name], 
+                        from using or accessing our services. By accessing and using the services provided by <span style={{color: '#FD2DC3 '}}>Fraktional.dev</span>, 
                         you agree to be bound by the terms and conditions outlined herein. 
                         If you do not agree with any of these terms, you are prohibited 
                         from using or accessing our services.
@@ -50,14 +50,14 @@ const page = () => {
                 </div>
                 <div style={{ textAlign: 'justify', paddingTop: '3%'}}>
                     <h2>3. Payment and Invoicing</h2>
-                    <p>By accessing and using the services provided by [Your Company Name], 
+                    <p>By accessing and using the services provided by <span style={{color: '#FD2DC3 '}}>Fraktional.dev</span>, 
                         you agree to be bound by the terms and conditions outlined herein. 
                         If you do not agree with any of these terms, you are prohibited 
-                        from using or accessing our services. By accessing and using the services provided by [Your Company Name], 
+                        from using or accessing our services. By accessing and using the services provided by <span style={{color: '#FD2DC3 '}}>Fraktional.dev</span>, 
                         you agree to be bound by the terms and conditions outlined herein. 
                         If you do not agree with any of these terms, you are prohibited 
                         from using or accessing our services.
-                        By accessing and using the services provided by [Your Company Name], 
+                        By accessing and using the services provided by <span style={{color: '#FD2DC3 '}}>Fraktional.dev</span>, 
                         you agree to be bound by the terms and conditions outlined herein. 
                         If you do not agree with any of these terms, you are prohibited 
                         from using or accessing our services.
@@ -65,13 +65,13 @@ const page = () => {
                 </div>
                 <div style={{ textAlign: 'justify', paddingTop: '3%'}}>
                     <h2>4. Intellectual Property</h2>
-                    <p>By accessing and using the services provided by [Your Company Name], 
+                    <p>By accessing and using the services provided by <span style={{color: '#FD2DC3 '}}>Fraktional.dev</span>, 
                         you agree to be bound by the terms and conditions outlined herein. 
                         If you do not agree with any of these terms, you are prohibited 
-                        from using or accessing our services. By accessing and using the services provided by [Your Company Name], 
+                        from using or accessing our services. By accessing and using the services provided by <span style={{color: '#FD2DC3 '}}>Fraktional.dev</span>, 
                         you agree to be bound by the terms and conditions outlined herein. 
                         If you do not agree with any of these terms, you are prohibited 
-                        from using or accessing our services. By accessing and using the services provided by [Your Company Name], 
+                        from using or accessing our services. By accessing and using the services provided by <span style={{color: '#FD2DC3 '}}>Fraktional.dev</span>, 
                         you agree to be bound by the terms and conditions outlined herein. 
                         If you do not agree with any of these terms, you are prohibited 
                         from using or accessing our services.
@@ -79,13 +79,13 @@ const page = () => {
                 </div>
                 <div style={{ textAlign: 'justify', paddingTop: '3%'}}>
                     <h2>5. Confidentiality</h2>
-                    <p>By accessing and using the services provided by [Your Company Name], 
+                    <p>By accessing and using the services provided by <span style={{color: '#FD2DC3 '}}>Fraktional.dev</span>, 
                         you agree to be bound by the terms and conditions outlined herein. 
                         If you do not agree with any of these terms, you are prohibited 
-                        from using or accessing our services. By accessing and using the services provided by [Your Company Name], 
+                        from using or accessing our services. By accessing and using the services provided by <span style={{color: '#FD2DC3 '}}>Fraktional.dev</span>, 
                         you agree to be bound by the terms and conditions outlined herein. 
                         If you do not agree with any of these terms, you are prohibited 
-                        from using or accessing our services. By accessing and using the services provided by [Your Company Name], 
+                        from using or accessing our services. By accessing and using the services provided by <span style={{color: '#FD2DC3 '}}>Fraktional.dev</span>, 
                         you agree to be bound by the terms and conditions outlined herein. 
                         If you do not agree with any of these terms, you are prohibited 
                         from using or accessing our services.
