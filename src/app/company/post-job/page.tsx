@@ -1,5 +1,6 @@
 'use client'
 import Image from 'next/image';
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
 import Link from 'next/link';
 import './postJob.scss';
@@ -16,16 +17,15 @@ import AutoComplete from "react-google-autocomplete";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Banner from '../../banner/Banner';
-import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
+import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router'
 import { IOption, getLabelFromValue, getOptionFromValue, projectTeams, techStack, typeOfProject } from '@/app/lib/data';
 
 
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 function PostJob() {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
-    const [activeStep, setActiveStep] = useState(5);
+    const [activeStep, setActiveStep] = useState(0);
     const [errorstyle1, setErrorStyle1] = useState(false);
     const [errorstyle2, setErrorStyle2] = useState(false);
     const [errorstyle4, setErrorStyle4] = useState(false);
