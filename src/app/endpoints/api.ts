@@ -60,7 +60,7 @@ export async function registerUser(payload: IUser) {
       return true;
     } else {
       console.error("Registration failed");
-      return false;
+      return response;
     }
   } catch (error) {
     console.error("Error:", error);

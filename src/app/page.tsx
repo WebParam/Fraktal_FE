@@ -44,6 +44,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import Cookies from 'universal-cookie';
 
 
 
@@ -81,9 +82,8 @@ function HomePage() {
 
   const handleClose = () => setOpen(false);
 
-  setTimeout(() => {
- 
-  }, 2000);
+  const cookies = new Cookies();
+  console.log(cookies.getAll)
 
 
   useEffect(() => {
@@ -144,7 +144,7 @@ function HomePage() {
             </div>
             <div>
               <button>
-                <Link href='/auth/signup' style={{color: 'white'}}>Sign up as a Dev</Link>
+                <Link href='/auth/register' style={{color: 'white'}}>Sign up as a Dev</Link>
               </button>
             </div>
           </div>

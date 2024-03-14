@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Register.scss";
 import Cookies from 'universal-cookie';
 import Link from "next/link";
@@ -15,12 +15,14 @@ import Select from 'react-select';
 import { StylesConfig } from 'react-select';
 import { VerifyOtp } from "./verify-otp";
 import Modal from "react-responsive-modal";
+import { Alert } from "@mui/material";
 // import { useRouter } from 'next/router';
 
 
 function Register() {
   // const router = useRouter();
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [sendingError, setSendingError] = useState(false);
   const [formData, setFormData] = useState<IUser>({
     title: "mr",
     firstName: "",
@@ -68,8 +70,8 @@ function Register() {
     e.preventDefault();
     console.log(formData);
     console.log(confirmPassword)
+    const form = document.querySelector('.registerForm');
     
-
 
   if (
       formData.firstName||      formData.email||
@@ -80,38 +82,55 @@ function Register() {
       formData.title
     ) {
       if (formData.firstName === "") {
+        form?.scroll({
+          top: 20,
+          behavior: "smooth"
+        })
         setFirstNameError(true);
-        
+        return;
       }
       if (formData.email === "") {
+        form?.scroll({
+          top: 30,
+          behavior: "smooth"
+        })
         setEmailError(true);
-        
+        return;
       }
       if (formData.password === "") {
+        form?.scroll({
+          top: 50,
+          behavior: "smooth"
+        })
         setPasswordError(true);
-        
+        return;
       }
    
       if (formData.surname === "") {
+        form?.scroll({
+          top: 30,
+          behavior: "smooth"
+        })
         setSurnameError(true);
-      
+        return;
       }
       if (formData.title === "") {
         setTitleError(true);
-        
+        return;
       }
       if (formData.mobileNumber === "") {
         setMobileNumberError(true);
-        
+        return;
       }
       if (confirmPassword === "") {
         setConfirm_PasswordError(true);
-        
+        return;
       }
 
       if (formData.password !== confirmPassword) {
         setConfirm_PasswordError(true);
         setPasswordError(true);
+        return;
       }
     }
 
@@ -139,53 +158,54 @@ function Register() {
       });
 
     
+      if (!emailRegex.test(formData.email!)) {
+        toast.update(_id, {
+          render: "Invalid email address",
+          type: "error",
+          isLoading: false,
+        });
+        setTimeout(() => {
+         // setDisable(false)
+          toast.dismiss(_id);
+        }, 2000);
+           return;
+      }else if(!passwordRegex.test(formData.password!)){
+       toast.update(_id, {
+         render:
+           "Password must contain at least 8 characters, including uppercase and lowercase letters, numbers, and special characters",
+         type: "error",
+         isLoading: false,
+       });
+       setTimeout(() => {
+      //  setDisable(false)
+        toast.dismiss(_id);
+      }, 2000);
+      return;
+      }
           try {
 
-            if (!emailRegex.test(formData.email!)) {
-              toast.update(_id, {
-                render: "Invalid email address",
-                type: "error",
-                isLoading: false,
-              });
-              setTimeout(() => {
-               // setDisable(false)
-                toast.dismiss(_id);
-              }, 2000);
-                 return;
-            }else if(!passwordRegex.test(formData.password!)){
-             toast.update(_id, {
-               render:
-                 "Password must contain at least 8 characters, including uppercase and lowercase letters, numbers, and special characters",
-               type: "error",
-               isLoading: false,
-             });
-             setTimeout(() => {
-            //  setDisable(false)
-              toast.dismiss(_id);
-            }, 2000);
-            return;
-            }
 
            const registrationResult = await registerUser(formData) ;
-            
+
            if(registrationResult){
-         
-            setTimeout(() => {
-             // setDisable(false)
-              toast.dismiss(_id);
-            });
         
            setEditModalOpen(true)
            cookies.set('myCookie', formData.email);
-          
+           toast.dismiss(_id);
+           } else {
+            setSendingError(true);
            }
+           
+           console.log('register result: ', registrationResult);
+           toast.done(_id);
+           return;
           
           } catch (error:any) {
          
             const statusCode = error.response ? error.response.status : null;
           
             if (statusCode === 400) {
-           
+              alert('email already exists');
               toast.update(_id, {
                 render: `Email addrress already exists`,
                 type: "error",
@@ -213,8 +233,6 @@ function Register() {
           
             console.error("Error:", error);
           }
-          
-     
     };
     
 
@@ -226,6 +244,7 @@ function Register() {
      color: "tomato",
       borderWidth: "1px",
     }),
+    
   };
   
   const inputSurnameStyle = {
@@ -315,12 +334,36 @@ function Register() {
       backgroundColor: "lightpink"
     },
   };
+
   function saveAndCloseEditModal(){
-
     setEditModalOpen(false)
-
-  
   }
+
+    useEffect(() => {
+      if (formData.firstName) {
+        setFirstNameError(false);
+      }
+
+      if (formData.surname) {
+        setSurnameError(false);
+      }
+
+      if (formData.email) {
+        setEmailError(false);
+      }
+
+      if (formData.mobileNumber) {
+        setMobileNumberError(false);
+      }
+
+      if (formData.password == confirmPassword) {
+        setPasswordError(false);
+        setConfirm_PasswordError(false);
+      }
+
+    }, [formData.firstName, formData.surname, formData.email, formData.mobileNumber, formData.password, confirmPassword])
+
+
   return (
     <section className="register">
       <ToastContainer />
@@ -440,7 +483,7 @@ function Register() {
                 }}
               />
             </div>
-
+            {sendingError && <span style={{color: 'tomato', fontSize: '10px', textAlign: 'center'}}>The email you provided already exists, please log in</span>}
             <button type="submit">Register</button>
             
           </form>

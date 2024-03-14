@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import 'react-responsive-modal/styles.css';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { GetDeveloperProfile } from "../../../endpoints/api";
+import { GetDeveloperProfile, GetProjectById } from "../../../endpoints/api";
 import { GetProjectsByOrgId } from "../../../endpoints/api";
 import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
 import dynamic from "next/dynamic";
@@ -21,63 +21,60 @@ import 'react-initials-avatar/lib/ReactInitialsAvatar.css';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import AvatarGroup from 'react-avatar-group';
+
 const moment = require("moment");
 
-function assignedDeveloperOverview() {
+function assignedDeveloperOverview({ params }: { params: { id: string }}) {
  
-
-const [position, setPosition] = useState("");
-
-const [projectLoading, setProjectLoading] = useState(true);
-  const loggedInUser = cookies.get("fraktional-user")??"{}";
-  const [projects, setProjects] = useState<IJobApplicationViewModel[]>([]);
-  const [devProfile, SetDevProfile] = useState<IDeveloperProfile[]>([]);
-
   
-//IDeveloperProfile
-async function _GetAssignedUser(id:string){
-
-  await GetDeveloperProfile(id).then((res:any) => {
-    setProjectLoading(false);
+  const [position, setPosition] = useState("");
+  
+  const [projectLoading, setProjectLoading] = useState(true);
+  const loggedInUser = cookies.get("fraktional-user")??"{}";
+  const [project, setProject] = useState<any>();
+  const [shortlist, setShortList] = useState([]);
+  const [users, setUsers] = useState([])
+  const [devProfile, SetDevProfile] = useState<IDeveloperProfile[]>([]);
+  let url = '';
+  
+  
+  //IDeveloperProfile
+  async function _GetAssignedUser(id:string){
+    
+    await GetDeveloperProfile(id).then((res:any) => {
+      setProjectLoading(false);
       SetDevProfile(res.data);
       const data = res.data;
-
+      console.log('shortlist: ', shortlist)
       console.log("Developer here",data)
-  })
+
+      
+    })
  
 }
 //IJobApplicationViewModel
 async function _GetProject(id:string){
-
-  await GetProjectsByOrgId(id).then((res:any) => {
+  
+  await GetProjectById(id).then((res:any) => {
     setProjectLoading(false);
-    setProjects(res.data);
-      const data = res.data;
-
-      console.log("Project here",data)
+    setProject(res.data);
+    const data = res.data;
+    
+    console.log("Project here",data)
   })
- 
+  
 }
 
 
 
-
-
 useEffect(() => {
-  //check url and setActive
-
-  // loggedInUser._id&& _GetAssignedUser("653b8074526a329483800797");
-  _GetProject("65607f2d8b8b98274d4ce397");
+  if (params.id) {
+    _GetProject(params.id);
+  }
 
   }, []);
   
 
-
-// function editProject(project:any){
-// debugger;
-// window?.location?.assign(`/company/post-job/${project?.id}`)
-
-// }
 interface TableData {
   name: string;
   specs: string;
@@ -133,15 +130,20 @@ const data: TableData[] = [
             {/* Nav Scroller */}
             <div className="assigned">
               <h3 style={{ color: '#FF7BED' }}>Project Information</h3>
-              <p>Organization Information:</p>
-              <p>Job Information:</p>
+              <p>Organization Title: Param Solutions</p>
+              <p>Job Title: {project?.data.projectName}</p>
             </div>
             {/* End Tab Content */}
        
           </div>
           
-          <div className="card-body">
-                  <h3 style={{ color: '#FF7BED' }}>Assigned Developers</h3>
+                  <h3 style={{ color: '#FF7BED', paddingLeft: '30px' }}>
+                  <select name="" id="">
+                    <option value="applicants">Applicants</option>
+                    <option value="shortlist">ShortListed Developers</option>
+                  </select>
+                  </h3>
+          <div className="card-body" style={{overflowY: 'scroll'}}>
                   <div className="avatar avatar-xxl avatar-circle mb-3">
                 
                   <div className="assigned">
@@ -154,21 +156,24 @@ const data: TableData[] = [
                           </tr>
                         </thead>
                         <tbody>
-                          {data.map((item, rowIndex) => (
-                            <tr key={rowIndex}>
-                              {Object.entries(item).map(([key, value], colIndex) => (
-                                <td key={colIndex}>
-                                  {colIndex === Object.keys(item).length - 1 ? (
+                              {project?.data.shortlist.map((dev: any, index: any) => (
+                                
+                            <tr>
+                                <td key={index}>
+                                  dev{dev}
+                                  {/* {colIndex === Object.keys(item).length - 1 ? (
                                     <span className="eye-icon">👁️</span>
                                   ) : key === 'specs' ? (
                                     <span className="specs-text">{value}</span>
                                   ) : (
                                     value
-                                  )}
+                                  )} */}
                                 </td>
-                              ))}
+                                <td>{dev}</td>
+                                
+                                <td>{dev}</td>
                             </tr>
-                          ))}
+                              ))}
                         </tbody>
                       </table>
                     </div>
@@ -181,10 +186,6 @@ const data: TableData[] = [
           </div>
           {/* End Body */}
         </div>
-        {/* End Card */}
-      {/* </div> */}
-      {/* End Col */}
-    
 </>
     )
 }
