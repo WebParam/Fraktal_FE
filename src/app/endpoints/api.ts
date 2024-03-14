@@ -70,6 +70,7 @@ export async function registerUser(payload: IUser) {
 
 export async function UserLogin(payload: IUserLogin) {
   try {
+
     const response = await axios.post(`${url}/api/login`, payload);
 
     if (response.status === 200 || response.status === 201) {
@@ -664,6 +665,23 @@ export async function addToShortlist(payload:any) {
   }
 }
 
+export async function GetShortlist(payload: string[]) {
+ 
+  try {
+    const response = await axios.get(`${azureUrl}/personnel/shortlistedPersonnel?${payload.map((id: string) => `users=${id}`).join('&')}`);
+    // debugger;
+    if (response) {
+      // const data = await response.json();
+      return response;
+    } else {
+      console.error('Error:', response);
+      return false;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+}
 
 export async function uploadCv(payload:any) {
   try {

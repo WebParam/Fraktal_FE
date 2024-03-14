@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import 'react-responsive-modal/styles.css';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { GetDeveloperProfile, GetProjectById } from "../../../endpoints/api";
+import { GetDeveloperProfile, GetProjectById, GetShortlist } from "../../../endpoints/api";
 import { GetProjectsByOrgId } from "../../../endpoints/api";
 import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
 import dynamic from "next/dynamic";
@@ -27,31 +27,28 @@ const moment = require("moment");
 function assignedDeveloperOverview({ params }: { params: { id: string }}) {
  
   
-  const [position, setPosition] = useState("");
+  // const [position, setPosition] = useState("");
   
   const [projectLoading, setProjectLoading] = useState(true);
-  const loggedInUser = cookies.get("fraktional-user")??"{}";
+  // const loggedInUser = cookies.get("fraktional-user")??"{}";
   const [project, setProject] = useState<any>();
-  const [shortlist, setShortList] = useState([]);
-  const [users, setUsers] = useState([])
-  const [devProfile, SetDevProfile] = useState<IDeveloperProfile[]>([]);
-  let url = '';
+  const [shortlist, setShortList] = useState<IDeveloperProfile[]>([]);
+
+
   
   
   //IDeveloperProfile
-  async function _GetAssignedUser(id:string){
+//   async function _GetAssignedUser(id:string){
     
-    await GetDeveloperProfile(id).then((res:any) => {
-      setProjectLoading(false);
-      SetDevProfile(res.data);
-      const data = res.data;
-      console.log('shortlist: ', shortlist)
-      console.log("Developer here",data)
-
-      
-    })
+//     await GetDeveloperProfile(id).then((res:any) => {
+//       setProjectLoading(false);
+//       SetDevProfile(res.data);
+//       const data = res.data;
+//       console.log('shortlist: ', shortlist)
+//       console.log("Developer here",data)
+//     })
  
-}
+// }
 //IJobApplicationViewModel
 async function _GetProject(id:string){
   
@@ -59,7 +56,6 @@ async function _GetProject(id:string){
     setProjectLoading(false);
     setProject(res.data);
     const data = res.data;
-    
     console.log("Project here",data)
   })
   
@@ -70,10 +66,29 @@ async function _GetProject(id:string){
 useEffect(() => {
   if (params.id) {
     _GetProject(params.id);
-  }
+  }},[])
 
-  }, []);
+  useEffect(() => {
+  (async function getData() {
+
+    if (project) {
+
+      try {
+        const shortlist = await GetShortlist(project.data.shortlist)
+        console.log('shortlist: ', shortlist)
+        if (shortlist) {
+          setShortList(shortlist.data);
+        }
+      } catch(error: any) {
+        alert(error);
+      }
+    }
+  })()
+
+
+  }, [project]);
   
+  console.log('shortlist data: ', shortlist);
 
 interface TableData {
   name: string;
@@ -150,30 +165,34 @@ const data: TableData[] = [
                       <table>
                         <thead>
                           <tr>
-                            {Object.keys(data[0]).map((headerText, index) => (
-                              <th key={index}>{headerText}</th>
-                            ))}
+                            {/* {Object.keys(data[0]).map((headerText, index) => ( */}
+                              <th>Full Name</th>
+                              <th>Years Of Experience</th>
+                              <th>CV</th>
+                            {/* ))} */}
                           </tr>
                         </thead>
-                        <tbody>
-                              {project?.data.shortlist.map((dev: any, index: any) => (
-                                
-                            <tr>
+                        <tbody style={{position: 'relative'}}>
+                              {shortlist.length > 0 ? shortlist.map((dev: any, index: any) => {            
+                            
+                                console.log('dev: ', dev);
+
+                                if (!dev.personalInformation.name || !dev.personalInformation.surname) {
+                                  return;
+                                }
+
+                                return <tr>
                                 <td key={index}>
-                                  dev{dev}
-                                  {/* {colIndex === Object.keys(item).length - 1 ? (
-                                    <span className="eye-icon">👁️</span>
-                                  ) : key === 'specs' ? (
-                                    <span className="specs-text">{value}</span>
-                                  ) : (
-                                    value
-                                  )} */}
+                                  {`${dev.personalInformation.name} ${dev.personalInformation.surname}`}
                                 </td>
-                                <td>{dev}</td>
+                                <td>{dev.yearsOfExperience.slice(3,)}</td>
                                 
-                                <td>{dev}</td>
+                                <td><Link href={dev.cvUrl}>Download Cv</Link></td>
                             </tr>
-                              ))}
+                            }): 
+                            <div style={{ position: 'absolute', right: '10%',left: '0', height: '50px',bottom: '0', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center'}}>
+                              No Applicants yet
+                            </div>}
                         </tbody>
                       </table>
                     </div>

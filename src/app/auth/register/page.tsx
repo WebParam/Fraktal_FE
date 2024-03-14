@@ -483,7 +483,7 @@ function Register() {
                 }}
               />
             </div>
-            {sendingError && <span style={{color: 'tomato', fontSize: '10px', textAlign: 'center'}}>The email you provided already exists, please log in</span>}
+            {sendingError && <span style={{color: 'tomato', fontSize: '12px', textAlign: 'center'}}>The email you provided already exists, please log in</span>}
             <button type="submit">Register</button>
             
           </form>
