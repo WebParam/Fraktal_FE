@@ -84,6 +84,7 @@
     border-color: #FD2DC3;
 }
 table {
+
     border-collapse: collapse;
     width: 600%;
     margin-bottom: 20px;
@@ -130,3 +131,21 @@ table {
     }
   }
   
+  .candidates::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+  }
+  
+  /* Style the scrollbar track */
+  .candidates::-webkit-scrollbar-track {
+    background: #f0f0f0; /* Color of the track */
+  }
+  
+  /* Style the scrollbar thumb */
+  .candidates::-webkit-scrollbar-thumb {
+    background-color: #a0a0a0; /* Color of the thumb */
+    border-radius: 5px; /* Border radius of the thumb */
+  }
+
+  th, td {
+    border-left: 1px solid grey;
+  }

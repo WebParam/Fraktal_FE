@@ -3,7 +3,7 @@ import Image from "next/image";
 import topVendor from "../../assets/svg/illustrations/top-vendor.svg";
 import './DevOverview.scss';
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import 'react-responsive-modal/styles.css';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -25,6 +25,7 @@ import AvatarGroup from 'react-avatar-group';
 const moment = require("moment");
 
 function assignedDeveloperOverview({ params }: { params: { id: string }}) {
+  const [search, setSearch] = useState('');
  
   
   // const [position, setPosition] = useState("");
@@ -33,7 +34,8 @@ function assignedDeveloperOverview({ params }: { params: { id: string }}) {
   // const loggedInUser = cookies.get("fraktional-user")??"{}";
   const [project, setProject] = useState<any>();
   const [shortlist, setShortList] = useState<IDeveloperProfile[]>([]);
-
+  const [shortlistCopy, setshortlistCopy] = useState<IDeveloperProfile[]>([]);
+  const [loading, setLoading] = useState(false);
 
   
   
@@ -78,6 +80,8 @@ useEffect(() => {
         console.log('shortlist: ', shortlist)
         if (shortlist) {
           setShortList(shortlist.data);
+          setshortlistCopy(shortlist.data);
+          setLoading(true);
         }
       } catch(error: any) {
         alert(error);
@@ -90,26 +94,23 @@ useEffect(() => {
   
   console.log('shortlist data: ', shortlist);
 
-interface TableData {
-  name: string;
-  specs: string;
-  view : string;
+
+
+  
+function handleSearch(event: ChangeEvent<HTMLInputElement>): void {
+  setSearch(event.target.value);
+
+  if(search) {
+    const arrayCopy = shortlist?.filter(dev => dev.user?.firstName?.toLowerCase().includes(search.toLowerCase()) || dev.user?.surname?.toLowerCase().includes(search.toLowerCase()))
+    setshortlistCopy(arrayCopy);
+  } 
 }
 
-const data: TableData[] = [  
-    {
-      name:"Prince Kwanele",
-      specs:"React JS",
-      view: "project"
-    },
-    {
-      name:"Lihle Mqhayi",
-      specs:"SEE SHARP",
-      view: "project"
-    }
-    
-  ]
-
+useEffect(() => {
+  if (search.length == 0) {
+    setshortlistCopy(shortlist);
+  }
+}, [search])
 
     return (
       <>  
@@ -122,12 +123,7 @@ const data: TableData[] = [
           <div className="card-header border-bottom">
             <div className="row">
               <div className="col-md-6 mb-3 mb-md-0">
-            <form className="input-group input-group-merge">
-              <div className="input-group-prepend input-group-text">
-                <i className="bi-search" />
-              </div>
-              <input type="search" className="form-control" placeholder="Search projects" aria-label="Search projects" />
-            </form>
+            
             </div>
             <div className="col-md-6">
               <div className="d-flex justify-content-md-end align-items-md-center">
@@ -151,14 +147,27 @@ const data: TableData[] = [
             {/* End Tab Content */}
        
           </div>
-          
-                  <h3 style={{ color: '#FF7BED', paddingLeft: '30px' }}>
-                  <select name="" id="">
-                    <option value="applicants">Applicants</option>
-                    <option value="shortlist">ShortListed Developers</option>
-                  </select>
-                  </h3>
-          <div className="card-body" style={{overflowY: 'scroll'}}>
+          <div style={{display: 'flex', justifyContent: 'space-between', margin: '0 20px'}}>
+            <h3 style={{ color: '#FF7BED', paddingLeft: '30px' }}>
+            Applicants: {shortlistCopy.length}
+            </h3>
+
+            <form className="input-group input-group-merge" style={{maxWidth: '200px'}}>
+              <div className="input-group-prepend input-group-text">
+                <i className="bi-search" />
+              </div>
+              <input 
+                type="search" 
+                className="form-control" 
+                placeholder="Search Developers" 
+                aria-label="Search projects" 
+                value={search}
+                onChange={handleSearch}  
+                />
+            </form>
+          </div>
+          {loading ? 
+          <div className="card-body candidates" style={{overflowY: 'scroll'}}>
                   <div className="avatar avatar-xxl avatar-circle mb-3">
                 
                   <div className="assigned">
@@ -168,30 +177,25 @@ const data: TableData[] = [
                             {/* {Object.keys(data[0]).map((headerText, index) => ( */}
                               <th>Full Name</th>
                               <th>Years Of Experience</th>
-                              <th>View</th>
+                              <th>Cv</th>
+                              <th style={{borderRight: '1px solid grey'}}>Standardised CV</th>
                             {/* ))} */}
                           </tr>
                         </thead>
                         <tbody style={{position: 'relative'}}>
-                              {shortlist.length > 0 ? shortlist.map((dev: any, index: any) => {            
-                            
-                                console.log('dev: ', dev);
-
-                                if (!dev.personalInformation.name || !dev.personalInformation.surname) {
-                                  return;
-                                }
-
-                                return <tr>
-                                <td key={index}>
-                                  {`${dev.personalInformation.name} ${dev.personalInformation.surname}`}
-                                </td>
-                                <td>{dev.yearsOfExperience.slice(3,)}</td>
-                                
-                                <td><Link href={''}>Go to Profile</Link></td>
-                            </tr>
-                            }): 
+                              {shortlistCopy.length > 0 ? shortlistCopy.map((dev: any) => ( 
+                                <tr>
+                                  <td key={dev.user?.id}>
+                                    {`${dev.user?.firstName} ${dev.user?.surname}`}
+                                  </td>
+                                  <td>{dev.yearsOfExperience.slice(3,)}</td>
+                                  
+                                  <td><Link href={dev.cvUrl}>Download Cv</Link></td>
+                                  <td><Link href={dev.cvUrl} style={{color: '#FF7BED'}}>Download CV</Link></td>
+                                </tr>
+                              )): 
                             <div style={{ position: 'absolute', right: '10%',left: '0', height: '50px',bottom: '0', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center'}}>
-                              No Applicants yet
+                              No Applicants
                             </div>}
                         </tbody>
                       </table>
@@ -202,7 +206,14 @@ const data: TableData[] = [
          
             </div>
             {/* End Tab Content */}
-          </div>
+          </div>:
+          <SkeletonTheme highlightColor="#f5f5f5">
+            <div style={{margin: '0 20px'}}>
+              <Skeleton height={50}  />
+              <Skeleton height={50} />
+              <Skeleton height={50} />
+            </div>
+          </SkeletonTheme>}
           {/* End Body */}
         </div>
 </>
