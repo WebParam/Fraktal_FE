@@ -168,7 +168,7 @@ const data: TableData[] = [
                             {/* {Object.keys(data[0]).map((headerText, index) => ( */}
                               <th>Full Name</th>
                               <th>Years Of Experience</th>
-                              <th>CV</th>
+                              <th>View</th>
                             {/* ))} */}
                           </tr>
                         </thead>
@@ -187,7 +187,7 @@ const data: TableData[] = [
                                 </td>
                                 <td>{dev.yearsOfExperience.slice(3,)}</td>
                                 
-                                <td><Link href={dev.cvUrl}>Download Cv</Link></td>
+                                <td><Link href={''}>Go to Profile</Link></td>
                             </tr>
                             }): 
                             <div style={{ position: 'absolute', right: '10%',left: '0', height: '50px',bottom: '0', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center'}}>

@@ -1,6 +1,8 @@
 'use client'
 import './DevOverview.scss';
+import Image from 'next/image';
 import { ChangeEvent, useEffect, useRef, useState } from "react";
+import defaultImage from '../../../assets/additional/defaultpic.jpg'
 import 'react-responsive-modal/styles.css';
 import "react-toastify/dist/ReactToastify.css";
 import { GetAllDeveloperProfiles, PersonnelExists, onboardDeveloper } from "../../endpoints/api";
@@ -17,7 +19,7 @@ import Modal from 'react-responsive-modal';
 import Select from "react-select";
 import { Loader, Placeholder } from 'rsuite';
 import "rsuite/Loader/styles/index.css";
-import { revalidatePath } from 'next/cache';
+// import { revalidatePath } from 'next/cache';
 
 const moment = require("moment");
 
@@ -821,12 +823,13 @@ useEffect(() => {
                     {/* Media */}
                     <div className="d-flex align-items-center align-items-sm-start mb-3">
                       <div className="flex-shrink-0">
-                        <img className="avatar avatar-sm avatar-4x3"  src={x?.user?.profilePicture} alt="" />
+                        {/* <img className="avatar avatar-sm avatar-4x3"  style={{border: '1px solid red', borderRadius: '20px'}} width={'50px'} height={'50px'} src={x?.user?.profilePicture ? x?.user?.profilePicture:`url(${defaultImage})`} alt="" /> */}
+                        <Image src={x?.user?.profilePicture ? x?.user?.profilePicture:defaultImage} width={50} height={50} style={{borderRadius: '16px'}} alt={'profile'}/>
                       </div>
                       <div className="d-sm-none flex-grow-1 ms-3">
                         <h6 className="card-title">
                           <a className="text-dark" href="#">Mailchimp</a>
-                          <img className="avatar avatar-xss ms-1" src={x?.user?.profilePicture} alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
+                          <img className="avatar avatar-xss ms-1" src={x?.user?.profilePicture ? x?.user?.profilePicture:defaultImage} alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
                         </h6>
                       </div>
                     </div>
