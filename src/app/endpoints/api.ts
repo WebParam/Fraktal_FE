@@ -19,6 +19,7 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 // const url = "http://localhost:8080"
 const url = "https://viconet-vercel.vercel.app"
+// const azureUrl = "https://fraktional-be.azurewebsites.net"
 const azureUrl = "https://fraktional-be.azurewebsites.net"
 // const azureUrl = "https://localhost:7257"
 const user = JSON.stringify(cookies.get("fraktional-user"));
@@ -592,7 +593,7 @@ export async function sendOtpAzure(payload: IUserSendOTP) {
 }
   export async function onboardDeveloper(payload:any) {
     try {
-      const response = await axios.post(`${azureUrl}/apply`, payload,  { headers: header });
+      const response = await axios.post(`${azureUrl}/onboard`, payload,  { headers: header });
     
       if (response.status === 200 || response.status === 201) {
         debugger;
