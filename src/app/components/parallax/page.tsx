@@ -13,7 +13,7 @@ export default function Parallaxx() {
           <div style={{fontSize: '2rem'}}>I am a...</div>
 
            <div className='button-container'>
-              <a href='./fraktional-gig' className="button-1">
+              <a href='#' className="button-1">
                       Developer looking for a gig
                 </a>
                 <a href='./fraktional-dev' className="button-1">

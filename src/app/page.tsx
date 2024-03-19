@@ -138,8 +138,8 @@ function HomePage() {
           <p style={{ paddingLeft: '10%', paddingRight: '10%', color: 'white' }}>where innovation meets code, and the possibilities of technology unfold at your fingertips</p>
           <div style={{ width: '90%', height: '59px', borderRadius: '8px', border: '1px solid rgba(255, 123)'}} className='buttonsContainer'>
             <div>
-              <button>
-                <Link href='/fraktional-dev' style={{color: '#252525'}}>Sign up as a Company</Link>
+              <button disabled>
+                <Link href='#' style={{color: '#252525'}}>Sign up as a Company</Link>
               </button>
             </div>
             <div>

@@ -15,7 +15,7 @@ import { VerifyOtp } from "../register/verify-otp";
 import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 library.add(faEye, faEyeSlash)
 
 
@@ -280,12 +280,8 @@ function SignIn() {
               <Link href="/auth/register">Sign up here</Link>
             </span>
           </p>
-          <p>
-            Read our terms and conditions{" "}
-            <span className="cta">
-              <Link href="/terms-and-conditions">T's and C's here</Link>
-            </span>
-          </p>
+          {/* <div> Sign up as a <a href="../../fraktional-dev" className="link-login-1" aria-disabled>Company</a></div>
+          <div>Sign up as a <a href="../../auth/register" className="link-login-1">Developer</a></div> */}
 
         {/* {userVerifyError ? (
           <p>
@@ -300,8 +296,13 @@ function SignIn() {
 
           <div className="group-1">
           <div className="line-1-login"></div>
-            <div> Sign up as a <a href="../../fraktional-dev" className="link-login-1">Company</a></div>
-            <div>Sign up as a <a href="../../auth/register" className="link-login-1">Developer</a></div>
+        
+            <p>
+            Read our terms and conditions{" "}
+            <span className="cta">
+              <Link href="/terms-and-conditions">T's and C's here</Link>
+            </span>
+          </p>
           </div>
         </div>
       </div>

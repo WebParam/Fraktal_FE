@@ -82,9 +82,12 @@ useEffect(() => {
           setShortList(shortlist.data);
           setshortlistCopy(shortlist.data);
           setLoading(true);
+        } else {
+          setLoading(true);
         }
       } catch(error: any) {
         alert(error);
+        setLoading(false);
       }
     }
   })()
@@ -167,6 +170,7 @@ useEffect(() => {
                           <tr>
                             {/* {Object.keys(data[0]).map((headerText, index) => ( */}
                               <th>Full Name</th>
+                              <th>Email</th>
                               <th>Years Of Experience</th>
                               <th>Cv</th>
                               <th style={{borderRight: '1px solid grey'}}>Standardised CV</th>
@@ -179,14 +183,15 @@ useEffect(() => {
                                   <td key={dev.user?.id}>
                                     {`${dev.user?.firstName} ${dev.user?.surname}`}
                                   </td>
+                                  <td style={{fontSize:'14px'}}>{dev.user?.email}</td>
                                   <td>{dev.yearsOfExperience.slice(3,)}</td>
                                   
-                                  <td><Link href={dev.cvUrl}>Download Cv</Link></td>
-                                  <td><Link href={dev.cvUrl} style={{color: '#FF7BED'}}>Download CV</Link></td>
+                                  <td><Link href={dev.cvUrl} style={{fontSize:'12px'}}>Download Cv</Link></td>
+                                  <td><Link href={dev.cvUrl} style={{color: '#FF7BED', fontSize:'12px'}}>Download CV</Link></td>
                                 </tr>
                               )): 
-                            <div style={{ position: 'absolute', right: '10%',left: '0', height: '50px',bottom: '0', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center'}}>
-                              No Applicants
+                            <div style={{ color: 'tomato',position: 'absolute', right: '10%',left: '0', height: '50px',bottom: '0', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center'}}>
+                              Couldn't fetch applicants... 
                             </div>}
                         </tbody>
                       </table>

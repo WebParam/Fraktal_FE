@@ -33,13 +33,14 @@ function developerOverview() {
     const [itemToDelete, setItemToDelete] = useState<any>();
     const [deletingLoader, setdeletingLoader] = useState(false);
     const [deletedTrue, setDeletedTrue] = useState(false);
-   
+    const [search, setSearch] = useState('');
 
-    const [position, setPosition] = useState("");
+    // const [position, setPosition] = useState("");
 
     const [projectLoading, setProjectLoading] = useState(true);
       const loggedInUser = cookies.get("fraktional-user")??"{}";
-      const [projects, setProjects] = useState<IJobApplication[]>([]);
+      const [projects, setProjects] = useState<any[]>([]);
+      const [projectsCopy, setProjectsCopy] = useState<IJobApplication[]>([]);
 
 
     async function _GetProjects(id:string){
@@ -47,8 +48,9 @@ function developerOverview() {
       await GetProjectsByOrgId(id).then((res:any) => {
         setProjectLoading(false);
 
-        console.log("projects: ",res)
+        console.log("projects: ",res.data)
           setProjects(res.data);
+          setProjectsCopy(res.data);
       })
     }
 
@@ -56,14 +58,33 @@ function developerOverview() {
       setSelectedOption(event.target.value);
     };
 
-    const sortedProjects = projects.sort((a:any, b:any) => {
-      console.log(a)
+    function handleSearch(e: any) {
+      setSearch(e.target.value);
+      
+      if (search) {
+        console.log("projects: ", projects)
+        const res = projects.filter(project => project?.data.projectName.toLowerCase().includes(search.toLowerCase()))
+        setProjectsCopy(res);
+      } 
+    }
+
+    useEffect(() => {
+      if (!search) {
+        setProjectsCopy(projects);
+      }
+    }, [search])
+
+
+
+    useEffect(() => {
+      projectsCopy.sort((a:any, b:any) => {
       if (selectedOption === 'ascending') {
-        return a.data?.projectName.localeCompare(b.data?.projectName); // A-to-Z 
+        return b.data?.projectName.localeCompare(a.data?.projectName); // A-to-Z 
       } else {
-        return b.data?.projectName.localeCompare(a.data?.projectName); // Z-to-A 
+        return a.data?.projectName.localeCompare(b.data?.projectName); // Z-to-A 
       }
     });
+    }, [selectedOption])
 
 
     useEffect(() => {
@@ -93,7 +114,7 @@ function developerOverview() {
       try {
         setdeletingLoader(true);
         const remove = await DeleteProject(id);
-        // debugger;
+
 
         if (remove) {
           setDeletedTrue(true);
@@ -142,7 +163,7 @@ function developerOverview() {
               <div className="input-group-prepend input-group-text">
                 <i className="bi-search" />
               </div>
-              <input type="search" className="form-control" placeholder="Search projects" aria-label="Search projects" />
+              <input type="search" className="form-control" placeholder="Search projects" value={search} onChange={handleSearch} aria-label="Search projects" />
             </form>
             </div>
             <div className="col-md-6">
@@ -170,7 +191,7 @@ function developerOverview() {
               <div className="row align-items-center mb-5">
                 <div className="col-sm mb-3 mb-sm-0">
                   <h3 className="mb-0">
-                    {projects && projects.length}  <span className="fw-normal">jobs found</span>
+                    {projectsCopy && projectsCopy.length}  <span className="fw-normal">jobs found</span>
                   </h3>
                 </div>
                 <div className="col-sm-auto">
@@ -255,9 +276,7 @@ function developerOverview() {
                        
                     </>:
                     <>  {
-                      sortedProjects.length != 0 ? sortedProjects?.map((project:any) => {
-                        
-               
+                      projectsCopy.length != 0 ? projectsCopy?.map((project:any) => {
 
                         return (
                           <>
