@@ -21,6 +21,9 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import AvatarGroup from 'react-avatar-group';
 import { IApply, IDeveloperProfile } from '@/app/interfaces/user';
 import Modal from 'react-responsive-modal';
+import { Loader } from "rsuite";
+import "rsuite/Loader/styles/index.css";
+
 const moment = require("moment");
 
 function developerOverview() {
@@ -28,6 +31,9 @@ function developerOverview() {
     const [viewStyle, setViewStyle] = useState('flex');
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [itemToDelete, setItemToDelete] = useState<any>();
+    const [deletingLoader, setdeletingLoader] = useState(false);
+    const [deletedTrue, setDeletedTrue] = useState(false);
+   
 
     const [position, setPosition] = useState("");
 
@@ -85,9 +91,22 @@ function developerOverview() {
 
     async function deleteJobPost(id: string) {
       try {
+        setdeletingLoader(true);
         const remove = await DeleteProject(id);
-        debugger;
+        // debugger;
+
+        if (remove) {
+          setDeletedTrue(true);
+
+          setTimeout(() => {
+            setDeletedTrue(false);
+            setDeleteModalOpen(false);
+            setdeletingLoader(false);
+            window.location.reload();
+          }, 3000);
+        }
         console.log("items after remove: ",remove);
+
       } catch (error: any) {
         console.log(error);
       }
@@ -96,18 +115,21 @@ function developerOverview() {
     function handleDelete(project: any) {
       setItemToDelete(project);
       setDeleteModalOpen(true);
-      console.log("prject to be deleted:", itemToDelete)
     }
 
     return (
       <>
       {/* End Col */}
       <Modal open={deleteModalOpen} styles={customModalStyles} onClose={() => setDeleteModalOpen(false)} center>
-            <div style={{width:"100%"}}>
+            {!deletingLoader ? <div style={{width:"100%"}}>
             <h4>DELETE JOB CONFIRMATION</h4>
             <p>Are you sure you want to delete the job post: {itemToDelete?.data?.projectName}</p>
                 <button onClick={()=> deleteJobPost(itemToDelete?.data.id)} className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff', width:"100%"}}>DELETE JOB</button>
-            </div>
+            </div>: 
+            <div style={{height: '150px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>{deletedTrue ? <div><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#FF7BED" className="bi bi-check2-circle" viewBox="0 0 16 16">
+              <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+              <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+            </svg></div>:<Loader content='deleting...' size="lg" vertical />}</div>}
       </Modal>
       {/* <div className="col-lg-9"> */}
         {/* Card */}

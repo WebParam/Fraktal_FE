@@ -121,16 +121,7 @@ useEffect(() => {
         <div className="card">
           {/* He  er */}
           <div className="card-header border-bottom">
-            <div className="row">
-              <div className="col-md-6 mb-3 mb-md-0">
             
-            </div>
-            <div className="col-md-6">
-              <div className="d-flex justify-content-md-end align-items-md-center">
-              <a href="/company/post-job"className="js-file-attach-reset-img btn btn-white btn-sm">Project Information</a>
-              </div>
-           </div>
-            </div>
           </div>
           {/* End Header */}
           {/* Body */}
