@@ -191,6 +191,8 @@ useEffect(() => {
       const handleSubmit = (e: any) => {
             e.preventDefault();
 
+            debugger;
+
             if(resume==undefined){
                 setResumeError(true);
                 setShowErrorMessage(true);
@@ -205,7 +207,7 @@ useEffect(() => {
                 setShowErrorMessage(false);
             }
         
-            if (!phone || !/^\d+$/.test(phone)) {
+            if (!phone) {
                setPhoneError(true)
                setShowErrorMessage(true);return;
             } else {
