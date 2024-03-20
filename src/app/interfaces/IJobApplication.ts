@@ -2,7 +2,7 @@ export interface IJobApplication{
     //new
     id?:string,
     projectType:string,
-    projectSector:string,
+    projectSector?:string,
     country: number,
     language:string,
     companyId:string // New
@@ -57,8 +57,8 @@ export interface IJobApplication{
     dailyUpdateEmailAddress?:string, //empty string if not provided
     individualUpDateEmailAddress?:string //empty string if not provided
     dailyUpdateEmail?:boolean, //false if not provided
-    individualUpDateEmail?:boolean //false if not provided
-
+    individualUpDateEmail?:boolean, //false if not provided
+    status?: number
 
 }
 
@@ -67,3 +67,61 @@ export interface IJobApplicationViewModel{
     org:any
 
 }
+
+export interface IJobUpdate {
+    id: string;
+    projectType: string;
+    country: string;
+    language: string;
+    projectName: string;
+    projectTeam: string;
+    streetAddress: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    remote: number;
+    jobtype: number;
+    hires: number;
+    urgency: number;
+    pay: number;
+    currency: number;
+    fromDate: string;
+    toDate: string;
+    period: number;
+    signingBonus: number;
+    commisionPay: number;
+    bonusPay: number;
+    tips: number;
+    otherPay: number;
+    healthInsurance: boolean;
+    paidTimeOff: boolean;
+    dentalInsurance: boolean;
+    retirememntFund: boolean;
+    flexibleSchedule: boolean;
+    tuition: boolean;
+    lifeInsurance: boolean;
+    retirememntFundMatch: boolean;
+    disabilityInsurance: boolean;
+    retirementPlan: boolean;
+    referalProgram: boolean;
+    employeeDiscount: boolean;
+    spendingAccount: boolean;
+    relocation: boolean;
+    parentalLeave: boolean;
+    otherBenefits: boolean;
+    noBenefits: boolean;
+    jobSchedule: number;
+    website: string;
+    responsibilities: string;
+    description: string;
+    methodToRecieveApplications: number;
+    submitResume: number;
+    dailyUpdateEmailAddress: string;
+    individualUpDateEmailAddress: string;
+    dailyUpdateEmail: boolean;
+    individualUpDateEmail: boolean;
+    companyId: string;
+    creatingUser: string;
+    status: number;
+  }
+  

@@ -13,7 +13,7 @@ import {
   IVerifyOtp,
 } from "../interfaces/user";
 import { ICompanyRegister } from "../interfaces/organisation";
-import { IJobApplication } from "../interfaces/IJobApplication";
+import { IJobApplication, IJobUpdate } from "../interfaces/IJobApplication";
 import { IApplyForJobRegistration } from "../interfaces/job-registration";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
@@ -444,7 +444,7 @@ export async function CreateJob(payload: IJobApplication) {
   }
 }
 
-export async function UpdateJob(payload: IJobApplication) {
+export async function UpdateJob(payload: IJobUpdate) {
   try {
     const response = await axios.put(`${azureUrl}/projects/update`, payload,  { headers: header });
 

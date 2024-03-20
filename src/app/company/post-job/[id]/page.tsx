@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import '../postJob.scss';
 import React, { useState, useEffect } from 'react';
-import { IJobApplication } from '../../../interfaces/IJobApplication';
+import { IJobApplication, IJobUpdate } from '../../../interfaces/IJobApplication';
 import { CreateJob, GetProjectById, GetProjectsByOrgId, UpdateJob } from '../../../endpoints/api';
 // import AutoComplete from "react-google-autocomplete";
 import Footer from '../../../components/Footer/Footer';
@@ -20,7 +20,7 @@ import Banner from '../../../banner/Banner';
 import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
 import { useRouter } from 'next/router'
 
-function UpdateSingleJob() {
+function UpdateSingleJob({ params }: { params: { id: string }}) {
     const [menuToggler, setMenuToggler] = useState<boolean>(false);
     const [activeStep, setActiveStep] = useState(0);
     const [errorstyle1, setErrorStyle1] = useState(false);
@@ -92,7 +92,7 @@ function UpdateSingleJob() {
 
     async function createJobPost(){
 
-      let _id = toast.loading("Upading Job Details..", {
+      let _id = toast.loading("Updating Job Details..", {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
@@ -103,13 +103,12 @@ function UpdateSingleJob() {
         theme: "light",
       });
 
-      const payload: IJobApplication = {
-        //new
-        projectType:projectType,
-        //
-        projectSector:"0",
-        country: country,
-         language: "",
+      const payload: IJobUpdate = {
+        id: params.id,
+        projectType: projectType,
+        // projectSector:"0",
+        country: "south africa",
+         language: "English",
         projectName: projectName,
         projectTeam: projectTeam.toString(),
         streetAddress: streetAddress,
@@ -157,9 +156,9 @@ function UpdateSingleJob() {
         individualUpDateEmailAddress: individualUpDateEmailAddress,
         dailyUpdateEmail: dailyUpdateEmail,
         individualUpDateEmail: individualUpDateEmail,
-        // companyId: loggedInUser.staff.orgId, // to be updated
         companyId:"655a3ed54b837045859ab384",
         creatingUser: loggedInUser._id, // to be updated
+        status: 0
       };
       
     try {
