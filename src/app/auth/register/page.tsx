@@ -45,6 +45,11 @@ function Register() {
   const [skillsError, setSkillsError] = useState<boolean>(false);
   const [skills, setSkills] = useState<any>("")
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+  const [includeSmallLetter, setIncludeSmallLetter] = useState(false);
+  const [includeCapsLetter,setIncludeCapsLetter] = useState(false);
+  const [includeNumber, setIncludeNumber] = useState(false);
+  const [includeSpecialCharacter, setIncludeSpecialCharacter] = useState(false);
+  const [includeEightChars, setIncludeEightChars] = useState(false);
   const cookies = new Cookies();
 
 
@@ -62,6 +67,8 @@ function Register() {
       [name]: value,
     });
   };
+
+
   const handleSkillsChange = (selectedOptions:any) => {
     const selectedValuesString = scaffold(selectedOptions);
     setSkills(selectedValuesString);
@@ -361,6 +368,36 @@ function Register() {
         setConfirm_PasswordError(false);
       }
 
+      if (/[a-z]/.test(formData?.password || '')) {
+        setIncludeSmallLetter(true);
+      } else {
+        setIncludeSmallLetter(false);
+      }
+
+      if (/[A-Z]/.test(formData?.password || '')) {
+        setIncludeCapsLetter(true);
+      } else {
+        setIncludeCapsLetter(false);
+      }
+
+      if (/[0-9]/.test(formData?.password || '')) {
+        setIncludeNumber(true);
+      } else {
+        setIncludeNumber(false);
+      }
+
+      if (/[^a-zA-Z0-9]/.test(formData?.password || '')) {
+        setIncludeSpecialCharacter(true);
+      } else {
+        setIncludeSpecialCharacter(false);
+      }
+
+      if (formData.password && formData.password?.length > 8) {
+        setIncludeEightChars(true);
+      } else {
+        setIncludeEightChars(false);
+      }
+
     }, [formData.firstName, formData.surname, formData.email, formData.mobileNumber, formData.password, confirmPassword])
 
 
@@ -484,6 +521,15 @@ function Register() {
               />
             </div>
             {sendingError && <span style={{color: 'tomato', fontSize: '12px', textAlign: 'center'}}>The email you provided already exists, please log in</span>}
+
+            <div style={{fontSize: '12px', display: 'flex',flexDirection: 'column', gap: '0'}}>
+              Password:
+              <p style={{margin: '0', color: `${includeSmallLetter ? 'green':'tomato'}`}}>- must include a small letter</p>
+              <p style={{margin: '0', color: `${includeCapsLetter ? 'green':'tomato'}`}}>- must include Capital letter</p>
+              <p style={{margin: '0', color: `${includeNumber ? 'green':'tomato'}`}}>- must include a number</p>
+              <p style={{margin: '0', color: `${includeSpecialCharacter ? 'green':'tomato'}`}}>- must include special characters</p>
+              <p style={{margin: '0', color: `${includeEightChars ? 'green':'tomato'}`}}>- must include 8+ characters</p>
+            </div>
             <button type="submit">Register</button>
             
           </form>

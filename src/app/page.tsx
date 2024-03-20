@@ -189,7 +189,7 @@ function HomePage() {
                   <p className="lead">We connect developers and organizations with each other for short to medium term projects.</p>
                 </div>
                 <div className="d-grid d-sm-flex gap-3">
-                  <a className="ctabutton-1  btn-transition hover:text-white py-2 px-5" href="/fraktional-dev">Get an F-Dev</a>
+                  <a className="ctabutton-1  btn-transition hover:text-white py-2 px-5" href="#">Get an F-Dev</a>
                   <a className="ctabutton-1  btn-transition hover:text-white py-2 px-5" href="/fraktional-gig">Get an F-Gig</a>
                 </div>
 
