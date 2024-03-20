@@ -337,8 +337,11 @@ function Register() {
     modal: {
       maxWidth: '40%', 
       width: '50%',
+      minWidth: '310px',
       borderRadius: "10px",
-      backgroundColor: "lightpink"
+      // backgroundColor: "lightpink",
+      margin: ' 0 auto !important',
+      border: 'none'
     },
   };
 
@@ -404,7 +407,7 @@ function Register() {
   return (
     <section className="register">
       <ToastContainer />
-      <Modal styles={customModalStyles}  open={editModalOpen} onClose={() => setEditModalOpen(false)} center>
+      <Modal styles={customModalStyles}  open={!editModalOpen} onClose={() => setEditModalOpen(false)} center>
         <VerifyOtp email = {formData.email!} password = {formData.password!} onClose={saveAndCloseEditModal} />
       </Modal>
       <div className="top">
