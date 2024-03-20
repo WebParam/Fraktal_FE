@@ -407,7 +407,7 @@ function Register() {
   return (
     <section className="register">
       <ToastContainer />
-      <Modal styles={customModalStyles}  open={!editModalOpen} onClose={() => setEditModalOpen(false)} center>
+      <Modal styles={customModalStyles}  open={editModalOpen} onClose={() => setEditModalOpen(false)} center>
         <VerifyOtp email = {formData.email!} password = {formData.password!} onClose={saveAndCloseEditModal} />
       </Modal>
       <div className="top">
