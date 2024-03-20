@@ -7,18 +7,18 @@ import Link from "next/link";
 import { ChangeEvent,  useRef, useState } from "react";
 import 'react-responsive-modal/styles.css';
 import { IUserSendOTP } from "../../interfaces/user";
-import {  ChangePasswordAzure, sendOTP, sendOtpAzure, verifyOtp, verifyOtpAzure } from "../../endpoints/api";
+import {  ChangePasswordAzure, UserLogin, sendOTP, sendOtpAzure, verifyOtp, verifyOtpAzure } from "../../endpoints/api";
 import { usePathname } from 'next/navigation';
+import Cookies from 'universal-cookie';
 
 
 interface verifyOtpModalProps {
   onClose: () => any;
   email: string;
+  password?: string;
 }
 
-export const VerifyOtp: React.FC<verifyOtpModalProps> = ({
-email
-}) => { 
+export const VerifyOtp: React.FC<verifyOtpModalProps> = ({ email, password }) => { 
 
   const [invalidOTP , setInvalidOTP] = useState<boolean>(false)
   const [optSent , setOtpSent] = useState<boolean>(false);
@@ -39,6 +39,7 @@ email
   ];
 
   const pathname = usePathname();
+  const cookies = new Cookies();
 
   const handleNewPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewPassword(e.target.value);
@@ -95,10 +96,29 @@ email
 
     if(otp.toString().length == 5){ 
       const verify = await verifyOtpAzure(payload)
+      debugger;
+
       console.log('verify: ', verify);
+      
       if(verify){
-        setOtopValidated(true);
         console.log('otp verified');
+        
+        if (pathname == '/auth/register') {
+          
+          if (email && password) {
+            const login = await UserLogin({email, password});
+            
+            if (login) {
+              cookies.set('fraktional-user', JSON.stringify(login), { path: '/' });
+              window.location.href = '/developer-overview';
+              return;
+            }
+          }
+          
+        } else {
+          setOtopValidated(true);
+
+        }
 
         if (pathname != '/developer-overview') {
           window.location.href="../../auth/login"

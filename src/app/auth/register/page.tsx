@@ -405,7 +405,7 @@ function Register() {
     <section className="register">
       <ToastContainer />
       <Modal styles={customModalStyles}  open={editModalOpen} onClose={() => setEditModalOpen(false)} center>
-        <VerifyOtp email = {formData.email!} onClose={saveAndCloseEditModal} />
+        <VerifyOtp email = {formData.email!} password = {formData.password!} onClose={saveAndCloseEditModal} />
       </Modal>
       <div className="top">
       <Link href= "/"> <Image style={{ cursor: "pointer"}} src={logo} alt="logo" /></Link> 

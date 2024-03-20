@@ -85,10 +85,17 @@ function HomePage() {
   const cookies = new Cookies();
   console.log(cookies.getAll)
 
+  const user = cookies.get('fraktional-user');
+
 
   useEffect(() => {
+
+    
     const timer = setTimeout(() => {
-      handleOpen();
+
+      if (!user) {
+        handleOpen();
+      }
     }, 5000);
   
     // Clean up the timer to avoid memory leaks
