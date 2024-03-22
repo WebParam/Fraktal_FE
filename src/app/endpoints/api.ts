@@ -449,7 +449,6 @@ export async function UpdateJob(payload: IJobUpdate) {
     const response = await axios.put(`${azureUrl}/projects/update`, payload,  { headers: header });
 
     if (response.status === 200 || response.status === 201) {
-      console.log("Job Updated");
       return true;
     } else {
       console.error("Job not updated");
