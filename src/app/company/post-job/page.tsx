@@ -1,5 +1,7 @@
 'use client'
 import Image from 'next/image';
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+import 'react-quill/dist/quill.snow.css';
 import Link from 'next/link';
 import './postJob.scss';
 import Select from "react-select";
@@ -15,9 +17,10 @@ import AutoComplete from "react-google-autocomplete";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Banner from '../../banner/Banner';
-import Cookies from 'universal-cookie'; // Import the libraryconst cookies = new Cookies(); 
+import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router'
 import { IOption, getLabelFromValue, getOptionFromValue, projectTeams, techStack, typeOfProject } from '@/app/lib/data';
+
 
 
 function PostJob() {

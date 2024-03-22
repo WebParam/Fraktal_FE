@@ -21,6 +21,9 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import AvatarGroup from 'react-avatar-group';
 import { IApply, IDeveloperProfile } from '@/app/interfaces/user';
 import Modal from 'react-responsive-modal';
+import { Loader } from "rsuite";
+import "rsuite/Loader/styles/index.css";
+
 const moment = require("moment");
 
 function developerOverview() {
@@ -28,12 +31,16 @@ function developerOverview() {
     const [viewStyle, setViewStyle] = useState('flex');
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [itemToDelete, setItemToDelete] = useState<any>();
+    const [deletingLoader, setdeletingLoader] = useState(false);
+    const [deletedTrue, setDeletedTrue] = useState(false);
+    const [search, setSearch] = useState('');
 
-    const [position, setPosition] = useState("");
+    // const [position, setPosition] = useState("");
 
     const [projectLoading, setProjectLoading] = useState(true);
       const loggedInUser = cookies.get("fraktional-user")??"{}";
-      const [projects, setProjects] = useState<IJobApplication[]>([]);
+      const [projects, setProjects] = useState<any[]>([]);
+      const [projectsCopy, setProjectsCopy] = useState<IJobApplication[]>([]);
 
 
     async function _GetProjects(id:string){
@@ -41,8 +48,9 @@ function developerOverview() {
       await GetProjectsByOrgId(id).then((res:any) => {
         setProjectLoading(false);
 
-        console.log("projects: ",res)
+        console.log("projects: ",res.data)
           setProjects(res.data);
+          setProjectsCopy(res.data);
       })
     }
 
@@ -50,14 +58,33 @@ function developerOverview() {
       setSelectedOption(event.target.value);
     };
 
-    const sortedProjects = projects.sort((a:any, b:any) => {
-      console.log(a)
+    function handleSearch(e: any) {
+      setSearch(e.target.value);
+      
+      if (search) {
+        console.log("projects: ", projects)
+        const res = projects.filter(project => project?.data.projectName.toLowerCase().includes(search.toLowerCase()))
+        setProjectsCopy(res);
+      } 
+    }
+
+    useEffect(() => {
+      if (!search) {
+        setProjectsCopy(projects);
+      }
+    }, [search])
+
+
+
+    useEffect(() => {
+      projectsCopy.sort((a:any, b:any) => {
       if (selectedOption === 'ascending') {
-        return a.data?.projectName.localeCompare(b.data?.projectName); // A-to-Z 
+        return b.data?.projectName.localeCompare(a.data?.projectName); // A-to-Z 
       } else {
-        return b.data?.projectName.localeCompare(a.data?.projectName); // Z-to-A 
+        return a.data?.projectName.localeCompare(b.data?.projectName); // Z-to-A 
       }
     });
+    }, [selectedOption])
 
 
     useEffect(() => {
@@ -85,9 +112,22 @@ function developerOverview() {
 
     async function deleteJobPost(id: string) {
       try {
+        setdeletingLoader(true);
         const remove = await DeleteProject(id);
-        debugger;
+
+
+        if (remove) {
+          setDeletedTrue(true);
+
+          setTimeout(() => {
+            setDeletedTrue(false);
+            setDeleteModalOpen(false);
+            setdeletingLoader(false);
+            window.location.reload();
+          }, 3000);
+        }
         console.log("items after remove: ",remove);
+
       } catch (error: any) {
         console.log(error);
       }
@@ -96,18 +136,21 @@ function developerOverview() {
     function handleDelete(project: any) {
       setItemToDelete(project);
       setDeleteModalOpen(true);
-      console.log("prject to be deleted:", itemToDelete)
     }
 
     return (
       <>
       {/* End Col */}
       <Modal open={deleteModalOpen} styles={customModalStyles} onClose={() => setDeleteModalOpen(false)} center>
-            <div style={{width:"100%"}}>
+            {!deletingLoader ? <div style={{width:"100%"}}>
             <h4>DELETE JOB CONFIRMATION</h4>
             <p>Are you sure you want to delete the job post: {itemToDelete?.data?.projectName}</p>
                 <button onClick={()=> deleteJobPost(itemToDelete?.data.id)} className="btn btn-lg" style={{backgroundColor: '#FD2DC3', color: '#fff', width:"100%"}}>DELETE JOB</button>
-            </div>
+            </div>: 
+            <div style={{height: '150px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>{deletedTrue ? <div><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#FF7BED" className="bi bi-check2-circle" viewBox="0 0 16 16">
+              <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+              <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+            </svg></div>:<Loader content='deleting...' size="lg" vertical />}</div>}
       </Modal>
       {/* <div className="col-lg-9"> */}
         {/* Card */}
@@ -120,7 +163,7 @@ function developerOverview() {
               <div className="input-group-prepend input-group-text">
                 <i className="bi-search" />
               </div>
-              <input type="search" className="form-control" placeholder="Search projects" aria-label="Search projects" />
+              <input type="search" className="form-control" placeholder="Search projects" value={search} onChange={handleSearch} aria-label="Search projects" />
             </form>
             </div>
             <div className="col-md-6">
@@ -148,7 +191,7 @@ function developerOverview() {
               <div className="row align-items-center mb-5">
                 <div className="col-sm mb-3 mb-sm-0">
                   <h3 className="mb-0">
-                    {projects && projects.length}  <span className="fw-normal">jobs found</span>
+                    {projectsCopy && projectsCopy.length}  <span className="fw-normal">jobs found</span>
                   </h3>
                 </div>
                 <div className="col-sm-auto">
@@ -233,9 +276,7 @@ function developerOverview() {
                        
                     </>:
                     <>  {
-                      sortedProjects.length != 0 ? sortedProjects?.map((project:any) => {
-                        
-               
+                      projectsCopy.length != 0 ? projectsCopy?.map((project:any) => {
 
                         return (
                           <>

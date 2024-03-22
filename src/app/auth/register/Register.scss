@@ -171,3 +171,16 @@
     align-items: center !important;
     max-height: 50px;
 }
+
+.react-responsive-modal-modal {
+    max-width: 800px;
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    background: #ffffff;
+    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.25);
+    margin: 0 !important;
+    padding: 0 !important; 
+    position: relative;
+    overflow-y: auto;
+}

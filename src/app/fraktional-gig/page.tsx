@@ -1,5 +1,7 @@
 
 "use client"
+import { Loader } from 'rsuite';
+import "rsuite/Loader/styles/index.css";
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import './jobs.scss';
@@ -27,6 +29,7 @@ function jobs() {
     const [filteredGigs, setFilteredGigs] = useState<any[]>([]);
     const [searchKeys, setSearchKeys] = useState<string>("");
     const [city, setCity] = useState<string>("");
+    const [jobsLoaded, setJobsLoaded] = useState(false);
     
     const _gigs = gigs as any[];
 
@@ -35,6 +38,7 @@ function jobs() {
     
         const resData = res?.data?.map((x:any)=>x.data) as IJobApplication[];
         setProjects(resData);
+        setJobsLoaded(true);
 
     }
     console.log(projects);
@@ -162,8 +166,7 @@ function jobs() {
                 <p>Find a job you love. <a className="link"  style={{color: '#FD2DC3'}}>Superchange your career.</a></p>
                 </div>
            
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mb-5">
-               
+                {jobsLoaded ? <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mb-5">
                 {projects && projects.map((gig) => (
                 <div className="col mb-5" key={gig.id}>
                     <div className="card card-bordered h-100">
@@ -204,61 +207,10 @@ function jobs() {
                     </div>
                 </div>
                 ))}
-               
-                {!filteredGigs.filter(x=>x.status==0).map(gig => (
-                <div className="col mb-5" key={gig.id}>
-                    {/* Card */}
-                    <div className="card card-bordered h-100">
-                    {/* Card Body */}
-                    <div className="card-body">
-                        <div className="row mb-3">
-                        <div className="col">
-                            {/* Media */}
-                            <div className="d-flex align-items-center">
-                            <div className="flex-shrink-0">
-                                <Image className="avatar avatar-sm avatar-4x3" src={gig.img} alt="Image Description" />
-                            </div>
-                            <div className="flex-grow-1 ms-3">
-                                <h6 className="card-title">
-                                <a className="text-dark" href="#">{gig.companyname}</a>
-                                <Image className="avatar avatar-xss ms-1" src={topVendor} alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
-                                </h6>
-                            </div>
-                            </div>
-                            {/* End Media */}
-                        </div>
-                        {/* End Col */}
-                        </div>
-                        {/* End Row */}
-                        <h3 className="card-title">
-                        <Link className="text-dark" href={`/fraktional-gig/${gig.id}`}>
-                            {gig.position}
-                        </Link>
-                        </h3>
-                        <span className="d-block small text-body mb-1">{gig.salary}</span>
-                        <span className="badge me-2" style={{backgroundColor: 'lightpink', color: '#fff'}}>
-                        <span className="legend-indicator bg-info" />{gig.remote}
-                        </span>
-                    </div>
-                    {/* End Card Body */}
-                    {/* Card Footer */}
-                    <div className="card-footer pt-0">
-                        <ul className="list-inline list-separator small text-body">
-                        <li className="list-inline-item">Posted {gig.posted}</li>
-                        <li className="list-inline-item">{gig.location}</li>
-                        <li className="list-inline-item">{gig.jobType}</li>
-                        </ul>
-                    </div>
-                    {/* End Card Footer */}
-                    </div>
-                    {/* End Card */}
-                </div>
-                ))}
-                
-                {/* End Col */}
-               
-                {/* End Col */}
-                </div>
+                </div>: 
+                <div style={{height: '250px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <Loader size='lg' speed='fast' content='Loading Jobs...' vertical />
+                </div>}
                 {/* End Row */}
                 <div className="text-center">
                 <a className="btn" href="/auth/register" style={{color: '#FD2DC3'}}>View all jobs <i className="bi-chevron-right small ms-1" /></a>

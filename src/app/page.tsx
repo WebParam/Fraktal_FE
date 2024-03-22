@@ -1,7 +1,8 @@
 "use client"
 import Image from 'next/image';
 import './homepage.scss';
-// import heroImage from '../assets/additional/heroImage.jpg';
+import Link from 'next/link';
+import koalaPopUp from '../assets/additional/koalapopup.jpg';
 import card1 from "../assets/additional/images/laptop.png";
 import card2 from "../assets/additional/images/pinkHat.png";
 import card3 from "../assets/additional/images/robot.png";
@@ -43,6 +44,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import Cookies from 'universal-cookie';
 
 
 
@@ -50,6 +52,7 @@ import Modal from '@mui/material/Modal';
 function HomePage() {
   const [menuToggler, setMenuToggler] = useState(false);
   const [blogData, setBlogData] = useState<any>(null);
+  const [open, setOpen] = React.useState(false);
 
   const { id } = useParams();
   console.log
@@ -65,8 +68,8 @@ function HomePage() {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '50vw',
-    bgcolor: 'background.paper',
+    width: '100vw',
+    // bgcolor: 'background.paper',
     height: 'auto', 
     display: 'flex',
     flexDirection: 'column',
@@ -75,19 +78,25 @@ function HomePage() {
   };
 
 
-  const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
+
   const handleClose = () => setOpen(false);
 
-  setTimeout(() => {
- 
-  }, 2000);
+  const cookies = new Cookies();
+  console.log(cookies.getAll)
+
+  const user = cookies.get('fraktional-user');
 
 
   useEffect(() => {
+
+    
     const timer = setTimeout(() => {
-      handleOpen();
-    }, 30000);
+
+      if (!user) {
+        handleOpen();
+      }
+    }, 5000);
   
     // Clean up the timer to avoid memory leaks
     return () => clearTimeout(timer);
@@ -115,29 +124,36 @@ function HomePage() {
 
 
   return (
-    <div >
+    <div>
     <Modal
       open={open}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-    <Box sx={style} className={'newsletter'}>
-      <div style={{ backgroundColor: 'rgba(255, 123, 237, 0.32)', width: '100%', height: '100%', padding: '10%'}}>
+    <Box sx={style}>
+      <div  style={{ width: '100%',background: 'linear-gradient(90deg, rgb(253, 45, 195) -2.8%, rgba(0, 63, 189, 0.4) 124.34%)', height: '100%', padding: '10%', position: 'relative'}} className='koalaPopUp'>
+        {/* <Image  alt='koalabg' src={koalaPopUp} className='signupPopup'/> */}
         <div style={{position: 'absolute', left: '96%', top: '1.5%', paddingTop: '-10%'}}>
-        <button style={{ backgroundColor: 'transparent', border: 'none', fontSize: '20px', cursor: 'pointer' }} onClick={handleClose}>
+        <button style={{ backgroundColor: 'transparent', border: 'none', fontSize: '20px', cursor: 'pointer' , position: 'absolute', top: '0', right: '0'}} onClick={handleClose}>
             &#x2715; {/* Close icon (x) */}
           </button>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'center', alignItems: 'center', width: '100%', flexWrap: 'wrap', textAlign: 'center', height: '100%' }}>
-          <h2>Get in the Know: Subscribe to the Fraktional Newsletter</h2>
-          <p style={{ paddingLeft: '10%', paddingRight: '10%' }}>Delivered straight to your inbox, every week. No spam, just pure tech goodness.</p>
-          <div style={{ width: '90%', height: '59px', borderRadius: '8px', border: '1px solid rgba(255, 123)', backgroundColor: '#FFF' }}>
-            <form style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
-              <input style={{ height: '59px', width: '70%', borderRadius: '8px', paddingLeft: '10px', outline: 'none', fontSize: '0.8rem' }} placeholder="Email Address" name="email" type="email" />
-              <button style={{ backgroundColor: '#FD2DC3', borderRadius: '6px', width: '28%', height: '50px', color: 'white', fontSize: '0.8rem', marginRight: '0px' }} type="submit">Subscribe</button>
-            </form>
+          <h2 style={{color: 'white', marginBottom: '10px'}}>WELCOME TO FRAKTIONAL.DEV</h2>
+          <p style={{ paddingLeft: '10%', paddingRight: '10%', color: 'white' }}>where innovation meets code, and the possibilities of technology unfold at your fingertips</p>
+          <div style={{ width: '90%', height: '59px', borderRadius: '8px', border: '1px solid rgba(255, 123)'}} className='buttonsContainer'>
+            <div>
+              <button disabled>
+                <Link href='#' style={{color: '#252525'}}>Sign up as a Company</Link>
+              </button>
+            </div>
+            <div>
+              <button>
+                <Link href='/auth/register' style={{color: 'white'}}>Sign up as a Dev</Link>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -180,7 +196,7 @@ function HomePage() {
                   <p className="lead">We connect developers and organizations with each other for short to medium term projects.</p>
                 </div>
                 <div className="d-grid d-sm-flex gap-3">
-                  <a className="ctabutton-1  btn-transition hover:text-white py-2 px-5" href="/fraktional-dev">Get an F-Dev</a>
+                  <a className="ctabutton-1  btn-transition hover:text-white py-2 px-5" href="#">Get an F-Dev</a>
                   <a className="ctabutton-1  btn-transition hover:text-white py-2 px-5" href="/fraktional-gig">Get an F-Gig</a>
                 </div>
 

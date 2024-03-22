@@ -205,8 +205,6 @@ function OTP() {
     return (
 
       <>  
-    
-    
       <section className="newpassword">
       <div className="top">
       <Image src={logo} alt='logo'/>

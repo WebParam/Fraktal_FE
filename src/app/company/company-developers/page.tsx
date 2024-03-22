@@ -1,6 +1,8 @@
 'use client'
 import './DevOverview.scss';
+import Image from 'next/image';
 import { ChangeEvent, useEffect, useRef, useState } from "react";
+import defaultImage from '../../../assets/additional/defaultpic.jpg'
 import 'react-responsive-modal/styles.css';
 import "react-toastify/dist/ReactToastify.css";
 import { GetAllDeveloperProfiles, PersonnelExists, onboardDeveloper } from "../../endpoints/api";
@@ -17,7 +19,7 @@ import Modal from 'react-responsive-modal';
 import Select from "react-select";
 import { Loader, Placeholder } from 'rsuite';
 import "rsuite/Loader/styles/index.css";
-import { revalidatePath } from 'next/cache';
+// import { revalidatePath } from 'next/cache';
 
 const moment = require("moment");
 
@@ -44,6 +46,8 @@ function companyDevelopers() {
     const [editModalOpen, setEditModalOpen] = useState<boolean>(false); 
     const [existingModalOpen, setExistingModalOpen] = useState<boolean>(false);
     const [fullstackDev, setFullstackDev] = useState('');
+    const [filterByName, setfilterByName] = useState('ascending');
+
 
     
     const cookies = new Cookies(); // Create an instance of Cookies
@@ -451,7 +455,6 @@ useEffect(() => {
   }, [exp]);
   
 
-
   function handleFilterByEducation(ed: string) {
     setEducation(ed);
     window.scroll({
@@ -823,12 +826,13 @@ useEffect(() => {
                     {/* Media */}
                     <div className="d-flex align-items-center align-items-sm-start mb-3">
                       <div className="flex-shrink-0">
-                        <img className="avatar avatar-sm avatar-4x3"  src={x?.user?.profilePicture} alt="" />
+                        {/* <img className="avatar avatar-sm avatar-4x3"  style={{border: '1px solid red', borderRadius: '20px'}} width={'50px'} height={'50px'} src={x?.user?.profilePicture ? x?.user?.profilePicture:`url(${defaultImage})`} alt="" /> */}
+                        <Image src={x?.user?.profilePicture ? x?.user?.profilePicture:defaultImage} width={50} height={50} style={{borderRadius: '16px'}} alt={'profile'}/>
                       </div>
                       <div className="d-sm-none flex-grow-1 ms-3">
                         <h6 className="card-title">
                           <a className="text-dark" href="#">Mailchimp</a>
-                          <img className="avatar avatar-xss ms-1" src={x?.user?.profilePicture} alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
+                          <img className="avatar avatar-xss ms-1" src={x?.user?.profilePicture ? x?.user?.profilePicture:defaultImage} alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
                         </h6>
                       </div>
                     </div>
@@ -846,32 +850,8 @@ useEffect(() => {
                             </h6>
                           </div>
                         </div>
-                        {/* End Col */}
-                        {/* <div className="col-auto order-md-3">
-                          <div className="form-check form-check-bookmark">
-                            <input className="form-check-input" type="checkbox"  id="jobsCardBookmarkCheck1" />
-                            <label className="form-check-label" htmlFor="jobsCardBookmarkCheck1">
-                              <span className="form-check-bookmark-default" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Save this job" data-bs-original-title="Save this job">
-                                <i className="bi-star" />
-                              </span>
-                              <span className="form-check-bookmark-active" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Saved" data-bs-original-title="Saved">
-                                <i className="bi-star-fill" />
-                              </span>
-                            </label>
-                          </div>
-                        </div> */}
-                        {/* End Col */}
+
                         <div className="col-12 col-md mt-3 mt-md-0">
-                          {/* <span className="d-block small text-body mb-1">Fraktional CV</span> */}
-                          {/* {
-                            x.keySkills.map((x:any)=>{
-                              return(
-                                <span className="badge bg-soft-info text-info me-2">
-                                <span className="legend-indicator bg-info" />{x}
-                              </span>
-                              )
-                            })
-                          } */}
                           <a href={`https://fraktional-be.azurewebsites.net/getPersonnelCv/${x._user}`} target='__blank' className="badge bg-soft-info text-info me-2">
                           <span>
                             <span className="legend-indicator bg-info" />Fraktional CV
@@ -923,11 +903,11 @@ useEffect(() => {
                 <li className="page-item disabled"><a className="page-link" href="#">...</a></li>
                 <li className="page-item"><a className="page-link" href="#">5</a></li>
                 <li className="page-item">
-                  <a className="page-link" href="#" aria-label="Next">
+                  <div>
                     <span aria-hidden="true">
                       <i className="bi-chevron-double-right small" />
                     </span>
-                  </a>
+                  </div>
                 </li>
               </ul>
             </nav>}

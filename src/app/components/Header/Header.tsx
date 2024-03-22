@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Banner from '@/app/banner/Banner';
 import loginpage from '../../auth/login/page';
 import { usePathname } from 'next/navigation'
+import Cookies from 'universal-cookie';
 
 type HeaderProps = {
   menuTogglerFunction: (state: boolean) => void;
@@ -16,6 +17,9 @@ type HeaderProps = {
 
 const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: HeaderProps): ReactElement => {
   const pathname = usePathname();
+  const cookies = new Cookies();
+  const user = cookies.get('fraktional-user');
+  console.log("user:", user)
   const [loginLoading, setLoginLoading] = useState(!false);
   // const []
   function handleLoadingState(): void {
@@ -104,7 +108,21 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
             </div>
           </li> */}
         
-          <li 
+          {user ? <li 
+            style={{
+              background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(0, 63, 189, 0.4) 124.34%)',
+              padding: '10px',
+              borderRadius: '8px'
+            }}
+
+          className='hirenow'>
+              <Link href={'../../auth/login'} onClick={() => cookies.remove('fraktional-user')}>
+                {
+                  loginLoading ? 'Log out' : <Loader center speed='fast' size='sm' />
+                }
+                {/* Login */}
+              </Link>
+          </li>:<li 
             style={{
               background: 'linear-gradient(90deg, #FD2DC3 -2.8%, rgba(0, 63, 189, 0.4) 124.34%)',
               padding: '10px',
@@ -118,8 +136,7 @@ const Header: FC<HeaderProps> = ({ menuTogglerFunction, menuTogglerValue }: Head
                 }
                 {/* Login */}
               </Link>
-            
-          </li>
+          </li>}
          
         </ul>
       </nav>

@@ -13,7 +13,7 @@ import {
   IVerifyOtp,
 } from "../interfaces/user";
 import { ICompanyRegister } from "../interfaces/organisation";
-import { IJobApplication } from "../interfaces/IJobApplication";
+import { IJobApplication, IJobUpdate } from "../interfaces/IJobApplication";
 import { IApplyForJobRegistration } from "../interfaces/job-registration";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
@@ -21,6 +21,7 @@ const cookies = new Cookies();
 const url = "https://viconet-vercel.vercel.app"
 // const azureUrl = "https://fraktional-be.azurewebsites.net"
 const azureUrl = "https://fraktional-be.azurewebsites.net"
+// const azureUrl = "https://fraktional-dev-be.azurewebsites.net"; // testing
 // const azureUrl = "https://localhost:7257"
 const user = JSON.stringify(cookies.get("fraktional-user"));
 
@@ -61,7 +62,7 @@ export async function registerUser(payload: IUser) {
       return true;
     } else {
       console.error("Registration failed");
-      return false;
+      return response;
     }
   } catch (error) {
     console.error("Error:", error);
@@ -71,6 +72,7 @@ export async function registerUser(payload: IUser) {
 
 export async function UserLogin(payload: IUserLogin) {
   try {
+
     const response = await axios.post(`${url}/api/login`, payload);
 
     if (response.status === 200 || response.status === 201) {
@@ -443,12 +445,11 @@ export async function CreateJob(payload: IJobApplication) {
   }
 }
 
-export async function UpdateJob(payload: IJobApplication) {
+export async function UpdateJob(payload: IJobUpdate) {
   try {
-    const response = await axios.post(`${azureUrl}/api/jobApplications`, payload,  { headers: header });
+    const response = await axios.put(`${azureUrl}/projects/update`, payload,  { headers: header });
 
     if (response.status === 200 || response.status === 201) {
-      console.log("Job Updated");
       return true;
     } else {
       console.error("Job not updated");
@@ -665,6 +666,23 @@ export async function addToShortlist(payload:any) {
   }
 }
 
+export async function GetShortlist(payload: string[]) {
+ 
+  try {
+    const response = await axios.get(`${azureUrl}/personnel/shortlistedPersonnel?${payload.map((id: string) => `users=${id}`).join('&')}`);
+    // debugger;
+    if (response) {
+      // const data = await response.json();
+      return response;
+    } else {
+      console.error('Error:', response);
+      return false;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+}
 
 export async function uploadCv(payload:any) {
   try {
