@@ -198,7 +198,12 @@ useEffect(() => {
             if(resume==undefined){
                 setResumeError(true);
                 setShowErrorMessage(true);
+                debugger;
                return;
+            } else {
+              setResumeError(false);
+              setShowErrorMessage(false);
+              debugger;
             }
             
             if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
@@ -234,7 +239,7 @@ useEffect(() => {
 
          
 
-            if (!/^\d+$/.test(expectedSalary)) {
+            if (!/^[\d.,]+$/.test(expectedSalary)){
                 setExpectedSalaryError(true);
                 setShowErrorMessage(true);return;
             } else {
