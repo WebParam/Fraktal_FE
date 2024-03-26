@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-
+import { Loader } from 'rsuite';
+import "rsuite/Loader/styles/index.css";
 import Link from "next/link";
 import "./Signin.scss";
 import Image from "next/image";
@@ -32,6 +33,7 @@ function SignIn() {
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [invaliLoginError, setInvalidLoginError] = useState<boolean>(false);
   const [userVerifyError, setUserVerifyError] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
 
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
@@ -277,9 +279,9 @@ function SignIn() {
 
           <p>
             Don't have an account yet?{" "}
-            <span className="cta">
+            {loading ? <Loader speed="fast" />:<span className="cta" onClick={() => setLoading(true)}>
               <Link href="/auth/register">Sign up here</Link>
-            </span>
+            </span>}
           </p>
           {/* <div> Sign up as a <a href="../../fraktional-dev" className="link-login-1" aria-disabled>Company</a></div>
           <div>Sign up as a <a href="../../auth/register" className="link-login-1">Developer</a></div> */}

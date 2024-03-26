@@ -50,6 +50,7 @@ function Register() {
   const [includeNumber, setIncludeNumber] = useState(false);
   const [includeSpecialCharacter, setIncludeSpecialCharacter] = useState(false);
   const [includeEightChars, setIncludeEightChars] = useState(false);
+  const [numberError, setNumberError] = useState('');
   const cookies = new Cookies();
 
 
@@ -73,12 +74,11 @@ function Register() {
     const selectedValuesString = scaffold(selectedOptions);
     setSkills(selectedValuesString);
   };
+
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(formData);
-    console.log(confirmPassword)
     const form = document.querySelector('.registerForm');
-    
 
   if (
       formData.firstName||      formData.email||
@@ -125,10 +125,26 @@ function Register() {
         setTitleError(true);
         return;
       }
-      if (formData.mobileNumber === "") {
+      if (formData.mobileNumber === "" ) {
         setMobileNumberError(true);
         return;
       }
+
+      if (formData.mobileNumber) {
+        debugger;
+        if (!/^\d*$/.test(formData.mobileNumber)) {
+          setMobileNumberError(true);
+          setNumberError('Phone number cannot contain letters')
+          return;
+        }
+
+        if (formData.mobileNumber.length > 10) {
+          setMobileNumberError(true);
+          setNumberError('Phone number cannot be more than 10 numbers')
+          return;
+        }
+      }
+
       if (confirmPassword === "") {
         setConfirm_PasswordError(true);
         return;
@@ -364,6 +380,7 @@ function Register() {
 
       if (formData.mobileNumber) {
         setMobileNumberError(false);
+        setNumberError('');
       }
 
       if (formData.password == confirmPassword) {
@@ -480,6 +497,7 @@ function Register() {
                 placeholder="Enter your email"
                 value={formData.email}
                 onChange={handleChange}
+                required
               />
             </div>
 
@@ -492,7 +510,9 @@ function Register() {
                 placeholder="Enter your mobile number"
                 value={formData.mobileNumber}
                 onChange={handleChange}
+                required
               />
+              {numberError && <span style={{color: 'tomato', fontSize: '10px'}}>{numberError}</span>}
             </div>
 
             <div>
