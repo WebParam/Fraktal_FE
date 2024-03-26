@@ -154,6 +154,7 @@ setIsEditEducation(true);
 }
 
 function editWorkExperience(index:number){
+
   const target = previousWorkExperience[index];
   debugger;
   setWrk_employee(target.employer??"");
@@ -172,6 +173,8 @@ setIsEditWork(true);
   // setEducationModalOpen(true);
   // setIsEditEducation(true);
 }
+
+console.log("Work", previousWorkExperience);
 
   async function deleteProfile(){
     let _id = toast.loading("Deleting your profile..", {
@@ -268,7 +271,7 @@ setNoticePeriod(res?.data?.noticePeriod)
   setPhone(res?.data?.phone);
   setSurname(res?.data?.surname);
   setCurrentJob(res?.data?.currentJob);
-
+debugger;
   setPreviousWorkExperience(res?.data?.previousWorkExperience);
   setYearsOfExperience(res?.data?.yearsOfExperience);
 
@@ -368,10 +371,6 @@ function addWorkExperience(){
   setWrkLocation("");
   setWrk_responsibilities("");
   setWorkModalOpen(false);
-
-
-
-
 
 }
 
@@ -1335,7 +1334,7 @@ console.log("loggedin user: ", loggedInUser);
                                   id="DurationStartwork" 
                                   aria-label="Duration" 
                                   onChange={(e)=>{setWrk_startDate(e.target.value)}}
-                                  defaultValue={wrk_startDate}
+                                  defaultValue={moment(wrk_startDate).format("YYYY-MM-DD")}
                                   // value={workData.DurationStart}
                                   // onChange={handleChange}
                                 />to
@@ -1346,7 +1345,7 @@ console.log("loggedin user: ", loggedInUser);
                                   id="durationEndwork" 
                                   aria-label="Duration" 
                                   onChange={(e)=>{setWrkendDate(e.target.value)}}
-                                  defaultValue={wrk_endDate}
+                                  defaultValue={moment(wrk_endDate).format("YYYY-MM-DD")}
                                   // value={workData.DurationEnd}
                                   // onChange={handleChange}
                                   />
