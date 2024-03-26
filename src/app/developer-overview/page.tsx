@@ -224,6 +224,13 @@ console.log("Work", previousWorkExperience);
 
   
   function workModal(): void {
+    
+  setWrk_employee("");
+  setWrk_jobTitle("");
+  setWrk_startDate("");
+  setWrkendDate("");
+  setWrkLocation("");
+  setWrk_responsibilities("");
     setWorkModalOpen(true);
   }
 
