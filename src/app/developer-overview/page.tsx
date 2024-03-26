@@ -1,21 +1,15 @@
 'use client'
 import Image from "next/image";
-import img9 from "../../assets/img/160x160/img9.jpg";
 import topVendor from "../../assets/svg/illustrations/top-vendor.svg";
 import './DevOverview.scss';
-import logo from '../../assets/additional/logo.webp';
 import Select from "react-select";
-import dropboxicon from "../../assets/svg/brands/dropbox-icon.svg";
-import mailchimpicon from "../../assets/svg/brands/mailchimp-icon.svg";
-import googleicon from "../../assets/svg/brands/google-icon.svg";
-import varsity from "../../assets/svg/brands/the-university-of-manchester.svg";
 import Link from "next/link";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 import { IDeveloperProfile, IEducationInformation, IWorkExperience } from "../interfaces/user";
 import { CreateDeveloperProfile, DeleteDeveloperProfile, GetDeveloperProfile, UpdateDeveloperProfile, addToShortlist, sendOtpAzure, uploadCV, uploadProfilePic } from "../endpoints/api";
-import { GetAllProjects, GetProjectsByOrgId, ProjectsByPersonnel } from "../endpoints/api";
+import { ProjectsByPersonnel } from "../endpoints/api";
 import Cookies from 'universal-cookie';
 import Banner from "../banner/Banner";
 import dynamic from "next/dynamic";
@@ -25,15 +19,13 @@ import 'react-initials-avatar/lib/ReactInitialsAvatar.css';
 import { IOption, degrees, experience, getLabelFromValue, getOptionFromValue, noticePeriods, skills, universities } from "../lib/data";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { StylesConfig } from 'react-select';
 import moment from "moment";
 
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
 import { VerifyOtp } from "../auth/register/verify-otp";
 import { IJobApplication } from "../interfaces/IJobApplication";
-import AvatarGroup from "react-avatar-group";
 // const moment = require("moment");
 
 const cookies = new Cookies();

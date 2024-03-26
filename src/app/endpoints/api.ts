@@ -19,8 +19,8 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 // const url = "http://localhost:8080"
 const url = "https://viconet-vercel.vercel.app"
-// const azureUrl = "https://fraktional-be.azurewebsites.net"
-const azureUrl = "https://fraktional-dev-be.azurewebsites.net"; // testing
+const azureUrl = "https://fraktional-be.azurewebsites.net"
+// const azureUrl = "https://fraktional-dev-be.azurewebsites.net"; 
 // const azureUrl = "https://localhost:7257"
 const user = JSON.stringify(cookies.get("fraktional-user"));
 
