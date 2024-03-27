@@ -153,10 +153,10 @@ function editWorkExperience(index:number){
   setWrkLocation(target.location??"");
   setWrk_jobTitle(target.jobTitle??"");
   setWrk_responsibilities(target.responsibilities?.content??"");
-setWrkendDate(target.endDate??"");
-setWrk_startDate(target.startDate??"");
-setWorkModalOpen(true);
-setIsEditWork(true);
+  setWrkendDate(target.endDate??"");
+  setWrk_startDate(target.startDate??"");
+  setWorkModalOpen(true);
+  setIsEditWork(true);
 
   // setEduQualification(target.qualification);
   // var date = moment(target.dateCompleted, 'YYYY-MM-DD').format('YYYY-MM-DD');
@@ -353,13 +353,24 @@ function addWorkExperience(){
     location:wrk_location
   } as IWorkExperience
   debugger;
-  if(isEditWork){
+
+  if(isEditWork) {
     debugger;
+    console.log("prev work list", previousWorkExperience);
     const _new = previousWorkExperience;
     const  newPayload = _new.splice(editWork,1,payload)
-     setPreviousWorkExperience(_new);
-     setIsEditWork(false);
-  }else{
+    console.log('item to reply:', _new, payload);
+    debugger;
+    setPreviousWorkExperience(prevExperience => {
+      // Create a copy of the previous experience array
+      const newState = [...prevExperience];
+      // Replace the desired item with the new payload
+      newState[editWork] = payload;
+      // Return the new state
+      return newState;
+  });
+    setIsEditWork(false);
+  } else{
     setPreviousWorkExperience([...previousWorkExperience, payload]);
   }
 
@@ -370,8 +381,11 @@ function addWorkExperience(){
   setWrkLocation("");
   setWrk_responsibilities("");
   setWorkModalOpen(false);
-
 }
+
+useEffect(() => {
+  console.log("prev experinece: ", previousWorkExperience);
+}, [previousWorkExperience])
 
 function removeWorkExperience(index:number){
   const filtered = previousWorkExperience.filter((x,i)=> {return i!=index });
@@ -1230,9 +1244,9 @@ console.log("loggedin user: ", loggedInUser);
                         <h5 className="step-title">{x.jobTitle}</h5>
                         <span className="d-block text-dark">{x.employer} - {x.location}</span>
                         <small className="d-block mb-4">{moment(x.startDate).format("MMMM YYYY")} to {moment(x.endDate).format("MMMM YYYY")}</small>
-                        <p className="text-body mb-0">{x.responsibilities?.content}</p>
+                        <p className="text-body mb-0" style={{textWrap: 'wrap', maxWidth: '100%'}}>{x.responsibilities?.content}</p>
                       </div>
-                      <span style={{margin:"10px"}} onClick={()=>{editWorkExperience(i)}}><i className="bi-pencil-square nav-icon"></i></span>
+                      <span style={{margin:"10px"}} onClick={()=>{editWorkExperience(i), setEditWork(i)}}><i className="bi-pencil-square nav-icon"></i></span>
                           <span style={{margin:"10px"}} onClick={()=>{removeWorkExperience(i)}}>   <i className="bi-trash3 nav-icon" /> </span>
                       {/* <span onClick={()=>{removeWorkExperience(i)}}>Delete</span> */}
                     </div>

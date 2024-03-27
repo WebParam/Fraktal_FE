@@ -1,5 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { Loader } from 'rsuite';
+import "rsuite/Loader/styles/index.css";
 import "./Register.scss";
 import Cookies from 'universal-cookie';
 import Link from "next/link";
@@ -50,6 +52,11 @@ function Register() {
   const [includeNumber, setIncludeNumber] = useState(false);
   const [includeSpecialCharacter, setIncludeSpecialCharacter] = useState(false);
   const [includeEightChars, setIncludeEightChars] = useState(false);
+  const [numberError, setNumberError] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [lastnameError, setlastNameError] = useState('');
+  const [mailTextError, setMailTextError] = useState('');
+  const [loading, setLoading] = useState(false);
   const cookies = new Cookies();
 
 
@@ -73,12 +80,11 @@ function Register() {
     const selectedValuesString = scaffold(selectedOptions);
     setSkills(selectedValuesString);
   };
+
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(formData);
-    console.log(confirmPassword)
     const form = document.querySelector('.registerForm');
-    
 
   if (
       formData.firstName||      formData.email||
@@ -96,6 +102,21 @@ function Register() {
         setFirstNameError(true);
         return;
       }
+
+      if (formData.firstName) {
+        if (/[0-9!@#$%^&*()_+{}\[\]:;<>,.?|\-]/.test(formData.firstName)) {
+          setFirstNameError(true)
+          setNameError('Name cannot contain numbers or special characters');
+          form?.scroll({
+            top: 20,
+            behavior: "smooth"
+          })
+          return;
+        }
+      }
+
+
+
       if (formData.email === "") {
         form?.scroll({
           top: 30,
@@ -103,6 +124,18 @@ function Register() {
         })
         setEmailError(true);
         return;
+      }
+
+      if (formData.email) {
+        if (/^\d+$/.test(formData.email.split('@')[0]) || (/^\d+$/.test(formData.email.split('@')[1]))) {
+          form?.scroll({
+            top: 30,
+            behavior: "smooth"
+          })
+          setEmailError(true);
+          setMailTextError('Email cannot contain only numbers')
+          return;
+        }
       }
       if (formData.password === "") {
         form?.scroll({
@@ -121,14 +154,42 @@ function Register() {
         setSurnameError(true);
         return;
       }
+
+      if (formData.surname) {
+        if (/[0-9!@#$%^&*()_+{}\[\]:;<>,.?|\-]/.test(formData.surname)) {
+          setSurnameError(true);
+          setlastNameError('Last Name cannot contain numbers or special characters');
+          form?.scroll({
+            top: 30,
+            behavior: "smooth"
+          })
+          return;
+        }
+      }
+
       if (formData.title === "") {
         setTitleError(true);
         return;
       }
-      if (formData.mobileNumber === "") {
+      if (formData.mobileNumber === "" ) {
         setMobileNumberError(true);
         return;
       }
+
+      if (formData.mobileNumber) {
+        if (!/^\d*$/.test(formData.mobileNumber)) {
+          setMobileNumberError(true);
+          setNumberError('Phone number cannot contain letters')
+          return;
+        }
+
+        if (formData.mobileNumber.length > 10) {
+          setMobileNumberError(true);
+          setNumberError('Phone number cannot be more than 10 numbers')
+          return;
+        }
+      }
+
       if (confirmPassword === "") {
         setConfirm_PasswordError(true);
         return;
@@ -352,18 +413,23 @@ function Register() {
     useEffect(() => {
       if (formData.firstName) {
         setFirstNameError(false);
+        setNameError('')
       }
 
       if (formData.surname) {
         setSurnameError(false);
+        setlastNameError('')
       }
 
       if (formData.email) {
         setEmailError(false);
+        setSendingError(false);
+        setMailTextError('')
       }
 
-      if (formData.mobileNumber) {
+      if (formData.mobileNumber?.trim()) {
         setMobileNumberError(false);
+        setNumberError('');
       }
 
       if (formData.password == confirmPassword) {
@@ -457,6 +523,7 @@ function Register() {
                 value={formData.firstName}
                 onChange={handleChange}
               />
+              {nameError && <span style={{color: 'tomato', fontSize: '12px'}}>{nameError}</span>}
             </div>
 
             <div>
@@ -469,6 +536,7 @@ function Register() {
                 value={formData.surname}
                 onChange={handleChange}
               />
+               {lastnameError && <span style={{color: 'tomato', fontSize: '12px'}}>{lastnameError}</span>}
             </div>
 
             <div>
@@ -480,7 +548,9 @@ function Register() {
                 placeholder="Enter your email"
                 value={formData.email}
                 onChange={handleChange}
+                required
               />
+               {mailTextError && <span style={{color: 'tomato', fontSize: '12px'}}>{mailTextError}</span>}
             </div>
 
             <div>
@@ -492,7 +562,9 @@ function Register() {
                 placeholder="Enter your mobile number"
                 value={formData.mobileNumber}
                 onChange={handleChange}
+                required
               />
+              {numberError && <span style={{color: 'tomato', fontSize: '10px'}}>{numberError}</span>}
             </div>
 
             <div>
@@ -539,9 +611,9 @@ function Register() {
 
           <p>
             Already have an account?{" "}
-            <span className="cta">
+            {loading ? <Loader speed="fast" />:<span className="cta" onClick={() => setLoading(true)}>
               <Link href="/auth/login">Sign in here</Link>
-            </span>
+            </span>}
           </p>
 
           <p>
