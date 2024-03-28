@@ -231,6 +231,8 @@
     { value: "s230", label: "Network+"},
     { value: "s231", label: "A+ Elective"},
     { value: "s232", label: "A+ Essential"},
+    { value: "s233", label: "Cucumber"},
+    { value: "s234", label: "Selenium"},
  ]
 
 
