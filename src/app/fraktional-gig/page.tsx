@@ -30,6 +30,8 @@ function jobs() {
     const [searchKeys, setSearchKeys] = useState<string>("");
     const [city, setCity] = useState<string>("");
     const [jobsLoaded, setJobsLoaded] = useState(false);
+    const [jobClicked, setJobClicked] = useState(false);
+
     
     const _gigs = gigs as any[];
 
@@ -59,6 +61,12 @@ function jobs() {
     setFilteredGigs(result);
    }
    
+
+    function handleJobClick(): void {
+       alert('clicked');
+       debugger;
+       setJobClicked(true);
+    }
 
     return (
     <>
@@ -165,8 +173,8 @@ function jobs() {
                 <h2>Explore over 2 million tech and startup job-opportunities</h2>
                 <p>Find a job you love. <a className="link"  style={{color: '#FD2DC3'}}>Superchange your career.</a></p>
                 </div>
-           
                 {jobsLoaded ? <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mb-5">
+                {jobClicked && <Loader center size='lg' backdrop vertical content="redirecting..." style={{width: '100%', position: 'absolute', top: '135%', zIndex: '100'}}/>}
                 {projects && projects.map((gig) => (
                 <div className="col mb-5" key={gig.id}>
                     <div className="card card-bordered h-100">
@@ -180,7 +188,7 @@ function jobs() {
 
                                 <div className="flex-grow-1 ms-3">
                                     <h6 className="card-title">
-                                    <a className="text-dark" href={`/fraktional-gig/${gig.id}`}>Param Solutions</a>
+                                    <a className="text-dark" href={`/fraktional-gig/${gig.id}`} onClick={handleJobClick}>Param Solutions</a>
                                     <Image className="avatar avatar-xss ms-1" src={topVendor} alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
                                     </h6>
                                 </div>
@@ -191,6 +199,7 @@ function jobs() {
                         <Link className="text-dark" href={`/fraktional-gig/${gig.id}`}>
                             {gig.projectName}
                         </Link>
+                        
                         </h3>
                         <span className="d-block small text-body mb-1">Salary: Market Related</span>
                         <span className="badge me-2" style={{backgroundColor: 'lightpink', color: '#fff'}}>
