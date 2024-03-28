@@ -221,7 +221,16 @@
     { value: "s220", label: "Django REST Framework" },
     { value: "s221", label: "Flask-RESTful" },
     { value: "s222", label: "ASP.NET Web API" },
-      
+    { value: "s223", label: "Gitbucket"},
+    { value: "s224", label: "Linux"}, // from here
+    { value: "s225", label: "Administrator Linux"},
+    { value: "s226", label: "Advanced Linux"}, 
+    { value: "s227", label: "CBAB"},
+    { value: "s228", label: "CCBA"},
+    { value: "s229", label: "RDMD"},
+    { value: "s230", label: "Network+"},
+    { value: "s231", label: "A+ Elective"},
+    { value: "s232", label: "A+ Essential"},
  ]
 
 
