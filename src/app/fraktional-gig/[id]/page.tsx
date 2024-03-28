@@ -492,9 +492,15 @@ function viewGig({ params }: { params: { id: string }}) {
                        Upload CV
                         </a>
                         <p style={{float: "left",  marginRight: "10px", marginTop: "10px"}}>{resume && <small><i className="bi-file-arrow-up" /> {resume.name}  </small>}</p>
-                        <input type="file"  ref={inputFileRef}
-
-         name="resume" id="resume" onChange={handleResume} style={{display:"none"}}/>
+                        <input 
+                          type="file"
+                          ref={inputFileRef}
+                          name="resume" 
+                          id="resume" 
+                          onChange={handleResume} 
+                          style={{display:"none"}}
+                          accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                          />
                     </div>
                     {resumeError && <span style={{color : "red",fontWeight:"600", fontSize:"10px",marginLeft:"15px"}}>Please attach your resume</span>}
                     {/* End Dropdown */}

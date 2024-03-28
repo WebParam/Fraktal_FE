@@ -5,10 +5,7 @@ import topVendor from "../../assets/svg/illustrations/top-vendor.svg";
 import './DevOverview.scss';
 import logo from '../../assets/additional/logo.webp';
 import Select from "react-select";
-import dropboxicon from "../../assets/svg/brands/dropbox-icon.svg";
-import mailchimpicon from "../../assets/svg/brands/mailchimp-icon.svg";
-import googleicon from "../../assets/svg/brands/google-icon.svg";
-import varsity from "../../assets/svg/brands/the-university-of-manchester.svg";
+import defaultProficePic from "../../assets/additional/person-circle.svg";
 import Link from "next/link";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Modal } from 'react-responsive-modal';
@@ -238,7 +235,6 @@ function editWorkExperience(index:number){
   }
 
   const handleCvClick = (event:any) => {
-    alert('cv clicked')
     if (hiddenCVInput !== null && hiddenCVInput.current!=null) {
       hiddenCVInput?.current.click();
     }
@@ -770,7 +766,7 @@ console.log("loggedin user: ", loggedInUser);
              {/* Avatar */}
              <div className="d-none d-lg-block text-center mb-5">
                <div className="avatar avatar-xxl avatar-circle mb-3">
-                 <Image className="avatar-img" fill={true}  src={currentProfilePic!=""? currentProfilePic: cookies.get("fraktional-user")?.profilePicture??""} alt="Image Description" />
+                 <Image className="avatar-img" fill={true}  src={currentProfilePic!=""? currentProfilePic: defaultProficePic} alt="Image Description" />
                  <Image className="avatar-status avatar-lg-status" src={topVendor} alt="Image Description" data-bs-toggle="tooltip" data-bs-placement="top" title="Verified user" />
                </div>
 
@@ -849,7 +845,7 @@ console.log("loggedin user: ", loggedInUser);
                       <label className="avatar avatar-xl avatar-circle" htmlFor="avatarUploader">
                         <Image id="avatarImg" className="avatar-img" 
                         fill={true}
-                         src={currentProfilePic!=""? currentProfilePic: cookies.get("fraktional-user")?.profilePicture??""}
+                         src={currentProfilePic!=""? currentProfilePic: defaultProficePic}
                         alt="Image Description" />
                       </label>
                       <div className="d-grid d-sm-flex gap-2 ms-4">
@@ -1157,6 +1153,7 @@ console.log("loggedin user: ", loggedInUser);
                       id="cv"
                       name="cv"
                       onChange={saveCV}
+                      accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                     /> 
                   
                 {/* End Check */}
@@ -1886,7 +1883,7 @@ console.log("loggedin user: ", loggedInUser);
                                             /> */}
                                           </h6>
                                         </div>
-                                        <p>{project?.data?.description.substring(0,130)}...</p>
+                                        <p dangerouslySetInnerHTML={{__html :`${project?.data?.description.substring(0,130)}...`}}></p>
                                         {/* <span className="d-block small text-body mt-2">
                                        <strong> Budget:</strong> R{project.data.pay},00
                                         </span> */}

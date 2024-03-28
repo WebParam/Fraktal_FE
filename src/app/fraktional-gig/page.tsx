@@ -62,7 +62,8 @@ function jobs() {
    }
    
 
-    function handleJobClick(): void {
+    function handleJobClick() {
+        debugger;
        alert('clicked');
        debugger;
        setJobClicked(true);
@@ -188,7 +189,7 @@ function jobs() {
 
                                 <div className="flex-grow-1 ms-3">
                                     <h6 className="card-title">
-                                    <a className="text-dark" href={`/fraktional-gig/${gig.id}`} onClick={handleJobClick}>Param Solutions</a>
+                                    <Link className="text-dark" onClick={() => handleJobClick} href={`/fraktional-gig/${gig.id}`} >Param Solutions</Link>
                                     <Image className="avatar avatar-xss ms-1" src={topVendor} alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile" />
                                     </h6>
                                 </div>
